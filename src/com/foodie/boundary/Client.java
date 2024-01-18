@@ -28,7 +28,7 @@ public class Client {
 		controller.trovaRicette(1);
 		ricette.eliminaRicetta(new Ricetta("cacca","ciao1",3,lista,"pino"));
 		controller.trovaRicette(3);
-		
+		//cremadicazzo
 	}
 
 }
