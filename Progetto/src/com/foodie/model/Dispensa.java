@@ -30,4 +30,7 @@ public class Dispensa { //SINGLETON, LA DISPENSA DEVE AVERE SOLO 1 ISTANZA!
 		lista.clear();
 		System.out.println("dispensa svuotata");
 	}
+	public ArrayList<Alimento> getAlimenti(){
+		return lista;
+	}
 }
