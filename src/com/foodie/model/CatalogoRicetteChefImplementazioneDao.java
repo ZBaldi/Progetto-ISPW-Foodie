@@ -4,12 +4,13 @@ import java.util.ArrayList;
 
 public class CatalogoRicetteChefImplementazioneDao implements CatalogoRicetteChefDao{ //SINGLETON
 	private static CatalogoRicetteChefImplementazioneDao istanza; 
-	private ArrayList<Ricetta> database =new ArrayList<Ricetta>();
+	private static ArrayList<Ricetta> database;
 	private CatalogoRicetteChefImplementazioneDao(){
 	}
 	public static CatalogoRicetteChefImplementazioneDao ottieniIstanza() { //METODO PER OTTENERE L'ISTANZA
 		if(istanza==null) {
 			istanza=new CatalogoRicetteChefImplementazioneDao();
+			database=new ArrayList<Ricetta>();
 		}
 		return istanza;
 	}

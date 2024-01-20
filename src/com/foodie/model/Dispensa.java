@@ -4,12 +4,13 @@ import java.util.ArrayList;
 
 public class Dispensa { //SINGLETON, LA DISPENSA DEVE AVERE SOLO 1 ISTANZA!
 	private static Dispensa istanza; 
-	private ArrayList<Alimento> lista=new ArrayList<Alimento>();
+	private static ArrayList<Alimento> lista;
 	private Dispensa(){
 	}
 	public static Dispensa ottieniIstanza() { //METODO PER OTTENERE L'ISTANZA
 		if(istanza==null) {
 			istanza=new Dispensa();
+			lista=new ArrayList<Alimento>();
 		}
 		return istanza;
 	}	
