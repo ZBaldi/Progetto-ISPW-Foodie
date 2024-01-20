@@ -7,6 +7,7 @@ import com.foodie.model.Alimento;
 import com.foodie.model.CatalogoRicetteChefImplementazioneDao;
 import com.foodie.model.Dispensa;
 import com.foodie.model.Ricetta;
+import com.foodie.model.*;
 
 public class Client {
 
@@ -18,7 +19,6 @@ public class Client {
 		controller.aggiornaDispensa(new Alimento("pasta"), 0);
 		controller.aggiornaDispensa(new Alimento("carne"), 0);
 		controller.aggiornaDispensa(new Alimento("salmone"), 0);
-		controller.aggiornaDispensa(new Alimento("uova"), 1);
 		CatalogoRicetteChefImplementazioneDao ricette= CatalogoRicetteChefImplementazioneDao.ottieniIstanza();
 		ArrayList<Alimento> lista= new ArrayList<Alimento>();
 		lista.add(new Alimento("uova"));
@@ -28,7 +28,8 @@ public class Client {
 		controller.trovaRicette(1);
 		ricette.eliminaRicetta(new Ricetta("cacca","ciao1",3,lista,"pino"));
 		controller.trovaRicette(3);
-		//cremadicazzo
+		CatalogoAlimentiDao cat=new CatalogoAlimentiNutrixionixImplementazioneDao();
+		cat.trovaAlimenti("farina");
 	}
 
 }
