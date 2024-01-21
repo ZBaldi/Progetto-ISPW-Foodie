@@ -1,5 +1,7 @@
 package com.foodie.model;
 
+import java.util.ArrayList;
+
 public interface CatalogoAlimentiDao {
-	public void trovaAlimenti(String nome);
+	public ArrayList<Alimento> trovaAlimenti(String nome);
 }

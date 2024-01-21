@@ -17,29 +17,30 @@ public class CatalogoAlimentiNutrixionixImplementazioneDao implements CatalogoAl
 	private static final String APP_ID = "103947a7";
 	private static final String API_KEY = "726892d58f85bf82f8f8ab4171671c42";
 	
-	private void estraiFoodName(String stringa) {
+	private ArrayList<Alimento> estraiFoodName(String stringa) {
 		ObjectMapper mapper = new ObjectMapper(); 
 		try {
 			JsonNode nodo = mapper.readTree(stringa).get("common");  //prendo ramo common del vettore json di elementi
 			//Alimento[] alimenti = mapper.readValue(nodo.toString(), Alimento[].class); modo brutto
 			//modo buono://li metto in un arrayList di alimenti ignorando tutti i campi tranne food_name
 			ArrayList<Alimento> alimenti = mapper.readValue(nodo.toString(), mapper.getTypeFactory().constructCollectionType(ArrayList.class, Alimento.class));
-			for(Alimento a: alimenti) {
-				System.out.println(a.getNome()); // stampo i nomi di tutti gli alimenti ottenuti
-			}
+			return alimenti;
 			//pezzo di codice che mi servirà per levare le istanze degli alimenti creati
-			alimenti.clear();
+			/*alimenti.clear();
 			alimenti.trimToSize();
-			System.gc();
+			System.gc();*/
 		} catch (JsonMappingException e) {
 			e.printStackTrace();
+			return null;
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
+			return null;
 		}
 	}
 	@Override
-	public void trovaAlimenti(String nome) {
+	public ArrayList<Alimento> trovaAlimenti(String nome) {
 		try {
+			ArrayList<Alimento> alimentiTrovati=null;
 			String nomeCodificato = URLEncoder.encode(nome, "UTF-8");//da stringa codificato per l'url
 			String urlQuery=API_URL+"?query="+nomeCodificato; //url per fare query all'api di nutrixionix
 			URI url= new URI(urlQuery);  //creo l'URI associato a quell'url
@@ -58,14 +59,16 @@ public class CatalogoAlimentiNutrixionixImplementazioneDao implements CatalogoAl
                     risposta.append(stringa);
                 }
                 lettore.close();
-                estraiFoodName(risposta.toString());  // applico il metodo che deserializza la stringa json ottenuta per ottenere i nomi degli alimenti
+                alimentiTrovati=estraiFoodName(risposta.toString());  // applico il metodo che deserializza la stringa json ottenuta per ottenere i nomi degli alimenti
             }
             else {
             System.out.println("Errore: codice di risposta " + codiceDiRisposta);
             }
             connessione.disconnect();
+            return alimentiTrovati;
 		}catch(Exception e) {
 			e.printStackTrace();
+			return null;
 		}
 	}
 

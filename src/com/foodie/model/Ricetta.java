@@ -9,12 +9,14 @@ public class Ricetta {
 	private int difficolta;
 	private ArrayList<Alimento> ingredienti;
 	private String autore;
-	public Ricetta(String nome, String descrizione, int difficolta, ArrayList<Alimento> ingredienti, String autore){
+	private ArrayList<String> quantita;
+	public Ricetta(String nome, String descrizione, int difficolta, ArrayList<Alimento> ingredienti, String autore, ArrayList<String> quantita){
 		this.nome=nome;
 		this.descrizione=descrizione;
 		this.difficolta=difficolta;
 		this.ingredienti= ingredienti;
 		this.autore=autore;
+		this.quantita=quantita;
 	}
 	
 	public String getNome() {
@@ -32,6 +34,9 @@ public class Ricetta {
 	public String getAutore() {
 		return this.autore;
 	}
+	public ArrayList<String> getQuantita(){
+		return this.quantita;
+	}
 	@Override
 	public boolean equals(Object o) {  //QUESTI 2 OVERRIDE SERVONO PER CONFRONTARE 2 ISTANZE DIVERSE IN BASE AGLI ATTRIBUTI
 	    if (this == o) {
@@ -45,10 +50,11 @@ public class Ricetta {
 	           Objects.equals(descrizione, ricetta.descrizione) &&
 	           Objects.equals(difficolta, ricetta.difficolta) &&
 	           Objects.equals(ingredienti, ricetta.ingredienti) &&
-	           Objects.equals(autore, ricetta.autore);
+	           Objects.equals(autore, ricetta.autore) && 
+	           Objects.equals(quantita, ricetta.quantita);
 	}
 	@Override
 	public int hashCode() {
-	    return Objects.hash(nome, descrizione, difficolta, ingredienti, autore);
+	    return Objects.hash(nome, descrizione, difficolta, ingredienti, autore, quantita);
 	}
 }

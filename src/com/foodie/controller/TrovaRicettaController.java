@@ -3,6 +3,8 @@ package com.foodie.controller;
 import java.util.ArrayList;
 
 import com.foodie.model.Alimento;
+import com.foodie.model.CatalogoAlimentiDao;
+import com.foodie.model.CatalogoAlimentiNutrixionixImplementazioneDao;
 import com.foodie.model.CatalogoRicetteChefDao;
 import com.foodie.model.CatalogoRicetteChefImplementazioneDao;
 import com.foodie.model.Dispensa;
@@ -11,9 +13,11 @@ import com.foodie.model.Ricetta;
 public class TrovaRicettaController {
 	private Dispensa dispensa;
 	private CatalogoRicetteChefDao database;
+	private CatalogoAlimentiDao databaseAlimenti;
 	public TrovaRicettaController() {
 		dispensa= Dispensa.ottieniIstanza();
 		database= CatalogoRicetteChefImplementazioneDao.ottieniIstanza();
+		databaseAlimenti=new CatalogoAlimentiNutrixionixImplementazioneDao();
 	}
 	public void aggiornaDispensa(Alimento alimento,int x) {
 		if(x==0) {
@@ -35,6 +39,18 @@ public class TrovaRicettaController {
 			for(Alimento a: r.getIngredienti()) {
 				System.out.println(a.getNome());
 			}
+		}
+	}
+	public void trovaAlimenti(String nomeAlimento) {
+		ArrayList<Alimento> alimentiTrovati;
+		if((alimentiTrovati=databaseAlimenti.trovaAlimenti(nomeAlimento))!=null) {
+			mostraAlimenti(alimentiTrovati);
+		}
+		
+	}
+	private void mostraAlimenti(ArrayList<Alimento> alimenti) {
+		for(Alimento a: alimenti) {
+			System.out.println(a.getNome());
 		}
 	}
 }
