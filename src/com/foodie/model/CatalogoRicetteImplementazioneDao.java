@@ -1,7 +1,7 @@
 package com.foodie.model;
 
-import java.util.ArrayList;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao{
 	private static CatalogoRicetteImplementazioneDao istanza; 
@@ -18,9 +18,41 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
 		return istanza;
 	}
 	@Override
-	public ArrayList<Ricetta> trovaRicetta(Dispensa dispensa, int difficolta) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Ricetta> trovaRicetta(Dispensa dispensa, int difficolta) throws Exception{
+		ArrayList<Ricetta> ricetteTrovate=new ArrayList<Ricetta>();
+		Statement dichiarazione=null;
+		Connection connessione=null;
+		ResultSet risultati=null;
+		try {
+			Class.forName(driverMySql);
+			connessione= DriverManager.getConnection(databaseUrl, utente,password);
+			dichiarazione = connessione.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			risultati= querySQL.trovaRicette(dichiarazione,dispensa.getAlimenti(),difficolta);
+			while (risultati.next()) {
+		        String nomeRicetta = risultati.getString("nome");
+		        String descrizione = risultati.getString("descrizione");
+		        int difficoltaRicetta = risultati.getInt("difficolta");
+		        String autore = risultati.getString("autore");
+		        Ricetta ricetta = new Ricetta(nomeRicetta, descrizione, difficoltaRicetta, new ArrayList<Alimento>(), autore, new ArrayList<String>());
+		        do {
+		            String alimento = risultati.getString("alimento");
+		            String quantita = risultati.getString("quantita");
+		            ricetta.aggiungiIngrediente(new Alimento(alimento), quantita);
+		        } while (risultati.next() && nomeRicetta.equals(risultati.getString("nome")));
+		        ricetteTrovate.add(ricetta);
+		    }
+			dichiarazione.close();
+			connessione.close();
+			risultati.close();
+			return ricetteTrovate;
+		}finally {
+			if (dichiarazione != null)
+                dichiarazione.close();
+            if (connessione != null)
+                connessione.close();
+            if (risultati != null)
+                connessione.close();
+		}
 	}
 	@Override
 	public void aggiungiRicetta(Ricetta ricetta) throws Exception {
@@ -47,7 +79,7 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
             	System.out.println("ricetta aggiunta al database");
             }
             else {
-            	System.out.println("ricetta non aggiunta al database");
+            	System.out.println("ricetta non aggiunta al database o solo parzialmente!");
             }
         } finally {       	
                 if (dichiarazione != null)
@@ -58,11 +90,33 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
                 	risultati.close();
         }
 	}
-
 	@Override
-	public void eliminaRicetta(Ricetta ricetta) {
-		// TODO Auto-generated method stub
-		
+	public void eliminaRicetta(Ricetta ricetta) throws Exception {
+		Statement dichiarazione = null;
+        Connection connessione = null;
+        try {
+            Class.forName(driverMySql);
+            connessione = DriverManager.getConnection(databaseUrl, utente, password);
+            dichiarazione = connessione.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            if(querySQL.rimuoviRicetta(dichiarazione, ricetta)>0) {
+            	System.out.println("ricetta eliminata dal database");
+            }
+            else {
+            	System.out.println("ricetta non eliminata dal database o non presente");
+            }
+            dichiarazione.close();
+            connessione.close();
+        } finally {       	
+                if (dichiarazione != null)
+                    dichiarazione.close();
+                if (connessione != null)
+                    connessione.close();
+        }
 	}
-
+	@Override
+	public void aggiornaRicetta(Ricetta ricetta) throws Exception {  //poi si implementerà meglio!
+		eliminaRicetta(ricetta);
+		aggiungiRicetta(ricetta);
+		System.out.println("ricetta aggiornata!");
+	}
 }

@@ -3,7 +3,8 @@ package com.foodie.model;
 import java.util.ArrayList;
 
 public interface CatalogoRicetteChefDao{
-	public ArrayList<Ricetta> trovaRicetta(Dispensa dispensa,int difficolta);
+	public ArrayList<Ricetta> trovaRicetta(Dispensa dispensa,int difficolta) throws Exception;
 	public void aggiungiRicetta(Ricetta ricetta) throws Exception;
-	public void eliminaRicetta(Ricetta ricetta);
+	public void eliminaRicetta(Ricetta ricetta) throws Exception;
+	public void aggiornaRicetta(Ricetta ricetta) throws Exception;
 }

@@ -1,5 +1,6 @@
 package com.foodie.model;
 
+
 import java.util.ArrayList;
 
 public class CatalogoRicetteChefImplementazioneDao implements CatalogoRicetteChefDao{ //SINGLETON
@@ -15,6 +16,26 @@ public class CatalogoRicetteChefImplementazioneDao implements CatalogoRicetteChe
 		return istanza;
 	}
 	@Override
+	public ArrayList<Ricetta> trovaRicetta(Dispensa dispensa, int difficolta) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void aggiungiRicetta(Ricetta ricetta) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void eliminaRicetta(Ricetta ricetta) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void aggiornaRicetta(Ricetta ricetta) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+	/*@Override
 	public ArrayList<Ricetta> trovaRicetta(Dispensa dispensa,int difficolta) {
 		ArrayList<Ricetta> ricetteValide =new ArrayList<Ricetta>();
 		ArrayList<Alimento> appoggioDispensa= dispensa.getAlimenti();
@@ -45,5 +66,10 @@ public class CatalogoRicetteChefImplementazioneDao implements CatalogoRicetteChe
 	public void eliminaRicetta(Ricetta ricetta) {
 		database.remove(ricetta);
 		System.out.println("ricetta rimossa dal database");
-	}	
+	}
+	@Override
+	public void aggiornaRicetta(Ricetta ricetta) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}	*/
 }

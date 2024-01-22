@@ -18,7 +18,6 @@ public class Ricetta {
 		this.autore=autore;
 		this.quantita=quantita;
 	}
-	
 	public String getNome() {
 		return this.nome;
 	}
@@ -36,6 +35,22 @@ public class Ricetta {
 	}
 	public ArrayList<String> getQuantita(){
 		return this.quantita;
+	}
+	public void setDescrizione(String descrizione) {
+		this.descrizione = descrizione;
+	}
+	public void setDifficolta(int difficolta) {
+		this.difficolta = difficolta;
+	}
+	public void setIngredienti(ArrayList<Alimento> ingredienti) {
+		this.ingredienti = ingredienti;
+	}
+	public void setQuantita(ArrayList<String> quantita) {
+		this.quantita = quantita;
+	}
+	public void aggiungiIngrediente(Alimento alimento, String quantita) {
+		ingredienti.add(alimento);
+		this.quantita.add(quantita);
 	}
 	@Override
 	public boolean equals(Object o) {  //QUESTI 2 OVERRIDE SERVONO PER CONFRONTARE 2 ISTANZE DIVERSE IN BASE AGLI ATTRIBUTI

@@ -1,35 +1,44 @@
 package com.foodie.model;
 
 import java.sql.*;
-import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class querySQL {
 	public static ResultSet selezionaRicetteDallaDescrizione(Statement dichiarazione) throws SQLException{
-		String sqlQuery = "SELECT DISTINCT descrizione FROM ricette ;";
+		String sqlQuery = "SELECT DISTINCT descrizione FROM ricette";
 		return dichiarazione.executeQuery(sqlQuery);
 	}
 	public static int inserisciRicetta(Statement dichiarazione, Ricetta ricetta) throws SQLException  {
-		StringBuilder stringaIngredienti = new StringBuilder();
-		StringBuilder stringaQuantita = new StringBuilder();
-		int indice=0;
-		for(Alimento a: ricetta.getIngredienti()) {
-			stringaIngredienti.append(a.getNome());
-			if(indice<ricetta.getIngredienti().size()-1) {
-				stringaIngredienti.append(", ");
-			}
-			indice++;
-		}
-		String ingredienti = stringaIngredienti.toString();
-		indice=0;
-		for(String s: ricetta.getQuantita()) {
-			stringaQuantita.append(s);
-			if(indice<ricetta.getQuantita().size()-1) {
-				stringaQuantita.append(", ");
-			}
-			indice++;
-		}
-		String quantita= stringaQuantita.toString();
-        String sqlInsert = String.format("INSERT INTO ricette (nome, descrizione, difficolta, ingredienti, autore, quantita) VALUES ('%s', '%s', %d, '%s', '%s', '%s')", ricetta.getNome(), ricetta.getDescrizione(), ricetta.getDifficolta(), ingredienti, ricetta.getAutore(), quantita);
-        return dichiarazione.executeUpdate(sqlInsert);
+		int codiceDiRitorno=0;
+		String sqlInsert=String.format("INSERT INTO ricette (nome,descrizione,difficolta,autore) VALUES ( '%s', '%s', %d, '%s')", ricetta.getNome(), ricetta.getDescrizione(),ricetta.getDifficolta(), ricetta.getAutore());
+        if(dichiarazione.executeUpdate(sqlInsert)==0) {
+        	return 0;
+        }
+        for(int i=0; i< ricetta.getIngredienti().size(); i++ ) {
+        	sqlInsert=String.format("INSERT INTO ingredienti (nome_ricetta, autore_ricetta, alimento, quantita) VALUES ('%s', '%s', '%s', '%s')", ricetta.getNome(),ricetta.getAutore(), ricetta.getIngredienti().get(i).getNome(), ricetta.getQuantita().get(i));
+        	codiceDiRitorno=codiceDiRitorno+dichiarazione.executeUpdate(sqlInsert);
+        }
+        if(codiceDiRitorno<ricetta.getIngredienti().size()) {
+        	return 0;
+        }
+        return 1;
     }
+	public static int rimuoviRicetta(Statement dichiarazione, Ricetta ricetta) throws SQLException{
+		String sqlDelete= String.format("DELETE FROM  ricette  WHERE nome = '%s' AND autore = '%s'", ricetta.getNome(), ricetta.getAutore());
+		return dichiarazione.executeUpdate(sqlDelete);
+	}
+	public static ResultSet trovaRicette(Statement dichiarazione, ArrayList<Alimento> alimenti, int difficolta) throws SQLException {
+		StringBuilder stringBuilder= new StringBuilder();
+		int indice=0;
+		for(Alimento a: alimenti) {
+			stringBuilder.append("'"+a.getNome()+"' ");
+			if(indice<alimenti.size()-1) {
+				stringBuilder.append(", ");
+			}
+			indice++;
+		}
+		String queryParziale= stringBuilder.toString();
+		String sqlQuery= String.format("SELECT r.nome, r.descrizione, r.difficolta, r.autore, i.alimento, i.quantita FROM Ricette r JOIN Ingredienti i ON r.nome = i.nome_ricetta AND r.autore = i.autore_ricetta WHERE i.alimento IN ( "+queryParziale+")");
+		return dichiarazione.executeQuery(sqlQuery);
+	}
 }

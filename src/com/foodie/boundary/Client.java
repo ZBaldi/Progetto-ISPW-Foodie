@@ -25,17 +25,17 @@ public class Client {
 		lista.add(new Alimento("salmone"));
 		ArrayList<String> lista2= new ArrayList<String>();
 		lista2.add("350g");
-		lista2.add("nb");
+		lista2.add("una fetta");
 		try {
-			ricette.aggiungiRicetta(new Ricetta("cacca","ciao1",3,lista,"pino",lista2));
+			Ricetta ricetta= new Ricetta("spaghetti alla carbonara","alla cazzo di cane",3,lista,"pino",lista2);
+			ricette.aggiungiRicetta(ricetta);
+			ricette.eliminaRicetta(ricetta);
+			ricetta.setDescrizione("Sbairuz guardia");
+			ricette.aggiornaRicetta(ricetta);
+			controller.trovaRicette(3);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		//controller.trovaRicette(3);
-		//controller.trovaRicette(1);
-		//ricette.eliminaRicetta(new Ricetta("cacca","ciao1",3,lista,"pino",lista2));
-		//controller.trovaRicette(3);
-		//controller.trovaAlimenti("steak");
 	}
 
 }
