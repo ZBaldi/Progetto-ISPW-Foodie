@@ -2,15 +2,17 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.foodie.boundary.DispensaUtenteViewController">
    <children>
       <Pane prefHeight="100.0" prefWidth="1024.0" style="-fx-background-color: rgba(97, 194, 107, 1);">
          <children>
@@ -19,7 +21,7 @@
                   <Font name="Rockwell" size="42.0" />
                </font>
             </Label>
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="941.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="941.0" layoutY="24.0" onMouseClicked="#caricaViewLogin" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../../../Downloads/user_icon_150670-2.png" />
                </image>
@@ -31,7 +33,7 @@
                         <Font name="Arial Bold" size="26.0" />
                      </font>
                   </Button>
-                  <Button lineSpacing="10.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Trova Ricetta" textFill="WHITE">
+                  <Button lineSpacing="10.0" mnemonicParsing="false" onAction="#caricaViewTrovaRicetta" style="-fx-background-color: transparent;" text="Trova Ricetta" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="26.0" />
                      </font>
@@ -42,7 +44,7 @@
       </Pane>
       <Pane layoutY="100.0" prefHeight="668.0" prefWidth="456.0" style="-fx-background-color: rgba(228, 255, 231, 1); -fx-border-color: #000000; -fx-border-width: 0 1 0 0;">
          <children>
-            <TextField layoutX="84.0" layoutY="85.0" prefHeight="26.0" prefWidth="281.0" style="-fx-padding: 0 0 0 30;" text="banana" />
+            <TextField fx:id="barraDiRicerca" layoutX="84.0" layoutY="85.0" onKeyPressed="#trovaAlimenti" prefHeight="26.0" prefWidth="281.0" promptText="banana" style="-fx-padding: 0 0 0 30;" />
             <Label alignment="CENTER" layoutX="107.0" layoutY="35.0" text="Aggiungi alimento">
                <font>
                   <Font name="Arial" size="30.0" />
@@ -52,6 +54,15 @@
                <image>
                   <Image url="@../../../../../../Downloads/585e4ae1cb11b227491c3393.png" />
                </image></ImageView>
+            <ScrollPane layoutX="84.0" layoutY="127.0" prefHeight="399.0" prefWidth="281.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="402.0" prefWidth="282.0">
+                     <children>
+                        <VBox fx:id="contenitoreAlimentiTrovati" prefHeight="399.0" prefWidth="281.0" spacing="30.0" style="-fx-background-color: rgba(228, 255, 231, 1);" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
          </children>
       </Pane>
       <Pane layoutX="456.0" layoutY="100.0" prefHeight="668.0" prefWidth="568.0">
@@ -73,7 +84,7 @@
                         <Font name="Arial" size="15.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="145.0" style="-fx-background-radius: 10; -fx-background-color: rgba(231, 73, 73, 1);" text="Svuota tutto" textFill="WHITE">
+                  <Button mnemonicParsing="false" onAction="#svuotaDispensa" prefHeight="29.0" prefWidth="145.0" style="-fx-background-radius: 10; -fx-background-color: rgba(231, 73, 73, 1);" text="Svuota tutto" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>

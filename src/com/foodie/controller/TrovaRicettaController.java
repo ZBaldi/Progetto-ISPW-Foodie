@@ -3,6 +3,7 @@ package com.foodie.controller;
 import java.util.ArrayList;
 
 import com.foodie.model.Alimento;
+import com.foodie.model.AlimentoBean;
 import com.foodie.model.CatalogoAlimentiDao;
 import com.foodie.model.CatalogoAlimentiNutrixionixImplementazioneDao;
 import com.foodie.model.CatalogoRicetteChefDao;
@@ -26,6 +27,9 @@ public class TrovaRicettaController {
 		else {
 			dispensa.eliminaAlimento(alimento);
 		}
+	}
+	public void svuotaDispensa() {
+		dispensa.svuotaDispensa();
 	}
 	public void trovaRicette(int difficolta){
 		ArrayList<Ricetta> ricetteTrovate= null;
@@ -54,18 +58,26 @@ public class TrovaRicettaController {
 			}
 		}
 	}
-	public void trovaAlimenti(String nomeAlimento) {
-		ArrayList<Alimento> alimentiTrovati;
+	public ArrayList<AlimentoBean> trovaAlimenti(String nomeAlimento) {
+		ArrayList<Alimento> alimentiTrovati=null;
+		ArrayList<AlimentoBean> alimentiTrovatiBean=null;
 		if((alimentiTrovati=databaseAlimenti.trovaAlimenti(nomeAlimento))!=null) {
-			mostraAlimenti(alimentiTrovati);
-		}	
+			alimentiTrovatiBean=new ArrayList<AlimentoBean>();
+			//mostraAlimenti(alimentiTrovati);
+		}
+		for(Alimento a:alimentiTrovati) {
+			AlimentoBean alimentoBean= new AlimentoBean();
+			alimentoBean.setNome(a.getNome());
+			alimentiTrovatiBean.add(alimentoBean);
+		}
+		return alimentiTrovatiBean;
 	}
-	private void mostraAlimenti(ArrayList<Alimento> alimenti) {
+	/*private void mostraAlimenti(ArrayList<Alimento> alimenti) {
 		for(Alimento a: alimenti) {
 			System.out.println(a.getNome());
 		}
 		alimenti.clear();   //si occupa di consigliare al garbage collector di rimuovere le istanze non necessarie
 		alimenti.trimToSize();  //ovviamente tra queste ci sono tutti gli alimenti non selezionati
 		System.gc();
-	}
+	}*/
 }

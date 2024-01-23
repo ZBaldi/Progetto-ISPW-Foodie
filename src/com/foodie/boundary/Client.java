@@ -7,11 +7,33 @@ import com.foodie.model.Alimento;
 import com.foodie.model.CatalogoRicetteImplementazioneDao;
 import com.foodie.model.Dispensa;
 import com.foodie.model.Ricetta;
+
+import com.foodie.boundary.DispensaUtenteViewController;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
 import com.foodie.model.*;
 
-public class Client {
+public class Client extends Application {
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+			Utente utente= new Standard("pino");
+			FXMLLoader loader= new FXMLLoader(getClass().getResource(utente.getViewIniziale()));
+			Parent root= loader.load();
+			DispensaUtenteViewController dispensaUtenteViewController= loader.getController();
+			dispensaUtenteViewController.setPrimaryStage(primaryStage);
+			Scene scene= new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.show();
+	}
 
 	public static void main(String[] args) {
+		launch(args);
+	}
+	/*public static void main(String[] args) {
 		TrovaRicettaController controller = new TrovaRicettaController();
 		Dispensa dispensa= Dispensa.ottieniIstanza();
 		controller.aggiornaDispensa(new Alimento("uova"), 0);
@@ -36,6 +58,5 @@ public class Client {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
+	}*/
 }
