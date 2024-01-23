@@ -13,10 +13,18 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class CatalogoAlimentiNutrixionixImplementazioneDao implements CatalogoAlimentiDao{
+	private static CatalogoAlimentiNutrixionixImplementazioneDao istanza;
 	private static final String API_URL = "https://trackapi.nutritionix.com/v2/search/instant";
 	private static final String APP_ID = "103947a7";
 	private static final String API_KEY = "726892d58f85bf82f8f8ab4171671c42";
-	
+	private CatalogoAlimentiNutrixionixImplementazioneDao(){
+	}
+	public static CatalogoAlimentiNutrixionixImplementazioneDao ottieniIstanza() { //METODO PER OTTENERE L'ISTANZA
+		if(istanza==null) {
+			istanza=new CatalogoAlimentiNutrixionixImplementazioneDao();
+		}
+		return istanza;
+	}
 	private ArrayList<Alimento> estraiFoodName(String stringa) {
 		ObjectMapper mapper = new ObjectMapper(); 
 		try {

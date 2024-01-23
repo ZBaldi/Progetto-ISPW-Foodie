@@ -15,9 +15,9 @@ public class TrovaRicettaController {
 	private CatalogoRicetteChefDao database;
 	private CatalogoAlimentiDao databaseAlimenti;
 	public TrovaRicettaController() {
-		dispensa= Dispensa.ottieniIstanza();
-		database= CatalogoRicetteImplementazioneDao.ottieniIstanza();
-		databaseAlimenti=new CatalogoAlimentiNutrixionixImplementazioneDao();
+		this.dispensa= Dispensa.ottieniIstanza();
+		this.database= CatalogoRicetteImplementazioneDao.ottieniIstanza();
+		this.databaseAlimenti=CatalogoAlimentiNutrixionixImplementazioneDao.ottieniIstanza();
 	}
 	public void aggiornaDispensa(Alimento alimento,int x) {
 		if(x==0) {
