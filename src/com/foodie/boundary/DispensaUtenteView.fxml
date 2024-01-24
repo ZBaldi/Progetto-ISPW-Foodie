@@ -23,7 +23,7 @@
             </Label>
             <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="941.0" layoutY="24.0" onMouseClicked="#caricaViewLogin" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../Downloads/user_icon_150670-2.png" />
+                  <Image url="@../../../../../../Downloads/usericona.png" />
                </image>
             </ImageView>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1024.0" spacing="100.0">
@@ -52,7 +52,7 @@
             </Label>
             <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="90.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../Downloads/585e4ae1cb11b227491c3393.png" />
+                  <Image url="@../../../../../../Downloads/lenteingrandimento.png" />
                </image></ImageView>
             <ScrollPane layoutX="84.0" layoutY="127.0" prefHeight="399.0" prefWidth="281.0">
               <content>

@@ -33,7 +33,7 @@
                         </TextField>
                         <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="7.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../../Downloads/585e4ae1cb11b227491c3393.png" />
+                              <Image url="@../../../../immagini_usate/lenteingrandimento.png" />
                            </image>
                         </ImageView>
                      </children>
@@ -75,7 +75,7 @@
             </Label>
             <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="941.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../Downloads/user_icon_150670-2.png" />
+                  <Image url="@../../../../immagini_usate/usericona.png" />
                </image>
             </ImageView>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1024.0" spacing="10.0">

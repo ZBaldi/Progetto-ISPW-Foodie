@@ -23,19 +23,19 @@
             </Label>
             <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="937.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../Downloads/user_icon_150670-2.png" />
+                  <Image url="@../../../../immagini_usate/usericona.png" />
                </image>
             </ImageView>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1024.0" spacing="100.0">
                <children>
                   <Button lineSpacing="10.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Dispensa" textFill="WHITE">
                      <font>
-                        <Font name="Arial Bold" size="26.0" />
+                        <Font name="Arial" size="26.0" />
                      </font>
                   </Button>
                   <Button lineSpacing="10.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Trova Ricetta" textFill="WHITE" underline="true">
                      <font>
-                        <Font name="Arial Bold" size="26.0" />
+                        <Font name="Arial" size="26.0" />
                      </font>
                   </Button>
                </children>

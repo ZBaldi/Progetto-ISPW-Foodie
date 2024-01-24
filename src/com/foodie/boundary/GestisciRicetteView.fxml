@@ -22,7 +22,7 @@
             </Label>
             <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="941.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../Downloads/user_icon_150670-2.png" />
+                  <Image url="@../../../../immagini_usate/usericona.png" />
                </image>
             </ImageView>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1024.0" spacing="10.0">
@@ -55,11 +55,7 @@
                <children>
                   <Pane prefHeight="100.0" prefWidth="924.0" style="-fx-background-color: rgba(217, 217, 217, 0.75); -fx-border-color: black;">
                      <children>
-                        <ImageView fitHeight="98.0" fitWidth="98.0" layoutX="1.0" layoutY="1.0" pickOnBounds="true">
-                           <image>
-                              <Image url="@../../../../../../Downloads/Fast-food-and-beverage-vector-icon-Graphics-4831456-1-1-580x386.jpg" />
-                           </image>
-                        </ImageView>
+                        <ImageView fitHeight="98.0" fitWidth="98.0" layoutX="1.0" layoutY="1.0" pickOnBounds="true" />
                         <Label layoutX="110.0" layoutY="32.0" text="Nome ricetta">
                            <font>
                               <Font name="Arial" size="30.0" />
@@ -69,11 +65,7 @@
                   </Pane>
                   <Pane prefHeight="100.0" prefWidth="924.0" style="-fx-background-color: rgba(217, 217, 217, 0.75); -fx-border-color: black;">
                      <children>
-                        <ImageView fitHeight="98.0" fitWidth="98.0" layoutX="1.0" layoutY="1.0" pickOnBounds="true">
-                           <image>
-                              <Image url="@../../../../../../Downloads/Fast-food-and-beverage-vector-icon-Graphics-4831456-1-1-580x386.jpg" />
-                           </image>
-                        </ImageView>
+                        <ImageView fitHeight="98.0" fitWidth="98.0" layoutX="1.0" layoutY="1.0" pickOnBounds="true" />
                         <Label layoutX="110.0" layoutY="32.0" text="Nome ricetta">
                            <font>
                               <Font name="Arial" size="30.0" />

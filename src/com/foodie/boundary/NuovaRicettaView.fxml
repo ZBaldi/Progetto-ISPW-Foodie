@@ -23,7 +23,7 @@
             </Label>
             <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="941.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../Downloads/user_icon_150670-2.png" />
+                  <Image url="@../../../../immagini_usate/usericona.png" />
                </image>
             </ImageView>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1024.0" spacing="10.0">
@@ -57,11 +57,7 @@
                   <Insets top="35.0" />
                </padding>
             </Label>
-            <ImageView fitHeight="250.0" fitWidth="250.0" layoutX="50.0" layoutY="50.0" pickOnBounds="true">
-               <image>
-                  <Image url="@../../../../../../Downloads/iStock-1155240408.jpg" />
-               </image>
-            </ImageView>
+            <ImageView fitHeight="250.0" fitWidth="250.0" layoutX="50.0" layoutY="50.0" pickOnBounds="true" />
             <Button layoutX="103.0" layoutY="317.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="154.0" style="-fx-background-radius: 10; -fx-background-color: rgba(97, 194, 107, 1);" text="Inserisci immagine " textFill="WHITE">
                <font>
                   <Font size="15.0" />
