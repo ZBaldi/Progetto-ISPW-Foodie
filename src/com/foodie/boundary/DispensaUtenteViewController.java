@@ -16,13 +16,19 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+
+import com.foodie.model.Alimento;
 import com.foodie.model.AlimentoBean;
+import com.foodie.model.Dispensa;
 import com.foodie.model.Observer;
+import com.foodie.model.RicettaBean;
 
 public class DispensaUtenteViewController implements Observer {
+	private static DispensaUtenteViewController istanza;
 	private TrovaRicettaController controller = new TrovaRicettaController();
 	private ArrayList<AlimentoBean> alimentiBeanTrovati;
 	private ArrayList<AlimentoBean> alimentiBeanDispensa;
@@ -36,6 +42,14 @@ public class DispensaUtenteViewController implements Observer {
 	private VBox contenitoreDispensa;
 	@FXML
 	private Label labelDispensa;
+	private DispensaUtenteViewController(){
+	}
+	public static DispensaUtenteViewController ottieniIstanza() { //METODO PER OTTENERE L'ISTANZA
+		if(istanza==null) {
+			istanza=new DispensaUtenteViewController();
+		}
+		return istanza;
+	}	
 	public void setPrimaryStage(Stage primaryStage) {
 		this.primaryStage= primaryStage;
 	}
@@ -50,12 +64,71 @@ public class DispensaUtenteViewController implements Observer {
             Parent root = loader.load();
             TrovaRicetteViewController trovaRicetteViewController=loader.getController();
             trovaRicetteViewController.setPrimaryStage(primaryStage);
+            trovaRicette(trovaRicetteViewController);
             Scene nuovaScena = new Scene(root);
             primaryStage.setScene(nuovaScena);
             primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace(); 
         }
+	}
+	private void trovaRicette(TrovaRicetteViewController trovaRicetteViewController) {
+		ArrayList<RicettaBean> ricetteTrovate= null;
+		int count=0;
+		VBox contenitoreRicette=trovaRicetteViewController.getContenitoreRicette();
+		for(int i=1;i<4;i++) {
+			ricetteTrovate=controller.trovaRicette(i);
+			if(ricetteTrovate!=null) {
+				for(RicettaBean r: ricetteTrovate) {
+					HBox contenitoreRicettaSingola = new HBox();
+					contenitoreRicettaSingola.setStyle("-fx-background-color: white;");
+					contenitoreRicettaSingola.setMinHeight(130);
+					contenitoreRicettaSingola.setMaxWidth(Double.MAX_VALUE);
+					Label labelNome = new Label(r.getNome());
+					labelNome.setMinWidth(366);
+					labelNome.setMinHeight(65);
+					labelNome.setFont(Font.font("Arial",20));
+					labelNome.setAlignment(Pos.CENTER);
+					Label labelAutore = new Label(r.getAutore());
+					labelAutore.setMinWidth(366);
+					labelAutore.setMinHeight(65);
+					labelAutore.setFont(Font.font("Arial",20));
+					labelAutore.setAlignment(Pos.CENTER);
+					String difficolta="";
+					switch(r.getDifficolta()) {
+					case 1:
+							difficolta="facile";
+							break;
+					case 2:
+							difficolta="intermedio";
+							break;
+					case 3:
+							difficolta="difficile";
+							break;
+					}
+					Label labelDifficolta = new Label(difficolta);
+					labelDifficolta.setMinWidth(366);
+					labelDifficolta.setMinHeight(65);
+					labelDifficolta.setFont(Font.font("Arial",20));
+					labelDifficolta.setAlignment(Pos.CENTER);
+					contenitoreRicettaSingola.getChildren().addAll(labelNome,labelAutore,labelDifficolta);
+					contenitoreRicette.getChildren().add(contenitoreRicettaSingola);
+				}
+			}
+			else{
+				count++;
+				if(count==3) {
+					Label label=new Label("NESSUN RISULTATO");
+					label.setStyle("-fx-background-color: white;");
+					label.setMaxWidth(Double.MAX_VALUE);
+					label.setMinHeight(100);
+					label.setWrapText(true);
+					label.setFont(Font.font("Arial",50));
+					label.setAlignment(Pos.CENTER);
+					contenitoreRicette.getChildren().add(label);
+				}
+			}
+		}
 	}
 	@FXML
 	private void caricaViewLogin(MouseEvent event) {

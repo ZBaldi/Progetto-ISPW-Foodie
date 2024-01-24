@@ -23,6 +23,10 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
 		Statement dichiarazione=null;
 		Connection connessione=null;
 		ResultSet risultati=null;
+		if(dispensa.getAlimenti().isEmpty()) {
+			System.out.println("Dispensa vuota!!! Riempila prima");
+			return null;
+		}
 		try {
 			Class.forName(driverMySql);
 			connessione= DriverManager.getConnection(databaseUrl, utente,password);

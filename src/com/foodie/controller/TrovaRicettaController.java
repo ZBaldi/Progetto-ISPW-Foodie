@@ -10,6 +10,7 @@ import com.foodie.model.CatalogoRicetteChefDao;
 import com.foodie.model.CatalogoRicetteImplementazioneDao;
 import com.foodie.model.Dispensa;
 import com.foodie.model.Ricetta;
+import com.foodie.model.RicettaBean;
 
 public class TrovaRicettaController {
 	private Dispensa dispensa;
@@ -32,22 +33,41 @@ public class TrovaRicettaController {
 	public void svuotaDispensa() {
 		dispensa.svuotaDispensa();
 	}
-	public void trovaRicette(int difficolta){
+	public ArrayList<RicettaBean> trovaRicette(int difficolta){
 		ArrayList<Ricetta> ricetteTrovate= null;
 		try {
 			ricetteTrovate = database.trovaRicetta(dispensa, difficolta);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if(!ricetteTrovate.isEmpty()) {
+		if(ricetteTrovate!=null) {
 			System.out.println("ricette trovate");
-			mostraRicette(ricetteTrovate);
+			//mostraRicette(ricetteTrovate);
+			ArrayList<RicettaBean> ricetteTrovateBean= new ArrayList<RicettaBean>();
+			for(Ricetta r:ricetteTrovate) {
+				RicettaBean ricettaBean=new RicettaBean();
+				ricettaBean.setNome(r.getNome());
+				ricettaBean.setDescrizione(r.getDescrizione());
+				ricettaBean.setDifficolta(r.getDifficolta());
+				ArrayList<AlimentoBean> alimentiTrovatiBean=new ArrayList<AlimentoBean>();
+				ArrayList<Alimento> alimentiTrovati=r.getIngredienti();
+				for(Alimento a:alimentiTrovati) {
+					AlimentoBean alimentoBean= new AlimentoBean();
+					alimentoBean.setNome(a.getNome());
+					alimentiTrovatiBean.add(alimentoBean);
+				}
+				ricettaBean.setIngredienti(alimentiTrovatiBean);
+				ricettaBean.setAutore(r.getAutore());
+				ricettaBean.setQuantita(r.getQuantita());
+			}
+			return ricetteTrovateBean;
 		}
 		else {
 			System.out.println("nessuna ricetta trovata");
+			return null;
 		}
 	}
-	private void mostraRicette(ArrayList<Ricetta> ricette) {
+	/*private void mostraRicette(ArrayList<Ricetta> ricette) {
 		for(Ricetta r: ricette) {
 			System.out.println("nome: "+r.getNome()+"\ndescrizione: "+r.getDescrizione()+"\ndifficolta: "+r.getDifficolta()+"\nautore: "+r.getAutore()+"\nIngredienti: ");
 			for(Alimento a: r.getIngredienti()) {
@@ -58,7 +78,7 @@ public class TrovaRicettaController {
 				System.out.println(s);
 			}
 		}
-	}
+	}*/
 	public ArrayList<AlimentoBean> trovaAlimenti(String nomeAlimento) {
 		ArrayList<Alimento> alimentiTrovati=null;
 		ArrayList<AlimentoBean> alimentiTrovatiBean=null;
