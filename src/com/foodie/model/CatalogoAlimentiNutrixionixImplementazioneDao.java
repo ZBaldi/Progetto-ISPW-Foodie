@@ -73,7 +73,10 @@ public class CatalogoAlimentiNutrixionixImplementazioneDao implements CatalogoAl
             System.out.println("Errore: codice di risposta " + codiceDiRisposta);
             }
             connessione.disconnect();
-            return alimentiTrovati;
+            if(!alimentiTrovati.isEmpty()) {
+            	return alimentiTrovati;
+            }
+            return null;
 		}catch(Exception e) {
 			e.printStackTrace();
 			return null;

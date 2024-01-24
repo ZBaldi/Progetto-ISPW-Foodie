@@ -20,7 +20,8 @@ public class TrovaRicettaController {
 		this.database= CatalogoRicetteImplementazioneDao.ottieniIstanza();
 		this.databaseAlimenti=CatalogoAlimentiNutrixionixImplementazioneDao.ottieniIstanza();
 	}
-	public void aggiornaDispensa(Alimento alimento,int x) {
+	public void aggiornaDispensa(AlimentoBean alimentoBean,int x) {
+		Alimento alimento=new Alimento(alimentoBean.getNome());
 		if(x==0) {
 			dispensa.aggiungiAlimento(alimento);
 		}
@@ -64,13 +65,29 @@ public class TrovaRicettaController {
 		if((alimentiTrovati=databaseAlimenti.trovaAlimenti(nomeAlimento))!=null) {
 			alimentiTrovatiBean=new ArrayList<AlimentoBean>();
 			//mostraAlimenti(alimentiTrovati);
+			for(Alimento a:alimentiTrovati) {
+				AlimentoBean alimentoBean= new AlimentoBean();
+				alimentoBean.setNome(a.getNome());
+				alimentiTrovatiBean.add(alimentoBean);
+			}
+			return alimentiTrovatiBean;
 		}
-		for(Alimento a:alimentiTrovati) {
-			AlimentoBean alimentoBean= new AlimentoBean();
-			alimentoBean.setNome(a.getNome());
-			alimentiTrovatiBean.add(alimentoBean);
+		return null;
+	}
+	public ArrayList<AlimentoBean> mostraDispensa(){
+		ArrayList<Alimento> alimentiInDispensa=dispensa.getAlimenti();
+		if(!alimentiInDispensa.isEmpty()) {
+			ArrayList<AlimentoBean> alimentiInDispensaBean =new ArrayList<AlimentoBean>();
+			for(Alimento a: alimentiInDispensa) {
+				AlimentoBean alimentoBean=new AlimentoBean();
+				alimentoBean.setNome(a.getNome());
+				alimentiInDispensaBean.add(alimentoBean);
+			}
+			return alimentiInDispensaBean;
 		}
-		return alimentiTrovatiBean;
+		else {
+			return null;
+		}
 	}
 	/*private void mostraAlimenti(ArrayList<Alimento> alimenti) {
 		for(Alimento a: alimenti) {

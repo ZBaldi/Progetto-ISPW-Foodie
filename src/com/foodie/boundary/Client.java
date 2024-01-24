@@ -25,6 +25,8 @@ public class Client extends Application {
 			Parent root= loader.load();
 			DispensaUtenteViewController dispensaUtenteViewController= loader.getController();
 			dispensaUtenteViewController.setPrimaryStage(primaryStage);
+			Dispensa dispensa=Dispensa.ottieniIstanza();
+			dispensa.registra(dispensaUtenteViewController);
 			Scene scene= new Scene(root);
 			primaryStage.setScene(scene);
 			primaryStage.show();

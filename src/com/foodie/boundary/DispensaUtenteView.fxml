@@ -21,11 +21,6 @@
                   <Font name="Rockwell" size="42.0" />
                </font>
             </Label>
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="941.0" layoutY="24.0" onMouseClicked="#caricaViewLogin" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../Downloads/usericona.png" />
-               </image>
-            </ImageView>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1024.0" spacing="100.0">
                <children>
                   <Button lineSpacing="10.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Dispensa" textFill="WHITE" underline="true">
@@ -40,11 +35,16 @@
                   </Button>
                </children>
             </HBox>
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="941.0" layoutY="24.0" onMouseClicked="#caricaViewLogin" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../immagini_usate/usericona.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
       <Pane layoutY="100.0" prefHeight="668.0" prefWidth="456.0" style="-fx-background-color: rgba(228, 255, 231, 1); -fx-border-color: #000000; -fx-border-width: 0 1 0 0;">
          <children>
-            <TextField fx:id="barraDiRicerca" layoutX="84.0" layoutY="85.0" onKeyPressed="#trovaAlimenti" prefHeight="26.0" prefWidth="281.0" promptText="banana" style="-fx-padding: 0 0 0 30;" text="inserisci alimento" />
+            <TextField fx:id="barraDiRicerca" layoutX="84.0" layoutY="85.0" onKeyPressed="#gestioneRisultati" prefHeight="26.0" prefWidth="281.0" promptText="inserisci alimento" style="-fx-padding: 0 0 0 30;" />
             <Label alignment="CENTER" layoutX="107.0" layoutY="35.0" text="Aggiungi alimento">
                <font>
                   <Font name="Arial" size="30.0" />
@@ -52,13 +52,13 @@
             </Label>
             <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="90.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../Downloads/lenteingrandimento.png" />
+                  <Image url="@../../../../immagini_usate/lenteingrandimento.png" />
                </image></ImageView>
             <ScrollPane layoutX="84.0" layoutY="127.0" prefHeight="399.0" prefWidth="281.0">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="402.0" prefWidth="282.0">
                      <children>
-                        <VBox fx:id="contenitoreAlimentiTrovati" prefHeight="399.0" prefWidth="281.0" spacing="30.0" style="-fx-background-color: rgba(228, 255, 231, 1);" />
+                        <VBox fx:id="contenitoreAlimentiTrovati" layoutX="-1.0" prefHeight="386.0" prefWidth="268.0" spacing="5.0" style="-fx-background-color: rgba(228, 255, 231, 1);" />
                      </children>
                   </AnchorPane>
               </content>
@@ -91,6 +91,15 @@
                   </Button>
                </children>
             </HBox>
+            <ScrollPane layoutX="72.0" layoutY="105.0" prefHeight="431.0" prefWidth="436.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="436.0" prefWidth="442.0">
+                     <children>
+                        <VBox fx:id="contenitoreDispensa" layoutX="-2.0" layoutY="-2.0" prefHeight="417.0" prefWidth="423.0" spacing="5.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
          </children>
       </Pane>
    </children>
