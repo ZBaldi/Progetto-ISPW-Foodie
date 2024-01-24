@@ -44,7 +44,7 @@
       </Pane>
       <Pane layoutY="100.0" prefHeight="668.0" prefWidth="456.0" style="-fx-background-color: rgba(228, 255, 231, 1); -fx-border-color: #000000; -fx-border-width: 0 1 0 0;">
          <children>
-            <TextField fx:id="barraDiRicerca" layoutX="84.0" layoutY="85.0" onKeyPressed="#trovaAlimenti" prefHeight="26.0" prefWidth="281.0" promptText="banana" style="-fx-padding: 0 0 0 30;" />
+            <TextField fx:id="barraDiRicerca" layoutX="84.0" layoutY="85.0" onKeyPressed="#trovaAlimenti" prefHeight="26.0" prefWidth="281.0" promptText="banana" style="-fx-padding: 0 0 0 30;" text="inserisci alimento" />
             <Label alignment="CENTER" layoutX="107.0" layoutY="35.0" text="Aggiungi alimento">
                <font>
                   <Font name="Arial" size="30.0" />
