@@ -67,7 +67,7 @@
       </Pane>
       <Pane layoutX="456.0" layoutY="100.0" prefHeight="668.0" prefWidth="568.0">
          <children>
-            <Label alignment="CENTER" layoutX="172.0" layoutY="35.0" text="La mia Dispensa">
+            <Label fx:id="labelDispensa" alignment="CENTER" layoutX="118.0" layoutY="34.0" prefHeight="36.0" prefWidth="345.0" text="La mia Dispensa" wrapText="true">
                <font>
                   <Font name="Arial" size="30.0" />
                </font>
@@ -79,7 +79,7 @@
                         <Font size="15.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="145.0" style="-fx-background-radius: 10; -fx-background-color: rgba(97, 194, 107, 1);" text="Modifica Dispensa" textFill="WHITE">
+                  <Button mnemonicParsing="false" onAction="#modificaDispensa" prefHeight="29.0" prefWidth="145.0" style="-fx-background-radius: 10; -fx-background-color: rgba(97, 194, 107, 1);" text="Modifica Dispensa" textFill="WHITE">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>

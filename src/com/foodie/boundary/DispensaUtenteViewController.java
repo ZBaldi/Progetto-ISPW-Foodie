@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -25,6 +26,7 @@ public class DispensaUtenteViewController implements Observer {
 	private TrovaRicettaController controller = new TrovaRicettaController();
 	private ArrayList<AlimentoBean> alimentiBeanTrovati;
 	private ArrayList<AlimentoBean> alimentiBeanDispensa;
+	private boolean bottoneModifica = true;
 	private Stage primaryStage;
 	@FXML
 	private TextField barraDiRicerca;
@@ -32,6 +34,8 @@ public class DispensaUtenteViewController implements Observer {
 	private VBox contenitoreAlimentiTrovati;
 	@FXML
 	private VBox contenitoreDispensa;
+	@FXML
+	private Label labelDispensa;
 	public void setPrimaryStage(Stage primaryStage) {
 		this.primaryStage= primaryStage;
 	}
@@ -125,6 +129,50 @@ public class DispensaUtenteViewController implements Observer {
 				labelAlimento.setFont(Font.font("Arial",20));
 				labelAlimento.setAlignment(Pos.CENTER);
 				contenitoreDispensa.getChildren().add(labelAlimento);
+			}
+			impostaLabel();
+		}
+		if(contenitoreDispensa.getChildren().isEmpty() && bottoneModifica==false) { //PER EVITARE CHE SE LA DISPENSA è VUOTA RIMANGA ATTIVO IL BOTTONE E IL TESTO DELLA LABEL
+			bottoneModifica=true;
+			labelDispensa.setFont(Font.font("Arial",30));//ESEMPIO PREMI MODIFICA CANCELLI L'ULTIMO ELEMENTO DELLA DISPENSA ALLORA SI DEVE DISATTIVARE LA MODIFICA
+			labelDispensa.setText("La mia Dispensa");
+		}
+	}
+	@FXML
+	private void modificaDispensa(ActionEvent e) {
+		if(bottoneModifica==true && !contenitoreDispensa.getChildren().isEmpty()) {
+			bottoneModifica=false;
+			labelDispensa.setFont(Font.font("Arial",20));
+			labelDispensa.setText("CLICCA L'ALIMENTO DA ELIMINARE");
+			impostaLabel();
+		}
+		else if(bottoneModifica==false && !contenitoreDispensa.getChildren().isEmpty()) {
+			bottoneModifica=true;
+			labelDispensa.setFont(Font.font("Arial",30));
+			labelDispensa.setText("La mia Dispensa");
+			impostaLabel();
+		}
+	}
+	private void eliminaAlimento(String nomeAlimento) {
+		AlimentoBean alimentoBean = new AlimentoBean();
+		alimentoBean.setNome(nomeAlimento);
+		controller.aggiornaDispensa(alimentoBean, 1);
+	}
+	private void impostaLabel() {
+		if(bottoneModifica==false) {
+			if(!contenitoreDispensa.getChildren().isEmpty()) {
+				contenitoreDispensa.getChildren().forEach(node->{
+					Label labelAlimento= (Label)node;
+					labelAlimento.setOnMouseClicked(event->{eliminaAlimento(labelAlimento.getText());});
+				});
+			}
+		}
+		else {
+			if(!contenitoreDispensa.getChildren().isEmpty()) {
+				contenitoreDispensa.getChildren().forEach(node->{
+					Label labelAlimento= (Label)node;
+					labelAlimento.setOnMouseClicked(null);
+				});
 			}
 		}
 	}
