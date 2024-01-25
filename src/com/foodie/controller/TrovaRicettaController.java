@@ -37,12 +37,12 @@ public class TrovaRicettaController {
 		ArrayList<Ricetta> ricetteTrovate= null;
 		try {
 			ricetteTrovate = database.trovaRicetta(dispensa, difficolta);
+			System.out.println("ricette trovate");
+			mostraRicette(ricetteTrovate);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		if(ricetteTrovate!=null) {
-			System.out.println("ricette trovate");
-			//mostraRicette(ricetteTrovate);
 			ArrayList<RicettaBean> ricetteTrovateBean= new ArrayList<RicettaBean>();
 			for(Ricetta r:ricetteTrovate) {
 				RicettaBean ricettaBean=new RicettaBean();
@@ -59,6 +59,7 @@ public class TrovaRicettaController {
 				ricettaBean.setIngredienti(alimentiTrovatiBean);
 				ricettaBean.setAutore(r.getAutore());
 				ricettaBean.setQuantita(r.getQuantita());
+				ricetteTrovateBean.add(ricettaBean);
 			}
 			return ricetteTrovateBean;
 		}
@@ -67,7 +68,7 @@ public class TrovaRicettaController {
 			return null;
 		}
 	}
-	/*private void mostraRicette(ArrayList<Ricetta> ricette) {
+	private void mostraRicette(ArrayList<Ricetta> ricette) {
 		for(Ricetta r: ricette) {
 			System.out.println("nome: "+r.getNome()+"\ndescrizione: "+r.getDescrizione()+"\ndifficolta: "+r.getDifficolta()+"\nautore: "+r.getAutore()+"\nIngredienti: ");
 			for(Alimento a: r.getIngredienti()) {
@@ -78,7 +79,7 @@ public class TrovaRicettaController {
 				System.out.println(s);
 			}
 		}
-	}*/
+	}
 	public ArrayList<AlimentoBean> trovaAlimenti(String nomeAlimento) {
 		ArrayList<Alimento> alimentiTrovati=null;
 		ArrayList<AlimentoBean> alimentiTrovatiBean=null;

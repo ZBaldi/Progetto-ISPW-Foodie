@@ -14,16 +14,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import com.foodie.model.*;
 
 public class Client extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+			DispensaUtenteViewController dispensaUtenteViewController= DispensaUtenteViewController.ottieniIstanza();
 			Utente utente= new Standard("pino");
 			FXMLLoader loader= new FXMLLoader(getClass().getResource(utente.getViewIniziale()));
+			loader.setController(dispensaUtenteViewController);
 			Parent root= loader.load();
-			DispensaUtenteViewController dispensaUtenteViewController= loader.getController();
 			dispensaUtenteViewController.setPrimaryStage(primaryStage);
 			Dispensa dispensa=Dispensa.ottieniIstanza();
 			dispensa.registra(dispensaUtenteViewController);

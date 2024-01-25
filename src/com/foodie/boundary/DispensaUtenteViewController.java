@@ -28,7 +28,7 @@ import com.foodie.model.Observer;
 import com.foodie.model.RicettaBean;
 
 public class DispensaUtenteViewController implements Observer {
-	private static DispensaUtenteViewController istanza;
+	private static DispensaUtenteViewController istanza;  //SINGLETON
 	private TrovaRicettaController controller = new TrovaRicettaController();
 	private ArrayList<AlimentoBean> alimentiBeanTrovati;
 	private ArrayList<AlimentoBean> alimentiBeanDispensa;
@@ -42,7 +42,7 @@ public class DispensaUtenteViewController implements Observer {
 	private VBox contenitoreDispensa;
 	@FXML
 	private Label labelDispensa;
-	private DispensaUtenteViewController(){
+	private DispensaUtenteViewController() {
 	}
 	public static DispensaUtenteViewController ottieniIstanza() { //METODO PER OTTENERE L'ISTANZA
 		if(istanza==null) {
@@ -63,8 +63,8 @@ public class DispensaUtenteViewController implements Observer {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("TrovaRicetteView.fxml"));
             Parent root = loader.load();
             TrovaRicetteViewController trovaRicetteViewController=loader.getController();
-            trovaRicetteViewController.setPrimaryStage(primaryStage);
             trovaRicette(trovaRicetteViewController);
+            trovaRicetteViewController.setPrimaryStage(primaryStage);
             Scene nuovaScena = new Scene(root);
             primaryStage.setScene(nuovaScena);
             primaryStage.show();
@@ -76,7 +76,7 @@ public class DispensaUtenteViewController implements Observer {
 		ArrayList<RicettaBean> ricetteTrovate= null;
 		int count=0;
 		VBox contenitoreRicette=trovaRicetteViewController.getContenitoreRicette();
-		for(int i=1;i<4;i++) {
+		for(int i=1;i<2;i++) {
 			ricetteTrovate=controller.trovaRicette(i);
 			if(ricetteTrovate!=null) {
 				for(RicettaBean r: ricetteTrovate) {

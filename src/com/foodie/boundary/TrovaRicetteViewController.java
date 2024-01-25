@@ -38,10 +38,12 @@ public class TrovaRicetteViewController {
 	@FXML
 	private void caricaViewDispensa(ActionEvent event) {
 		try {
+			DispensaUtenteViewController dispensaUtenteViewController = DispensaUtenteViewController.ottieniIstanza();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("DispensaUtenteView.fxml"));
+            loader.setController(dispensaUtenteViewController);
             Parent root = loader.load();
-            DispensaUtenteViewController dispensaUtenteViewController=loader.getController();
             dispensaUtenteViewController.setPrimaryStage(primaryStage);
+            dispensaUtenteViewController.aggiornaView();
             Scene nuovaScena = new Scene(root);
             primaryStage.setScene(nuovaScena);
             primaryStage.show();
