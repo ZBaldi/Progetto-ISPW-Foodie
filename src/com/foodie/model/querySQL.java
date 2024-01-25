@@ -38,7 +38,8 @@ public class querySQL {
 			indice++;
 		}
 		String queryParziale= stringBuilder.toString();
-		String sqlQuery= String.format("SELECT r.nome, r.descrizione, r.difficolta, r.autore, i.alimento, i.quantita FROM Ricette r JOIN Ingredienti i ON r.nome = i.nome_ricetta AND r.autore = i.autore_ricetta WHERE i.alimento IN ( "+queryParziale+")");
+		String sqlQuery=String.format("SELECT r.nome, r.descrizione, r.difficolta, r.autore, i.alimento, i.quantita FROM Ricette r JOIN Ingredienti i ON r.nome = i.nome_ricetta AND r.autore = i.autore_ricetta WHERE r.nome NOT IN ( SELECT nome_ricetta FROM Ingredienti WHERE alimento NOT IN ( "+queryParziale+")) AND r.difficolta = %d",difficolta);
+		//String sqlQuery= String.format("SELECT r.nome, r.descrizione, r.difficolta, r.autore, i.alimento, i.quantita FROM Ricette r JOIN Ingredienti i ON r.nome = i.nome_ricetta AND r.autore = i.autore_ricetta WHERE i.alimento IN ( "+queryParziale+") AND r.difficolta = %d",difficolta);
 		return dichiarazione.executeQuery(sqlQuery);
 	}
 }

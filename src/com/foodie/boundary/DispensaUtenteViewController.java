@@ -60,6 +60,11 @@ public class DispensaUtenteViewController implements Observer {
 	@FXML
 	private void caricaViewTrovaRicetta(ActionEvent event) {
 		try {
+			if(bottoneModifica==false) { //resettare il bottone modifica se attivo
+				bottoneModifica=true;
+				labelDispensa.setFont(Font.font("Arial",30));
+				labelDispensa.setText("La mia Dispensa");
+			}
             FXMLLoader loader = new FXMLLoader(getClass().getResource("TrovaRicetteView.fxml"));
             Parent root = loader.load();
             TrovaRicetteViewController trovaRicetteViewController=loader.getController();
@@ -76,21 +81,22 @@ public class DispensaUtenteViewController implements Observer {
 		ArrayList<RicettaBean> ricetteTrovate= null;
 		int count=0;
 		VBox contenitoreRicette=trovaRicetteViewController.getContenitoreRicette();
-		for(int i=1;i<2;i++) {
+		for(int i=1;i<4;i++) {
 			ricetteTrovate=controller.trovaRicette(i);
 			if(ricetteTrovate!=null) {
 				for(RicettaBean r: ricetteTrovate) {
 					HBox contenitoreRicettaSingola = new HBox();
-					contenitoreRicettaSingola.setStyle("-fx-background-color: white;");
-					contenitoreRicettaSingola.setMinHeight(130);
+					contenitoreRicettaSingola.setAlignment(Pos.CENTER_LEFT);
+					contenitoreRicettaSingola.setStyle("-fx-background-color: rgba(217, 217, 217, 0.75);-fx-border-color: black;");
+					contenitoreRicettaSingola.setMinHeight(110);
 					contenitoreRicettaSingola.setMaxWidth(Double.MAX_VALUE);
 					Label labelNome = new Label(r.getNome());
-					labelNome.setMinWidth(366);
+					labelNome.setMinWidth(313);
 					labelNome.setMinHeight(65);
 					labelNome.setFont(Font.font("Arial",20));
 					labelNome.setAlignment(Pos.CENTER);
 					Label labelAutore = new Label(r.getAutore());
-					labelAutore.setMinWidth(366);
+					labelAutore.setMinWidth(313);
 					labelAutore.setMinHeight(65);
 					labelAutore.setFont(Font.font("Arial",20));
 					labelAutore.setAlignment(Pos.CENTER);
@@ -107,7 +113,7 @@ public class DispensaUtenteViewController implements Observer {
 							break;
 					}
 					Label labelDifficolta = new Label(difficolta);
-					labelDifficolta.setMinWidth(366);
+					labelDifficolta.setMinWidth(313);
 					labelDifficolta.setMinHeight(65);
 					labelDifficolta.setFont(Font.font("Arial",20));
 					labelDifficolta.setAlignment(Pos.CENTER);
@@ -119,9 +125,9 @@ public class DispensaUtenteViewController implements Observer {
 				count++;
 				if(count==3) {
 					Label label=new Label("NESSUN RISULTATO");
-					label.setStyle("-fx-background-color: white;");
+					label.setStyle("-fx-background-color: rgba(217, 217, 217, 0.75);-fx-border-color: black;");
 					label.setMaxWidth(Double.MAX_VALUE);
-					label.setMinHeight(100);
+					label.setMinHeight(110);
 					label.setWrapText(true);
 					label.setFont(Font.font("Arial",50));
 					label.setAlignment(Pos.CENTER);
@@ -133,6 +139,11 @@ public class DispensaUtenteViewController implements Observer {
 	@FXML
 	private void caricaViewLogin(MouseEvent event) {
 		try {
+			if(bottoneModifica==false) { //resettare il bottone modifica se attivo
+				bottoneModifica=true;
+				labelDispensa.setFont(Font.font("Arial",30));
+				labelDispensa.setText("La mia Dispensa");
+			}
             FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
             Parent root = loader.load();
             LoginViewController loginViewController=loader.getController();

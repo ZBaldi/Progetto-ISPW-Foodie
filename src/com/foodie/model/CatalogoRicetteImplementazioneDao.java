@@ -48,6 +48,9 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
 			dichiarazione.close();
 			connessione.close();
 			risultati.close();
+			if(ricetteTrovate.isEmpty()) {
+				return null;
+			}
 			return ricetteTrovate;
 		}finally {
 			if (dichiarazione != null)

@@ -37,12 +37,12 @@ public class TrovaRicettaController {
 		ArrayList<Ricetta> ricetteTrovate= null;
 		try {
 			ricetteTrovate = database.trovaRicetta(dispensa, difficolta);
-			System.out.println("ricette trovate");
-			mostraRicette(ricetteTrovate);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		if(ricetteTrovate!=null) {
+			System.out.println("Ricette Trovate!");
+			mostraRicette(ricetteTrovate);
 			ArrayList<RicettaBean> ricetteTrovateBean= new ArrayList<RicettaBean>();
 			for(Ricetta r:ricetteTrovate) {
 				RicettaBean ricettaBean=new RicettaBean();
@@ -60,7 +60,7 @@ public class TrovaRicettaController {
 				ricettaBean.setAutore(r.getAutore());
 				ricettaBean.setQuantita(r.getQuantita());
 				ricetteTrovateBean.add(ricettaBean);
-			}
+			}	
 			return ricetteTrovateBean;
 		}
 		else {
