@@ -5,6 +5,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -28,7 +29,7 @@
             <Font name="Rockwell" size="130.0" />
          </font>
       </Label>
-      <VBox alignment="TOP_CENTER" layoutX="289.0" layoutY="256.0" prefHeight="268.0" prefWidth="444.0" spacing="10.0" style="-fx-background-color: rgba(255, 255, 255, 0.85);" AnchorPane.bottomAnchor="244.0" AnchorPane.leftAnchor="289.0" AnchorPane.rightAnchor="291.0" AnchorPane.topAnchor="256.0">
+      <VBox alignment="TOP_CENTER" layoutX="289.0" layoutY="256.0" prefHeight="325.0" prefWidth="444.0" spacing="10.0" style="-fx-background-color: rgba(255, 255, 255, 0.85);" AnchorPane.bottomAnchor="187.0" AnchorPane.leftAnchor="289.0" AnchorPane.rightAnchor="291.0" AnchorPane.topAnchor="256.0">
          <rotationAxis>
             <Point3D />
          </rotationAxis>
@@ -40,12 +41,12 @@
             </Label>
             <VBox prefHeight="199.0" prefWidth="444.0" spacing="5.0">
                <children>
-                  <Label text="EMAIL">
+                  <Label text="USERNAME">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField />
+                  <TextField fx:id="usernameTextField" promptText="username" />
                   <Region prefHeight="10.0" prefWidth="458.0" />
                   <Label text="PASSWORD">
                      <cursor>
@@ -55,18 +56,18 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField />
+                  <PasswordField fx:id="enterPasswordField" promptText="password" />
                   <Region prefHeight="17.0" prefWidth="458.0" />
                   <HBox alignment="TOP_CENTER" prefHeight="45.0" prefWidth="364.0" spacing="72.0">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="145.0" style="-fx-background-radius: 10; -fx-background-color: #FFFFFF; -fx-border-color: #000000; -fx-border-radius: 10; -fx-border-style: none; -fx-border-width: 1;" text="REGISTRATI">
+                        <Button fx:id="registratiButton" mnemonicParsing="false" onAction="#registratiButtonOnAction" prefHeight="34.0" prefWidth="145.0" style="-fx-background-radius: 10; -fx-background-color: #FFFFFF; -fx-border-color: #000000; -fx-border-radius: 10; -fx-border-style: none; -fx-border-width: 1;" text="REGISTRATI">
                            <font>
-                              <Font size="15.0" />
+                              <Font name="Arial" size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="145.0" style="-fx-background-radius: 10; -fx-background-color: rgba(97, 194, 107, 1);" text="LOGIN" textFill="WHITE">
+                        <Button fx:id="loginButton" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="34.0" prefWidth="145.0" style="-fx-background-radius: 10; -fx-background-color: rgba(97, 194, 107, 1);" text="LOGIN" textFill="WHITE">
                            <font>
-                              <Font size="15.0" />
+                              <Font name="Arial" size="15.0" />
                            </font>
                         </Button>
                      </children>
@@ -76,6 +77,16 @@
                   <Insets left="40.0" right="40.0" top="10.0" />
                </padding>
             </VBox>
+            <Label fx:id="loginMessageLabel" alignment="CENTER" prefHeight="17.0" prefWidth="366.0" textFill="#ff3535">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="chiudiLabel" text="Chiudi" underline="true">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Label>
          </children>
          <padding>
             <Insets top="10.0" />

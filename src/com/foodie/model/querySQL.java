@@ -42,4 +42,18 @@ public class querySQL {
 		//String sqlQuery= String.format("SELECT r.nome, r.descrizione, r.difficolta, r.autore, i.alimento, i.quantita FROM Ricette r JOIN Ingredienti i ON r.nome = i.nome_ricetta AND r.autore = i.autore_ricetta WHERE i.alimento IN ( "+queryParziale+") AND r.difficolta = %d",difficolta);
 		return dichiarazione.executeQuery(sqlQuery);
 	}
+	public static ResultSet effettuaLogin(Statement dichiarazione, String username, String password) throws SQLException {
+		String sqlQuery=String.format("SELECT count(1) FROM user_account WHERE username = '" + username + "' AND password ='" + password + "'");
+		return dichiarazione.executeQuery(sqlQuery);
+	}
+	public static ResultSet controllaUsername(Statement dichiarazione,String username) throws SQLException {
+		String sqlQuery= String.format("SELECT COUNT(*) FROM user_account WHERE username = '" + username + "'");
+		return dichiarazione.executeQuery(sqlQuery);
+	}
+	public static int registraUtente(Statement dichiarazione, String nome,String cognome,String username,int ruolo,String password) throws SQLException {
+		String insertFields = "INSERT INTO user_account(nome,cognome,username,ruolo,password) VALUES ('";
+    	String insertValues = nome + "','" + cognome + "','" + username + "'," + ruolo + ",'" + password + "');";
+    	String sqlInsert = String.format(insertFields+insertValues);
+    	return dichiarazione.executeUpdate(sqlInsert);
+	}
 }

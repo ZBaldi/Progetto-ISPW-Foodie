@@ -21,7 +21,15 @@ import com.foodie.model.*;
 public class Client extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-			DispensaUtenteViewController dispensaUtenteViewController= DispensaUtenteViewController.ottieniIstanza();
+		FXMLLoader loader= new FXMLLoader(getClass().getResource("LoginView.fxml"));
+		Parent root= loader.load();
+		LoginViewController loginViewController=loader.getController();
+		loginViewController.setPrimaryStage(primaryStage);
+		Scene scene= new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+		
+		/*DispensaUtenteViewController dispensaUtenteViewController= DispensaUtenteViewController.ottieniIstanza();
 			Utente utente= new Standard("pino");
 			FXMLLoader loader= new FXMLLoader(getClass().getResource(utente.getViewIniziale()));
 			loader.setController(dispensaUtenteViewController);
@@ -31,7 +39,7 @@ public class Client extends Application {
 			dispensa.registra(dispensaUtenteViewController);
 			Scene scene= new Scene(root);
 			primaryStage.setScene(scene);
-			primaryStage.show();
+			primaryStage.show();*/
 	}
 
 	public static void main(String[] args) {
@@ -63,4 +71,13 @@ public class Client extends Application {
 			e.printStackTrace();
 		}
 	}*/
+	/* public void switchToRegistratiScene() throws Exception {
+    // Carica la scena di registrazione
+    Parent registratiRoot = FXMLLoader.load(getClass().getResource("RegistratiView.fxml"));
+    registratiScene = new Scene(registratiRoot, 1024, 768);
+
+    // Imposta la scena di registrazione come scena corrente
+    primaryStage.setScene(registratiScene);
+    primaryStage.setTitle("Registrati");
+}*/
 }

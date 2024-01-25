@@ -5,8 +5,9 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -16,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.foodie.boundary.RegistratiViewController">
    <children>
       <ImageView fitHeight="768.0" fitWidth="1024.0" pickOnBounds="true">
          <image>
@@ -29,7 +30,7 @@
             <Font name="Rockwell" size="130.0" />
          </font>
       </Label>
-      <VBox alignment="TOP_CENTER" layoutX="289.0" layoutY="256.0" prefHeight="471.0" prefWidth="444.0" spacing="10.0" style="-fx-background-color: rgba(255, 255, 255, 0.85);" AnchorPane.bottomAnchor="41.0" AnchorPane.leftAnchor="289.0" AnchorPane.rightAnchor="291.0" AnchorPane.topAnchor="256.0">
+      <VBox alignment="TOP_CENTER" layoutX="289.0" layoutY="256.0" prefHeight="490.0" prefWidth="444.0" spacing="10.0" style="-fx-background-color: rgba(255, 255, 255, 0.85);" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="289.0" AnchorPane.rightAnchor="291.0" AnchorPane.topAnchor="256.0">
          <rotationAxis>
             <Point3D />
          </rotationAxis>
@@ -46,7 +47,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField />
+                  <TextField fx:id="nomeTextField" promptText="nome" />
                   <Region prefHeight="10.0" prefWidth="458.0" />
                   <Label text="COGNOME">
                      <cursor>
@@ -56,17 +57,17 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField />
+                  <TextField fx:id="cognomeTextField" promptText="cognome" />
                   <Region prefHeight="10.0" prefWidth="458.0" />
                   <Label text="USERNAME " />
-                  <TextField />
+                  <TextField fx:id="usernameTextField" promptText="username" />
                   <Region prefHeight="10.0" prefWidth="458.0" />
                   <Label text="PASSWORD">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField />
+                  <PasswordField fx:id="setPasswordField" promptText="password" />
                   <Region prefHeight="10.0" prefWidth="458.0" />
                   <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="364.0" spacing="84.0">
                      <children>
@@ -77,24 +78,24 @@
                         </Label>
                         <VBox prefHeight="200.0" prefWidth="160.0">
                            <children>
-                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="46.0">
+                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="54.0">
                                  <children>
                                     <Label text="UTENTE BASE">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <ToggleButton contentDisplay="TOP" mnemonicParsing="false" prefHeight="10.0" prefWidth="26.0" />
+                                    <RadioButton fx:id="baseRadioButton" mnemonicParsing="false" />
                                  </children>
                               </HBox>
-                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="99.0">
+                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="107.0">
                                  <children>
                                     <Label text="CHEF">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <ToggleButton contentDisplay="TOP" mnemonicParsing="false" prefHeight="10.0" prefWidth="26.0" />
+                                    <RadioButton fx:id="chefRadioButton" mnemonicParsing="false" />
                                  </children>
                               </HBox>
                            </children>
@@ -103,12 +104,12 @@
                   </HBox>
                   <HBox alignment="TOP_CENTER" prefHeight="45.0" prefWidth="364.0" spacing="72.0">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="145.0" style="-fx-background-radius: 10; -fx-background-color: #FFFFFF; -fx-border-color: #000000; -fx-border-radius: 10; -fx-border-style: none; -fx-border-width: 1;" text="INDIETRO">
+                        <Button fx:id="indietroButton" mnemonicParsing="false" onAction="#indietroButtonOnAction" prefHeight="34.0" prefWidth="145.0" style="-fx-background-radius: 10; -fx-background-color: #FFFFFF; -fx-border-color: #000000; -fx-border-radius: 10; -fx-border-style: none; -fx-border-width: 1;" text="INDIETRO">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="145.0" style="-fx-background-radius: 10; -fx-background-color: rgba(97, 194, 107, 1);" text="REGISTRATI" textFill="WHITE">
+                        <Button fx:id="registratiButton" mnemonicParsing="false" onAction="#registratiButtonOnAction" prefHeight="34.0" prefWidth="145.0" style="-fx-background-radius: 10; -fx-background-color: rgba(97, 194, 107, 1);" text="REGISTRATI" textFill="WHITE">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -120,6 +121,11 @@
                   <Insets left="40.0" right="40.0" top="10.0" />
                </padding>
             </VBox>
+            <Label fx:id="esitoRegistrazioneLabel" alignment="CENTER" prefHeight="17.0" prefWidth="248.0" textFill="#ff3939">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font>
+            </Label>
          </children>
          <padding>
             <Insets top="10.0" />
