@@ -18,9 +18,8 @@ public class PubblicaRicettaController {
 		this.database= CatalogoRicetteImplementazioneDao.ottieniIstanza();
 		this.databaseAlimenti=CatalogoAlimentiNutrixionixImplementazioneDao.ottieniIstanza();
 	}
-	public RicettaBean creaRicetta() {
+	public void creaRicetta() {
 		ricetta=new Ricetta();
-		return new RicettaBean();  //MANDO ALLA BOUNDARY L'ISTANZA DEL BEAN PER COMPILARLO
 	}
 	public void compilaRicetta(RicettaBean ricettaBean) {
 		ricetta.setNome(ricettaBean.getNome());
@@ -31,17 +30,17 @@ public class PubblicaRicettaController {
 	public void trovaAlimenti(String nomeAlimento) {
 		ArrayList<Alimento> alimentiTrovati;
 		if((alimentiTrovati=databaseAlimenti.trovaAlimenti(nomeAlimento))!=null) {
-			mostraAlimenti(alimentiTrovati);
+			//mostraAlimenti(alimentiTrovati);
 		}	
 	}
-	private void mostraAlimenti(ArrayList<Alimento> alimenti) {
+	/*private void mostraAlimenti(ArrayList<Alimento> alimenti) {
 		for(Alimento a: alimenti) {
 			System.out.println(a.getNome());
 		}
 		alimenti.clear();   //si occupa di consigliare al garbage collector di rimuovere le istanze non necessarie
 		alimenti.trimToSize();  //ovviamente tra queste ci sono tutti gli alimenti non selezionati
 		System.gc();
-	}
+	}*/
 	public void aggiungiIngredientiRicetta(Alimento alimento,String quantita,int x) {  //CHIAMATO DOPO AVER SELEZIONATO L'ALIMENTO
 		if(x==0) {
 			ricetta.aggiungiIngrediente(alimento, quantita);
