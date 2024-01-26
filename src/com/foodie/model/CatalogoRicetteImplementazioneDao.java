@@ -126,4 +126,42 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
 		aggiungiRicetta(ricetta);
 		System.out.println("ricetta aggiornata!");
 	}
+	public Ricetta ottieniDatiRicetta(String nome,String autore) throws Exception {
+		Statement dichiarazione=null;
+		Connection connessione=null;
+		ResultSet risultati=null;
+		Ricetta ricetta= new Ricetta();
+		try {
+			Class.forName(driverMySql);
+			connessione= DriverManager.getConnection(databaseUrl, utente,password);
+			dichiarazione = connessione.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			risultati= querySQL.ottieniRicetta(dichiarazione, nome ,autore);
+			while(risultati.next()) {
+		        String nomeRicetta = risultati.getString("nome");
+		        String descrizione = risultati.getString("descrizione");
+		        int difficoltaRicetta = risultati.getInt("difficolta");
+		        String autoreRicetta = risultati.getString("autore");
+		        ricetta.setNome(nomeRicetta);
+		        ricetta.setDescrizione(descrizione);
+		        ricetta.setDifficolta(difficoltaRicetta);
+		        ricetta.setAutore(autoreRicetta);
+		        do {
+		            String alimento = risultati.getString("alimento");
+		            String quantita = risultati.getString("quantita");
+		            ricetta.aggiungiIngrediente(new Alimento(alimento), quantita);
+		        } while (risultati.next());
+		    }
+			dichiarazione.close();
+			connessione.close();
+			risultati.close();
+			return ricetta;
+		}finally {
+			if (dichiarazione != null)
+                dichiarazione.close();
+            if (connessione != null)
+                connessione.close();
+            if (risultati != null)
+                connessione.close();
+		}
+	}
 }

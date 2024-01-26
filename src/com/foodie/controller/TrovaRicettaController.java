@@ -110,6 +110,29 @@ public class TrovaRicettaController {
 			return null;
 		}
 	}
+	public RicettaBean ottieniRicetta(String nome,String autore) {
+		Ricetta r=null;
+		try {
+			r=database.ottieniDatiRicetta(nome,autore);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		RicettaBean ricettaBean=new RicettaBean();
+		ricettaBean.setNome(r.getNome());
+		ricettaBean.setDescrizione(r.getDescrizione());
+		ricettaBean.setDifficolta(r.getDifficolta());
+		ArrayList<AlimentoBean> alimentiTrovatiBean=new ArrayList<AlimentoBean>();
+		ArrayList<Alimento> alimentiTrovati=r.getIngredienti();
+		for(Alimento a:alimentiTrovati) {
+			AlimentoBean alimentoBean= new AlimentoBean();
+			alimentoBean.setNome(a.getNome());
+			alimentiTrovatiBean.add(alimentoBean);
+		}
+		ricettaBean.setIngredienti(alimentiTrovatiBean);
+		ricettaBean.setAutore(r.getAutore());
+		ricettaBean.setQuantita(r.getQuantita());
+		return ricettaBean;
+	}
 	/*private void mostraAlimenti(ArrayList<Alimento> alimenti) {
 		for(Alimento a: alimenti) {
 			System.out.println(a.getNome());

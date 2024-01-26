@@ -11,6 +11,8 @@ public class Ricetta {
 	private String autore;
 	private ArrayList<String> quantita;
 	public Ricetta() {
+		this.ingredienti= new ArrayList<Alimento>();
+		this.quantita=new ArrayList<String>();
 	}
 	public Ricetta(String nome, String descrizione, int difficolta, ArrayList<Alimento> ingredienti, String autore, ArrayList<String> quantita){
 		this.nome=nome;

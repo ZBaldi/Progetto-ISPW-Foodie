@@ -72,4 +72,9 @@ public class CatalogoRicetteChefImplementazioneDao implements CatalogoRicetteChe
 		// TODO Auto-generated method stub
 		
 	}	*/
+	@Override
+	public Ricetta ottieniDatiRicetta(String nome, String autore) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -7,4 +7,5 @@ public interface CatalogoRicetteChefDao{
 	public void aggiungiRicetta(Ricetta ricetta) throws Exception;
 	public void eliminaRicetta(Ricetta ricetta) throws Exception;
 	public void aggiornaRicetta(Ricetta ricetta) throws Exception;
+	public Ricetta ottieniDatiRicetta(String nome,String autore) throws Exception;
 }

@@ -120,6 +120,27 @@ public class DispensaUtenteViewController implements Observer {
 					contenitoreRicettaSingola.getChildren().addAll(labelNome,labelAutore,labelDifficolta);
 					contenitoreRicette.getChildren().add(contenitoreRicettaSingola);
 				}
+				contenitoreRicette.getChildren().forEach(node -> {
+			        HBox contenitoreRicetta = (HBox) node;
+			        contenitoreRicetta.setOnMouseClicked(event -> {
+			            String nomeRicetta="";
+			            String autoreRicetta="";
+			            String difficoltaRicetta="";
+			            int indiceLabel=1;
+			            for (Node labelNode : contenitoreRicetta.getChildren()) {	        
+			                    Label label = (Label) labelNode;
+			                    if(indiceLabel==1)
+			                    	nomeRicetta=label.getText();
+			                    else if(indiceLabel==2)
+			                    	autoreRicetta=label.getText();
+			                    else {
+			                    	difficoltaRicetta=label.getText();
+			                    }
+			                    indiceLabel++;
+			            }
+			            trovaRicetteViewController.caricaViewRicetta(nomeRicetta, autoreRicetta, difficoltaRicetta);
+			        });
+			    });
 			}
 			else{
 				count++;
@@ -138,6 +159,7 @@ public class DispensaUtenteViewController implements Observer {
 	}
 	@FXML
 	private void caricaViewLogin(MouseEvent event) {
+		controller.svuotaDispensa();
 		try {
 			if(bottoneModifica==false) { //resettare il bottone modifica se attivo
 				bottoneModifica=true;
@@ -189,6 +211,7 @@ public class DispensaUtenteViewController implements Observer {
 				label.setAlignment(Pos.CENTER);
 				contenitoreAlimentiTrovati.getChildren().add(label);
 			}
+			
 	}
 	private void salvaAlimento(String nomeAlimento) {
 		AlimentoBean alimentoBean = new AlimentoBean();

@@ -42,6 +42,10 @@ public class querySQL {
 		//String sqlQuery= String.format("SELECT r.nome, r.descrizione, r.difficolta, r.autore, i.alimento, i.quantita FROM Ricette r JOIN Ingredienti i ON r.nome = i.nome_ricetta AND r.autore = i.autore_ricetta WHERE i.alimento IN ( "+queryParziale+") AND r.difficolta = %d",difficolta);
 		return dichiarazione.executeQuery(sqlQuery);
 	}
+	public static ResultSet ottieniRicetta(Statement dichiarazione,String nome,String autore) throws SQLException {
+		String sqlQuery=String.format("SELECT a.nome, a.autore, a.descrizione, a.difficolta, b.alimento, b.quantita FROM ricette a LEFT JOIN ingredienti b ON a.nome = b.nome_ricetta AND a.autore = b.autore_ricetta WHERE a.nome = '%s' AND a.autore = '%s'",nome,autore);
+		return dichiarazione.executeQuery(sqlQuery);
+	}
 	public static ResultSet effettuaLogin(Statement dichiarazione, String username, String password) throws SQLException {
 		String sqlQuery=String.format("SELECT count(1) FROM user_account WHERE username = '" + username + "' AND password ='" + password + "'");
 		return dichiarazione.executeQuery(sqlQuery);

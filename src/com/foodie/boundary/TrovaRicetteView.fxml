@@ -48,9 +48,9 @@
          <children>
             <MenuButton layoutX="793.0" layoutY="35.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="193.0" style="-fx-background-radius: 10; -fx-background-color: #FFFFFF; -fx-border-color: #000000; -fx-border-radius: 10;" text="Filtra per difficoltà">
               <items>
-                <MenuItem mnemonicParsing="false" text="Facile" />
-                <MenuItem mnemonicParsing="false" text="Media" />
-                  <MenuItem mnemonicParsing="false" text="Difficile" />
+                <MenuItem fx:id="facile" mnemonicParsing="false" onAction="#filtraRicette" text="Facile" />
+                <MenuItem fx:id="media" mnemonicParsing="false" onAction="#filtraRicette" text="Media" />
+                  <MenuItem fx:id="difficile" mnemonicParsing="false" onAction="#filtraRicette" text="Difficile" />
               </items>
                <font>
                   <Font name="Arial" size="15.0" />
@@ -63,9 +63,9 @@
             </Label>
             <ScrollPane fitToWidth="true" layoutX="35.0" layoutY="100.0" prefHeight="532.0" prefWidth="965.0">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="531.0" prefWidth="956.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="531.0" prefWidth="956.0" style="-fx-background-color: rgba(228, 255, 231, 1);">
                      <children>
-                        <VBox fx:id="contenitoreRicette" layoutX="1.0" layoutY="-2.0" prefHeight="532.0" prefWidth="955.0" spacing="5.0" style="-fx-background-color: rgba(228, 255, 231, 1);" />
+                        <VBox fx:id="contenitoreRicette" layoutX="3.0" layoutY="4.0" prefHeight="522.0" prefWidth="944.0" spacing="5.0" style="-fx-background-color: rgba(228, 255, 231, 1);" />
                      </children>
                   </AnchorPane>
               </content>
