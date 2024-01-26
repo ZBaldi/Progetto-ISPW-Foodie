@@ -26,7 +26,7 @@
                   </Label>
                   <Group>
                      <children>
-                        <TextField prefHeight="26.0" prefWidth="281.0" style="-fx-padding: 0 0 0 30;" text="ingrediente da cercare">
+                        <TextField prefHeight="26.0" prefWidth="281.0" promptText="ingrediente da cercare" style="-fx-padding: 0 0 0 30;">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font>
@@ -68,7 +68,7 @@
       </Pane>
       <Pane prefHeight="100.0" prefWidth="1024.0" style="-fx-background-color: rgba(97, 194, 107, 1);">
          <children>
-            <Label layoutX="35.0" layoutY="28.0" text="Foodie" textFill="#fffefe">
+            <Label layoutX="35.0" layoutY="29.0" text="Foodie" textFill="#fffefe">
                <font>
                   <Font name="Rockwell" size="30.0" />
                </font>

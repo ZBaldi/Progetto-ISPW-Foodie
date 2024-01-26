@@ -12,10 +12,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
-import java.io.IOException;
 
 import com.foodie.controller.LoginController;
-import com.foodie.model.Dispensa;
 
 public class LoginViewController {
 	
@@ -33,7 +31,6 @@ public class LoginViewController {
 	private Label chiudiLabel;
 	private Stage primaryStage;
 	private LoginController controller =new LoginController();
-	private DispensaUtenteViewController controllerDispensa =DispensaUtenteViewController.ottieniIstanza();
 	@FXML
     private void initialize() {
         chiudiLabel.setOnMouseClicked(event -> closeApplication());
@@ -62,35 +59,8 @@ public class LoginViewController {
 	public void validazioneLogin() {
 		String username=usernameTextField.getText();
 		String password=enterPasswordField.getText();
-		int tipo=controller.effettuaLogin(username, password);
-		String ruolo;
-		if(tipo!= -1) {
-			if(tipo==0) {
-				ruolo="Standard";		
-			}
-			else {
-				ruolo="Chef";
-			}
-			controller.setUtente(username, ruolo);
-			FXMLLoader loader= new FXMLLoader(getClass().getResource(controller.ottieniView()));
-			if(ruolo.equals("Standard")) {
-				loader.setController(controllerDispensa);
-				Parent root;
-				try {
-					root = loader.load();
-					controllerDispensa.setPrimaryStage(primaryStage);
-					Dispensa dispensa=Dispensa.ottieniIstanza(); //SICURAMENTE L'OSSERVATORE SI AGGIUNGERA NEL CLIENT
-					dispensa.registra(controllerDispensa);//QUESTO
-					Scene scene= new Scene(root);
-					primaryStage.setScene(scene);
-					primaryStage.show();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			else {
-				loginMessageLabel.setText("chef da fare");
-			}
+		if(controller.effettuaLogin(username, password)==1) {
+			loginMessageLabel.setText("daje");
 		}
 		else {
 			loginMessageLabel.setText("credenziali errate. Se non hai ancora un account, registrati.");

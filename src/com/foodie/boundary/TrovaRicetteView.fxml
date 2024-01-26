@@ -18,9 +18,9 @@
    <children>
       <Pane prefHeight="100.0" prefWidth="1024.0" style="-fx-background-color: rgba(97, 194, 107, 1);">
          <children>
-            <Label layoutX="35.0" layoutY="19.0" text="Foodie" textFill="#fffefe">
+            <Label layoutX="35.0" layoutY="29.0" text="Foodie" textFill="#fffefe">
                <font>
-                  <Font name="Rockwell" size="42.0" />
+                  <Font name="Rockwell" size="30.0" />
                </font>
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1024.0" spacing="100.0">
@@ -37,7 +37,7 @@
                   </Button>
                </children>
             </HBox>
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="937.0" layoutY="24.0" onMouseClicked="#caricaViewLogin" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="941.0" layoutY="24.0" onMouseClicked="#caricaViewLogin" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../immagini_usate/usericona.png" />
                </image>
@@ -46,11 +46,11 @@
       </Pane>
       <Pane layoutY="100.0" prefHeight="668.0" prefWidth="1024.0" style="-fx-background-color: rgba(228, 255, 231, 1);">
          <children>
-            <MenuButton layoutX="791.0" layoutY="35.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="193.0" style="-fx-background-radius: 10; -fx-background-color: #FFFFFF; -fx-border-color: #000000; -fx-border-radius: 10;" text="Filtra per difficoltà">
+            <MenuButton layoutX="793.0" layoutY="35.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="193.0" style="-fx-background-radius: 10; -fx-background-color: #FFFFFF; -fx-border-color: #000000; -fx-border-radius: 10;" text="Filtra per difficoltà">
               <items>
-                <MenuItem fx:id="facile" mnemonicParsing="false" onAction="#filtraRicette" text="Facile" />
-                <MenuItem fx:id="media" mnemonicParsing="false" onAction="#filtraRicette" text="Media" />
-                  <MenuItem fx:id="difficile" mnemonicParsing="false" onAction="#filtraRicette" text="Difficile" />
+                <MenuItem mnemonicParsing="false" text="Facile" />
+                <MenuItem mnemonicParsing="false" text="Media" />
+                  <MenuItem mnemonicParsing="false" text="Difficile" />
               </items>
                <font>
                   <Font name="Arial" size="15.0" />
@@ -61,11 +61,11 @@
                   <Font name="Arial" size="30.0" />
                </font>
             </Label>
-            <ScrollPane fitToWidth="true" layoutX="35.0" layoutY="100.0" prefHeight="532.0" prefWidth="958.0">
+            <ScrollPane fitToWidth="true" layoutX="35.0" layoutY="100.0" prefHeight="532.0" prefWidth="965.0">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="531.0" prefWidth="956.0">
                      <children>
-                        <VBox fx:id="contenitoreRicette" layoutX="1.0" layoutY="-2.0" prefHeight="532.0" prefWidth="940.0" spacing="5.0" style="-fx-background-color: rgba(228, 255, 231, 1);" />
+                        <VBox fx:id="contenitoreRicette" layoutX="1.0" layoutY="-2.0" prefHeight="532.0" prefWidth="955.0" spacing="5.0" style="-fx-background-color: rgba(228, 255, 231, 1);" />
                      </children>
                   </AnchorPane>
               </content>

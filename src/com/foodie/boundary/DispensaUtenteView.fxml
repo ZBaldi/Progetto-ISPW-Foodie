@@ -16,21 +16,21 @@
    <children>
       <Pane prefHeight="100.0" prefWidth="1024.0" style="-fx-background-color: rgba(97, 194, 107, 1);">
          <children>
-            <Label layoutX="35.0" layoutY="19.0" text="Foodie" textFill="#fffefe">
+            <Label layoutX="35.0" layoutY="29.0" text="Foodie" textFill="#fffefe">
                <font>
-                  <Font name="Rockwell" size="42.0" />
+                  <Font name="Rockwell" size="30.0" />
                </font>
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1024.0" spacing="100.0">
                <children>
                   <Button lineSpacing="10.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Dispensa" textFill="WHITE" underline="true">
                      <font>
-                        <Font name="Arial Bold" size="26.0" />
+                        <Font name="Arial" size="26.0" />
                      </font>
                   </Button>
                   <Button lineSpacing="10.0" mnemonicParsing="false" onAction="#caricaViewTrovaRicetta" style="-fx-background-color: transparent;" text="Trova Ricetta" textFill="WHITE">
                      <font>
-                        <Font name="Arial Bold" size="26.0" />
+                        <Font name="Arial" size="26.0" />
                      </font>
                   </Button>
                </children>

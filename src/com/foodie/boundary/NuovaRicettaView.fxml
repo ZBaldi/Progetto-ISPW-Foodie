@@ -16,7 +16,7 @@
    <children>
       <Pane prefHeight="100.0" prefWidth="1024.0" style="-fx-background-color: rgba(97, 194, 107, 1);">
          <children>
-            <Label layoutX="35.0" layoutY="28.0" text="Foodie" textFill="#fffefe">
+            <Label layoutX="35.0" layoutY="29.0" text="Foodie" textFill="#fffefe">
                <font>
                   <Font name="Rockwell" size="30.0" />
                </font>
@@ -63,7 +63,7 @@
                   <Font size="15.0" />
                </font>
             </Button>
-            <Pane layoutX="403.0" layoutY="91.0" prefHeight="449.0" prefWidth="570.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: black; -fx-border-radius: 10;">
+            <Pane layoutX="403.0" layoutY="91.0" prefHeight="449.0" prefWidth="581.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: black; -fx-border-radius: 10;">
                <opaqueInsets>
                   <Insets right="50.0" />
                </opaqueInsets>
