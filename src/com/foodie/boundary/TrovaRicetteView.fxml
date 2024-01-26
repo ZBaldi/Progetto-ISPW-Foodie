@@ -48,9 +48,9 @@
          <children>
             <MenuButton layoutX="791.0" layoutY="35.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="193.0" style="-fx-background-radius: 10; -fx-background-color: #FFFFFF; -fx-border-color: #000000; -fx-border-radius: 10;" text="Filtra per difficoltà">
               <items>
-                <MenuItem mnemonicParsing="false" text="Facile" />
-                <MenuItem mnemonicParsing="false" text="Media" />
-                  <MenuItem mnemonicParsing="false" text="Difficile" />
+                <MenuItem fx:id="facile" mnemonicParsing="false" onAction="#filtraRicette" text="Facile" />
+                <MenuItem fx:id="media" mnemonicParsing="false" onAction="#filtraRicette" text="Media" />
+                  <MenuItem fx:id="difficile" mnemonicParsing="false" onAction="#filtraRicette" text="Difficile" />
               </items>
                <font>
                   <Font name="Arial" size="15.0" />

@@ -29,7 +29,7 @@ public class LoginController {
 			return database.validazioneLogin(username, pwd);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return 0;
+			return -1;
 		}
 	}
 	public int controllaUsername(String username) {

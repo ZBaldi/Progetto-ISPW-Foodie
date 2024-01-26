@@ -12,7 +12,7 @@ public class Chef implements Utente{
 	}
 	@Override
 	public String getViewIniziale() {
-		return null;
+		return "ChefAreaPersonaleView.fxml";
 	}
 	public void setNickname(String nickname) {
 		this.nickname=nickname;

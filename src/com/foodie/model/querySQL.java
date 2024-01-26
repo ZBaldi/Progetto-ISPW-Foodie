@@ -56,4 +56,8 @@ public class querySQL {
     	String sqlInsert = String.format(insertFields+insertValues);
     	return dichiarazione.executeUpdate(sqlInsert);
 	}
+	public static ResultSet controllaTipo(Statement dichiarazione, String username) throws SQLException {
+		String sqlQuery= String.format("SELECT ruolo FROM user_account WHERE username = '"+username+"' ");
+		return dichiarazione.executeQuery(sqlQuery);
+	}
 }

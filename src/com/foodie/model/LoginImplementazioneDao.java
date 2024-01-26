@@ -33,15 +33,26 @@ public class LoginImplementazioneDao implements LoginDao{
             while(risultati.next()) {
 				if(risultati.getInt(1) == 1) {
 					risultati.close();
-		            dichiarazione.close();
-		            connessione.close();
-					return 1;	
+					risultati=querySQL.controllaTipo(dichiarazione, username);
+					while(risultati.next()) {
+						int tipo= risultati.getInt(1);
+						if(tipo == 0) {
+							System.out.println("utente base");
+						}
+						else {
+							System.out.println("utente chef");
+						}
+						risultati.close();
+						dichiarazione.close();
+						connessione.close();
+						return tipo;
+					}
 				}
             }
             risultati.close();
             dichiarazione.close();
             connessione.close();
-            return 0;
+            return -1;
         } finally {       	
                 if(dichiarazione != null)
                     dichiarazione.close();

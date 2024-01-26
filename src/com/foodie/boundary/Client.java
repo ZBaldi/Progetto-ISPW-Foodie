@@ -71,13 +71,4 @@ public class Client extends Application {
 			e.printStackTrace();
 		}
 	}*/
-	/* public void switchToRegistratiScene() throws Exception {
-    // Carica la scena di registrazione
-    Parent registratiRoot = FXMLLoader.load(getClass().getResource("RegistratiView.fxml"));
-    registratiScene = new Scene(registratiRoot, 1024, 768);
-
-    // Imposta la scena di registrazione come scena corrente
-    primaryStage.setScene(registratiScene);
-    primaryStage.setTitle("Registrati");
-}*/
 }
