@@ -1,5 +1,6 @@
 package com.foodie.boundary;
 
+import java.io.IOException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -16,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
@@ -27,11 +29,11 @@ public class NuovaRicettaViewController {
 	private PubblicaRicettaController controller=PubblicaRicettaController.ottieniIstanza();
 	private Stage primaryStage;
 	@FXML
-	private ToggleButton facile;
+	private RadioButton facile;
 	@FXML
-	private ToggleButton medio;
+	private RadioButton medio;
 	@FXML
-	private ToggleButton difficile;
+	private RadioButton difficile;
 	@FXML
 	private TextField nome;
 	@FXML
@@ -55,12 +57,15 @@ public class NuovaRicettaViewController {
 		switch(diff) {
 		case 1:
 				facile.setSelected(true);
+				disabilitaPulsanti(null);
 				break;
 		case 2:
 				medio.setSelected(true);
+				disabilitaPulsanti(null);
 				break;
 		case 3:
 				difficile.setSelected(true);
+				disabilitaPulsanti(null);
 				break;
 		}
 	}
@@ -87,7 +92,7 @@ public class NuovaRicettaViewController {
 		if(descrizione.getText()!=null) {
 			inserisciIngredienteViewController.setDescrizione(descrizione.getText());
 		}
-		/*if(facile.isSelected()) {
+		if(facile.isSelected()) {
 			inserisciIngredienteViewController.setDifficolta(1);
 		}
 		else if(medio.isSelected()) {
@@ -95,7 +100,7 @@ public class NuovaRicettaViewController {
 		}
 		else if(difficile.isSelected()) {
 			inserisciIngredienteViewController.setDifficolta(3);
-		}*/
+		}
 		try {
 			inserisciIngredienteViewController = InserisciIngredienteViewController.ottieniIstanza();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("InserisciIngredienteView.fxml"));
@@ -121,17 +126,20 @@ public class NuovaRicettaViewController {
 		}
 		else {
 			nome.setPromptText("INSERISCI NOME");
-			ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+			 // Creazione di un oggetto ScheduledExecutorService
+	        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
 	        // Creare una task da eseguire dopo 2 secondi
 	        Runnable task = () -> {
-	            nome.setPromptText("Nome Ricetta");
+	            // Codice da eseguire dopo 2 secondi
+	            Platform.runLater(() -> nome.setPromptText("Nome Ricetta"));
 	        };
+
 	        // Programmare la task per essere eseguita dopo 2 secondi
 	        scheduler.schedule(task, 2, TimeUnit.SECONDS);
+
 	        // Chiudere il thread scheduler dopo l'esecuzione della task
-	        scheduler.shutdown();	
-	        return;
+	        scheduler.shutdown();
 		}
 		ricettaBean.setNome(nome.getText());
 		testo = descrizione.getText().trim();
@@ -140,14 +148,18 @@ public class NuovaRicettaViewController {
 		}
 		else {
 			descrizione.setPromptText("INSERISCI DESCRIZIONE");
-			ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+			 // Creazione di un oggetto ScheduledExecutorService
+	        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
 	        // Creare una task da eseguire dopo 2 secondi
 	        Runnable task = () -> {
-	            descrizione.setPromptText("Descrizione");
+	            // Codice da eseguire dopo 2 secondi
+	            Platform.runLater(() -> descrizione.setPromptText("Descrizione"));
 	        };
+
 	        // Programmare la task per essere eseguita dopo 2 secondi
 	        scheduler.schedule(task, 2, TimeUnit.SECONDS);
+
 	        // Chiudere il thread scheduler dopo l'esecuzione della task
 	        scheduler.shutdown();	
 	        return;
@@ -164,14 +176,18 @@ public class NuovaRicettaViewController {
 		}
 		else {
 			pubblica.setText("DIFFICOLTA?");
-			ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+			 // Creazione di un oggetto ScheduledExecutorService
+	        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
 	        // Creare una task da eseguire dopo 2 secondi
 	        Runnable task = () -> {
-	            pubblica.setText("Pubblica");
+	            // Codice da eseguire dopo 2 secondi
+	            Platform.runLater(() -> pubblica.setText("Pubblica"));
 	        };
+
 	        // Programmare la task per essere eseguita dopo 2 secondi
 	        scheduler.schedule(task, 2, TimeUnit.SECONDS);
+
 	        // Chiudere il thread scheduler dopo l'esecuzione della task
 	        scheduler.shutdown();	
 	        return;
@@ -179,21 +195,42 @@ public class NuovaRicettaViewController {
 		ricettaBean.setDifficolta(diff);
 		ricettaBean.setAutore("NOME CHEF DA FARE");
 		VBox ingredienti= InserisciIngredienteViewController.ottieniIstanza().getContenitoreIngredienti();
-		if(!ingredienti.getChildrenUnmodifiable().isEmpty()) {
-			controller.compilaRicetta(ricettaBean);
+        if(ingredienti!=null && !(ingredienti.getChildren().isEmpty())) { 
+        		controller.compilaRicetta(ricettaBean);
 		}
 		else {
 			pubblica.setText("INGREDIENTI?");
-			ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+			 // Creazione di un oggetto ScheduledExecutorService
+	        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
 	        // Creare una task da eseguire dopo 2 secondi
 	        Runnable task = () -> {
-	            pubblica.setText("Pubblica");
+	            // Codice da eseguire dopo 2 secondi
+	            Platform.runLater(() -> pubblica.setText("Pubblica"));
 	        };
+
 	        // Programmare la task per essere eseguita dopo 2 secondi
 	        scheduler.schedule(task, 2, TimeUnit.SECONDS);
+
 	        // Chiudere il thread scheduler dopo l'esecuzione della task
 	        scheduler.shutdown();	
+		}
+	}
+	@FXML
+	private void disabilitaPulsanti(ActionEvent event) {
+		if (facile.isSelected()) {
+		    medio.setDisable(true);
+		    difficile.setDisable(true);
+		} else if (medio.isSelected()) {
+		    facile.setDisable(true);
+		    difficile.setDisable(true);
+		} else if (difficile.isSelected()) {
+		    medio.setDisable(true);
+		    facile.setDisable(true);
+		} else {
+		    medio.setDisable(false);
+		    difficile.setDisable(false);
+		    facile.setDisable(false);
 		}
 	}
 }

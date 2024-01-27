@@ -205,7 +205,7 @@ public class InserisciIngredienteViewController implements Observer{
 		else if(bottoneModifica==false && !contenitoreIngredienti.getChildren().isEmpty()) {
 			bottoneModifica=true;
 			labelIngredienti.setFont(Font.font("Arial",30));
-			labelIngredienti.setText("La mia Dispensa");
+			labelIngredienti.setText("Ingredienti");
 			impostaLabel();
 		}
 	}

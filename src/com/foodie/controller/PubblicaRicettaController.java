@@ -38,6 +38,7 @@ public class PubblicaRicettaController {
 		ricetta.setDescrizione(ricettaBean.getDescrizione());
 		ricetta.setDifficolta(ricettaBean.getDifficolta());
 		ricetta.setAutore(ricettaBean.getAutore());
+		System.out.println("ricetta compilata");
 	}
 	/*public void trovaAlimenti(String nomeAlimento) {  GIA FATTO NEL TROVA RICETTA CONTROLLER
 		ArrayList<Alimento> alimentiTrovati;
