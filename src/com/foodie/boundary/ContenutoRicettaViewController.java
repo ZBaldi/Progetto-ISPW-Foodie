@@ -40,7 +40,6 @@ public class ContenutoRicettaViewController {
             e.printStackTrace(); 
         }
 	}
-	// Event Listener on ImageView.onMouseClicked
 	@FXML
 	public void caricaViewLogin(MouseEvent event) {
 		TrovaRicettaController trovaRicettaController= new TrovaRicettaController();

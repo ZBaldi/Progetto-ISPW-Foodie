@@ -2,7 +2,9 @@ package com.foodie.controller;
 
 import java.util.ArrayList;
 
+import com.foodie.boundary.InserisciIngredienteViewController;
 import com.foodie.model.Alimento;
+import com.foodie.model.AlimentoBean;
 import com.foodie.model.CatalogoAlimentiDao;
 import com.foodie.model.CatalogoAlimentiNutrixionixImplementazioneDao;
 import com.foodie.model.CatalogoRicetteChefDao;
@@ -11,15 +13,25 @@ import com.foodie.model.Ricetta;
 import com.foodie.model.RicettaBean;
 
 public class PubblicaRicettaController {
-	private CatalogoRicetteChefDao database;
-	private CatalogoAlimentiDao databaseAlimenti;
+	private static PubblicaRicettaController istanza;
+	private static CatalogoRicetteChefDao database;
+	//private CatalogoAlimentiDao databaseAlimenti;
 	private Ricetta ricetta=null;
-	public PubblicaRicettaController() {
-		this.database= CatalogoRicetteImplementazioneDao.ottieniIstanza();
-		this.databaseAlimenti=CatalogoAlimentiNutrixionixImplementazioneDao.ottieniIstanza();
+	private PubblicaRicettaController() {
+	}
+	public static PubblicaRicettaController ottieniIstanza() { //METODO PER OTTENERE L'ISTANZA
+		if(istanza==null) {
+			database= CatalogoRicetteImplementazioneDao.ottieniIstanza();
+			//databaseAlimenti=CatalogoAlimentiNutrixionixImplementazioneDao.ottieniIstanza();
+			istanza=new PubblicaRicettaController();
+		}
+		return istanza;
 	}
 	public void creaRicetta() {
 		ricetta=new Ricetta();
+	}
+	public Ricetta getRicetta() {  //non se potrebbe lo devi sistema! ricettabean devi passare
+		return ricetta;
 	}
 	public void compilaRicetta(RicettaBean ricettaBean) {
 		ricetta.setNome(ricettaBean.getNome());
@@ -27,26 +39,36 @@ public class PubblicaRicettaController {
 		ricetta.setDifficolta(ricettaBean.getDifficolta());
 		ricetta.setAutore(ricettaBean.getAutore());
 	}
-	public void trovaAlimenti(String nomeAlimento) {
+	/*public void trovaAlimenti(String nomeAlimento) {  GIA FATTO NEL TROVA RICETTA CONTROLLER
 		ArrayList<Alimento> alimentiTrovati;
 		if((alimentiTrovati=databaseAlimenti.trovaAlimenti(nomeAlimento))!=null) {
 			//mostraAlimenti(alimentiTrovati);
 		}	
-	}
-	/*private void mostraAlimenti(ArrayList<Alimento> alimenti) {
-		for(Alimento a: alimenti) {
-			System.out.println(a.getNome());
-		}
-		alimenti.clear();   //si occupa di consigliare al garbage collector di rimuovere le istanze non necessarie
-		alimenti.trimToSize();  //ovviamente tra queste ci sono tutti gli alimenti non selezionati
-		System.gc();
 	}*/
-	public void aggiungiIngredientiRicetta(Alimento alimento,String quantita,int x) {  //CHIAMATO DOPO AVER SELEZIONATO L'ALIMENTO
+	public ArrayList<AlimentoBean> mostraAlimentiRicetta() {
+		ArrayList<Alimento> alimentiRicetta=ricetta.getIngredienti();
+		if(!alimentiRicetta.isEmpty()) {
+			ArrayList<AlimentoBean> alimentiRicettaBean =new ArrayList<AlimentoBean>();
+			for(Alimento a: alimentiRicetta) {
+				AlimentoBean alimentoBean=new AlimentoBean();
+				alimentoBean.setNome(a.getNome());
+				alimentiRicettaBean.add(alimentoBean);
+			}
+			return alimentiRicettaBean;
+		}
+		else {
+			return null;
+		}
+	}
+	public void aggiungiIngredientiRicetta(AlimentoBean alimentoBean,String quantita,int x) {  //CHIAMATO DOPO AVER SELEZIONATO L'ALIMENTO
+		Alimento alimento=new Alimento(alimentoBean.getNome());
 		if(x==0) {
 			ricetta.aggiungiIngrediente(alimento, quantita);
+			System.out.println("ingrediente aggiunto");
 		}
 		else {
 			ricetta.eliminaIngrediente(alimento);
+			System.out.println("ingrediente eliminato");
 		}
 	}
 	public void notificaModeratore() {

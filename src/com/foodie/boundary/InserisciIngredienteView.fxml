@@ -4,6 +4,7 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -17,44 +18,49 @@
    <children>
       <Pane layoutY="100.0" prefHeight="668.0" prefWidth="456.0" style="-fx-background-color: rgba(228, 255, 231, 1); -fx-border-color: #000000; -fx-border-width: 0 1 0 0;">
          <children>
-            <VBox alignment="TOP_CENTER" prefHeight="668.0" prefWidth="456.0" spacing="10.0">
-               <children>
-                  <Label alignment="CENTER" text="Aggiungi ingrediente">
-                     <font>
-                        <Font name="Arial" size="30.0" />
-                     </font>
-                  </Label>
-                  <Group>
+            <Label alignment="CENTER" layoutX="88.0" layoutY="46.0" text="Aggiungi ingrediente">
+               <font>
+                  <Font name="Arial" size="30.0" />
+               </font>
+            </Label>
+            <Group />
+            <TextField fx:id="barraDiRicerca" layoutX="83.0" layoutY="106.0" onKeyPressed="#gestioneRisultati" prefHeight="26.0" prefWidth="283.0" promptText="ingrediente da cercare" style="-fx-padding: 0 0 0 30;">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </TextField>
+            <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="88.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../immagini_usate/lenteingrandimento.png" />
+               </image>
+            </ImageView>
+            <ScrollPane layoutX="84.0" layoutY="147.0" prefHeight="399.0" prefWidth="281.0">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="402.0" prefWidth="282.0">
                      <children>
-                        <TextField prefHeight="26.0" prefWidth="281.0" promptText="ingrediente da cercare" style="-fx-padding: 0 0 0 30;">
-                           <font>
-                              <Font name="Arial" size="15.0" />
-                           </font>
-                        </TextField>
-                        <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="7.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../immagini_usate/lenteingrandimento.png" />
-                           </image>
-                        </ImageView>
+                        <VBox fx:id="contenitoreAlimentiTrovati" layoutX="-1.0" prefHeight="386.0" prefWidth="268.0" spacing="5.0" style="-fx-background-color: rgba(228, 255, 231, 1);" />
                      </children>
-                  </Group>
-               </children>
-               <padding>
-                  <Insets top="50.0" />
-               </padding>
-            </VBox>
+                  </AnchorPane>
+               </content>
+            </ScrollPane>
+            <TextField fx:id="quantita" disable="true" layoutX="84.0" layoutY="578.0" prefHeight="25.0" prefWidth="281.0" promptText="Quantita" />
          </children>
       </Pane>
       <Pane layoutX="456.0" layoutY="100.0" prefHeight="668.0" prefWidth="568.0">
          <children>
-            <Label alignment="CENTER" layoutX="226.0" layoutY="44.0" text="Ingredienti">
+            <Label fx:id="labelIngredienti" alignment="CENTER" layoutX="76.0" layoutY="44.0" prefHeight="36.0" prefWidth="436.0" text="Ingredienti">
                <font>
                   <Font name="Arial" size="30.0" />
                </font>
             </Label>
             <HBox alignment="CENTER_RIGHT" layoutX="112.0" layoutY="568.0" prefHeight="100.0" prefWidth="423.0" spacing="35.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="145.0" style="-fx-background-radius: 10; -fx-background-color: rgba(97, 194, 107, 1);" text="Torna alla ricetta" textFill="WHITE">
+                  <Button mnemonicParsing="false" onAction="#modificaIngredienti" prefHeight="29.0" prefWidth="145.0" style="-fx-background-radius: 10; -fx-background-color: rgba(97, 194, 107, 1);" text="Modifica " textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#caricaViewRicetta" prefHeight="29.0" prefWidth="145.0" style="-fx-background-radius: 10; -fx-background-color: rgba(97, 194, 107, 1);" text="Torna alla ricetta" textFill="WHITE">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
@@ -64,6 +70,15 @@
                   <Insets />
                </opaqueInsets>
             </HBox>
+            <ScrollPane layoutX="78.0" layoutY="119.0" prefHeight="431.0" prefWidth="436.0">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="436.0" prefWidth="442.0">
+                     <children>
+                        <VBox fx:id="contenitoreIngredienti" layoutX="-2.0" layoutY="-2.0" prefHeight="417.0" prefWidth="423.0" spacing="5.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </ScrollPane>
          </children>
       </Pane>
       <Pane prefHeight="100.0" prefWidth="1024.0" style="-fx-background-color: rgba(97, 194, 107, 1);">
@@ -73,11 +88,6 @@
                   <Font name="Rockwell" size="30.0" />
                </font>
             </Label>
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="941.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../immagini_usate/usericona.png" />
-               </image>
-            </ImageView>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1024.0" spacing="10.0">
                <children>
                   <Button lineSpacing="10.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Area personale" textFill="WHITE">
@@ -97,6 +107,11 @@
                   </Button>
                </children>
             </HBox>
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="941.0" layoutY="24.0" onMouseClicked="#caricaViewLogin" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../immagini_usate/usericona.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
    </children>

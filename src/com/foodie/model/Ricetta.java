@@ -3,7 +3,7 @@ package com.foodie.model;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Ricetta {
+public class Ricetta extends SubjectPatternObserver{
 	private String nome;
 	private String descrizione;
 	private int difficolta;
@@ -61,11 +61,13 @@ public class Ricetta {
 	public void aggiungiIngrediente(Alimento alimento, String quantita) {
 		ingredienti.add(alimento);
 		this.quantita.add(quantita);
+		notifica();
 	}
 	public void eliminaIngrediente(Alimento alimento) {
 		int indice=ingredienti.indexOf(alimento);
 		ingredienti.remove(indice);
 		quantita.remove(indice);
+		notifica();
 	}
 	@Override
 	public boolean equals(Object o) {  //QUESTI 2 OVERRIDE SERVONO PER CONFRONTARE 2 ISTANZE DIVERSE IN BASE AGLI ATTRIBUTI
