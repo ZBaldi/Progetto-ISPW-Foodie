@@ -39,8 +39,11 @@ public class LoginImplementazioneDao implements LoginDao{
 						if(tipo == 0) {
 							System.out.println("utente base");
 						}
-						else {
+						else if(tipo==1){
 							System.out.println("utente chef");
+						}
+						else {
+							System.out.println("utente Moderatore");
 						}
 						risultati.close();
 						dichiarazione.close();

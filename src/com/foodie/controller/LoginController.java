@@ -18,7 +18,7 @@ public class LoginController {
 			this.utente= new Chef(username);
 		}
 		else {
-			this.utente= new Moderatore(username);
+			this.utente= Moderatore.ottieniIstanza(username);
 		}
 	}
 	public String ottieniView() {

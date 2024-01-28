@@ -16,6 +16,7 @@ import java.io.IOException;
 
 import com.foodie.controller.LoginController;
 import com.foodie.model.Dispensa;
+import com.foodie.model.Moderatore;
 
 public class LoginViewController {
 	
@@ -34,6 +35,7 @@ public class LoginViewController {
 	private Stage primaryStage;
 	private LoginController controller =new LoginController();
 	private DispensaUtenteViewController controllerDispensa =DispensaUtenteViewController.ottieniIstanza();
+	private ModeratoreViewController controllerModeratore= ModeratoreViewController.ottieniIstanza();
 	@FXML
     private void initialize() {
         chiudiLabel.setOnMouseClicked(event -> closeApplication());
@@ -68,8 +70,11 @@ public class LoginViewController {
 			if(tipo==0) {
 				ruolo="Standard";		
 			}
-			else {
+			else if(tipo==1){
 				ruolo="Chef";
+			}
+			else {
+				ruolo="Moderatore";
 			}
 			controller.setUtente(username, ruolo);
 			FXMLLoader loader= new FXMLLoader(getClass().getResource(controller.ottieniView()));
@@ -88,8 +93,24 @@ public class LoginViewController {
 					e.printStackTrace();
 				}
 			}
-			else {
+			else if(ruolo.equals("Chef")){
 				loginMessageLabel.setText("chef da fare");
+			}
+			else {
+				loader.setController(controllerModeratore);
+				Parent root;
+				try {
+					root = loader.load();
+					controllerModeratore.setPrimaryStage(primaryStage);
+					Moderatore moderatore= Moderatore.ottieniIstanza();
+					moderatore.registra(controllerModeratore);
+					controllerModeratore.aggiornaView();
+					Scene scene= new Scene(root);
+					primaryStage.setScene(scene);
+					primaryStage.show();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		else {
