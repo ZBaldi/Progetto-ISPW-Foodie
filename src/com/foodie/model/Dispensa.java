@@ -2,7 +2,8 @@ package com.foodie.model;
 
 import java.util.ArrayList;
 
-public class Dispensa extends SubjectPatternObserver{ //SINGLETON, LA DISPENSA DEVE AVERE SOLO 1 ISTANZA!
+public class Dispensa extends SubjectPatternObserver { //SINGLETON, LA DISPENSA DEVE AVERE SOLO 1 ISTANZA!
+
 	private static Dispensa istanza;                  //ESTENDE LA SUBJECT DEL PATTERN OBSERVER
 	private static ArrayList<Alimento> lista;
 	private Dispensa(){

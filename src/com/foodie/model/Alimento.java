@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties({"serving_unit", "tag_name", "serving_qty", "common_type", "tag_id", "photo", "locale"})
-public class Alimento {
+public class Alimento{
 	@JsonProperty("food_name")
     private String nome;
     @JsonCreator

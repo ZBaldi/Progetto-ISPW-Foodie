@@ -2,6 +2,7 @@ package com.foodie.boundary;
 
 import java.util.ArrayList;
 
+import com.foodie.controller.LoginController;
 import com.foodie.controller.TrovaRicettaController;
 
 import javafx.event.ActionEvent;
@@ -32,6 +33,8 @@ public class DispensaUtenteViewController implements Observer {
 	private TrovaRicettaController controller = new TrovaRicettaController();
 	private ArrayList<AlimentoBean> alimentiBeanTrovati;
 	private ArrayList<AlimentoBean> alimentiBeanDispensa;
+	private LoginController controllerLogin= new LoginController();
+	private String username;
 	private boolean bottoneModifica = true;
 	private Stage primaryStage;
 	@FXML
@@ -282,5 +285,12 @@ public class DispensaUtenteViewController implements Observer {
 				});
 			}
 		}
+	}
+	public void setUsername(String username) {
+		this.username=username;
+	}
+	@FXML
+	private void salvaDispensa(ActionEvent event) {
+		controllerLogin.salvaDispensa(username);
 	}
 }

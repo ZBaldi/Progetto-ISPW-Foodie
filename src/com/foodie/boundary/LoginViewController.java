@@ -13,8 +13,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
 
 import com.foodie.controller.LoginController;
+import com.foodie.model.Alimento;
+import com.foodie.model.AlimentoSerializzabile;
 import com.foodie.model.Dispensa;
 import com.foodie.model.Moderatore;
 
@@ -79,13 +83,16 @@ public class LoginViewController {
 			controller.setUtente(username, ruolo);
 			FXMLLoader loader= new FXMLLoader(getClass().getResource(controller.ottieniView()));
 			if(ruolo.equals("Standard")) {
+				controllerDispensa.setUsername(username);
 				loader.setController(controllerDispensa);
 				Parent root;
 				try {
 					root = loader.load();
 					controllerDispensa.setPrimaryStage(primaryStage);
 					Dispensa dispensa=Dispensa.ottieniIstanza(); //SICURAMENTE L'OSSERVATORE SI AGGIUNGERA NEL CLIENT
+					dispensa.svuotaDispensa();
 					dispensa.registra(controllerDispensa);//QUESTO
+					controller.caricaDispense();  //Carico dispensa se esiste
 					Scene scene= new Scene(root);
 					primaryStage.setScene(scene);
 					primaryStage.show();

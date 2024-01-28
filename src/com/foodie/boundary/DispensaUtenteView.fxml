@@ -74,7 +74,7 @@
             </Label>
             <HBox alignment="CENTER" layoutY="568.0" prefHeight="100.0" prefWidth="568.0" spacing="35.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="145.0" style="-fx-background-radius: 10; -fx-background-color: rgba(97, 194, 107, 1);" text="Salva Dispensa" textFill="WHITE">
+                  <Button mnemonicParsing="false" onAction="#salvaDispensa" prefHeight="29.0" prefWidth="145.0" style="-fx-background-radius: 10; -fx-background-color: rgba(97, 194, 107, 1);" text="Salva Dispensa" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
