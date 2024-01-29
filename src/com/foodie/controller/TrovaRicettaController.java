@@ -135,6 +135,41 @@ public class TrovaRicettaController {
 		ricettaBean.setQuantita(r.getQuantita());
 		return ricettaBean;
 	}
+	public ArrayList<RicettaBean> caricaRicette(String autore) {
+		ArrayList<Ricetta> ricetteTrovate=null;
+		try {
+			ricetteTrovate=database.caricaRicetteChef(autore);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(ricetteTrovate!=null) {
+			System.out.println("Ricette Trovate!");
+			mostraRicette(ricetteTrovate);
+			ArrayList<RicettaBean> ricetteTrovateBean= new ArrayList<RicettaBean>();
+			for(Ricetta r:ricetteTrovate) {
+				RicettaBean ricettaBean=new RicettaBean();
+				ricettaBean.setNome(r.getNome());
+				ricettaBean.setDescrizione(r.getDescrizione());
+				ricettaBean.setDifficolta(r.getDifficolta());
+				ArrayList<AlimentoBean> alimentiTrovatiBean=new ArrayList<AlimentoBean>();
+				ArrayList<Alimento> alimentiTrovati=r.getIngredienti();
+				for(Alimento a:alimentiTrovati) {
+					AlimentoBean alimentoBean= new AlimentoBean();
+					alimentoBean.setNome(a.getNome());
+					alimentiTrovatiBean.add(alimentoBean);
+				}
+				ricettaBean.setIngredienti(alimentiTrovatiBean);
+				ricettaBean.setAutore(r.getAutore());
+				ricettaBean.setQuantita(r.getQuantita());
+				ricetteTrovateBean.add(ricettaBean);
+			}	
+			return ricetteTrovateBean;
+		}
+		else {
+			System.out.println("nessuna ricetta trovata");
+			return null;
+		}
+	}
 	/*private void mostraAlimenti(ArrayList<Alimento> alimenti) {
 		for(Alimento a: alimenti) {
 			System.out.println(a.getNome());

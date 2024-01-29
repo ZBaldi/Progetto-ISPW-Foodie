@@ -64,4 +64,8 @@ public class querySQL {
 		String sqlQuery= String.format("SELECT ruolo FROM user_account WHERE username = '"+username+"' ");
 		return dichiarazione.executeQuery(sqlQuery);
 	}
+	public static ResultSet ottieniRicettePersonali(Statement dichiarazione, String username) throws SQLException {
+		String sqlQuery=String.format("SELECT a.nome, a.autore, a.descrizione, a.difficolta, b.alimento, b.quantita FROM ricette a LEFT JOIN ingredienti b ON a.nome = b.nome_ricetta AND a.autore = b.autore_ricetta WHERE a.autore = '%s'",username);
+		return dichiarazione.executeQuery(sqlQuery);
+	}
 }

@@ -22,24 +22,15 @@ import com.foodie.model.*;
 public class Client extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		/*FXMLLoader loader= new FXMLLoader(getClass().getResource("LoginView.fxml"));
+		FXMLLoader loader= new FXMLLoader(getClass().getResource("LoginView.fxml"));
 		Parent root= loader.load();
 		LoginViewController loginViewController=loader.getController();
 		loginViewController.setPrimaryStage(primaryStage);
+		primaryStage.setResizable(false);  //NON ZOOMABILE
 		Scene scene= new Scene(root);
 		primaryStage.setScene(scene);
-		primaryStage.show();*/   //POI DECOMMENTALO CHE è L'AVVIO
-		PubblicaRicettaController pubblicaRicettaController= PubblicaRicettaController.ottieniIstanza();
-		pubblicaRicettaController.creaRicetta();
-		FXMLLoader loader= new FXMLLoader(getClass().getResource("NuovaRicettaView.fxml"));
-		NuovaRicettaViewController nuovaRicettaViewController= NuovaRicettaViewController.ottieniIstanza();
-        loader.setController(nuovaRicettaViewController);
-        pubblicaRicettaController.getRicetta().registra(InserisciIngredienteViewController.ottieniIstanza());
-		Parent root= loader.load();
-		nuovaRicettaViewController.setPrimaryStage(primaryStage);
-		Scene scene= new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show();
+		primaryStage.show();   //POI DECOMMENTALO CHE è L'AVVIO
+		
 		
 		
 		

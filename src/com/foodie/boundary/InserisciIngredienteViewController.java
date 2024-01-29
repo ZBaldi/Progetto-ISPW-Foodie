@@ -1,5 +1,6 @@
 package com.foodie.boundary;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import com.foodie.controller.PubblicaRicettaController;
@@ -28,6 +29,7 @@ public class InserisciIngredienteViewController implements Observer{
 	private PubblicaRicettaController controller2=PubblicaRicettaController.ottieniIstanza();
 	private ArrayList<AlimentoBean> alimentiBeanTrovati;
 	private ArrayList<AlimentoBean> alimentiBeanRicetta;
+	AreaPersonaleViewController controllerAreaPersonale = AreaPersonaleViewController.ottieniIstanza();
 	private boolean bottoneModifica = true;
 	@FXML
 	private Label labelIngredienti;
@@ -220,5 +222,23 @@ public class InserisciIngredienteViewController implements Observer{
 	}
 	public VBox getContenitoreIngredienti() {
 		return contenitoreIngredienti;
+	}
+	@FXML
+	private void caricaViewAreaPersonale(ActionEvent event) {
+		FXMLLoader loader= new FXMLLoader(getClass().getResource("AreaPersonaleView.fxml"));
+		loader.setController(controllerAreaPersonale);
+		Parent root;		
+		try {
+			root = loader.load();
+			controllerAreaPersonale.setPrimaryStage(primaryStage);
+			controllerAreaPersonale.aggiornaView();
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.show();
+			
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -5,6 +5,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import com.foodie.controller.LoginController;
 import com.foodie.controller.PubblicaRicettaController;
 import com.foodie.model.Dispensa;
 import com.foodie.model.Ricetta;
@@ -27,6 +28,8 @@ import javafx.stage.Stage;
 public class NuovaRicettaViewController {
 	private static NuovaRicettaViewController istanza;
 	private PubblicaRicettaController controller=PubblicaRicettaController.ottieniIstanza();
+	private AreaPersonaleViewController controllerAreaPersonale = AreaPersonaleViewController.ottieniIstanza();
+	private LoginController loginController= new LoginController();
 	private Stage primaryStage;
 	@FXML
 	private RadioButton facile;
@@ -193,7 +196,7 @@ public class NuovaRicettaViewController {
 	        return;
 		}
 		ricettaBean.setDifficolta(diff);
-		ricettaBean.setAutore("NOME CHEF DA FARE");
+		ricettaBean.setAutore(loginController.getUtente().getUsername());
 		VBox ingredienti= InserisciIngredienteViewController.ottieniIstanza().getContenitoreIngredienti();
         if(ingredienti!=null && !(ingredienti.getChildren().isEmpty())) { 
         		controller.compilaRicetta(ricettaBean);
@@ -231,6 +234,24 @@ public class NuovaRicettaViewController {
 		    medio.setDisable(false);
 		    difficile.setDisable(false);
 		    facile.setDisable(false);
+		}
+	}
+	@FXML
+	private void caricaViewAreaPersonale(ActionEvent event) {
+		FXMLLoader loader= new FXMLLoader(getClass().getResource("AreaPersonaleView.fxml"));
+		loader.setController(controllerAreaPersonale);
+		Parent root;		
+		try {
+			root = loader.load();
+			controllerAreaPersonale.setPrimaryStage(primaryStage);
+			controllerAreaPersonale.aggiornaView();
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.show();
+			
+			
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }

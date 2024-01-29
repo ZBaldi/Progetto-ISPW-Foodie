@@ -109,4 +109,7 @@ public class LoginController {
 				return null;
 			}
     }
+	public Utente getUtente() {
+		return utente;
+	}
 }

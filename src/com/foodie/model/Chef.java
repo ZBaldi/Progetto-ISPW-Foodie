@@ -11,6 +11,6 @@ public class Chef implements Utente{
 	}
 	@Override
 	public String getViewIniziale() {
-		return "ChefAreaPersonaleView.fxml";
+		return "AreaPersonaleView.fxml";
 	}
 }

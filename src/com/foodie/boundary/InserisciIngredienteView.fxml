@@ -90,7 +90,7 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1024.0" spacing="10.0">
                <children>
-                  <Button lineSpacing="10.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Area personale" textFill="WHITE">
+                  <Button lineSpacing="10.0" mnemonicParsing="false" onAction="#caricaViewAreaPersonale" style="-fx-background-color: transparent;" text="Area personale" textFill="WHITE">
                      <font>
                         <Font name="Arial" size="26.0" />
                      </font>

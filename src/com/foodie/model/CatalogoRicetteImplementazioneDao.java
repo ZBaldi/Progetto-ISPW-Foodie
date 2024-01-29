@@ -164,4 +164,43 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
                 connessione.close();
 		}
 	}
+	public ArrayList<Ricetta> caricaRicetteChef(String autore2) throws Exception{
+		ArrayList<Ricetta> ricetteTrovate=new ArrayList<Ricetta>();
+		Statement dichiarazione=null;
+		Connection connessione=null;
+		ResultSet risultati=null;
+		try {
+			Class.forName(driverMySql);
+			connessione= DriverManager.getConnection(databaseUrl, utente,password);
+			dichiarazione = connessione.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			risultati= querySQL.ottieniRicettePersonali(dichiarazione, autore2);
+			while (risultati.next()) {
+		        String nomeRicetta = risultati.getString("nome");
+		        String descrizione = risultati.getString("descrizione");
+		        int difficoltaRicetta = risultati.getInt("difficolta");
+		        String autore = risultati.getString("autore");
+		        Ricetta ricetta = new Ricetta(nomeRicetta, descrizione, difficoltaRicetta, new ArrayList<Alimento>(), autore, new ArrayList<String>());
+		        do {
+		            String alimento = risultati.getString("alimento");
+		            String quantita = risultati.getString("quantita");
+		            ricetta.aggiungiIngrediente(new Alimento(alimento), quantita);
+		        } while (risultati.next() && nomeRicetta.equals(risultati.getString("nome")));
+		        ricetteTrovate.add(ricetta);
+		    }
+			dichiarazione.close();
+			connessione.close();
+			risultati.close();
+			if(ricetteTrovate.isEmpty()) {
+				return null;
+			}
+			return ricetteTrovate;
+		}finally {
+			if (dichiarazione != null)
+                dichiarazione.close();
+            if (connessione != null)
+                connessione.close();
+            if (risultati != null)
+                connessione.close();
+		}
+	}
 }

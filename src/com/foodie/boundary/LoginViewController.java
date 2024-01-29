@@ -37,6 +37,7 @@ public class LoginViewController {
 	@FXML
 	private Label chiudiLabel;
 	private Stage primaryStage;
+	private AreaPersonaleViewController controllerAreaPersonale = AreaPersonaleViewController.ottieniIstanza();
 	private LoginController controller =new LoginController();
 	private DispensaUtenteViewController controllerDispensa =DispensaUtenteViewController.ottieniIstanza();
 	private ModeratoreViewController controllerModeratore= ModeratoreViewController.ottieniIstanza();
@@ -101,7 +102,21 @@ public class LoginViewController {
 				}
 			}
 			else if(ruolo.equals("Chef")){
-				loginMessageLabel.setText("chef da fare");
+				loader.setController(controllerAreaPersonale);
+				Parent root;
+				
+				try {
+					root = loader.load();
+					controllerAreaPersonale.setPrimaryStage(primaryStage);
+					controllerAreaPersonale.aggiornaView();
+					Scene scene = new Scene(root);
+					primaryStage.setScene(scene);
+					primaryStage.show();
+					
+					
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 			else {
 				loader.setController(controllerModeratore);

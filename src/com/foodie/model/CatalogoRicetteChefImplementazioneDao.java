@@ -77,4 +77,9 @@ public class CatalogoRicetteChefImplementazioneDao implements CatalogoRicetteChe
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public ArrayList<Ricetta> caricaRicetteChef(String autore2) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
