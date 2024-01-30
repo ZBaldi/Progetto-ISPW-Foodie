@@ -23,8 +23,8 @@ public class querySQL {
         }
         return 1;
     }
-	public static int rimuoviRicetta(Statement dichiarazione, Ricetta ricetta) throws SQLException{
-		String sqlDelete= String.format("DELETE FROM  ricette  WHERE nome = '%s' AND autore = '%s'", ricetta.getNome(), ricetta.getAutore());
+	public static int rimuoviRicetta(Statement dichiarazione, String nome, String autore) throws SQLException{
+		String sqlDelete= String.format("DELETE FROM  ricette  WHERE nome = '%s' AND autore = '%s'", nome, autore);
 		return dichiarazione.executeUpdate(sqlDelete);
 	}
 	public static ResultSet trovaRicette(Statement dichiarazione, ArrayList<Alimento> alimenti, int difficolta) throws SQLException {

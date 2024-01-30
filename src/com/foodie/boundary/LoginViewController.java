@@ -108,6 +108,7 @@ public class LoginViewController {
 				try {
 					root = loader.load();
 					controllerAreaPersonale.setPrimaryStage(primaryStage);
+					controllerAreaPersonale.caricaAreaPersonale();
 					controllerAreaPersonale.aggiornaView();
 					Scene scene = new Scene(root);
 					primaryStage.setScene(scene);

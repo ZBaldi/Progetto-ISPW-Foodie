@@ -96,9 +96,10 @@ public class PubblicaRicettaController {
 			e.printStackTrace();
 		}
 	}
-	public void eliminaRicetta(Ricetta ricetta) {  //BEAN  DELLO CHEF GESTIONE RISULTATI
+	public void eliminaRicetta(String nome, String autore) {  
+		
 		try {
-			database.eliminaRicetta(ricetta);
+			database.eliminaRicetta(nome,autore);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

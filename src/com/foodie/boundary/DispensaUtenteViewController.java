@@ -22,9 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import com.foodie.model.Alimento;
 import com.foodie.model.AlimentoBean;
-import com.foodie.model.Dispensa;
 import com.foodie.model.Observer;
 import com.foodie.model.RicettaBean;
 

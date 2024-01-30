@@ -1,9 +1,9 @@
 package com.foodie.boundary;
 
+import java.util.Map;
+
 import com.foodie.controller.LoginController;
 import com.foodie.controller.PubblicaRicettaController;
-import com.foodie.model.Observer;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -83,10 +83,11 @@ public class AreaPersonaleViewController{
 		}
 		else {
 			descrizioneTextField.setEditable(false);
+			salvaAreaPersonale();
 		}
 	}
 	@FXML
-	public void caricaViewRicetta(ActionEvent event) {
+	private void caricaViewRicetta(ActionEvent event) {
 		controller2.creaRicetta(); //QUANDO ENTRO NELLA RICETTA CREO L'ISTANZA DELLA RICETTA
 		try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("NuovaRicettaView.fxml"));
@@ -103,5 +104,16 @@ public class AreaPersonaleViewController{
 	}
 	public void aggiornaView() {
 		usernameLabel.setText(controller.getUtente().getUsername());
+	}
+	private void salvaAreaPersonale() {
+		controller.salvaAreaPersonale(controller.getUtente().getUsername(), descrizioneTextField.getText());
+	}
+	public void caricaAreaPersonale() {
+		Map<String,String> areaPersonaleMap=controller.caricaAreaPersonale();
+		String descrizione="";
+		if(areaPersonaleMap!=null) {
+			descrizione= areaPersonaleMap.get(controller.getUtente().getUsername());
+		}
+		descrizioneTextField.setText(descrizione);
 	}
 }

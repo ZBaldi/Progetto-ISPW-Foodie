@@ -112,4 +112,37 @@ public class LoginController {
 	public Utente getUtente() {
 		return utente;
 	}
+	public void salvaAreaPersonale(String username,String descrizione) {
+		Map<String,String> areaPersonaleMap;
+		if((areaPersonaleMap=caricaAreaPersonale())==null) {
+			areaPersonaleMap=new HashMap<String,String>();
+		}
+		areaPersonaleMap.put(username, descrizione);
+		try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("C:\\Users\\valba\\OneDrive\\Desktop\\Progetto\\Classi serializzate\\areapersonale_data.ser"))) {
+			objectOutputStream.writeObject(areaPersonaleMap);
+            System.out.println("Area Personale salvata");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+	public Map<String,String> caricaAreaPersonale() {
+			ObjectInputStream objectInputStream=null;
+			try {
+				objectInputStream = new ObjectInputStream(new FileInputStream("C:\\Users\\valba\\OneDrive\\Desktop\\Progetto\\Classi serializzate\\areapersonale_data.ser"));
+				Map<String,String> areaPersonaleMap = (Map<String,String>)objectInputStream.readObject();// lo è per forza
+				if(objectInputStream!=null) {
+					objectInputStream.close();
+				}
+				return areaPersonaleMap;
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+				return null;
+			}catch (EOFException e) {
+	            System.err.println("nessuna area personale salvata");
+	            return null;
+	        }catch (IOException e) {
+				e.printStackTrace();
+				return null;
+			}
+    }
 }

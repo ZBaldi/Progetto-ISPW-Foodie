@@ -3,9 +3,11 @@ package com.foodie.boundary;
 import java.util.ArrayList;
 
 import com.foodie.controller.LoginController;
+import com.foodie.controller.PubblicaRicettaController;
 import com.foodie.controller.TrovaRicettaController;
 import com.foodie.model.RicettaBean;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -22,15 +24,18 @@ public class GestisciRicetteViewController {
 	private Stage primaryStage;
 	private TrovaRicettaController controller = new TrovaRicettaController();
 	private LoginController controller2= new LoginController();
+	private PubblicaRicettaController controller3= PubblicaRicettaController.ottieniIstanza();
 	@FXML
 	private VBox contenitoreRicette;
 	@FXML
 	private Label eliminaLabel;
+	private boolean bottoneModifica = true;
 	public void setPrimaryStage(Stage primaryStage) {
 		this.primaryStage= primaryStage;
 	}
 	public void aggiornaView() {
 		ArrayList<RicettaBean> ricetteTrovate= null;
+		contenitoreRicette.getChildren().clear();
 		ricetteTrovate=controller.caricaRicette(controller2.getUtente().getUsername());
 		if(ricetteTrovate!=null) {
 			for(RicettaBean r: ricetteTrovate) {
@@ -83,12 +88,23 @@ public class GestisciRicetteViewController {
 		            caricaViewRicetta(nomeRicetta,difficoltaRicetta);
 		        });
 		    });
+			impostaHBox();
+		}
+		if(contenitoreRicette.getChildren().isEmpty() && bottoneModifica==false) { //PER EVITARE CHE SE LE RICETTE è VUOTA RIMANGA ATTIVO IL BOTTONE E IL TESTO DELLA LABEL
+			bottoneModifica=true;
+			eliminaLabel.setFont(Font.font("Arial",30));//ESEMPIO PREMI MODIFICA CANCELLI L'ULTIMA RICETTA ALLORA SI DEVE DISATTIVARE LA MODIFICA
+			eliminaLabel.setText("");
 		}
 	}
 	public void caricaViewRicetta(String nomeRicetta,String difficoltaRicetta) {
 		RicettaBean ricettaSelezionata = controller.ottieniRicetta(nomeRicetta,controller2.getUtente().getUsername());
 		FXMLLoader loader;
 		try {
+			if(bottoneModifica==false) { //resettare il bottone modifica se attivo
+				bottoneModifica=true;
+				eliminaLabel.setFont(Font.font("Arial",30));
+				eliminaLabel.setText("");
+			}
 			loader = new FXMLLoader(getClass().getResource("ContenutoRicettaChef.fxml"));
 			Parent root = loader.load();
 	        ContenutoRicettaChefViewController contenutoRicettaChefViewController=loader.getController();
@@ -115,6 +131,51 @@ public class GestisciRicetteViewController {
 			label.setWrapText(true);
 			label.setFont(Font.font("Arial",20));
 			contenitoreIngredienti.getChildren().add(label);
+		}
+	}
+	@FXML
+	private void modifica(ActionEvent e) {
+		if(bottoneModifica==true && !contenitoreRicette.getChildren().isEmpty()) {
+			bottoneModifica=false;
+			eliminaLabel.setFont(Font.font("Arial",20));
+			eliminaLabel.setText("CLICCA L'ALIMENTO DA ELIMINARE");
+			impostaHBox();
+		}
+		else if(bottoneModifica==false && !contenitoreRicette.getChildren().isEmpty()) {
+			bottoneModifica=true;
+			eliminaLabel.setFont(Font.font("Arial",30));
+			eliminaLabel.setText("");
+			impostaHBox();
+		}
+	}
+	private void eliminaRicetta(String nome,String autore) {
+		if(!contenitoreRicette.getChildren().isEmpty()) {
+			contenitoreRicette.getChildren().clear();
+		}
+		controller3.eliminaRicetta(nome, autore);
+		aggiornaView();
+	}
+	private void impostaHBox() {
+		if(bottoneModifica==false) {
+			if(!contenitoreRicette.getChildren().isEmpty()) {
+				contenitoreRicette.getChildren().forEach(node->{
+					HBox hBoxRicetta= (HBox)node;
+					Label labelNome;
+					for(Node nodo: hBoxRicetta.getChildren()) {
+						labelNome=(Label)nodo;  //PRENDO SOLO IL NOME 
+						hBoxRicetta.setOnMouseClicked(event->{eliminaRicetta(labelNome.getText(),controller2.getUtente().getUsername());});
+						break;
+					}
+				});
+			}
+		}
+		else {
+			if(!contenitoreRicette.getChildren().isEmpty()) {
+				contenitoreRicette.getChildren().forEach(node->{
+					HBox hBoxRicetta= (HBox)node;
+					hBoxRicetta.setOnMouseClicked(null);
+				});
+			}
 		}
 	}
 }

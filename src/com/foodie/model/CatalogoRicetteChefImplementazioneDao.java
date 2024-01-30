@@ -26,7 +26,7 @@ public class CatalogoRicetteChefImplementazioneDao implements CatalogoRicetteChe
 		
 	}
 	@Override
-	public void eliminaRicetta(Ricetta ricetta) throws Exception {
+	public void eliminaRicetta(String nome , String autore) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}

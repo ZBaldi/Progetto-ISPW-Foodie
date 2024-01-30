@@ -98,14 +98,14 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
         }
 	}
 	@Override
-	public void eliminaRicetta(Ricetta ricetta) throws Exception {
+	public void eliminaRicetta(String nome, String autore) throws Exception {
 		Statement dichiarazione = null;
         Connection connessione = null;
         try {
             Class.forName(driverMySql);
             connessione = DriverManager.getConnection(databaseUrl, utente, password);
             dichiarazione = connessione.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-            if(querySQL.rimuoviRicetta(dichiarazione, ricetta)>0) {
+            if(querySQL.rimuoviRicetta(dichiarazione, nome,autore)>0) {
             	System.out.println("ricetta eliminata dal database");
             }
             else {
@@ -122,7 +122,7 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
 	}
 	@Override
 	public void aggiornaRicetta(Ricetta ricetta) throws Exception {  //poi si implementerà meglio!
-		eliminaRicetta(ricetta);
+		eliminaRicetta(ricetta.getNome(),ricetta.getAutore());
 		aggiungiRicetta(ricetta);
 		System.out.println("ricetta aggiornata!");
 	}
