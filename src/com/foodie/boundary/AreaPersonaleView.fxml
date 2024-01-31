@@ -48,7 +48,7 @@
       </Pane>
       <Pane layoutY="100.0" minHeight="50.0" minWidth="50.0" prefHeight="668.0" prefWidth="1024.0" style="-fx-background-color: rgba(228, 255, 231, 1);">
          <children>
-            <Label fx:id="usernameLabel" layoutX="400.0" layoutY="7.0" text="Nome utente">
+            <Label fx:id="usernameLabel" layoutX="401.0" layoutY="10.0" text="Nome utente">
                <font>
                   <Font name="Arial" size="30.0" />
                </font>
@@ -76,7 +76,7 @@
                <children>
                   <TextField fx:id="descrizioneTextField" alignment="TOP_LEFT" editable="false" layoutX="14.0" layoutY="11.0" prefHeight="428.0" prefWidth="554.0" promptText="Descrizione" style="-fx-background-color: white;">
                      <font>
-                        <Font name="Arial" size="12.0" />
+                        <Font name="Arial" size="15.0" />
                      </font>
                   </TextField>
                </children>

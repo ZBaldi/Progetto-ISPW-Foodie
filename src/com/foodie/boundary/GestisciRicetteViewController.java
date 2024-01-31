@@ -1,5 +1,6 @@
 package com.foodie.boundary;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import com.foodie.controller.LoginController;
@@ -15,6 +16,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -23,8 +25,9 @@ import javafx.stage.Stage;
 public class GestisciRicetteViewController {
 	private Stage primaryStage;
 	private TrovaRicettaController controller = new TrovaRicettaController();
-	private LoginController controller2= new LoginController();
-	private PubblicaRicettaController controller3= PubblicaRicettaController.ottieniIstanza();
+	private LoginController controller2 = new LoginController();
+	private PubblicaRicettaController controller3 = PubblicaRicettaController.ottieniIstanza();
+	private AreaPersonaleViewController controllerAreaPersonale = AreaPersonaleViewController.ottieniIstanza();
 	@FXML
 	private VBox contenitoreRicette;
 	@FXML
@@ -138,7 +141,7 @@ public class GestisciRicetteViewController {
 		if(bottoneModifica==true && !contenitoreRicette.getChildren().isEmpty()) {
 			bottoneModifica=false;
 			eliminaLabel.setFont(Font.font("Arial",20));
-			eliminaLabel.setText("CLICCA L'ALIMENTO DA ELIMINARE");
+			eliminaLabel.setText("CLICCA LA RICETTA DA ELIMINARE");
 			impostaHBox();
 		}
 		else if(bottoneModifica==false && !contenitoreRicette.getChildren().isEmpty()) {
@@ -178,4 +181,59 @@ public class GestisciRicetteViewController {
 			}
 		}
 	}
+	
+	@FXML
+    private void tornaAlLogin(MouseEvent event) {
+        try {
+            
+        	FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
+            Parent root = loader.load();
+            LoginViewController loginViewController = loader.getController();
+            loginViewController.setPrimaryStage(primaryStage);
+            Scene nuovaScena = new Scene(root);
+            primaryStage.setScene(nuovaScena);
+            primaryStage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace(); 
+        }
+    }
+	
+	@FXML
+	private void caricaViewRicetta(ActionEvent event) {
+		controller3.creaRicetta(); //QUANDO ENTRO NELLA RICETTA CREO L'ISTANZA DELLA RICETTA
+		try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("NuovaRicettaView.fxml"));
+            NuovaRicettaViewController nuovaRicettaViewController= NuovaRicettaViewController.ottieniIstanza();
+            loader.setController(nuovaRicettaViewController);
+            Parent root = loader.load();
+            nuovaRicettaViewController.setPrimaryStage(primaryStage);
+            Scene nuovaScena = new Scene(root);
+            primaryStage.setScene(nuovaScena);
+            primaryStage.show();
+        } catch (Exception e) {
+            e.printStackTrace(); 
+        }
+	}
+	
+	@FXML
+	private void caricaViewAreaPersonale(ActionEvent event) {
+		FXMLLoader loader= new FXMLLoader(getClass().getResource("AreaPersonaleView.fxml"));
+		loader.setController(controllerAreaPersonale);
+		Parent root;		
+		try {
+			root = loader.load();
+			controllerAreaPersonale.setPrimaryStage(primaryStage);
+			controllerAreaPersonale.caricaAreaPersonale();
+		    controllerAreaPersonale.aggiornaView();
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.show();
+			
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

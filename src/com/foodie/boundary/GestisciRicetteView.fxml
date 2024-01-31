@@ -21,14 +21,9 @@
                   <Font name="Rockwell" size="30.0" />
                </font>
             </Label>
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="941.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../immagini_usate/usericona.png" />
-               </image>
-            </ImageView>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1024.0" spacing="10.0">
                <children>
-                  <Button lineSpacing="10.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Area personale" textFill="WHITE">
+                  <Button lineSpacing="10.0" mnemonicParsing="false" onAction="#caricaViewAreaPersonale" style="-fx-background-color: transparent;" text="Area personale" textFill="WHITE">
                      <font>
                         <Font name="Arial" size="26.0" />
                      </font>
@@ -38,13 +33,18 @@
                         <Font name="Arial" size="26.0" />
                      </font>
                   </Button>
-                  <Button lineSpacing="10.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Nuova ricetta" textFill="WHITE">
+                  <Button lineSpacing="10.0" mnemonicParsing="false" onAction="#caricaViewRicetta" style="-fx-background-color: transparent;" text="Nuova ricetta" textFill="WHITE">
                      <font>
                         <Font name="Arial" size="26.0" />
                      </font>
                   </Button>
                </children>
             </HBox>
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="941.0" layoutY="24.0" onMouseClicked="#tornaAlLogin" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../immagini_usate/usericona.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
       <Pane layoutY="100.0" minHeight="50.0" minWidth="50.0" prefHeight="668.0" prefWidth="1024.0" style="-fx-background-color: rgba(228, 255, 231, 1);">

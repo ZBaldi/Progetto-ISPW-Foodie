@@ -29,7 +29,7 @@
                         <Font name="Arial" size="26.0" />
                      </font>
                   </Button>
-                  <Button lineSpacing="10.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Gestisci ricette" textFill="WHITE">
+                  <Button lineSpacing="10.0" mnemonicParsing="false" onAction="#caricaViewGestisciRicette" style="-fx-background-color: transparent;" text="Gestisci ricette" textFill="WHITE">
                      <font>
                         <Font name="Arial" size="26.0" />
                      </font>
@@ -66,12 +66,12 @@
                <children>
                   <TextField fx:id="descrizione" alignment="TOP_LEFT" layoutX="14.0" layoutY="10.0" prefHeight="428.0" prefWidth="554.0" promptText="Descrizione" style="-fx-background-color: white;">
                      <font>
-                        <Font name="Arial" size="12.0" />
+                        <Font name="Arial" size="15.0" />
                      </font>
                   </TextField>
                </children>
             </Pane>
-            <HBox alignment="CENTER_LEFT" layoutX="400.0" layoutY="557.0" prefHeight="31.0" prefWidth="569.0">
+            <HBox alignment="CENTER_LEFT" layoutX="402.0" layoutY="557.0" prefHeight="31.0" prefWidth="569.0">
                <children>
                   <Label text="SELEZIONA DIFFICOLTÀ:">
                      <font>
@@ -79,14 +79,23 @@
                      </font>
                   </Label>
                   <Region prefHeight="31.0" prefWidth="21.0" />
-                  <RadioButton fx:id="facile" mnemonicParsing="false" onAction="#disabilitaPulsanti" text="Facile" />
+                  <RadioButton fx:id="facile" mnemonicParsing="false" onAction="#disabilitaPulsanti" text="Facile">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font></RadioButton>
                   <Region prefHeight="10.0" prefWidth="10.0" />
                   <Region prefHeight="10.0" prefWidth="10.0" />
                   <Region prefHeight="10.0" prefWidth="10.0" />
-                  <RadioButton fx:id="medio" mnemonicParsing="false" onAction="#disabilitaPulsanti" text="Intermedio" />
+                  <RadioButton fx:id="medio" mnemonicParsing="false" onAction="#disabilitaPulsanti" text="Intermedio">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font></RadioButton>
                   <Region prefHeight="10.0" prefWidth="10.0" />
                   <Region prefHeight="10.0" prefWidth="10.0" />
-                  <RadioButton fx:id="difficile" mnemonicParsing="false" onAction="#disabilitaPulsanti" text="Difficile" />
+                  <RadioButton fx:id="difficile" mnemonicParsing="false" onAction="#disabilitaPulsanti" text="Difficile">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font></RadioButton>
                </children>
             </HBox>
             <Button layoutX="103.0" layoutY="360.0" mnemonicParsing="false" onAction="#caricaViewIngredienti" prefHeight="29.0" prefWidth="154.0" style="-fx-background-radius: 10; -fx-background-color: rgba(97, 194, 107, 1);" text="Inserisci Ingredienti" textFill="WHITE">
@@ -94,12 +103,12 @@
                   <Font size="15.0" />
                </font>
             </Button>
-            <TextField fx:id="nome" layoutX="403.0" layoutY="28.0" prefHeight="56.0" prefWidth="335.0" promptText="Nome Ricetta" style="-fx-background-color: rgba(228, 255, 231, 1);">
+            <TextField fx:id="nome" layoutX="383.0" layoutY="35.0" prefHeight="56.0" prefWidth="611.0" promptText="Nome Ricetta" style="-fx-background-color: rgba(228, 255, 231, 1);">
                <font>
                   <Font name="Arial" size="30.0" />
                </font>
             </TextField>
-            <Button fx:id="pubblica" layoutX="103.0" layoutY="557.0" mnemonicParsing="false" onAction="#compilaRicetta" prefHeight="29.0" prefWidth="154.0" style="-fx-background-radius: 10; -fx-background-color: rgba(97, 194, 107, 1);" text="Pubblica" textFill="WHITE">
+            <Button fx:id="pubblica" layoutX="98.0" layoutY="403.0" mnemonicParsing="false" onAction="#compilaRicetta" prefHeight="29.0" prefWidth="166.0" style="-fx-background-radius: 10; -fx-background-color: rgba(97, 194, 107, 1);" text="Richiedi Pubblicazione" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>

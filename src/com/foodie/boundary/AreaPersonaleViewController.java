@@ -19,7 +19,7 @@ public class AreaPersonaleViewController{
 	
 	private static AreaPersonaleViewController istanza;
 	private Stage primaryStage;
-	private PubblicaRicettaController controller2=PubblicaRicettaController.ottieniIstanza();
+	private PubblicaRicettaController controller2 = PubblicaRicettaController.ottieniIstanza();
 	LoginController controller = new LoginController();
 	@FXML
     private ImageView tornaAlLoginImageView;

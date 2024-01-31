@@ -244,6 +244,7 @@ public class NuovaRicettaViewController {
 		try {
 			root = loader.load();
 			controllerAreaPersonale.setPrimaryStage(primaryStage);
+			controllerAreaPersonale.caricaAreaPersonale();
 			controllerAreaPersonale.aggiornaView();
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
@@ -254,4 +255,21 @@ public class NuovaRicettaViewController {
 			e.printStackTrace();
 		}
 	}
+	
+	@FXML
+    private void caricaViewGestisciRicette(ActionEvent event) {
+        try {
+        	FXMLLoader loader = new FXMLLoader(getClass().getResource("GestisciRicetteView.fxml"));
+            Parent root = loader.load();
+            GestisciRicetteViewController gestisciRicetteViewController = loader.getController();
+            gestisciRicetteViewController.setPrimaryStage(primaryStage);
+            gestisciRicetteViewController.aggiornaView();
+            Scene nuovaScena = new Scene(root);
+            primaryStage.setScene(nuovaScena);
+            primaryStage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace(); 
+        }
+    }
 }

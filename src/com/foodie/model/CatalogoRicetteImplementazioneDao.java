@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao{
 	private static CatalogoRicetteImplementazioneDao istanza; 
 	private static String utente = "root";
-    private static String password = "root"; 
+    private static String password = "michele2002"; 
     private static String databaseUrl = "jdbc:mysql://localhost:3306/ricette";
     private static String driverMySql = "com.mysql.jdbc.Driver";
 	private CatalogoRicetteImplementazioneDao(){
