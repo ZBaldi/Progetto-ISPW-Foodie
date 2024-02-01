@@ -42,7 +42,7 @@ public class ContenutoRicettaViewController {
 	}
 	@FXML
 	public void caricaViewLogin(MouseEvent event) {
-		TrovaRicettaController trovaRicettaController= new TrovaRicettaController();
+		TrovaRicettaController trovaRicettaController= TrovaRicettaController.ottieniIstanza();
 		trovaRicettaController.svuotaDispensa();
 		try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));

@@ -56,9 +56,9 @@
                </image></ImageView>
             <ScrollPane layoutX="84.0" layoutY="127.0" prefHeight="399.0" prefWidth="281.0">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="402.0" prefWidth="282.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="405.0" prefWidth="282.0">
                      <children>
-                        <VBox fx:id="contenitoreAlimentiTrovati" layoutX="-1.0" prefHeight="386.0" prefWidth="268.0" spacing="5.0" style="-fx-background-color: rgba(228, 255, 231, 1);" />
+                        <VBox fx:id="contenitoreAlimentiTrovati" layoutX="-1.0" prefHeight="385.0" prefWidth="268.0" spacing="5.0" style="-fx-background-color: rgba(228, 255, 231, 1);" />
                      </children>
                   </AnchorPane>
               </content>

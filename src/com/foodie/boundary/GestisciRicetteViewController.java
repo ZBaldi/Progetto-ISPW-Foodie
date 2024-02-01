@@ -24,7 +24,7 @@ import javafx.stage.Stage;
 
 public class GestisciRicetteViewController {
 	private Stage primaryStage;
-	private TrovaRicettaController controller = new TrovaRicettaController();
+	private TrovaRicettaController controller = TrovaRicettaController.ottieniIstanza();
 	private LoginController controller2 = new LoginController();
 	private PubblicaRicettaController controller3 = PubblicaRicettaController.ottieniIstanza();
 	private AreaPersonaleViewController controllerAreaPersonale = AreaPersonaleViewController.ottieniIstanza();
@@ -39,7 +39,7 @@ public class GestisciRicetteViewController {
 	public void aggiornaView() {
 		ArrayList<RicettaBean> ricetteTrovate= null;
 		contenitoreRicette.getChildren().clear();
-		ricetteTrovate=controller.caricaRicette(controller2.getUtente().getUsername());
+		ricetteTrovate=controller.trovaRicette(0,controller2.getUtente().getUsername());
 		if(ricetteTrovate!=null) {
 			for(RicettaBean r: ricetteTrovate) {
 				HBox contenitoreRicettaSingola = new HBox();
@@ -73,24 +73,6 @@ public class GestisciRicetteViewController {
 				contenitoreRicette.getChildren().add(contenitoreRicettaSingola);
 				
 			}
-			contenitoreRicette.getChildren().forEach(node -> {
-		        HBox contenitoreRicetta = (HBox) node;
-		        contenitoreRicetta.setOnMouseClicked(event -> {
-		            String nomeRicetta="";
-		            String difficoltaRicetta="";
-		            int indiceLabel=1;
-		            for (Node labelNode : contenitoreRicetta.getChildren()) {	        
-		                    Label label = (Label) labelNode;
-		                    if(indiceLabel==1)
-		                    	nomeRicetta=label.getText();
-		                    else {
-		                    	difficoltaRicetta=label.getText();
-		                    }
-		                    indiceLabel++;
-		            }
-		            caricaViewRicetta(nomeRicetta,difficoltaRicetta);
-		        });
-		    });
 			impostaHBox();
 		}
 		if(contenitoreRicette.getChildren().isEmpty() && bottoneModifica==false) { //PER EVITARE CHE SE LE RICETTE è VUOTA RIMANGA ATTIVO IL BOTTONE E IL TESTO DELLA LABEL
@@ -173,12 +155,24 @@ public class GestisciRicetteViewController {
 			}
 		}
 		else {
-			if(!contenitoreRicette.getChildren().isEmpty()) {
-				contenitoreRicette.getChildren().forEach(node->{
-					HBox hBoxRicetta= (HBox)node;
-					hBoxRicetta.setOnMouseClicked(null);
-				});
-			}
+			contenitoreRicette.getChildren().forEach(node -> {
+		        HBox contenitoreRicetta = (HBox) node;
+		        contenitoreRicetta.setOnMouseClicked(event -> {
+		            String nomeRicetta="";
+		            String difficoltaRicetta="";
+		            int indiceLabel=1;
+		            for (Node labelNode : contenitoreRicetta.getChildren()) {	        
+		                    Label label = (Label) labelNode;
+		                    if(indiceLabel==1)
+		                    	nomeRicetta=label.getText();
+		                    else {
+		                    	difficoltaRicetta=label.getText();
+		                    }
+		                    indiceLabel++;
+		            }
+		            caricaViewRicetta(nomeRicetta,difficoltaRicetta);
+		        });
+		    });
 		}
 	}
 	

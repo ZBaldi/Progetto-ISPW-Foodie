@@ -42,7 +42,7 @@
             </Pane>
             <HBox alignment="CENTER" layoutX="-6.0" layoutY="568.0" prefHeight="100.0" prefWidth="229.0" spacing="35.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="145.0" style="-fx-background-radius: 10; -fx-background-color: rgba(97, 194, 107, 1);" text="Chiudi ricetta" textFill="WHITE">
+                  <Button mnemonicParsing="false" onAction="#caricaViewGestisciRicette" prefHeight="29.0" prefWidth="145.0" style="-fx-background-radius: 10; -fx-background-color: rgba(97, 194, 107, 1);" text="Chiudi ricetta" textFill="WHITE">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
@@ -80,24 +80,24 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1024.0" spacing="10.0">
                <children>
-                  <Button lineSpacing="10.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Area personale" textFill="WHITE">
+                  <Button lineSpacing="10.0" mnemonicParsing="false" onAction="#caricaViewAreaPersonale" style="-fx-background-color: transparent;" text="Area personale" textFill="WHITE">
                      <font>
                         <Font name="Arial" size="26.0" />
                      </font>
                   </Button>
-                  <Button lineSpacing="10.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Gestisci ricette" textFill="WHITE" underline="true">
+                  <Button lineSpacing="10.0" mnemonicParsing="false" onAction="#caricaViewGestisciRicette" style="-fx-background-color: transparent;" text="Gestisci ricette" textFill="WHITE" underline="true">
                      <font>
                         <Font name="Arial" size="26.0" />
                      </font>
                   </Button>
-                  <Button lineSpacing="10.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Nuova ricetta" textFill="WHITE">
+                  <Button lineSpacing="10.0" mnemonicParsing="false" onAction="#caricaViewRicetta" style="-fx-background-color: transparent;" text="Nuova ricetta" textFill="WHITE">
                      <font>
                         <Font name="Arial" size="26.0" />
                      </font>
                   </Button>
                </children>
             </HBox>
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="941.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="941.0" layoutY="24.0" onMouseClicked="#tornaAlLogin" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../immagini_usate/usericona.png" />
                </image>

@@ -28,7 +28,7 @@ import com.foodie.model.RicettaBean;
 
 public class DispensaUtenteViewController implements Observer {
 	private static DispensaUtenteViewController istanza;  //SINGLETON
-	private TrovaRicettaController controller = new TrovaRicettaController();
+	private TrovaRicettaController controller = TrovaRicettaController.ottieniIstanza();
 	private ArrayList<AlimentoBean> alimentiBeanTrovati;
 	private ArrayList<AlimentoBean> alimentiBeanDispensa;
 	private LoginController controllerLogin= new LoginController();
@@ -83,7 +83,7 @@ public class DispensaUtenteViewController implements Observer {
 		int count=0;
 		VBox contenitoreRicette=trovaRicetteViewController.getContenitoreRicette();
 		for(int i=1;i<4;i++) {
-			ricetteTrovate=controller.trovaRicette(i);
+			ricetteTrovate=controller.trovaRicette(i,null);
 			if(ricetteTrovate!=null) {
 				for(RicettaBean r: ricetteTrovate) {
 					HBox contenitoreRicettaSingola = new HBox();

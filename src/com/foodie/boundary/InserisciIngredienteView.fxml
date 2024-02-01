@@ -95,7 +95,7 @@
                         <Font name="Arial" size="26.0" />
                      </font>
                   </Button>
-                  <Button lineSpacing="10.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Gestisci ricette" textFill="WHITE">
+                  <Button lineSpacing="10.0" mnemonicParsing="false" onAction="#caricaViewGestisciRicette" style="-fx-background-color: transparent;" text="Gestisci ricette" textFill="WHITE">
                      <font>
                         <Font name="Arial" size="26.0" />
                      </font>

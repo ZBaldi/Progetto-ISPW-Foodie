@@ -1,6 +1,7 @@
 package com.foodie.model;
 
-public class AlimentoBean {
+public class AlimentoBean {  //BEAN DELLA CLASSE ALIMENTO
+	
 	private String nome;
 	
 	public String getNome() {

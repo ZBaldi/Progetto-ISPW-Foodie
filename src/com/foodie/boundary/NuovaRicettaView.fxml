@@ -108,7 +108,7 @@
                   <Font name="Arial" size="30.0" />
                </font>
             </TextField>
-            <Button fx:id="pubblica" layoutX="98.0" layoutY="403.0" mnemonicParsing="false" onAction="#compilaRicetta" prefHeight="29.0" prefWidth="166.0" style="-fx-background-radius: 10; -fx-background-color: rgba(97, 194, 107, 1);" text="Richiedi Pubblicazione" textFill="WHITE">
+            <Button fx:id="pubblica" layoutX="88.0" layoutY="403.0" mnemonicParsing="false" onAction="#compilaRicetta" prefHeight="31.0" prefWidth="181.0" style="-fx-background-radius: 10; -fx-background-color: rgba(97, 194, 107, 1);" text="Richiedi Pubblicazione" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>

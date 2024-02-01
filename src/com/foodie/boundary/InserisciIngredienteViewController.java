@@ -25,7 +25,7 @@ import javafx.stage.Stage;
 
 public class InserisciIngredienteViewController implements Observer{
 	private static InserisciIngredienteViewController istanza;
-	private TrovaRicettaController controller=new TrovaRicettaController();
+	private TrovaRicettaController controller= TrovaRicettaController.ottieniIstanza();
 	private PubblicaRicettaController controller2=PubblicaRicettaController.ottieniIstanza();
 	private ArrayList<AlimentoBean> alimentiBeanTrovati;
 	private ArrayList<AlimentoBean> alimentiBeanRicetta;
@@ -241,4 +241,20 @@ public class InserisciIngredienteViewController implements Observer{
 			e.printStackTrace();
 		}
 	}
+	@FXML
+    private void caricaViewGestisciRicette(ActionEvent event) {
+        try {
+        	FXMLLoader loader = new FXMLLoader(getClass().getResource("GestisciRicetteView.fxml"));
+            Parent root = loader.load();
+            GestisciRicetteViewController gestisciRicetteViewController = loader.getController();
+            gestisciRicetteViewController.setPrimaryStage(primaryStage);
+            gestisciRicetteViewController.aggiornaView();
+            Scene nuovaScena = new Scene(root);
+            primaryStage.setScene(nuovaScena);
+            primaryStage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace(); 
+        }
+    }
 }

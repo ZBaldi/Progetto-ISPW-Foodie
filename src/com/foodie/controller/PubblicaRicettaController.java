@@ -104,13 +104,13 @@ public class PubblicaRicettaController {
 			e.printStackTrace();
 		}
 	}
-	public void aggiornaRicettaPubblicata(Ricetta ricetta) {  //BEAN BOH FORSE SI ELIMINA
+	/*public void aggiornaRicettaPubblicata(Ricetta ricetta) {  //BEAN BOH FORSE SI ELIMINA
 		try {
 			database.aggiornaRicetta(ricetta);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 	public ArrayList<RicettaBean> mostraRicetteDaApprovare() {
 		ArrayList<Ricetta> ricette=Moderatore.getRicetteDaVerificare();
 		if(ricette!=null && !ricette.isEmpty()) {

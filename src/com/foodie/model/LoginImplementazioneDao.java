@@ -9,7 +9,7 @@ import java.sql.Statement;
 public class LoginImplementazioneDao implements LoginDao{
 	private static LoginImplementazioneDao istanza;
 	private static String utente = "root";
-    private static String password = "michele2002"; 
+    private static String password = "root"; 
     private static String databaseUrl = "jdbc:mysql://localhost:3306/user_credentials";
     private static String driverMySql = "com.mysql.jdbc.Driver";
     private LoginImplementazioneDao() {
@@ -29,11 +29,11 @@ public class LoginImplementazioneDao implements LoginDao{
             Class.forName(driverMySql);
             connessione = DriverManager.getConnection(databaseUrl, utente, password);
             dichiarazione = connessione.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            risultati=querySQL.effettuaLogin(dichiarazione, username, pwd);
+            risultati=QuerySQLLogin.effettuaLogin(dichiarazione, username, pwd);
             while(risultati.next()) {
 				if(risultati.getInt(1) == 1) {
 					risultati.close();
-					risultati=querySQL.controllaTipo(dichiarazione, username);
+					risultati=QuerySQLLogin.controllaTipo(dichiarazione, username);
 					while(risultati.next()) {
 						int tipo= risultati.getInt(1);
 						if(tipo == 0) {
@@ -73,7 +73,7 @@ public class LoginImplementazioneDao implements LoginDao{
             Class.forName(driverMySql);
             connessione = DriverManager.getConnection(databaseUrl, utente, password);
             dichiarazione = connessione.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            risultati=querySQL.controllaUsername(dichiarazione, username);
+            risultati=QuerySQLLogin.controllaUsername(dichiarazione, username);
             while(risultati.next()) {
             	int count = risultati.getInt(1);
             	if(count > 0) {
@@ -100,7 +100,7 @@ public class LoginImplementazioneDao implements LoginDao{
             Class.forName(driverMySql);
             connessione = DriverManager.getConnection(databaseUrl, utente, password);
             dichiarazione = connessione.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            if(querySQL.registraUtente(dichiarazione, nome, cognome, username, ruolo, pwd)==1) {
+            if(QuerySQLLogin.registraUtente(dichiarazione, nome, cognome, username, ruolo, pwd)==1) {
             	System.out.println("Utente registrato");
             }
             else {

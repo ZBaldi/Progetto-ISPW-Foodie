@@ -19,21 +19,6 @@ public class Client extends Application {
 		Scene scene= new Scene(root);
 		primaryStage.setScene(scene);
 		primaryStage.show();  
-		
-		
-		
-		
-		/*DispensaUtenteViewController dispensaUtenteViewController= DispensaUtenteViewController.ottieniIstanza();
-			Utente utente= new Standard("pino");
-			FXMLLoader loader= new FXMLLoader(getClass().getResource(utente.getViewIniziale()));
-			loader.setController(dispensaUtenteViewController);
-			Parent root= loader.load();
-			dispensaUtenteViewController.setPrimaryStage(primaryStage);
-			Dispensa dispensa=Dispensa.ottieniIstanza();
-			dispensa.registra(dispensaUtenteViewController);
-			Scene scene= new Scene(root);
-			primaryStage.setScene(scene);
-			primaryStage.show();*/
 	}
 
 	public static void main(String[] args) {

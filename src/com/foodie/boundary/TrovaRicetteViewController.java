@@ -24,7 +24,7 @@ import javafx.stage.Stage;
 
 public class TrovaRicetteViewController {
 	private Stage primaryStage;
-	private TrovaRicettaController controller = new TrovaRicettaController();
+	private TrovaRicettaController controller = TrovaRicettaController.ottieniIstanza();
 	@FXML
 	private VBox contenitoreRicette;
 	@FXML
@@ -89,7 +89,7 @@ public class TrovaRicetteViewController {
 	}
 	private void trovaRicette(int difficoltaInt) {  //SI PUò TROVARE UN MODO DI RICICLARE STA PARTE
 		ArrayList<RicettaBean> ricetteTrovate= null;
-		ricetteTrovate=controller.trovaRicette(difficoltaInt);
+		ricetteTrovate=controller.trovaRicette(difficoltaInt,null);
 		if(ricetteTrovate!=null) {
 			for(RicettaBean r: ricetteTrovate) {
 				HBox contenitoreRicettaSingola = new HBox();
