@@ -6,10 +6,14 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import com.foodie.controller.LoginController;
+import com.foodie.controller.LoginControllerAdapter;
 import com.foodie.controller.PubblicaRicettaController;
+import com.foodie.controller.PubblicaRicettaControllerAdapter;
+import com.foodie.controller.ControllerAdapter;
 import com.foodie.model.Dispensa;
 import com.foodie.model.Ricetta;
 import com.foodie.model.RicettaBean;
+import com.foodie.model.UtenteBean;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -28,8 +32,10 @@ import javafx.stage.Stage;
 public class NuovaRicettaViewController {
 	private static NuovaRicettaViewController istanza;
 	private PubblicaRicettaController controller=PubblicaRicettaController.ottieniIstanza();
+	private ControllerAdapter adattatorePubblicaRicettaController= PubblicaRicettaControllerAdapter.ottieniIstanza(controller);
 	private AreaPersonaleViewController controllerAreaPersonale = AreaPersonaleViewController.ottieniIstanza();
-	private LoginController loginController= new LoginController();
+	private LoginController loginController= LoginController.ottieniIstanza();
+	private ControllerAdapter adattatoreLoginController= LoginControllerAdapter.ottieniIstanza(loginController);
 	private Stage primaryStage;
 	@FXML
 	private RadioButton facile;
@@ -196,10 +202,11 @@ public class NuovaRicettaViewController {
 	        return;
 		}
 		ricettaBean.setDifficolta(diff);
-		ricettaBean.setAutore(loginController.getUtente().getUsername());
+		UtenteBean utenteBean=adattatoreLoginController.ottieniUtente();
+		ricettaBean.setAutore(utenteBean.getUsername());
 		VBox ingredienti= InserisciIngredienteViewController.ottieniIstanza().getContenitoreIngredienti();
         if(ingredienti!=null && !(ingredienti.getChildren().isEmpty())) { 
-        		controller.compilaRicetta(ricettaBean);
+        	adattatorePubblicaRicettaController.compilaLaRicetta(ricettaBean);
 		}
 		else {
 			pubblica.setText("INGREDIENTI?");

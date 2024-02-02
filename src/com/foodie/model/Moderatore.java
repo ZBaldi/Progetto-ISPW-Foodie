@@ -2,22 +2,27 @@ package com.foodie.model;
 
 import java.util.ArrayList;
 
-public class Moderatore extends SubjectPatternObserver implements Utente {
-	private static Moderatore istanza;
+public class Moderatore extends SubjectPatternObserver implements Utente { //MODERATORE IMPLEMENTA UTENTE
+	
+	private static Moderatore istanza;  //SINGLETON, ABBIAMO SOLO 1 MODERATORE
 	private static ArrayList<Ricetta> ricetteDaVerificare=null;
 	private String username;
+	
 	private Moderatore(){
 	}
+	
 	private Moderatore(String username){
 		this.username=username;
 	}
-	public static Moderatore ottieniIstanza(String username) { //METODO PER OTTENERE L'ISTANZA
+	
+	public static synchronized Moderatore ottieniIstanza(String username) { //METODO PER OTTENERE L'ISTANZA
 		if(istanza==null) {
 			istanza=new Moderatore(username);
 			ricetteDaVerificare =new ArrayList<Ricetta>();
 		}
 		return istanza;
 	}
+	
 	public static Moderatore ottieniIstanza() { //METODO PER OTTENERE L'ISTANZA 
 		if(istanza==null) {
 			istanza=new Moderatore();
@@ -25,6 +30,7 @@ public class Moderatore extends SubjectPatternObserver implements Utente {
 		}
 		return istanza;
 	}
+	
 	public void setUsername(String username) {
 		this.username=username;
 	}
@@ -32,30 +38,56 @@ public class Moderatore extends SubjectPatternObserver implements Utente {
 	public String getUsername() {
 		return username;
 	}
+	
 	@Override
-	public String getViewIniziale() {
+	public String getViewIniziale() {  //VIEW INIZIALE
 		return "ModeratoreView.fxml";
 	}
-	public void aggiungiRicettaDaVerificare(Ricetta ricetta) {
-		ricetteDaVerificare.add(ricetta);
-		System.out.println("Ricetta da Verificare aggiunta");
-		notifica();
+	
+	public void aggiungiRicettaDaVerificare(Ricetta ricetta) {  //AGGIUNGI LE RICETTE DA VERIFICARE
+		if(ricetteDaVerificare!=null && !ricetteDaVerificare.isEmpty()) {
+			ricetteDaVerificare.add(ricetta);
+			System.out.println("Ricetta da Verificare aggiunta");
+			notifica();
+		}
+		else {
+			System.out.println("Ricetta già in corso di verifica");
+		}
 	}
-	public void ricettaVerificata(Ricetta ricetta) {
-		ricetteDaVerificare.remove(ricetta);
-		notifica();
+	
+	public void ricettaVerificata(Ricetta ricetta) {  //RIMUOVE LA RICETTA SE VERIFICATA
+		if(ricetteDaVerificare.remove(ricetta)==true) {
+			System.out.println("Ricetta verificata");
+			notifica();
+		}
+		else {
+			System.out.println("Ricetta già verificata o non inviata al moderatore");
+		}
 	}
-	public static ArrayList<Ricetta> getRicetteDaVerificare(){
-		return ricetteDaVerificare;
+	
+	public static ArrayList<Ricetta> getRicetteDaVerificare(){  //OTTIENI LE RICETTE DA VERIFICARE
+		if(ricetteDaVerificare!=null && !ricetteDaVerificare.isEmpty()) {
+			System.out.println("Ecco le ricette da verificare");
+			return ricetteDaVerificare;
+		}
+		else {
+			System.out.println("Nessuna ricetta da verificare");
+			return null;
+		}
 	}
-	public static Ricetta ottieniRicetta(String nome,String autore) {
+	
+	public static Ricetta ottieniRicetta(String nome,String autore) {  //OTTIENE I DATI DELLA RICETTA CHE SI DEVE VERIFICARE
 		if(ricetteDaVerificare!=null && !ricetteDaVerificare.isEmpty()) {
 			for(Ricetta r: ricetteDaVerificare) {
 				if(r.getNome().equals(nome) && r.getAutore().equals(autore)) {
 					return r;
 				}
 			}
+			return null;
 		}
-		return null;
+		else {
+			return null;
+		}
 	}
+	
 }

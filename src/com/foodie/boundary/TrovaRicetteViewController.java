@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.TrovaRicettaController;
-import com.foodie.controller.TrovaRicetteControllerAdapter;
+import com.foodie.controller.TrovaRicettaControllerAdapter;
 import com.foodie.model.AlimentoBean;
 import com.foodie.model.Dispensa;
 import com.foodie.model.RicettaBean;
@@ -27,7 +27,7 @@ import javafx.stage.Stage;
 public class TrovaRicetteViewController {
 	private Stage primaryStage;
 	private TrovaRicettaController controller = TrovaRicettaController.ottieniIstanza();
-	private ControllerAdapter adattatoreTrovaRicettaController= TrovaRicetteControllerAdapter.ottieniIstanza(controller);
+	private ControllerAdapter adattatoreTrovaRicettaController= TrovaRicettaControllerAdapter.ottieniIstanza(controller);
 	@FXML
 	private VBox contenitoreRicette;
 	@FXML

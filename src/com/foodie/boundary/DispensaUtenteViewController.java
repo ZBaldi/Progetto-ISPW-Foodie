@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.LoginController;
 import com.foodie.controller.TrovaRicettaController;
-import com.foodie.controller.TrovaRicetteControllerAdapter;
+import com.foodie.controller.TrovaRicettaControllerAdapter;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,10 +31,10 @@ import com.foodie.model.RicettaBean;
 public class DispensaUtenteViewController implements Observer {
 	private static DispensaUtenteViewController istanza;  //SINGLETON
 	private TrovaRicettaController controller = TrovaRicettaController.ottieniIstanza();
-	private ControllerAdapter adattatoreTrovaRicettaController= TrovaRicetteControllerAdapter.ottieniIstanza(controller);
+	private ControllerAdapter adattatoreTrovaRicettaController= TrovaRicettaControllerAdapter.ottieniIstanza(controller);
 	private ArrayList<AlimentoBean> alimentiBeanTrovati;
 	private ArrayList<AlimentoBean> alimentiBeanDispensa;
-	private LoginController controllerLogin= new LoginController();
+	private LoginController controllerLogin= LoginController.ottieniIstanza();
 	private String username;
 	private boolean bottoneModifica = true;
 	private Stage primaryStage;

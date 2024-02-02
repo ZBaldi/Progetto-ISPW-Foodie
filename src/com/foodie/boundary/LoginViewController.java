@@ -38,7 +38,7 @@ public class LoginViewController {
 	private Label chiudiLabel;
 	private Stage primaryStage;
 	private AreaPersonaleViewController controllerAreaPersonale = AreaPersonaleViewController.ottieniIstanza();
-	private LoginController controller =new LoginController();
+	private LoginController controller =LoginController.ottieniIstanza();
 	private DispensaUtenteViewController controllerDispensa =DispensaUtenteViewController.ottieniIstanza();
 	private ModeratoreViewController controllerModeratore= ModeratoreViewController.ottieniIstanza();
 	@FXML

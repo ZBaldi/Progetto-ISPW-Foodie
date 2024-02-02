@@ -2,18 +2,13 @@ package com.foodie.controller;
 
 import java.util.ArrayList;
 
-import com.foodie.boundary.InserisciIngredienteViewController;
 import com.foodie.model.Alimento;
-import com.foodie.model.AlimentoBean;
-import com.foodie.model.CatalogoAlimentiDao;
-import com.foodie.model.CatalogoAlimentiNutrixionixImplementazioneDao;
 import com.foodie.model.CatalogoRicetteChefDao;
 import com.foodie.model.CatalogoRicetteImplementazioneDao;
 import com.foodie.model.Moderatore;
 import com.foodie.model.Ricetta;
-import com.foodie.model.RicettaBean;
 
-public class PubblicaRicettaController {
+public class PubblicaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOLO 1 ISTANZA!
 	
 	private static PubblicaRicettaController istanza;
 	private static CatalogoRicetteChefDao database;
@@ -32,64 +27,55 @@ public class PubblicaRicettaController {
 		return istanza;
 	}
 	
-	public void creaRicetta() {
+	public void creaRicetta() {  //CREA LA RICETTA
 		ricetta=new Ricetta();
 	}
 	
-	public Ricetta getRicetta() { 
+	public Ricetta getRicetta() {  //RESTITUISCE L'ISTANZA DELLA RICETTA
 		return ricetta;
 	}
 	
-	public void compilaRicetta(RicettaBean ricettaBean) {
+	public void compilaRicetta(Ricetta ricettaCompilata) {  //COMPILA LA RICETTA
 		if(ricetta!=null) {
-			ricetta.setNome(ricettaBean.getNome());
-			ricetta.setDescrizione(ricettaBean.getDescrizione());
-			ricetta.setDifficolta(ricettaBean.getDifficolta());
-			ricetta.setAutore(ricettaBean.getAutore());
+			ricetta.setNome(ricettaCompilata.getNome());
+			ricetta.setDescrizione(ricettaCompilata.getDescrizione());
+			ricetta.setDifficolta(ricettaCompilata.getDifficolta());
+			ricetta.setAutore(ricettaCompilata.getAutore());
 			notificaModeratore();
 		}
 	}
 	
-	public ArrayList<AlimentoBean> mostraAlimentiRicetta() {
+	public ArrayList<Alimento> mostraAlimentiRicetta() {  //MOSTRA GLI INGREDIENTI DELLA RICETTA
 		ArrayList<Alimento> alimentiRicetta=ricetta.getIngredienti();
 		if(!alimentiRicetta.isEmpty()) {
-			ArrayList<AlimentoBean> alimentiRicettaBean =new ArrayList<AlimentoBean>();
-			for(Alimento a: alimentiRicetta) {
-				AlimentoBean alimentoBean=new AlimentoBean();
-				alimentoBean.setNome(a.getNome());
-				alimentiRicettaBean.add(alimentoBean);
-			}
-			return alimentiRicettaBean;
+			return alimentiRicetta;
 		}
 		else {
 			return null;
 		}
 	}
 	
-	public void aggiungiIngredientiRicetta(AlimentoBean alimentoBean,String quantita,int x) {  //CHIAMATO DOPO AVER SELEZIONATO L'ALIMENTO
-		Alimento alimento=new Alimento(alimentoBean.getNome());
+	public void aggiungiIngredientiRicetta(Alimento alimento,String quantita,int x) {  //AGGIUNGE INGREDIENTE ALLA RICETTA
 		if(x==0) {
 			ricetta.aggiungiIngrediente(alimento, quantita);
-			System.out.println("ingrediente aggiunto");
 		}
 		else {
 			ricetta.eliminaIngrediente(alimento);
-			System.out.println("ingrediente eliminato");
 		}
 	}
 	
-	private void notificaModeratore() {
+	private void notificaModeratore() {  //NOTIFICA IL MODERATORE DOPO AVER COMPILATO
 		System.out.println("MODERATORE NOTIFICATO");
 		moderatore.aggiungiRicettaDaVerificare(ricetta);
 		ricetta=null;
 	}
 	
-	private void notificaChef(boolean bool) {
+	private void notificaChef(boolean bool) {  //NOTIFICA LO CHEF DOPO AVER APPROVATO LA RICETTA
 		System.out.println("CHEF NOTIFICATO: "+bool);
 		//DAFARE
 	}
 	
-	public void pubblicaRicetta(String nome,String autore,boolean bool) {
+	public void pubblicaRicetta(String nome,String autore,boolean bool) {  //PUBBLICA LA RICETTA APPROVATA NEL DATABASE
 		Ricetta ricettaDaPubblicare=Moderatore.ottieniRicetta(nome, autore);
 		try {
 			if(bool==true) {
@@ -102,7 +88,7 @@ public class PubblicaRicettaController {
 		}
 	}
 	
-	public void eliminaRicetta(String nome, String autore) {  
+	public void eliminaRicetta(String nome, String autore) {    //ELIMINA LA RICETTA DAL DATABASE
 		
 		try {
 			database.eliminaRicetta(nome,autore);
@@ -111,32 +97,12 @@ public class PubblicaRicettaController {
 		}
 	}
 	
-	public ArrayList<RicettaBean> mostraRicetteDaApprovare() {
+	public ArrayList<Ricetta> mostraRicetteDaApprovare() {  //MOSTRA LE RICETTE CHE DEVONO ESSERE APPROVATE
 		ArrayList<Ricetta> ricette=Moderatore.getRicetteDaVerificare();
 		if(ricette!=null && !ricette.isEmpty()) {
-			ArrayList<RicettaBean> ricetteBean = new ArrayList<RicettaBean>();
-			for(Ricetta r: ricette) {
-				RicettaBean ricettaBean=new RicettaBean();
-				ricettaBean.setNome(r.getNome());
-				ricettaBean.setDescrizione(r.getDescrizione());
-				ricettaBean.setDifficolta(r.getDifficolta());
-				ArrayList<AlimentoBean> alimentiTrovatiBean=new ArrayList<AlimentoBean>();
-				ArrayList<Alimento> alimentiTrovati=r.getIngredienti();
-				for(Alimento a:alimentiTrovati) {
-					AlimentoBean alimentoBean= new AlimentoBean();
-					alimentoBean.setNome(a.getNome());
-					alimentiTrovatiBean.add(alimentoBean);
-				}
-				ricettaBean.setIngredienti(alimentiTrovatiBean);
-				ricettaBean.setAutore(r.getAutore());
-				ricettaBean.setQuantita(r.getQuantita());
-				ricetteBean.add(ricettaBean);
-			}
-			System.out.println("Ecco le ricette da verificare");
-			return ricetteBean;
+			return ricette;
 		}
 		else {
-			System.out.println("Nessuna ricetta da verificare");
 			return null;
 		}
 	}

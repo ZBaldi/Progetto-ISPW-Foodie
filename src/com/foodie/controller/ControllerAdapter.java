@@ -3,8 +3,8 @@ package com.foodie.controller;
 import java.util.ArrayList;
 
 import com.foodie.model.AlimentoBean;
-import com.foodie.model.Ricetta;
 import com.foodie.model.RicettaBean;
+import com.foodie.model.UtenteBean;
 
 public abstract class ControllerAdapter {
 	
@@ -27,21 +27,25 @@ public abstract class ControllerAdapter {
 		return null;
 	}
 	
-	public RicettaBean getRicetta() {
+	public RicettaBean ottieniLaRicetta() {
 		return null;
 	}
 	
-	public void compilaRicetta(RicettaBean ricettaBean) {
+	public void compilaLaRicetta(RicettaBean ricettaBean) {
 	}
 	
-	public ArrayList<AlimentoBean> mostraAlimentiRicetta() {
+	public ArrayList<AlimentoBean> mostraIngredientiRicetta() {
 		return null;
 	}
 	
-	public void aggiungiIngredientiRicetta(AlimentoBean alimentoBean,String quantita,int x) {
+	public void aggiungiIngredienteRicetta(AlimentoBean alimentoBean,String quantita,int x) {
 	}
 	
-	public ArrayList<RicettaBean> mostraRicetteDaApprovare() {
+	public ArrayList<RicettaBean> mostraLeRicetteDaApprovare() {
+		return null;
+	}
+	
+	public UtenteBean ottieniUtente() {
 		return null;
 	}
 	

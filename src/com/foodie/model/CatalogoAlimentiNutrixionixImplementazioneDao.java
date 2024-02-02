@@ -12,20 +12,24 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class CatalogoAlimentiNutrixionixImplementazioneDao implements CatalogoAlimentiDao{
-	private static CatalogoAlimentiNutrixionixImplementazioneDao istanza;
+public class CatalogoAlimentiNutrixionixImplementazioneDao implements CatalogoAlimentiDao{  //IMPLEMENTAZIONE DAO CHE USA UN API PER COMUNICARE CON IL DB DI NUTRIXIONIX
+	
+	private static CatalogoAlimentiNutrixionixImplementazioneDao istanza;  //SINGLETON 
 	private static final String API_URL = "https://trackapi.nutritionix.com/v2/search/instant";
 	private static final String APP_ID = "103947a7";
 	private static final String API_KEY = "726892d58f85bf82f8f8ab4171671c42";
+	
 	private CatalogoAlimentiNutrixionixImplementazioneDao(){
 	}
+	
 	public static CatalogoAlimentiNutrixionixImplementazioneDao ottieniIstanza() { //METODO PER OTTENERE L'ISTANZA
 		if(istanza==null) {
 			istanza=new CatalogoAlimentiNutrixionixImplementazioneDao();
 		}
 		return istanza;
 	}
-	private ArrayList<Alimento> estraiFoodName(String stringa) {
+	
+	private ArrayList<Alimento> estraiFoodName(String stringa) {  //INIZIALIZZO I VARI ALIMENTI DAL CAMPO FOOD NAME ESTRATTO DAL JSON OTTENUTO
 		ObjectMapper mapper = new ObjectMapper(); 
 		try {
 			JsonNode nodo = mapper.readTree(stringa).get("common");  //prendo ramo common del vettore json di elementi
@@ -33,10 +37,6 @@ public class CatalogoAlimentiNutrixionixImplementazioneDao implements CatalogoAl
 			//modo buono://li metto in un arrayList di alimenti ignorando tutti i campi tranne food_name
 			ArrayList<Alimento> alimenti = mapper.readValue(nodo.toString(), mapper.getTypeFactory().constructCollectionType(ArrayList.class, Alimento.class));
 			return alimenti;
-			//pezzo di codice che mi servirà per levare le istanze degli alimenti creati
-			/*alimenti.clear();
-			alimenti.trimToSize();
-			System.gc();*/
 		} catch (JsonMappingException e) {
 			e.printStackTrace();
 			return null;
@@ -45,6 +45,7 @@ public class CatalogoAlimentiNutrixionixImplementazioneDao implements CatalogoAl
 			return null;
 		}
 	}
+	
 	@Override
 	public ArrayList<Alimento> trovaAlimenti(String nome) {
 		try {
@@ -62,7 +63,6 @@ public class CatalogoAlimentiNutrixionixImplementazioneDao implements CatalogoAl
             	BufferedReader lettore = new BufferedReader(new InputStreamReader(connessione.getInputStream()));
                 String stringa;  //converto i dati ottenuti in una stringa
                 StringBuilder risposta = new StringBuilder();
-
                 while ((stringa = lettore.readLine()) != null) {
                     risposta.append(stringa);
                 }
@@ -70,13 +70,15 @@ public class CatalogoAlimentiNutrixionixImplementazioneDao implements CatalogoAl
                 alimentiTrovati=estraiFoodName(risposta.toString());  // applico il metodo che deserializza la stringa json ottenuta per ottenere i nomi degli alimenti
             }
             else {
-            System.out.println("Errore: codice di risposta " + codiceDiRisposta);
+            	System.out.println("Errore: codice di risposta " + codiceDiRisposta);
             }
             connessione.disconnect();
-            if(!alimentiTrovati.isEmpty()) {
+            if(alimentiTrovati!=null && !alimentiTrovati.isEmpty()) {
             	return alimentiTrovati;
             }
-            return null;
+            else {
+            	return null;
+            }
 		}catch(Exception e) {
 			e.printStackTrace();
 			return null;

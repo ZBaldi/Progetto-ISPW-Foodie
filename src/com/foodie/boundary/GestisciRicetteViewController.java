@@ -5,10 +5,12 @@ import java.util.ArrayList;
 
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.LoginController;
+import com.foodie.controller.LoginControllerAdapter;
 import com.foodie.controller.PubblicaRicettaController;
 import com.foodie.controller.TrovaRicettaController;
-import com.foodie.controller.TrovaRicetteControllerAdapter;
+import com.foodie.controller.TrovaRicettaControllerAdapter;
 import com.foodie.model.RicettaBean;
+import com.foodie.model.UtenteBean;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,8 +29,9 @@ import javafx.stage.Stage;
 public class GestisciRicetteViewController {
 	private Stage primaryStage;
 	private TrovaRicettaController controller = TrovaRicettaController.ottieniIstanza();
-	private ControllerAdapter adattatoreTrovaRicettaController= TrovaRicetteControllerAdapter.ottieniIstanza(controller);
-	private LoginController controller2 = new LoginController();
+	private ControllerAdapter adattatoreTrovaRicettaController= TrovaRicettaControllerAdapter.ottieniIstanza(controller);
+	private LoginController controller2 =LoginController.ottieniIstanza();
+	private ControllerAdapter adattatoreLoginController = LoginControllerAdapter.ottieniIstanza(controller2);
 	private PubblicaRicettaController controller3 = PubblicaRicettaController.ottieniIstanza();
 	private AreaPersonaleViewController controllerAreaPersonale = AreaPersonaleViewController.ottieniIstanza();
 	@FXML
@@ -42,7 +45,8 @@ public class GestisciRicetteViewController {
 	public void aggiornaView() {
 		ArrayList<RicettaBean> ricetteTrovate= null;
 		contenitoreRicette.getChildren().clear();
-		ricetteTrovate=adattatoreTrovaRicettaController.trovaLeRicette(0,controller2.getUtente().getUsername());
+		UtenteBean utenteBean=adattatoreLoginController.ottieniUtente();
+		ricetteTrovate=adattatoreTrovaRicettaController.trovaLeRicette(0,utenteBean.getUsername());
 		if(ricetteTrovate!=null) {
 			for(RicettaBean r: ricetteTrovate) {
 				HBox contenitoreRicettaSingola = new HBox();
@@ -85,7 +89,8 @@ public class GestisciRicetteViewController {
 		}
 	}
 	public void caricaViewRicetta(String nomeRicetta,String difficoltaRicetta) {
-		RicettaBean ricettaSelezionata = adattatoreTrovaRicettaController.apriLaRicetta(nomeRicetta,controller2.getUtente().getUsername());
+		UtenteBean utenteBean=adattatoreLoginController.ottieniUtente();
+		RicettaBean ricettaSelezionata = adattatoreTrovaRicettaController.apriLaRicetta(nomeRicetta,utenteBean.getUsername());
 		FXMLLoader loader;
 		try {
 			if(bottoneModifica==false) { //resettare il bottone modifica se attivo
@@ -151,7 +156,8 @@ public class GestisciRicetteViewController {
 					Label labelNome;
 					for(Node nodo: hBoxRicetta.getChildren()) {
 						labelNome=(Label)nodo;  //PRENDO SOLO IL NOME 
-						hBoxRicetta.setOnMouseClicked(event->{eliminaRicetta(labelNome.getText(),controller2.getUtente().getUsername());});
+						UtenteBean utenteBean=adattatoreLoginController.ottieniUtente();
+						hBoxRicetta.setOnMouseClicked(event->{eliminaRicetta(labelNome.getText(),utenteBean.getUsername());});
 						break;
 					}
 				});

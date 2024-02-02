@@ -3,7 +3,10 @@ package com.foodie.boundary;
 import java.util.Map;
 
 import com.foodie.controller.LoginController;
+import com.foodie.controller.LoginControllerAdapter;
 import com.foodie.controller.PubblicaRicettaController;
+import com.foodie.model.UtenteBean;
+import com.foodie.controller.ControllerAdapter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +23,8 @@ public class AreaPersonaleViewController{
 	private static AreaPersonaleViewController istanza;
 	private Stage primaryStage;
 	private PubblicaRicettaController controller2 = PubblicaRicettaController.ottieniIstanza();
-	LoginController controller = new LoginController();
+	private LoginController controller = LoginController.ottieniIstanza();
+	private ControllerAdapter adattatoreLoginController= LoginControllerAdapter.ottieniIstanza(controller);
 	@FXML
     private ImageView tornaAlLoginImageView;
 	@FXML
@@ -103,16 +107,19 @@ public class AreaPersonaleViewController{
         }
 	}
 	public void aggiornaView() {
-		usernameLabel.setText(controller.getUtente().getUsername());
+		UtenteBean utenteBean=adattatoreLoginController.ottieniUtente();
+		usernameLabel.setText(utenteBean.getUsername());
 	}
 	private void salvaAreaPersonale() {
-		controller.salvaAreaPersonale(controller.getUtente().getUsername(), descrizioneTextField.getText());
+		UtenteBean utenteBean=adattatoreLoginController.ottieniUtente();
+		controller.salvaAreaPersonale(utenteBean.getUsername(), descrizioneTextField.getText());
 	}
 	public void caricaAreaPersonale() {
+		UtenteBean utenteBean=adattatoreLoginController.ottieniUtente();
 		Map<String,String> areaPersonaleMap=controller.caricaAreaPersonale();
 		String descrizione="";
 		if(areaPersonaleMap!=null) {
-			descrizione= areaPersonaleMap.get(controller.getUtente().getUsername());
+			descrizione= areaPersonaleMap.get(utenteBean.getUsername());
 		}
 		descrizioneTextField.setText(descrizione);
 	}

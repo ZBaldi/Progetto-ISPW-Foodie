@@ -44,7 +44,7 @@ public class RegistratiViewController {
     @FXML
     private Label esitoRegistrazioneLabel;
     private Stage primaryStage;
-    private LoginController controller =new LoginController();    
+    private LoginController controller =LoginController.ottieniIstanza();    
     // Variabile per memorizzare il ruolo, 0 per l'utente base, 1 per lo chef
     private int ruolo;
 

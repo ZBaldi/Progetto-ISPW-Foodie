@@ -88,7 +88,7 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
                 String descrizione = risultati.getString("descrizione");
                 System.out.println("Trovata descrizione: "+ descrizione);
                 if (descrizione.equals(ricetta.getDescrizione())){
-                	ricettaDuplicataException eccezione= new ricettaDuplicataException("Ricetta già esistente nel database!");
+                	RicettaDuplicataException eccezione= new RicettaDuplicataException("Ricetta già esistente nel database!");
                 	throw eccezione;
                 }
             }

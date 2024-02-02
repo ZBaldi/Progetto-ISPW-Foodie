@@ -3,10 +3,11 @@ package com.foodie.boundary;
 import java.util.ArrayList;
 
 import com.foodie.controller.PubblicaRicettaController;
+import com.foodie.controller.PubblicaRicettaControllerAdapter;
 import com.foodie.model.AlimentoBean;
 import com.foodie.model.Observer;
 import com.foodie.model.RicettaBean;
-
+import com.foodie.controller.ControllerAdapter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +24,7 @@ import javafx.stage.Stage;
 public class ModeratoreViewController implements Observer{
 	private static ModeratoreViewController istanza;
 	private PubblicaRicettaController controller= PubblicaRicettaController.ottieniIstanza();
+	private ControllerAdapter adattatorePubblicaRicettaController= PubblicaRicettaControllerAdapter.ottieniIstanza(controller);
 	private Stage primaryStage;
 	private ArrayList<RicettaBean> ricetteBean=null;
 	@FXML
@@ -41,7 +43,7 @@ public class ModeratoreViewController implements Observer{
 	public void aggiornaView() {
 		contenitoreRicetteDaApprovare.getChildren().clear();
 		contenitoreContenutoRicetta.getChildren().clear();
-		ricetteBean =controller.mostraRicetteDaApprovare();
+		ricetteBean =adattatorePubblicaRicettaController.mostraLeRicetteDaApprovare();
 		if(ricetteBean!=null) {
 			for(RicettaBean r: ricetteBean) {
 				Label labelRicetta = new Label(r.getNome());
