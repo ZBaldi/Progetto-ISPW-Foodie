@@ -3,9 +3,11 @@ package com.foodie.boundary;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.LoginController;
 import com.foodie.controller.PubblicaRicettaController;
 import com.foodie.controller.TrovaRicettaController;
+import com.foodie.controller.TrovaRicetteControllerAdapter;
 import com.foodie.model.RicettaBean;
 
 import javafx.event.ActionEvent;
@@ -25,6 +27,7 @@ import javafx.stage.Stage;
 public class GestisciRicetteViewController {
 	private Stage primaryStage;
 	private TrovaRicettaController controller = TrovaRicettaController.ottieniIstanza();
+	private ControllerAdapter adattatoreTrovaRicettaController= TrovaRicetteControllerAdapter.ottieniIstanza(controller);
 	private LoginController controller2 = new LoginController();
 	private PubblicaRicettaController controller3 = PubblicaRicettaController.ottieniIstanza();
 	private AreaPersonaleViewController controllerAreaPersonale = AreaPersonaleViewController.ottieniIstanza();
@@ -39,7 +42,7 @@ public class GestisciRicetteViewController {
 	public void aggiornaView() {
 		ArrayList<RicettaBean> ricetteTrovate= null;
 		contenitoreRicette.getChildren().clear();
-		ricetteTrovate=controller.trovaRicette(0,controller2.getUtente().getUsername());
+		ricetteTrovate=adattatoreTrovaRicettaController.trovaLeRicette(0,controller2.getUtente().getUsername());
 		if(ricetteTrovate!=null) {
 			for(RicettaBean r: ricetteTrovate) {
 				HBox contenitoreRicettaSingola = new HBox();
@@ -82,7 +85,7 @@ public class GestisciRicetteViewController {
 		}
 	}
 	public void caricaViewRicetta(String nomeRicetta,String difficoltaRicetta) {
-		RicettaBean ricettaSelezionata = controller.ottieniRicetta(nomeRicetta,controller2.getUtente().getUsername());
+		RicettaBean ricettaSelezionata = adattatoreTrovaRicettaController.apriLaRicetta(nomeRicetta,controller2.getUtente().getUsername());
 		FXMLLoader loader;
 		try {
 			if(bottoneModifica==false) { //resettare il bottone modifica se attivo

@@ -5,14 +5,12 @@ import java.util.ArrayList;
 
 
 import com.foodie.model.Alimento;
-import com.foodie.model.AlimentoBean;
 import com.foodie.model.CatalogoAlimentiDao;
 import com.foodie.model.CatalogoAlimentiNutrixionixImplementazioneDao;
 import com.foodie.model.CatalogoRicetteChefDao;
 import com.foodie.model.CatalogoRicetteImplementazioneDao;
 import com.foodie.model.Dispensa;
 import com.foodie.model.Ricetta;
-import com.foodie.model.RicettaBean;
 
 public class TrovaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOLO 1 ISTANZA!
 	
@@ -34,8 +32,7 @@ public class TrovaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOL
 		return istanza;
 	}
 	
-	public void aggiornaDispensa(AlimentoBean alimentoBean,int x) {  //METODO PER AGGIORNARE LA DISPENSA
-		Alimento alimento=new Alimento(alimentoBean.getNome());
+	public void aggiornaDispensa(Alimento alimento,int x) {  //METODO PER AGGIORNARE LA DISPENSA
 		if(x==0) {
 			dispensa.aggiungiAlimento(alimento);  //SE X E' 0 AGGIUNGO
 		}
@@ -48,7 +45,7 @@ public class TrovaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOL
 		dispensa.svuotaDispensa();
 	}
 	
-	public ArrayList<RicettaBean> trovaRicette(int difficolta, String autore){  //METODO PER TROVARE LE RICETTE
+	public ArrayList<Ricetta> trovaRicette(int difficolta, String autore){  //METODO PER TROVARE LE RICETTE
 		ArrayList<Ricetta> ricetteTrovate= null;
 		try {
 			if(autore==null) {  //SE NON PASSO L'AUTORE VOGLIO EFFETTUARE LA RICERCA PER ALIMENTI-DIFFICOLTA'
@@ -59,25 +56,7 @@ public class TrovaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOL
 			}
 			if(ricetteTrovate!=null) {
 				mostraRicette(ricetteTrovate);
-				ArrayList<RicettaBean> ricetteTrovateBean= new ArrayList<RicettaBean>();
-				for(Ricetta r:ricetteTrovate) {
-					RicettaBean ricettaBean=new RicettaBean();
-					ricettaBean.setNome(r.getNome());
-					ricettaBean.setDescrizione(r.getDescrizione());
-					ricettaBean.setDifficolta(r.getDifficolta());
-					ArrayList<AlimentoBean> alimentiTrovatiBean=new ArrayList<AlimentoBean>();
-					ArrayList<Alimento> alimentiTrovati=r.getIngredienti();
-					for(Alimento a:alimentiTrovati) {
-						AlimentoBean alimentoBean= new AlimentoBean();
-						alimentoBean.setNome(a.getNome());
-						alimentiTrovatiBean.add(alimentoBean);
-					}
-					ricettaBean.setIngredienti(alimentiTrovatiBean);
-					ricettaBean.setAutore(r.getAutore());
-					ricettaBean.setQuantita(r.getQuantita());
-					ricetteTrovateBean.add(ricettaBean);
-				}	
-				return ricetteTrovateBean;
+				return ricetteTrovate;
 			}
 			else {
 				return null;
@@ -101,19 +80,12 @@ public class TrovaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOL
 		}
 	}
 	
-	public ArrayList<AlimentoBean> trovaAlimenti(String nomeAlimento) {  //METODO PER TROVARE GLI ALIMENTI
+	public ArrayList<Alimento> trovaAlimenti(String nomeAlimento) {  //METODO PER TROVARE GLI ALIMENTI
 		ArrayList<Alimento> alimentiTrovati=null;
-		ArrayList<AlimentoBean> alimentiTrovatiBean=null;
 		alimentiTrovati=databaseAlimenti.trovaAlimenti(nomeAlimento);
 		if(alimentiTrovati!=null && !alimentiTrovati.isEmpty()) {
-			alimentiTrovatiBean=new ArrayList<AlimentoBean>();
 			mostraAlimenti(alimentiTrovati);
-			for(Alimento a:alimentiTrovati) {
-				AlimentoBean alimentoBean= new AlimentoBean();
-				alimentoBean.setNome(a.getNome());
-				alimentiTrovatiBean.add(alimentoBean);
-			}
-			return alimentiTrovatiBean;
+			return alimentiTrovati;
 		}
 		else {
 			return null;
@@ -126,43 +98,23 @@ public class TrovaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOL
 		}
 	}
 	
-	public ArrayList<AlimentoBean> mostraDispensa(){  //METODO PER OTTENERE GLI ALIMENTI NELLA DISPENSA
+	public ArrayList<Alimento> mostraDispensa(){  //METODO PER OTTENERE GLI ALIMENTI NELLA DISPENSA
 		ArrayList<Alimento> alimentiInDispensa=null;
 		alimentiInDispensa=dispensa.getAlimenti();
 		if(alimentiInDispensa!=null && !alimentiInDispensa.isEmpty()) {
-			ArrayList<AlimentoBean> alimentiInDispensaBean =new ArrayList<AlimentoBean>();
-			for(Alimento a: alimentiInDispensa) {
-				AlimentoBean alimentoBean=new AlimentoBean();
-				alimentoBean.setNome(a.getNome());
-				alimentiInDispensaBean.add(alimentoBean);
-			}
-			return alimentiInDispensaBean;
+			return alimentiInDispensa;
 		}
 		else {
 			return null;
 		}
 	}
 	
-	public RicettaBean ottieniRicetta(String nome,String autore) {  //METODO PER OTTENERE I DATI DI UNA RICETTA IN FUNZIONE DEL NOME-AUTORE
-		Ricetta r=null; 
+	public Ricetta ottieniRicetta(String nome,String autore) {  //METODO PER OTTENERE I DATI DI UNA RICETTA IN FUNZIONE DEL NOME-AUTORE
+		Ricetta ricetta=null; 
 		try {
-			r=database.ottieniDatiRicetta(nome,autore);
-			if(r!=null) {
-				RicettaBean ricettaBean=new RicettaBean();
-				ricettaBean.setNome(r.getNome());
-				ricettaBean.setDescrizione(r.getDescrizione());
-				ricettaBean.setDifficolta(r.getDifficolta());
-				ArrayList<AlimentoBean> alimentiTrovatiBean=new ArrayList<AlimentoBean>();
-				ArrayList<Alimento> alimentiTrovati=r.getIngredienti();
-				for(Alimento a:alimentiTrovati) {
-					AlimentoBean alimentoBean= new AlimentoBean();
-					alimentoBean.setNome(a.getNome());
-					alimentiTrovatiBean.add(alimentoBean);
-				}
-				ricettaBean.setIngredienti(alimentiTrovatiBean);
-				ricettaBean.setAutore(r.getAutore());
-				ricettaBean.setQuantita(r.getQuantita());
-				return ricettaBean;
+			ricetta=database.ottieniDatiRicetta(nome,autore);
+			if(ricetta!=null) {
+				return ricetta;
 			}
 			else {
 				return null;

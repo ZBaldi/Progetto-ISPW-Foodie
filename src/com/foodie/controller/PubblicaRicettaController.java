@@ -14,41 +14,42 @@ import com.foodie.model.Ricetta;
 import com.foodie.model.RicettaBean;
 
 public class PubblicaRicettaController {
+	
 	private static PubblicaRicettaController istanza;
 	private static CatalogoRicetteChefDao database;
-	private Moderatore moderatore=Moderatore.ottieniIstanza();
-	//private CatalogoAlimentiDao databaseAlimenti;
-	private Ricetta ricetta=null;
+	private static Moderatore moderatore;
+	private static Ricetta ricetta=null;
+	
 	private PubblicaRicettaController() {
 	}
+	
 	public static PubblicaRicettaController ottieniIstanza() { //METODO PER OTTENERE L'ISTANZA
 		if(istanza==null) {
-			database= CatalogoRicetteImplementazioneDao.ottieniIstanza();
-			//databaseAlimenti=CatalogoAlimentiNutrixionixImplementazioneDao.ottieniIstanza();
 			istanza=new PubblicaRicettaController();
+			database= CatalogoRicetteImplementazioneDao.ottieniIstanza();
+			moderatore=Moderatore.ottieniIstanza();
 		}
 		return istanza;
 	}
+	
 	public void creaRicetta() {
 		ricetta=new Ricetta();
 	}
-	public Ricetta getRicetta() {  //non se potrebbe lo devi sistema! ricettabean devi passare
+	
+	public Ricetta getRicetta() { 
 		return ricetta;
 	}
+	
 	public void compilaRicetta(RicettaBean ricettaBean) {
-		ricetta.setNome(ricettaBean.getNome());
-		ricetta.setDescrizione(ricettaBean.getDescrizione());
-		ricetta.setDifficolta(ricettaBean.getDifficolta());
-		ricetta.setAutore(ricettaBean.getAutore());
-		System.out.println("ricetta compilata");
-		notificaModeratore();
+		if(ricetta!=null) {
+			ricetta.setNome(ricettaBean.getNome());
+			ricetta.setDescrizione(ricettaBean.getDescrizione());
+			ricetta.setDifficolta(ricettaBean.getDifficolta());
+			ricetta.setAutore(ricettaBean.getAutore());
+			notificaModeratore();
+		}
 	}
-	/*public void trovaAlimenti(String nomeAlimento) {  GIA FATTO NEL TROVA RICETTA CONTROLLER
-		ArrayList<Alimento> alimentiTrovati;
-		if((alimentiTrovati=databaseAlimenti.trovaAlimenti(nomeAlimento))!=null) {
-			//mostraAlimenti(alimentiTrovati);
-		}	
-	}*/
+	
 	public ArrayList<AlimentoBean> mostraAlimentiRicetta() {
 		ArrayList<Alimento> alimentiRicetta=ricetta.getIngredienti();
 		if(!alimentiRicetta.isEmpty()) {
@@ -64,6 +65,7 @@ public class PubblicaRicettaController {
 			return null;
 		}
 	}
+	
 	public void aggiungiIngredientiRicetta(AlimentoBean alimentoBean,String quantita,int x) {  //CHIAMATO DOPO AVER SELEZIONATO L'ALIMENTO
 		Alimento alimento=new Alimento(alimentoBean.getNome());
 		if(x==0) {
@@ -75,15 +77,18 @@ public class PubblicaRicettaController {
 			System.out.println("ingrediente eliminato");
 		}
 	}
+	
 	private void notificaModeratore() {
 		System.out.println("MODERATORE NOTIFICATO");
 		moderatore.aggiungiRicettaDaVerificare(ricetta);
 		ricetta=null;
 	}
+	
 	private void notificaChef(boolean bool) {
 		System.out.println("CHEF NOTIFICATO: "+bool);
 		//DAFARE
 	}
+	
 	public void pubblicaRicetta(String nome,String autore,boolean bool) {
 		Ricetta ricettaDaPubblicare=Moderatore.ottieniRicetta(nome, autore);
 		try {
@@ -96,6 +101,7 @@ public class PubblicaRicettaController {
 			e.printStackTrace();
 		}
 	}
+	
 	public void eliminaRicetta(String nome, String autore) {  
 		
 		try {
@@ -104,13 +110,7 @@ public class PubblicaRicettaController {
 			e.printStackTrace();
 		}
 	}
-	/*public void aggiornaRicettaPubblicata(Ricetta ricetta) {  //BEAN BOH FORSE SI ELIMINA
-		try {
-			database.aggiornaRicetta(ricetta);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}*/
+	
 	public ArrayList<RicettaBean> mostraRicetteDaApprovare() {
 		ArrayList<Ricetta> ricette=Moderatore.getRicetteDaVerificare();
 		if(ricette!=null && !ricette.isEmpty()) {
@@ -140,4 +140,5 @@ public class PubblicaRicettaController {
 			return null;
 		}
 	}
+	
 }

@@ -2,7 +2,9 @@ package com.foodie.boundary;
 
 import java.util.ArrayList;
 
+import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.TrovaRicettaController;
+import com.foodie.controller.TrovaRicetteControllerAdapter;
 import com.foodie.model.AlimentoBean;
 import com.foodie.model.Dispensa;
 import com.foodie.model.RicettaBean;
@@ -25,6 +27,7 @@ import javafx.stage.Stage;
 public class TrovaRicetteViewController {
 	private Stage primaryStage;
 	private TrovaRicettaController controller = TrovaRicettaController.ottieniIstanza();
+	private ControllerAdapter adattatoreTrovaRicettaController= TrovaRicetteControllerAdapter.ottieniIstanza(controller);
 	@FXML
 	private VBox contenitoreRicette;
 	@FXML
@@ -89,7 +92,7 @@ public class TrovaRicetteViewController {
 	}
 	private void trovaRicette(int difficoltaInt) {  //SI PUò TROVARE UN MODO DI RICICLARE STA PARTE
 		ArrayList<RicettaBean> ricetteTrovate= null;
-		ricetteTrovate=controller.trovaRicette(difficoltaInt,null);
+		ricetteTrovate=adattatoreTrovaRicettaController.trovaLeRicette(difficoltaInt,null);
 		if(ricetteTrovate!=null) {
 			for(RicettaBean r: ricetteTrovate) {
 				HBox contenitoreRicettaSingola = new HBox();
@@ -161,7 +164,7 @@ public class TrovaRicetteViewController {
 		}
 	}
 	public void caricaViewRicetta(String nomeRicetta,String autoreRicetta,String difficoltaRicetta) {
-		RicettaBean ricettaSelezionata = controller.ottieniRicetta(nomeRicetta,autoreRicetta);
+		RicettaBean ricettaSelezionata = adattatoreTrovaRicettaController.apriLaRicetta(nomeRicetta,autoreRicetta);
 		FXMLLoader loader;
 		try {
 			loader = new FXMLLoader(getClass().getResource("ContenutoRicettaView.fxml"));

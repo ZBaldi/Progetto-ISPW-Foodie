@@ -2,8 +2,10 @@ package com.foodie.boundary;
 
 import java.util.ArrayList;
 
+import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.LoginController;
 import com.foodie.controller.TrovaRicettaController;
+import com.foodie.controller.TrovaRicetteControllerAdapter;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,6 +31,7 @@ import com.foodie.model.RicettaBean;
 public class DispensaUtenteViewController implements Observer {
 	private static DispensaUtenteViewController istanza;  //SINGLETON
 	private TrovaRicettaController controller = TrovaRicettaController.ottieniIstanza();
+	private ControllerAdapter adattatoreTrovaRicettaController= TrovaRicetteControllerAdapter.ottieniIstanza(controller);
 	private ArrayList<AlimentoBean> alimentiBeanTrovati;
 	private ArrayList<AlimentoBean> alimentiBeanDispensa;
 	private LoginController controllerLogin= new LoginController();
@@ -83,7 +86,7 @@ public class DispensaUtenteViewController implements Observer {
 		int count=0;
 		VBox contenitoreRicette=trovaRicetteViewController.getContenitoreRicette();
 		for(int i=1;i<4;i++) {
-			ricetteTrovate=controller.trovaRicette(i,null);
+			ricetteTrovate=adattatoreTrovaRicettaController.trovaLeRicette(i,null);
 			if(ricetteTrovate!=null) {
 				for(RicettaBean r: ricetteTrovate) {
 					HBox contenitoreRicettaSingola = new HBox();
@@ -188,7 +191,7 @@ public class DispensaUtenteViewController implements Observer {
 		}
 	}
 	private void trovaAlimenti() {
-			alimentiBeanTrovati=controller.trovaAlimenti(barraDiRicerca.getText());
+			alimentiBeanTrovati=adattatoreTrovaRicettaController.trovaGliAlimenti(barraDiRicerca.getText());
 			if(alimentiBeanTrovati!=null) {
 				for(AlimentoBean a: alimentiBeanTrovati) {
 					Label labelAlimento = new Label(a.getNome());
@@ -217,7 +220,7 @@ public class DispensaUtenteViewController implements Observer {
 	private void salvaAlimento(String nomeAlimento) {
 		AlimentoBean alimentoBean = new AlimentoBean();
 		alimentoBean.setNome(nomeAlimento);
-		controller.aggiornaDispensa(alimentoBean, 0);
+		adattatoreTrovaRicettaController.ModificaDispensa(alimentoBean, 0);
 	}
 	private void eliminaAlimenti() {
 		if(!contenitoreAlimentiTrovati.getChildren().isEmpty()) {
@@ -226,7 +229,7 @@ public class DispensaUtenteViewController implements Observer {
 	}
 	public void aggiornaView() {
 		contenitoreDispensa.getChildren().clear();
-		alimentiBeanDispensa =controller.mostraDispensa();
+		alimentiBeanDispensa =adattatoreTrovaRicettaController.mostraLaDispensa();
 		if(alimentiBeanDispensa!=null) {
 			for(AlimentoBean a: alimentiBeanDispensa) {
 				Label labelAlimento = new Label(a.getNome());
@@ -264,7 +267,7 @@ public class DispensaUtenteViewController implements Observer {
 	private void eliminaAlimento(String nomeAlimento) {
 		AlimentoBean alimentoBean = new AlimentoBean();
 		alimentoBean.setNome(nomeAlimento);
-		controller.aggiornaDispensa(alimentoBean, 1);
+		adattatoreTrovaRicettaController.ModificaDispensa(alimentoBean, 1);
 	}
 	private void impostaLabel() {
 		if(bottoneModifica==false) {

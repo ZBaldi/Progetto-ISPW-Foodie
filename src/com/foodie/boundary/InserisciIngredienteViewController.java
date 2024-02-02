@@ -3,8 +3,10 @@ package com.foodie.boundary;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.PubblicaRicettaController;
 import com.foodie.controller.TrovaRicettaController;
+import com.foodie.controller.TrovaRicetteControllerAdapter;
 import com.foodie.model.AlimentoBean;
 import com.foodie.model.Observer;
 
@@ -26,6 +28,7 @@ import javafx.stage.Stage;
 public class InserisciIngredienteViewController implements Observer{
 	private static InserisciIngredienteViewController istanza;
 	private TrovaRicettaController controller= TrovaRicettaController.ottieniIstanza();
+	private ControllerAdapter adattatoreTrovaRicettaController= TrovaRicetteControllerAdapter.ottieniIstanza(controller);
 	private PubblicaRicettaController controller2=PubblicaRicettaController.ottieniIstanza();
 	private ArrayList<AlimentoBean> alimentiBeanTrovati;
 	private ArrayList<AlimentoBean> alimentiBeanRicetta;
@@ -125,7 +128,7 @@ public class InserisciIngredienteViewController implements Observer{
         }
 	}
 	private void trovaAlimenti() {
-		alimentiBeanTrovati=controller.trovaAlimenti(barraDiRicerca.getText());
+		alimentiBeanTrovati=adattatoreTrovaRicettaController.trovaGliAlimenti(barraDiRicerca.getText());
 		if(alimentiBeanTrovati!=null) {
 			quantita.setDisable(false);
 			for(AlimentoBean a: alimentiBeanTrovati) {
