@@ -45,7 +45,7 @@ public class Moderatore extends SubjectPatternObserver implements Utente { //MOD
 	}
 	
 	public void aggiungiRicettaDaVerificare(Ricetta ricetta) {  //AGGIUNGI LE RICETTE DA VERIFICARE
-		if(ricetteDaVerificare!=null && !ricetteDaVerificare.isEmpty()) {
+		if(ricetteDaVerificare!=null && !ricetteDaVerificare.contains(ricetta)) {
 			ricetteDaVerificare.add(ricetta);
 			System.out.println("Ricetta da Verificare aggiunta");
 			notifica();

@@ -15,7 +15,8 @@ public class Standard implements Utente{  //STANDARD IMPLEMENTA UTENTE
 	
 	@Override
 	public String getViewIniziale() {  //VIEW DI INIZIO
-		return "DispensaUtenteView.fxml";
+		//return "DispensaUtenteView.fxml";
+		return "AggiungiAlimentoView2.fxml";
 	}
 	
 }
