@@ -27,6 +27,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class GestisciRicetteViewController {
+	private static GestisciRicetteViewController istanza;
 	private Stage primaryStage;
 	private TrovaRicettaController controller = TrovaRicettaController.ottieniIstanza();
 	private ControllerAdapter adattatoreTrovaRicettaController= TrovaRicettaControllerAdapter.ottieniIstanza(controller);
@@ -34,11 +35,23 @@ public class GestisciRicetteViewController {
 	private ControllerAdapter adattatoreLoginController = LoginControllerAdapter.ottieniIstanza(controller2);
 	private PubblicaRicettaController controller3 = PubblicaRicettaController.ottieniIstanza();
 	private AreaPersonaleViewController controllerAreaPersonale = AreaPersonaleViewController.ottieniIstanza();
+	
 	@FXML
 	private VBox contenitoreRicette;
 	@FXML
 	private Label eliminaLabel;
 	private boolean bottoneModifica = true;
+	
+	private GestisciRicetteViewController() {		
+	}
+	
+	public static GestisciRicetteViewController ottieniIstanza() { //SINGLETON
+		if(istanza == null) {
+			istanza = new GestisciRicetteViewController();
+		}
+		return istanza;
+	}
+	
 	public void setPrimaryStage(Stage primaryStage) {
 		this.primaryStage= primaryStage;
 	}
@@ -99,8 +112,9 @@ public class GestisciRicetteViewController {
 				eliminaLabel.setText("");
 			}
 			loader = new FXMLLoader(getClass().getResource("ContenutoRicettaChef.fxml"));
-			Parent root = loader.load();
-	        ContenutoRicettaChefViewController contenutoRicettaChefViewController=loader.getController();
+	        ContenutoRicettaChefViewController contenutoRicettaChefViewController = ContenutoRicettaChefViewController.ottieniIstanza();
+	        loader.setController(contenutoRicettaChefViewController);
+	        Parent root = loader.load();
 	        caricaDatiRicetta(ricettaSelezionata,contenutoRicettaChefViewController);
 	        contenutoRicettaChefViewController.setPrimaryStage(primaryStage);
 	        Scene nuovaScena = new Scene(root);

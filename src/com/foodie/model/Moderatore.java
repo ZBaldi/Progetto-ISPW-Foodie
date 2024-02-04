@@ -40,7 +40,7 @@ public class Moderatore extends SubjectPatternObserver implements Utente { //MOD
 	}
 	
 	@Override
-	public String getViewIniziale() {  //VIEW INIZIALE
+	public String getViewIniziale(int i) {  //VIEW INIZIALE
 		return "ModeratoreView.fxml";
 	}
 	
@@ -89,5 +89,4 @@ public class Moderatore extends SubjectPatternObserver implements Utente { //MOD
 			return null;
 		}
 	}
-	
 }

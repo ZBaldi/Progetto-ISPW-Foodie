@@ -26,8 +26,8 @@ public class LoginController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOLO 1 IST
 	}
 	
 	public static LoginController ottieniIstanza() { //METODO PER OTTENERE L'ISTANZA
-		if(istanza==null) {
-			istanza=new LoginController();
+		if(istanza == null) {
+			istanza = new LoginController();
 		}
 		return istanza;
 	}
@@ -45,8 +45,8 @@ public class LoginController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOLO 1 IST
 		databaseDispensa.setUtente(utente);
 	}
 	
-	public String ottieniView() {  //RESTITUISCE LA VIEW DA CARICARE
-		return utente.getViewIniziale();
+	public String ottieniView(int interfaccia) {  //RESTITUISCE LA VIEW DA CARICARE
+		return utente.getViewIniziale(interfaccia);
 	}
 	
 	public int effettuaLogin(String username, String pwd) {  //EFFETTUA IL LOGIN

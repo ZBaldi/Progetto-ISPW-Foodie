@@ -54,9 +54,9 @@ public class AreaPersonaleView2Controller {
     private void tornaAlLogin(MouseEvent event) {
         try {
             
-        	FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView2.fxml"));
+        	FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/boundary/LoginView.fxml"));
             Parent root = loader.load();
-            LoginView2Controller loginViewController = loader.getController();
+            LoginViewController loginViewController = loader.getController();
             loginViewController.setPrimaryStage(primaryStage);
             Scene nuovaScena = new Scene(root);
             primaryStage.setScene(nuovaScena);

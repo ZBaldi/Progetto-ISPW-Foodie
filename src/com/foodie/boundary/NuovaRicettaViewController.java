@@ -33,7 +33,6 @@ public class NuovaRicettaViewController {
 	private static NuovaRicettaViewController istanza;
 	private PubblicaRicettaController controller=PubblicaRicettaController.ottieniIstanza();
 	private ControllerAdapter adattatorePubblicaRicettaController= PubblicaRicettaControllerAdapter.ottieniIstanza(controller);
-	private AreaPersonaleViewController controllerAreaPersonale = AreaPersonaleViewController.ottieniIstanza();
 	private LoginController loginController= LoginController.ottieniIstanza();
 	private ControllerAdapter adattatoreLoginController= LoginControllerAdapter.ottieniIstanza(loginController);
 	private Stage primaryStage;
@@ -49,11 +48,13 @@ public class NuovaRicettaViewController {
 	private TextField descrizione;
 	@FXML
 	private Button pubblica;
+	
 	private NuovaRicettaViewController() {
 	}
+	
 	public static NuovaRicettaViewController ottieniIstanza() { //METODO PER OTTENERE L'ISTANZA
-		if(istanza==null) {
-			istanza=new NuovaRicettaViewController();
+		if(istanza == null) {
+			istanza = new NuovaRicettaViewController();
 		}
 		return istanza;
 	}
@@ -246,6 +247,7 @@ public class NuovaRicettaViewController {
 	@FXML
 	private void caricaViewAreaPersonale(ActionEvent event) {
 		FXMLLoader loader= new FXMLLoader(getClass().getResource("AreaPersonaleView.fxml"));
+		AreaPersonaleViewController controllerAreaPersonale = AreaPersonaleViewController.ottieniIstanza();
 		loader.setController(controllerAreaPersonale);
 		Parent root;		
 		try {
@@ -267,8 +269,9 @@ public class NuovaRicettaViewController {
     private void caricaViewGestisciRicette(ActionEvent event) {
         try {
         	FXMLLoader loader = new FXMLLoader(getClass().getResource("GestisciRicetteView.fxml"));
+            GestisciRicetteViewController gestisciRicetteViewController = GestisciRicetteViewController.ottieniIstanza();
+            loader.setController(gestisciRicetteViewController);
             Parent root = loader.load();
-            GestisciRicetteViewController gestisciRicetteViewController = loader.getController();
             gestisciRicetteViewController.setPrimaryStage(primaryStage);
             gestisciRicetteViewController.aggiornaView();
             Scene nuovaScena = new Scene(root);

@@ -9,6 +9,7 @@ import com.foodie.controller.LoginController;
 import com.foodie.controller.LoginControllerAdapter;
 import com.foodie.controller.PubblicaRicettaController;
 import com.foodie.controller.PubblicaRicettaControllerAdapter;
+import com.foodie.boundary.LoginViewController;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.model.Dispensa;
 import com.foodie.model.Ricetta;
@@ -84,9 +85,9 @@ public class NuovaRicettaView2Controller {
 	@FXML
 	private void tornaAlLogin(MouseEvent event) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView2.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/boundary/LoginView.fxml"));
 			Parent root = loader.load();
-			LoginView2Controller loginViewController = loader.getController();
+			LoginViewController loginViewController = loader.getController();
 			loginViewController.setPrimaryStage(primaryStage);
 			Scene nuovaScena = new Scene(root);
 			primaryStage.setScene(nuovaScena);

@@ -31,11 +31,13 @@ public class ModeratoreViewController implements Observer{
 	private VBox contenitoreRicetteDaApprovare;
 	@FXML
 	private VBox contenitoreContenutoRicetta;
+	
 	private ModeratoreViewController() {
 	}
+	
 	public static ModeratoreViewController ottieniIstanza() {
-		if(istanza==null) {
-			istanza= new ModeratoreViewController();
+		if(istanza == null) {
+			istanza = new ModeratoreViewController();
 		}
 		return istanza;
 	}

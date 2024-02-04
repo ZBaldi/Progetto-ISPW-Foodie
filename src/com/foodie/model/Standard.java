@@ -1,5 +1,7 @@
 package com.foodie.model;
 
+import java.util.Scanner;
+
 public class Standard implements Utente{  //STANDARD IMPLEMENTA UTENTE
 	
 	private String username;
@@ -14,9 +16,12 @@ public class Standard implements Utente{  //STANDARD IMPLEMENTA UTENTE
 	}
 	
 	@Override
-	public String getViewIniziale() {  //VIEW DI INIZIO
-		//return "DispensaUtenteView.fxml";
-		return "AggiungiAlimentoView2.fxml";
+	public String getViewIniziale(int interfaccia) { //VIEW DI INIZIO
+		if(interfaccia == 1) {
+		return "DispensaUtenteView.fxml";
+		} else {
+			return "/com/foodie/boundary2/AggiungiAlimentoView2.fxml";
+		}
 	}
 	
 }

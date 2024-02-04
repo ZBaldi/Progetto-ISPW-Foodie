@@ -44,14 +44,14 @@ public class RegistratiViewController {
     @FXML
     private Label esitoRegistrazioneLabel;
     private Stage primaryStage;
-    private LoginController controller =LoginController.ottieniIstanza();    
+    private LoginController controller = LoginController.ottieniIstanza();    
     // Variabile per memorizzare il ruolo, 0 per l'utente base, 1 per lo chef
     private int ruolo;
 
     @FXML
     public void initialize() {
        
-    	// Creazione di Toggle Group
+    	// Creazione del Toggle Group
     	userTypeToggleGroup = new ToggleGroup();
         
     	// Associazione dei Radio Button al Toggle Group
@@ -62,10 +62,7 @@ public class RegistratiViewController {
         userTypeToggleGroup.selectToggle(baseRadioButton);
         
         // Impostazione inizale del ruolo 
-        ruolo = 0;
-        
-        
-        
+        ruolo = 0;    
     }
 
     @FXML

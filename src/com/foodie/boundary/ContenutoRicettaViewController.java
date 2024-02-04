@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class ContenutoRicettaViewController {
+	private static ContenutoRicettaViewController istanza;
 	private Stage primaryStage;
 	@FXML
 	private Label nome;
@@ -24,6 +25,17 @@ public class ContenutoRicettaViewController {
 	public void setPrimaryStage(Stage primaryStage) {
 		this.primaryStage= primaryStage;
 	}
+	
+	private ContenutoRicettaViewController() {	
+	}
+	
+	public static ContenutoRicettaViewController ottieniIstanza() { //SINGLETON
+		if(istanza == null) {
+			istanza = new ContenutoRicettaViewController();
+		}
+		return istanza;
+	}
+	
 	@FXML
 	public void caricaViewDispensa(ActionEvent event) {
 		try {

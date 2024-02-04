@@ -32,12 +32,10 @@ public class AreaPersonaleViewController{
 	@FXML
 	private Label usernameLabel;
 	
-	private AreaPersonaleViewController() {
-		
+	private AreaPersonaleViewController() {	
 	}
 	
-	public static AreaPersonaleViewController ottieniIstanza() { //SINGLETON
-		
+	public static AreaPersonaleViewController ottieniIstanza() { //SINGLETON	
 		if(istanza == null) {
 			istanza = new AreaPersonaleViewController();
 		}
@@ -68,8 +66,9 @@ public class AreaPersonaleViewController{
     private void caricaViewGestisciRicette(ActionEvent event) {
         try {
         	FXMLLoader loader = new FXMLLoader(getClass().getResource("GestisciRicetteView.fxml"));
+            GestisciRicetteViewController gestisciRicetteViewController = GestisciRicetteViewController.ottieniIstanza();
+            loader.setController(gestisciRicetteViewController);
             Parent root = loader.load();
-            GestisciRicetteViewController gestisciRicetteViewController = loader.getController();
             gestisciRicetteViewController.setPrimaryStage(primaryStage);
             gestisciRicetteViewController.aggiornaView();
             Scene nuovaScena = new Scene(root);

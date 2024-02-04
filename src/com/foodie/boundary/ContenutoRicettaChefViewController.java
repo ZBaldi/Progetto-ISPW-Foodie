@@ -16,16 +16,27 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class ContenutoRicettaChefViewController {
+	private static ContenutoRicettaChefViewController istanza;
 	private Stage primaryStage;
+	private PubblicaRicettaController controller = PubblicaRicettaController.ottieniIstanza();
+	private AreaPersonaleViewController controllerAreaPersonale = AreaPersonaleViewController.ottieniIstanza();
+	
+	private ContenutoRicettaChefViewController() {	
+	}
+	
+	public static ContenutoRicettaChefViewController ottieniIstanza() { //SINGLETON	
+		if(istanza == null) {
+			istanza = new ContenutoRicettaChefViewController();
+		}
+		return istanza;
+	}
+	
 	@FXML
 	private Label nome;
 	@FXML
 	private Label descrizione;
 	@FXML
 	private VBox contenitoreIngredienti;
-	
-	private PubblicaRicettaController controller = PubblicaRicettaController.ottieniIstanza();
-	private AreaPersonaleViewController controllerAreaPersonale = AreaPersonaleViewController.ottieniIstanza();
 	
 	public void setPrimaryStage(Stage primaryStage) {
 		this.primaryStage= primaryStage;
@@ -62,8 +73,9 @@ public class ContenutoRicettaChefViewController {
     private void caricaViewGestisciRicette(ActionEvent event) {
         try {
         	FXMLLoader loader = new FXMLLoader(getClass().getResource("GestisciRicetteView.fxml"));
+            GestisciRicetteViewController gestisciRicetteViewController = GestisciRicetteViewController.ottieniIstanza();
+            loader.setController(gestisciRicetteViewController);
             Parent root = loader.load();
-            GestisciRicetteViewController gestisciRicetteViewController = loader.getController();
             gestisciRicetteViewController.setPrimaryStage(primaryStage);
             gestisciRicetteViewController.aggiornaView();
             Scene nuovaScena = new Scene(root);

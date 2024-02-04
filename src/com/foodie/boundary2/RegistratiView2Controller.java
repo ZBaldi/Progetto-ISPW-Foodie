@@ -19,6 +19,7 @@ import javafx.util.Duration;
 
 import java.sql.*;
 
+import com.foodie.boundary.LoginViewController;
 import com.foodie.controller.LoginController;
 
 
@@ -82,9 +83,9 @@ public class RegistratiView2Controller {
     public void indietroButtonOnAction(ActionEvent event) {
     	
     	try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView2.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/boundary/LoginView.fxml"));
             Parent root = loader.load();
-            LoginView2Controller loginViewController = loader.getController();
+            LoginViewController loginViewController = loader.getController();
             loginViewController.setPrimaryStage(primaryStage);
             Scene nuovaScena = new Scene(root);
             primaryStage.setScene(nuovaScena);
@@ -134,7 +135,7 @@ public class RegistratiView2Controller {
         		
     			FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView2.fxml"));
                 Parent root = loader.load();
-                LoginView2Controller loginViewController = loader.getController();
+                LoginViewController loginViewController = loader.getController();
                 loginViewController.setPrimaryStage(primaryStage);
                 Scene nuovaScena = new Scene(root);
                 primaryStage.setScene(nuovaScena);

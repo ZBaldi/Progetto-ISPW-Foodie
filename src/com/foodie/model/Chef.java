@@ -14,9 +14,12 @@ public class Chef implements Utente{  //CHEF IMPLEMENTA UTENTE
 	}
 	
 	@Override
-	public String getViewIniziale() {
+	public String getViewIniziale(int interfaccia) {
+		if(interfaccia == 1) {
 		return "AreaPersonaleView.fxml";  //VIEW DI INIZIO
-		//return "AreaPersonaleView2.fxml";
+		} else {
+			return "/com/foodie/boundary2/AreaPersonaleView2.fxml";
+		}
 	}
 	
 }

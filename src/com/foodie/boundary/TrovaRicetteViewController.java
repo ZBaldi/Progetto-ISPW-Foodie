@@ -25,9 +25,11 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class TrovaRicetteViewController {
+	private static TrovaRicetteViewController istanza;
 	private Stage primaryStage;
 	private TrovaRicettaController controller = TrovaRicettaController.ottieniIstanza();
 	private ControllerAdapter adattatoreTrovaRicettaController= TrovaRicettaControllerAdapter.ottieniIstanza(controller);
+	
 	@FXML
 	private VBox contenitoreRicette;
 	@FXML
@@ -36,6 +38,17 @@ public class TrovaRicetteViewController {
 	private MenuItem media;
 	@FXML
 	private MenuItem difficile;
+	
+	private TrovaRicetteViewController() {	
+	}
+	
+	public static TrovaRicetteViewController ottieniIstanza() { //SINGLETON	
+		if(istanza == null) {
+			istanza = new TrovaRicetteViewController();
+		}
+		return istanza;
+	}
+	
 	public void setPrimaryStage(Stage primaryStage) {
 		this.primaryStage= primaryStage;
 	}
@@ -168,8 +181,9 @@ public class TrovaRicetteViewController {
 		FXMLLoader loader;
 		try {
 			loader = new FXMLLoader(getClass().getResource("ContenutoRicettaView.fxml"));
-			Parent root = loader.load();
-	        ContenutoRicettaViewController contenutoRicettaViewController=loader.getController();
+	        ContenutoRicettaViewController contenutoRicettaViewController = ContenutoRicettaViewController.ottieniIstanza();
+	        loader.setController(contenutoRicettaViewController);
+	        Parent root = loader.load();
 	        caricaDatiRicetta(ricettaSelezionata,contenutoRicettaViewController);
 	        contenutoRicettaViewController.setPrimaryStage(primaryStage);
 	        Scene nuovaScena = new Scene(root);

@@ -50,11 +50,13 @@ public class InserisciIngredienteViewController implements Observer{
 	private String nome;
 	private String descrizione;
 	private int difficolta;
+	
 	private InserisciIngredienteViewController() {
 	}
+	
 	public static InserisciIngredienteViewController ottieniIstanza() { //METODO PER OTTENERE L'ISTANZA
-		if(istanza==null) {
-			istanza=new InserisciIngredienteViewController();
+		if(istanza == null) {
+			istanza = new InserisciIngredienteViewController();
 		}
 		return istanza;
 	}

@@ -46,6 +46,7 @@ public class DispensaUtenteViewController implements Observer {
 	private VBox contenitoreDispensa;
 	@FXML
 	private Label labelDispensa;
+	
 	private DispensaUtenteViewController() {
 	}
 	public static DispensaUtenteViewController ottieniIstanza() { //METODO PER OTTENERE L'ISTANZA
@@ -70,8 +71,9 @@ public class DispensaUtenteViewController implements Observer {
 				labelDispensa.setText("La mia Dispensa");
 			}
             FXMLLoader loader = new FXMLLoader(getClass().getResource("TrovaRicetteView.fxml"));
+            TrovaRicetteViewController trovaRicetteViewController = TrovaRicetteViewController.ottieniIstanza();
+            loader.setController(trovaRicetteViewController);
             Parent root = loader.load();
-            TrovaRicetteViewController trovaRicetteViewController=loader.getController();
             trovaRicette(trovaRicetteViewController);
             trovaRicetteViewController.setPrimaryStage(primaryStage);
             Scene nuovaScena = new Scene(root);

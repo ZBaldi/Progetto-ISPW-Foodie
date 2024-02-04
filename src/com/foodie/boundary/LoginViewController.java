@@ -5,7 +5,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.event.ActionEvent;
@@ -16,6 +18,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
+import com.foodie.boundary2.AggiungiAlimentoView2Controller;
+import com.foodie.boundary2.AreaPersonaleView2Controller;
 import com.foodie.controller.LoginController;
 import com.foodie.model.Alimento;
 import com.foodie.model.AlimentoSerializzabile;
@@ -36,16 +40,44 @@ public class LoginViewController {
 	private PasswordField enterPasswordField;
 	@FXML
 	private Label chiudiLabel;
+	@FXML
+    private RadioButton interfaccia1RadioButton;
+    @FXML
+    private RadioButton interfaccia2RadioButton;
+    private ToggleGroup userTypeToggleGroup;
+    
+    private int interfaccia;
 	private Stage primaryStage;
 	private AreaPersonaleViewController controllerAreaPersonale = AreaPersonaleViewController.ottieniIstanza();
-	private LoginController controller =LoginController.ottieniIstanza();
-	private DispensaUtenteViewController controllerDispensa =DispensaUtenteViewController.ottieniIstanza();
+	private LoginController controller = LoginController.ottieniIstanza();
+	private DispensaUtenteViewController controllerDispensa = DispensaUtenteViewController.ottieniIstanza();
 	private ModeratoreViewController controllerModeratore= ModeratoreViewController.ottieniIstanza();
 	@FXML
     private void initialize() {
         chiudiLabel.setOnMouseClicked(event -> closeApplication());
+     
+        // Creazione del Toggle Group
+    	userTypeToggleGroup = new ToggleGroup();
+        
+    	// Associazione dei Radio Button al Toggle Group
+    	interfaccia1RadioButton.setToggleGroup(userTypeToggleGroup);
+    	interfaccia2RadioButton.setToggleGroup(userTypeToggleGroup);
+        
+        // Imposto primo bottone come quello selezionato di default
+        userTypeToggleGroup.selectToggle(interfaccia1RadioButton);
+        interfaccia = 1;
     }
-
+	
+//	@FXML
+//    public void scegliInterfaccia() {
+//        RadioButton selectedRadioButton = (RadioButton) userTypeToggleGroup.getSelectedToggle();
+//        if(selectedRadioButton == interfaccia1RadioButton) {
+//    		interfaccia = 1;
+//    	} else if (selectedRadioButton == interfaccia2RadioButton) {
+//    		interfaccia = 2;
+//    	}
+//	}
+	
     private void closeApplication() {
         Stage stage = (Stage)chiudiLabel.getScene().getWindow();
         stage.close();
@@ -82,15 +114,20 @@ public class LoginViewController {
 				ruolo="Moderatore";
 			}
 			controller.setUtente(username, ruolo);
-			FXMLLoader loader= new FXMLLoader(getClass().getResource(controller.ottieniView()));
-			if(ruolo.equals("Standard")) {
+			if(interfaccia1RadioButton.isSelected()) {
+				interfaccia = 1;
+			} else {
+				interfaccia = 2;
+			}
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(controller.ottieniView(interfaccia)));
+			if(ruolo.equals("Standard") && interfaccia == 1) {
 				controllerDispensa.setUsername(username);
 				loader.setController(controllerDispensa);
 				Parent root;
 				try {
 					root = loader.load();
 					controllerDispensa.setPrimaryStage(primaryStage);
-					Dispensa dispensa=Dispensa.ottieniIstanza(); //SICURAMENTE L'OSSERVATORE SI AGGIUNGERA NEL CLIENT
+					Dispensa dispensa = Dispensa.ottieniIstanza(); //SICURAMENTE L'OSSERVATORE SI AGGIUNGERA NEL CLIENT
 					dispensa.svuotaDispensa();
 					dispensa.registra(controllerDispensa);//QUESTO
 					controller.caricaDispense();  //Carico dispensa se esiste
@@ -101,7 +138,26 @@ public class LoginViewController {
 					e.printStackTrace();
 				}
 			}
-			else if(ruolo.equals("Chef")){
+			else if (ruolo.equals("Standard") && interfaccia == 2) {
+				AggiungiAlimentoView2Controller controllerAlimenti = AggiungiAlimentoView2Controller.ottieniIstanza();
+				controllerAlimenti.setUsername(username);
+				loader.setController(controllerAlimenti);
+				Parent root;
+				try {
+					root = loader.load();
+					controllerAlimenti.setPrimaryStage(primaryStage);
+					//Dispensa dispensa=Dispensa.ottieniIstanza(); //SICURAMENTE L'OSSERVATORE SI AGGIUNGERA NEL CLIENT
+					//dispensa.svuotaDispensa();
+					//dispensa.registra(controllerDispensa);//QUESTO
+					//controller.caricaDispense();  //Carico dispensa se esiste
+					Scene scene = new Scene(root);
+					primaryStage.setScene(scene);
+					primaryStage.show();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			else if(ruolo.equals("Chef") && interfaccia == 1){
 				loader.setController(controllerAreaPersonale);
 				Parent root;
 				
@@ -110,6 +166,25 @@ public class LoginViewController {
 					controllerAreaPersonale.setPrimaryStage(primaryStage);
 					controllerAreaPersonale.caricaAreaPersonale();
 					controllerAreaPersonale.aggiornaView();
+					Scene scene = new Scene(root);
+					primaryStage.setScene(scene);
+					primaryStage.show();
+					
+					
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			else if(ruolo.equals("Chef") && interfaccia == 2) {
+				AreaPersonaleView2Controller areaPersonaleController = AreaPersonaleView2Controller.ottieniIstanza();
+				loader.setController(areaPersonaleController);
+				Parent root;
+				
+				try {
+					root = loader.load();
+					areaPersonaleController.setPrimaryStage(primaryStage);
+					areaPersonaleController.caricaAreaPersonale();
+					areaPersonaleController.aggiornaView();
 					Scene scene = new Scene(root);
 					primaryStage.setScene(scene);
 					primaryStage.show();
