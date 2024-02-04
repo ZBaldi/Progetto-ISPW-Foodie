@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: rgba(228, 255, 231, 1);" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane prefHeight="100.0" prefWidth="1024.0" style="-fx-background-color: rgba(97, 194, 107, 1);">
+         <children>
+            <Label layoutX="35.0" layoutY="29.0" text="Foodie" textFill="#fffefe">
+               <font>
+                  <Font name="Rockwell" size="30.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1024.0" spacing="10.0">
+               <children>
+                  <Button lineSpacing="10.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Menu Moderatore" textFill="WHITE" underline="true">
+                     <font>
+                        <Font name="Arial" size="26.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="951.0" layoutY="24.0" onMouseClicked="#caricaViewLogin" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../immagini_usate/usericona.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <ScrollPane layoutX="31.0" layoutY="215.0" prefHeight="532.0" prefWidth="385.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="533.0" prefWidth="384.0">
+               <children>
+                  <VBox fx:id="contenitoreRicetteDaApprovare" layoutX="-1.0" prefHeight="517.0" prefWidth="370.0" spacing="5.0" style="-fx-background-color: rgba(228, 255, 231, 1);" />
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+      <Label alignment="CENTER" layoutX="87.0" layoutY="146.0" text="Ricette da controllare">
+         <font>
+            <Font name="Arial" size="30.0" />
+         </font>
+      </Label>
+      <ScrollPane layoutX="457.0" layoutY="215.0" prefHeight="442.0" prefWidth="544.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="442.0" prefWidth="541.0">
+               <children>
+                  <VBox fx:id="contenitoreContenutoRicetta" prefHeight="426.0" prefWidth="526.0" spacing="5.0" style="-fx-background-color: rgba(228, 255, 231, 1);" />
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+      <Label alignment="CENTER" layoutX="660.0" layoutY="146.0" text="Contenuto">
+         <font>
+            <Font name="Arial" size="30.0" />
+         </font>
+      </Label>
+      <HBox alignment="CENTER_RIGHT" layoutX="467.0" layoutY="647.0" prefHeight="100.0" prefWidth="423.0" spacing="35.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#pubblica" prefHeight="29.0" prefWidth="145.0" style="-fx-background-radius: 10; -fx-background-color: rgba(97, 194, 107, 1);" text="Pubblica" textFill="WHITE">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#scarta" prefHeight="29.0" prefWidth="145.0" style="-fx-background-radius: 10; -fx-background-color: rgba(231, 73, 73, 1);" text="Scarta" textFill="WHITE">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Button>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+   </children>
+</AnchorPane>
