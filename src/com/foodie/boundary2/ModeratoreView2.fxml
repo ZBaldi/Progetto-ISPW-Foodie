@@ -56,7 +56,7 @@
             <Font name="Arial" size="30.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="212.0" layoutY="666.0" prefHeight="26.0" prefWidth="601.0" text="Clicca la ricetta per approvarla. Premi chiudi per rifiutare le rimanenti." textFill="WHITE">
+      <Label alignment="CENTER" layoutX="212.0" layoutY="666.0" prefHeight="30.0" prefWidth="610.0" text="Clicca la ricetta per approvarla. Premi chiudi per rifiutare le rimanenti." textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>

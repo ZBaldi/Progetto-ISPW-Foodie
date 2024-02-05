@@ -20,6 +20,7 @@ import java.util.Map;
 
 import com.foodie.boundary2.AggiungiAlimentoView2Controller;
 import com.foodie.boundary2.AreaPersonaleView2Controller;
+import com.foodie.boundary2.ModeratoreView2Controller;
 import com.foodie.controller.LoginController;
 import com.foodie.model.Alimento;
 import com.foodie.model.AlimentoSerializzabile;
@@ -52,7 +53,7 @@ public class LoginViewController {
 	private LoginController controller = LoginController.ottieniIstanza();
 	private DispensaUtenteViewController controllerDispensa = DispensaUtenteViewController.ottieniIstanza();
 	private ModeratoreViewController controllerModeratore= ModeratoreViewController.ottieniIstanza();
-	
+	private ModeratoreView2Controller controllerModeratore2= ModeratoreView2Controller.ottieniIstanza();
 	@FXML
     private void initialize() {
         chiudiLabel.setOnMouseClicked(event -> closeApplication());
@@ -212,20 +213,20 @@ public class LoginViewController {
 					}
 				}
 				else {
-					/*loader.setController(controllerModeratore2);
+					loader.setController(controllerModeratore2);
 					Parent root;
 					try {
 						root = loader.load();
 						controllerModeratore.setPrimaryStage(primaryStage);
 						Moderatore moderatore= Moderatore.ottieniIstanza();
-						moderatore.registra(controllerModeratore);
-						controllerModeratore.aggiornaView();
+						moderatore.registra(controllerModeratore2);
+						//controllerModeratore2.aggiornaView();
 						Scene scene= new Scene(root);
 						primaryStage.setScene(scene);
 						primaryStage.show();
 					} catch (IOException e) {
 						e.printStackTrace();
-					}*/
+					}
 				}
 			}
 		}

@@ -45,7 +45,7 @@ public class Moderatore extends SubjectPatternObserver implements Utente { //MOD
 			return "ModeratoreView.fxml";
 		}
 		else {
-			return "com/foodie/boundary2/ModeratoreView2.fxml";
+			return "/com/foodie/boundary2/ModeratoreView2.fxml";
 		}
 	}
 	
