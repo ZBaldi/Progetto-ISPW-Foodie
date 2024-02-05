@@ -132,7 +132,7 @@ public class NuovaRicettaViewController {
 		RicettaBean ricettaBean= new RicettaBean();
 		String testo = nome.getText().trim();
 		if(!testo.isEmpty()) {
-			ricettaBean.setDescrizione(nome.getText());
+			ricettaBean.setNome(nome.getText());
 		}
 		else {
 			nome.setPromptText("INSERISCI NOME");
@@ -151,7 +151,6 @@ public class NuovaRicettaViewController {
 	        // Chiudere il thread scheduler dopo l'esecuzione della task
 	        scheduler.shutdown();
 		}
-		ricettaBean.setNome(nome.getText());
 		testo = descrizione.getText().trim();
 		if(!testo.isEmpty()) {
 			ricettaBean.setDescrizione(descrizione.getText());

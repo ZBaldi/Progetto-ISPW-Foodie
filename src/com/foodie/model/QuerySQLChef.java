@@ -6,8 +6,8 @@ import java.sql.Statement;
 
 public class QuerySQLChef {
 	
-	public static ResultSet selezionaRicetteDallaDescrizione(Statement dichiarazione) throws SQLException{
-		String sqlQuery = "SELECT descrizione FROM ricette";  //OTTIENI LE DESCRIZIONI DELLE RICETTE
+	public static ResultSet selezionaRicetteDalNomeAutore(Statement dichiarazione) throws SQLException{
+		String sqlQuery = "SELECT nome,autore FROM ricette";  //OTTIENI LE DESCRIZIONI DELLE RICETTE
 		return dichiarazione.executeQuery(sqlQuery);
 	}
 	
@@ -41,5 +41,5 @@ public class QuerySQLChef {
 									+ "WHERE a.autore = '%s'",username);
 		return dichiarazione.executeQuery(sqlQuery);
 	}
-	
+		
 }

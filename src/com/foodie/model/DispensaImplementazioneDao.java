@@ -34,15 +34,21 @@ public class DispensaImplementazioneDao implements DispensaDao{  //IMPLEMENTAZIO
 	public void salvaDispensa(String username) {  //SALVA SU FILE UNA HASHMAP USERNAME-ARRAYLIST DI ALIMENTI,OGNI VOLTA LA CARICA E AGGIUNGE NUOVI ELEMENTI
 		Map<String, ArrayList<AlimentoSerializzabile>> dispensaMap;
 		ArrayList<AlimentoSerializzabile> alimentiSerializzabili=new ArrayList<AlimentoSerializzabile>();
-		if((dispensaMap=caricaDispense())==null) {
+		if((dispensaMap=caricaDispense(false))==null) {  //FALSE SIGNIFICA CHE NON DEVE RICARICARE LA DISPENSA(EVITI LOOP)
 			dispensaMap=new HashMap<String, ArrayList<AlimentoSerializzabile>>();
 		}
-		for(Alimento a: Dispensa.ottieniIstanza().getAlimenti()) {
-			AlimentoSerializzabile alimento=new AlimentoSerializzabile();
-			alimento.setNome(a.getNome());
-			alimentiSerializzabili.add(alimento);
+		Dispensa dispensa=Dispensa.ottieniIstanza();
+		if(dispensa.getAlimenti()!=null && !dispensa.getAlimenti().isEmpty()) {
+			for(Alimento a: dispensa.getAlimenti()) {
+				AlimentoSerializzabile alimento=new AlimentoSerializzabile();
+				alimento.setNome(a.getNome());
+				alimentiSerializzabili.add(alimento);
+			}
 		}
-		dispensaMap.put(username, alimentiSerializzabili);
+		dispensaMap.remove(username);
+		if(!alimentiSerializzabili.isEmpty()) {
+			dispensaMap.put(username, alimentiSerializzabili);
+		}
 		try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("C:\\Users\\valba\\OneDrive\\Desktop\\Progetto\\Classi serializzate\\dispensa_data.ser"))) {
 			objectOutputStream.writeObject(dispensaMap);
             System.out.println("Dispensa salvata");
@@ -52,19 +58,21 @@ public class DispensaImplementazioneDao implements DispensaDao{  //IMPLEMENTAZIO
 	}
 
 	@Override
-	public Map<String, ArrayList<AlimentoSerializzabile>> caricaDispense() {  //CARICA L'HASHMAP DA FILE
-		ObjectInputStream objectInputStream=null;
+	public Map<String, ArrayList<AlimentoSerializzabile>> caricaDispense(boolean bool) {  //CARICA L'HASHMAP DA FILE
+		ObjectInputStream objectInputStream=null;    //TRUE VIENE PASSATO QUANDO FAI IL LOGIN!CHE è NECESSARIO RICARICARE LA DISPENSA!
 		try {
 			objectInputStream = new ObjectInputStream(new FileInputStream("C:\\Users\\valba\\OneDrive\\Desktop\\Progetto\\Classi serializzate\\dispensa_data.ser"));
 			Map<String, ArrayList<AlimentoSerializzabile>> dispensaMap = (Map<String, ArrayList<AlimentoSerializzabile>>)objectInputStream.readObject();// lo è per forza
-			ArrayList<AlimentoSerializzabile> dispensaOld=new ArrayList<AlimentoSerializzabile>();
-			Dispensa dispensa= Dispensa.ottieniIstanza();
-			dispensaOld=dispensaMap.get(utente.getUsername());
-			if(dispensaOld!=null) {
-				for(AlimentoSerializzabile a: dispensaOld) {
-					dispensa.aggiungiAlimento(new Alimento(a.getNome()));
+			if(bool==true) {
+				ArrayList<AlimentoSerializzabile> dispensaOld=new ArrayList<AlimentoSerializzabile>();
+				Dispensa dispensa= Dispensa.ottieniIstanza();
+				dispensaOld=dispensaMap.get(utente.getUsername());
+				if(dispensaOld!=null) {
+					for(AlimentoSerializzabile a: dispensaOld) {
+						dispensa.aggiungiAlimento(new Alimento(a.getNome()));
+					}
+					System.out.println("dispensa caricata");
 				}
-				System.out.println("dispensa caricata");
 			}
 			if(objectInputStream!=null) {
 				objectInputStream.close();

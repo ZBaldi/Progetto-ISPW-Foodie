@@ -55,13 +55,10 @@
       </Pane>
       <Pane layoutX="45.0" layoutY="150.0" prefHeight="527.0" prefWidth="936.0" style="-fx-background-color: white;">
          <children>
-            <ScrollPane prefHeight="527.0" prefWidth="936.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="528.0" prefWidth="919.0">
-                     <children>
-                        <VBox layoutX="2.0" layoutY="2.0" prefHeight="521.0" prefWidth="914.0" />
-                     </children></AnchorPane>
-              </content>
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="527.0" prefWidth="936.0" vbarPolicy="ALWAYS">
+               <content>
+                  <VBox fx:id="contenitoreRicette" prefWidth="933.0" spacing="10.0" />
+               </content>
             </ScrollPane>
          </children>
       </Pane>
@@ -95,7 +92,7 @@
             </RadioButton>
          </children>
       </HBox>
-      <Button layoutX="838.0" layoutY="706.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="145.0" style="-fx-background-radius: 10; -fx-background-color: rgba(97, 194, 107, 1);" text="Cerca" textFill="WHITE">
+      <Button layoutX="838.0" layoutY="706.0" mnemonicParsing="false" onAction="#trovaRicette" prefHeight="29.0" prefWidth="145.0" style="-fx-background-radius: 10; -fx-background-color: rgba(97, 194, 107, 1);" text="Cerca" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="15.0" />
          </font>

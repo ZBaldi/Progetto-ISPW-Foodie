@@ -3,13 +3,12 @@ package com.foodie.model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 public class LoginImplementazioneDao implements LoginDao{
 	private static LoginImplementazioneDao istanza;
 	private static String utente = "root";
-    private static String password = "michele2002"; 
+    private static String password = "root"; 
     private static String databaseUrl = "jdbc:mysql://localhost:3306/user_credentials";
     private static String driverMySql = "com.mysql.jdbc.Driver";
     private LoginImplementazioneDao() {

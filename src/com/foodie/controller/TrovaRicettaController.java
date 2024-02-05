@@ -8,6 +8,7 @@ import com.foodie.model.Alimento;
 import com.foodie.model.CatalogoAlimentiDao;
 import com.foodie.model.CatalogoAlimentiNutrixionixImplementazioneDao;
 import com.foodie.model.CatalogoRicetteChefDao;
+import com.foodie.model.CatalogoRicetteImplementazione2Dao;
 import com.foodie.model.CatalogoRicetteImplementazioneDao;
 import com.foodie.model.Dispensa;
 import com.foodie.model.Ricetta;
@@ -27,6 +28,7 @@ public class TrovaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOL
 			istanza=new TrovaRicettaController();
 			dispensa= Dispensa.ottieniIstanza();
 			database= CatalogoRicetteImplementazioneDao.ottieniIstanza();
+			//database= CatalogoRicetteImplementazione2Dao.ottieniIstanza(); //SU FILE
 			databaseAlimenti=CatalogoAlimentiNutrixionixImplementazioneDao.ottieniIstanza();
 		}
 		return istanza;

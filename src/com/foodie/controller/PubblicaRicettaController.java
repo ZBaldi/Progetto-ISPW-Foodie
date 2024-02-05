@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.foodie.model.Alimento;
 import com.foodie.model.CatalogoRicetteChefDao;
+import com.foodie.model.CatalogoRicetteImplementazione2Dao;
 import com.foodie.model.CatalogoRicetteImplementazioneDao;
 import com.foodie.model.Moderatore;
 import com.foodie.model.Ricetta;
@@ -22,6 +23,7 @@ public class PubblicaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE 
 		if(istanza==null) {
 			istanza=new PubblicaRicettaController();
 			database= CatalogoRicetteImplementazioneDao.ottieniIstanza();
+			//database= CatalogoRicetteImplementazione2Dao.ottieniIstanza(); SU FILE
 			moderatore=Moderatore.ottieniIstanza();
 		}
 		return istanza;

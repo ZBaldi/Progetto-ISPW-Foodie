@@ -58,17 +58,13 @@
             <VBox alignment="TOP_CENTER" prefHeight="375.0" prefWidth="500.0" spacing="5.0">
                <children>
                   <Group />
-                  <ScrollPane prefHeight="323.0" prefWidth="360.0">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="341.0" prefWidth="343.0">
-                           <children>
-                              <VBox layoutX="-1.0" prefHeight="322.0" prefWidth="352.0" spacing="5.0" style="-fx-background-color: white;" />
-                           </children>
-                        </AnchorPane>
-                     </content>
+                  <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="323.0" prefWidth="360.0" vbarPolicy="ALWAYS">
                      <VBox.margin>
                         <Insets left="70.0" right="70.0" />
                      </VBox.margin>
+                     <content>
+                        <VBox fx:id="contenitoreDispensa" prefWidth="352.0" spacing="5.0" style="-fx-background-color: white;" />
+                     </content>
                   </ScrollPane>
                   <Label text="Clicca gli alimenti che vuoi eliminare" textFill="#f82828">
                      <font>

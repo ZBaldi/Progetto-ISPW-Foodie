@@ -52,6 +52,7 @@ public class LoginViewController {
 	private LoginController controller = LoginController.ottieniIstanza();
 	private DispensaUtenteViewController controllerDispensa = DispensaUtenteViewController.ottieniIstanza();
 	private ModeratoreViewController controllerModeratore= ModeratoreViewController.ottieniIstanza();
+	
 	@FXML
     private void initialize() {
         chiudiLabel.setOnMouseClicked(event -> closeApplication());
@@ -113,7 +114,7 @@ public class LoginViewController {
 			else {
 				ruolo="Moderatore";
 			}
-			controller.setUtente(username, ruolo);
+			controller.setUtente(username.toLowerCase(), ruolo); //METTO USERNAME IN MINUSCOLE PER EVITARE INCONGRUENZE NEL CARICAMENTO DELLA DISPENSA O AREA PERSONALE
 			if(interfaccia1RadioButton.isSelected()) {
 				interfaccia = 1;
 			} else {
@@ -140,16 +141,15 @@ public class LoginViewController {
 			}
 			else if (ruolo.equals("Standard") && interfaccia == 2) {
 				AggiungiAlimentoView2Controller controllerAlimenti = AggiungiAlimentoView2Controller.ottieniIstanza();
-				controllerAlimenti.setUsername(username);
 				loader.setController(controllerAlimenti);
 				Parent root;
 				try {
 					root = loader.load();
 					controllerAlimenti.setPrimaryStage(primaryStage);
-					//Dispensa dispensa=Dispensa.ottieniIstanza(); //SICURAMENTE L'OSSERVATORE SI AGGIUNGERA NEL CLIENT
-					//dispensa.svuotaDispensa();
+					Dispensa dispensa=Dispensa.ottieniIstanza(); //SICURAMENTE L'OSSERVATORE SI AGGIUNGERA NEL CLIENT
+					dispensa.svuotaDispensa();
 					//dispensa.registra(controllerDispensa);//QUESTO
-					//controller.caricaDispense();  //Carico dispensa se esiste
+					controller.caricaDispense();  //Carico dispensa se esiste
 					Scene scene = new Scene(root);
 					primaryStage.setScene(scene);
 					primaryStage.show();
@@ -195,19 +195,37 @@ public class LoginViewController {
 				}
 			}
 			else {
-				loader.setController(controllerModeratore);
-				Parent root;
-				try {
-					root = loader.load();
-					controllerModeratore.setPrimaryStage(primaryStage);
-					Moderatore moderatore= Moderatore.ottieniIstanza();
-					moderatore.registra(controllerModeratore);
-					controllerModeratore.aggiornaView();
-					Scene scene= new Scene(root);
-					primaryStage.setScene(scene);
-					primaryStage.show();
-				} catch (IOException e) {
-					e.printStackTrace();
+				if(interfaccia==1) {
+					loader.setController(controllerModeratore);
+					Parent root;
+					try {
+						root = loader.load();
+						controllerModeratore.setPrimaryStage(primaryStage);
+						Moderatore moderatore= Moderatore.ottieniIstanza();
+						moderatore.registra(controllerModeratore);
+						controllerModeratore.aggiornaView();
+						Scene scene= new Scene(root);
+						primaryStage.setScene(scene);
+						primaryStage.show();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				else {
+					/*loader.setController(controllerModeratore2);
+					Parent root;
+					try {
+						root = loader.load();
+						controllerModeratore.setPrimaryStage(primaryStage);
+						Moderatore moderatore= Moderatore.ottieniIstanza();
+						moderatore.registra(controllerModeratore);
+						controllerModeratore.aggiornaView();
+						Scene scene= new Scene(root);
+						primaryStage.setScene(scene);
+						primaryStage.show();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}*/
 				}
 			}
 		}
@@ -237,4 +255,5 @@ public class LoginViewController {
 	public void setPrimaryStage(Stage primaryStage) {
 		this.primaryStage=primaryStage;
 	}
+	
 }

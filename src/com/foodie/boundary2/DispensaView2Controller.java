@@ -1,29 +1,47 @@
 package com.foodie.boundary2;
 
+import java.util.ArrayList;
+
 import com.foodie.boundary.LoginViewController;
+import com.foodie.controller.AdattatoreFactory;
+import com.foodie.controller.ControllerAdapter;
+import com.foodie.controller.LoginController;
 import com.foodie.controller.TrovaRicettaController;
+import com.foodie.model.AlimentoBean;
+import com.foodie.model.Observer;
+import com.foodie.model.UtenteBean;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class DispensaView2Controller {
+public class DispensaView2Controller implements Observer{
+	
 	private static DispensaView2Controller istanza;
 	private TrovaRicettaController controller = TrovaRicettaController.ottieniIstanza();
 	private Stage primaryStage;
-		
+	private AdattatoreFactory factory= AdattatoreFactory.ottieniIstanza();
+	private ControllerAdapter adattatoreLogin= factory.creaLoginAdapter();
+	private UtenteBean utenteBean = adattatoreLogin.ottieniUtente();
+	private String username=utenteBean.getUsername();
+	private ArrayList<AlimentoBean> alimentiBeanDispensa;
+	private LoginController loginController= LoginController.ottieniIstanza();
+	private ControllerAdapter adattatoreTrovaRicettaController= factory.creaTrovaRicettaAdapter();
+	@FXML
+	private VBox contenitoreDispensa;
+	
 	private DispensaView2Controller() {	
 	}
 	
-	public static DispensaView2Controller ottieniIstanza() { //SINGLETON
+	public static synchronized DispensaView2Controller ottieniIstanza() { //SINGLETON
 		if(istanza == null) {
 			istanza = new DispensaView2Controller();
 		}
@@ -59,7 +77,6 @@ public class DispensaView2Controller {
         	loader.setController(aggiungiAlimentoController);
             Parent root = loader.load();
             aggiungiAlimentoController.setPrimaryStage(primaryStage);
-           // gestisciRicetteViewController.aggiornaView();
             Scene nuovaScena = new Scene(root);
             primaryStage.setScene(nuovaScena);
             primaryStage.show();
@@ -77,7 +94,6 @@ public class DispensaView2Controller {
         	loader.setController(trovaRicettaController);
             Parent root = loader.load();
             trovaRicettaController.setPrimaryStage(primaryStage);
-           // gestisciRicetteViewController.aggiornaView();
             Scene nuovaScena = new Scene(root);
             primaryStage.setScene(nuovaScena);
             primaryStage.show();
@@ -90,6 +106,41 @@ public class DispensaView2Controller {
 	@FXML
 	private void svuotaDispensa(ActionEvent event) {
 		controller.svuotaDispensa();
+		loginController.salvaDispensa(username); //SALVO DISPENSA SU FILE IN AUTOMATICO
+	}
+	
+	public void aggiornaView() {
+		contenitoreDispensa.getChildren().clear();
+		alimentiBeanDispensa =adattatoreTrovaRicettaController.mostraLaDispensa();
+		if(alimentiBeanDispensa!=null) {
+			for(AlimentoBean a: alimentiBeanDispensa) {
+				Label labelAlimento = new Label(a.getNome());
+				labelAlimento.setStyle("-fx-background-color: white;");
+				labelAlimento.setMaxWidth(Double.MAX_VALUE);
+				labelAlimento.setMinHeight(50);
+				labelAlimento.setWrapText(true);
+				labelAlimento.setFont(Font.font("Arial",20));
+				labelAlimento.setAlignment(Pos.CENTER);
+				contenitoreDispensa.getChildren().add(labelAlimento);
+			}
+			impostaLabel();
+		}
+	}
+	
+	private void impostaLabel() {
+			if(!contenitoreDispensa.getChildren().isEmpty()) {
+				contenitoreDispensa.getChildren().forEach(node->{
+					Label labelAlimento= (Label)node;
+					labelAlimento.setOnMouseClicked(event->{eliminaAlimento(labelAlimento.getText());});
+				});
+			}
+		}
+	
+	private void eliminaAlimento(String nomeAlimento) {
+		AlimentoBean alimentoBean = new AlimentoBean();
+		alimentoBean.setNome(nomeAlimento);
+		adattatoreTrovaRicettaController.ModificaDispensa(alimentoBean, 1);
+		loginController.salvaDispensa(username); //SALVO DISPENSA SU FILE IN AUTOMATICO
 	}
 	
 }

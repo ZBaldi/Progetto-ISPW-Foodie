@@ -1,8 +1,6 @@
 package com.foodie.controller;
 
-import java.util.ArrayList;
 import java.util.Map;
-import com.foodie.model.AlimentoSerializzabile;
 import com.foodie.model.AreaPersonaleImplementazioneDao;
 import com.foodie.model.Chef;
 import com.foodie.model.DispensaDao;
@@ -79,8 +77,8 @@ public class LoginController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOLO 1 IST
 		databaseDispensa.salvaDispensa(username);
 	}
 	
-	public Map<String, ArrayList<AlimentoSerializzabile>> caricaDispense() {  //CARICA GLI INGREDIENTI DELLA DISPENSA DA DB
-		return databaseDispensa.caricaDispense();
+	public void caricaDispense() {  //CARICA GLI INGREDIENTI DELLA DISPENSA DA DB
+		databaseDispensa.caricaDispense(true);
     }
 	
 	public Utente getUtente() {

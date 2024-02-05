@@ -61,12 +61,12 @@
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="527.0" prefWidth="546.0">
                <children>
-                  <TextField alignment="CENTER" prefHeight="56.0" prefWidth="506.0" promptText="Nome Ricetta" style="-fx-background-color: white;">
+                  <TextField fx:id="nome" alignment="CENTER" prefHeight="56.0" prefWidth="506.0" promptText="Nome Ricetta" style="-fx-background-color: white;">
                      <font>
                         <Font name="Arial" size="30.0" />
                      </font>
                   </TextField>
-                  <TextArea prefHeight="424.0" prefWidth="506.0" promptText="Scrivi il procedimento" wrapText="true">
+                  <TextArea fx:id="descrizione" prefHeight="424.0" prefWidth="506.0" promptText="Scrivi il procedimento" wrapText="true">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
@@ -74,13 +74,13 @@
                   <Region prefHeight="9.0" prefWidth="506.0" />
                   <HBox alignment="CENTER" prefHeight="31.0" prefWidth="569.0" spacing="1.5">
                      <children>
-                        <Label text="SELEZIONA DIFFICOLTÀ:">
+                        <Label prefHeight="17.0" prefWidth="195.0" text="SELEZIONA DIFFICOLTÀ:">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font>
                         </Label>
                         <Region prefHeight="31.0" prefWidth="21.0" />
-                        <RadioButton fx:id="facile" mnemonicParsing="false" onAction="#disabilitaPulsanti" text="Facile">
+                        <RadioButton fx:id="facile" mnemonicParsing="false" onAction="#disabilitaPulsanti" prefHeight="20.0" prefWidth="89.0" text="Facile">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font>
@@ -88,14 +88,14 @@
                         <Region prefHeight="10.0" prefWidth="10.0" />
                         <Region prefHeight="10.0" prefWidth="10.0" />
                         <Region prefHeight="10.0" prefWidth="10.0" />
-                        <RadioButton fx:id="medio" mnemonicParsing="false" onAction="#disabilitaPulsanti" text="Intermedio">
+                        <RadioButton fx:id="medio" mnemonicParsing="false" onAction="#disabilitaPulsanti" prefHeight="20.0" prefWidth="125.0" text="Intermedio">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font>
                         </RadioButton>
                         <Region prefHeight="10.0" prefWidth="10.0" />
                         <Region prefHeight="10.0" prefWidth="10.0" />
-                        <RadioButton fx:id="difficile" mnemonicParsing="false" onAction="#disabilitaPulsanti" text="Difficile">
+                        <RadioButton fx:id="difficile" mnemonicParsing="false" onAction="#disabilitaPulsanti" prefHeight="20.0" prefWidth="105.0" text="Difficile">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font>
@@ -109,7 +109,7 @@
             </VBox>
          </children>
       </Pane>
-      <Button layoutX="800.0" layoutY="706.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="183.0" style="-fx-background-radius: 10; -fx-background-color: rgba(97, 194, 107, 1);" text="Richiedi pubblicazione" textFill="WHITE">
+      <Button fx:id="pubblica" layoutX="800.0" layoutY="706.0" mnemonicParsing="false" onAction="#compilaRicetta" prefHeight="29.0" prefWidth="183.0" style="-fx-background-radius: 10; -fx-background-color: rgba(97, 194, 107, 1);" text="Richiedi pubblicazione" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="15.0" />
          </font>
@@ -120,7 +120,7 @@
                <children>
                   <Group>
                      <children>
-                        <TextField fx:id="barraDiRicerca" alignment="CENTER" prefHeight="26.0" prefWidth="357.0" promptText="ingrediente da cercare" style="-fx-padding: 0 0 0 0;">
+                        <TextField fx:id="barraDiRicerca" alignment="CENTER" onKeyPressed="#gestioneRisultati" prefHeight="26.0" prefWidth="357.0" promptText="ingrediente da cercare" style="-fx-padding: 0 0 0 0;">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font>
@@ -132,16 +132,12 @@
                         </ImageView>
                      </children>
                   </Group>
-                  <ScrollPane hbarPolicy="NEVER" prefHeight="180.0" prefWidth="357.0" style="-fx-background-color: white;">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="179.0" prefWidth="346.0">
-                           <children>
-                              <VBox layoutX="2.0" layoutY="2.0" prefHeight="173.0" prefWidth="336.0" />
-                           </children>
-                        </AnchorPane>
-                    </content>
+                  <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="180.0" prefWidth="357.0" style="-fx-background-color: white;" vbarPolicy="ALWAYS">
+                     <content>
+                        <VBox fx:id="contenitoreAlimentiTrovati" prefWidth="336.0" spacing="5.0" />
+                     </content>
                   </ScrollPane>
-                  <TextField fx:id="barraDiRicerca1" alignment="CENTER" disable="true" prefHeight="26.0" prefWidth="357.0" promptText="inserisci quantità" style="-fx-padding: 0 0 0 0;">
+                  <TextField fx:id="quantita" alignment="CENTER" disable="true" prefHeight="26.0" prefWidth="357.0" promptText="inserisci quantità" style="-fx-padding: 0 0 0 0;">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
@@ -167,15 +163,16 @@
                         <Font name="Arial Bold" size="15.0" />
                      </font>
                   </Label>
-                  <ScrollPane hbarPolicy="NEVER" prefHeight="211.0" prefWidth="357.0" style="-fx-background-color: white;">
+                  <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="174.0" prefWidth="357.0" style="-fx-background-color: white;" vbarPolicy="ALWAYS">
                      <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="210.0" prefWidth="349.0">
-                           <children>
-                              <VBox layoutX="2.0" layoutY="2.0" prefHeight="205.0" prefWidth="337.0" />
-                           </children>
-                        </AnchorPane>
+                        <VBox fx:id="ingredienti" prefWidth="337.0" spacing="5.0" />
                      </content>
                   </ScrollPane>
+                  <Label alignment="CENTER" prefHeight="28.0" prefWidth="271.0" text="Clicca gli alimenti da eliminare">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </Label>
                </children>
             </VBox>
          </children></Pane>

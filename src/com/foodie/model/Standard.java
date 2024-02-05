@@ -1,6 +1,5 @@
 package com.foodie.model;
 
-import java.util.Scanner;
 
 public class Standard implements Utente{  //STANDARD IMPLEMENTA UTENTE
 	

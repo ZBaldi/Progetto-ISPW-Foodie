@@ -60,7 +60,7 @@
                <children>
                   <Group>
                      <children>
-                        <TextField fx:id="barraDiRicerca" alignment="CENTER" prefHeight="26.0" prefWidth="281.0" promptText="inserisci alimento" style="-fx-padding: 0 0 0 0;" />
+                        <TextField fx:id="barraDiRicerca" alignment="CENTER" onKeyPressed="#gestioneRisultati" prefHeight="26.0" prefWidth="281.0" promptText="inserisci alimento" style="-fx-padding: 0 0 0 0;" />
                         <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="5.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../../immagini_usate/lenteingrandimento.png" />
@@ -68,17 +68,13 @@
                         </ImageView>
                      </children>
                   </Group>
-                  <ScrollPane prefHeight="321.0" prefWidth="360.0" style="-fx-background-color: white;">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="308.0" prefWidth="343.0">
-                           <children>
-                              <VBox fx:id="contenitoreAlimentiTrovati" layoutX="1.0" layoutY="3.0" prefHeight="301.0" prefWidth="343.0" spacing="5.0" />
-                           </children>
-                        </AnchorPane>
-                     </content>
+                  <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="321.0" prefWidth="360.0" style="-fx-background-color: white;" vbarPolicy="ALWAYS">
                      <VBox.margin>
                         <Insets left="70.0" right="70.0" />
                      </VBox.margin>
+                     <content>
+                        <VBox fx:id="contenitoreAlimentiTrovati" prefWidth="343.0" spacing="5.0" />
+                     </content>
                   </ScrollPane>
                </children>
                <opaqueInsets>

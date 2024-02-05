@@ -7,7 +7,7 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
 	
 	private static CatalogoRicetteImplementazioneDao istanza;    //SINGLETON
 	private static String utente = "root";
-    private static String password = "michele2002"; 
+    private static String password = "root"; 
     private static String databaseUrl = "jdbc:mysql://localhost:3306/ricette";
     private static String driverMySql = "com.mysql.jdbc.Driver";
 	
@@ -42,7 +42,7 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
 				risultati= QuerySQLChef.ottieniRicettePersonali(dichiarazione, autore2);
 			}
 			while (risultati.next()) {  //SCORRO I RISULTATI E CREO LE RICETTE CHE HO TROVATO
-		        String nomeRicetta = risultati.getString("nome");
+				String nomeRicetta = risultati.getString("nome");
 		        String descrizione = risultati.getString("descrizione");
 		        int difficoltaRicetta = risultati.getInt("difficolta");
 		        String autore = risultati.getString("autore");
@@ -53,6 +53,9 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
 		            ricetta.aggiungiIngrediente(new Alimento(alimento), quantita);
 		        } while (risultati.next() && nomeRicetta.equals(risultati.getString("nome")));
 		        ricetteTrovate.add(ricetta);
+		        if (!risultati.isAfterLast()) {  //SE POSIZIONATO OLTRE L'ULTIMA RIGA ALLORA LA RIPORTA INDIETRO PER GESTIRE TUTTE LE RIGHE CORRETTAMENTE
+		            risultati.previous();  //SE LA RIGA DOPO NON HA LO STESSO NOME NEL DO WHILE ALLORA DEVO RIPORTARMI INDIETRO PER GESTIRE L'AVANZAMENTO NEL WHILE ESTERNO(SE NO DI 2 AVANTI!).
+		        }
 		    }
 			dichiarazione.close();  //CHIUDO LA CONNESSIONE
 			connessione.close();
@@ -83,12 +86,12 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
             Class.forName(driverMySql);  
             connessione = DriverManager.getConnection(databaseUrl, utente, password);  //APRO LA CONNESSIONE
             dichiarazione = connessione.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            risultati = QuerySQLChef.selezionaRicetteDallaDescrizione(dichiarazione);  //CONTROLLO SE GIA' ESISTE UNA RICETTA CON LA STESSA DESCRIZIONE
+            risultati = QuerySQLChef.selezionaRicetteDalNomeAutore(dichiarazione);  //CONTROLLO SE GIA' ESISTE UNA RICETTA CON LA STESSA DESCRIZIONE
             while (risultati.next()) {  //CONTROLLO I RISULTATI
-                String descrizione = risultati.getString("descrizione");
-                System.out.println("Trovata descrizione: "+ descrizione);
-                if (descrizione.equals(ricetta.getDescrizione())){
-                	RicettaDuplicataException eccezione= new RicettaDuplicataException("Ricetta già esistente nel database!");
+                String nome = risultati.getString("nome");
+                String autore= risultati.getString("autore");
+                if (nome.equals(ricetta.getNome()) && autore.equals(ricetta.getAutore())){
+                	ricettaDuplicataException eccezione= new ricettaDuplicataException("Ricetta già esistente nel database!");
                 	throw eccezione;
                 }
             }

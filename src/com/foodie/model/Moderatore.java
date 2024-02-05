@@ -41,7 +41,12 @@ public class Moderatore extends SubjectPatternObserver implements Utente { //MOD
 	
 	@Override
 	public String getViewIniziale(int i) {  //VIEW INIZIALE
-		return "ModeratoreView.fxml";
+		if(i==1) {
+			return "ModeratoreView.fxml";
+		}
+		else {
+			return "com/foodie/boundary2/ModeratoreView2.fxml";
+		}
 	}
 	
 	public void aggiungiRicettaDaVerificare(Ricetta ricetta) {  //AGGIUNGI LE RICETTE DA VERIFICARE
