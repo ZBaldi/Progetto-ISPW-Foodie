@@ -61,14 +61,10 @@
                   <Font name="Arial" size="30.0" />
                </font>
             </Label>
-            <ScrollPane fitToWidth="true" layoutX="35.0" layoutY="100.0" prefHeight="532.0" prefWidth="965.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="531.0" prefWidth="956.0" style="-fx-background-color: rgba(228, 255, 231, 1);">
-                     <children>
-                        <VBox fx:id="contenitoreRicette" layoutX="3.0" layoutY="4.0" prefHeight="522.0" prefWidth="944.0" spacing="5.0" style="-fx-background-color: rgba(228, 255, 231, 1);" />
-                     </children>
-                  </AnchorPane>
-              </content>
+            <ScrollPane fitToWidth="true" layoutX="35.0" layoutY="100.0" prefHeight="532.0" prefWidth="951.0">
+               <content>
+                  <VBox fx:id="contenitoreRicette" prefHeight="541.0" prefWidth="935.0" spacing="5.0" style="-fx-background-color: rgba(228, 255, 231, 1);" />
+               </content>
             </ScrollPane>
          </children>
          <padding>

@@ -52,14 +52,10 @@
             <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
          </opaqueInsets>
          <children>
-            <ScrollPane layoutX="48.0" layoutY="22.0" prefHeight="561.0" prefWidth="937.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="561.0" prefWidth="935.0" style="-fx-background-color: rgba(228, 255, 231, 1);">
-                     <children>
-                        <VBox fx:id="contenitoreRicette" layoutX="7.0" layoutY="8.0" prefHeight="531.0" prefWidth="907.0" spacing="5.0" style="-fx-background-color: rgba(228, 255, 231, 1);" />
-                     </children>
-                  </AnchorPane>
-              </content>
+            <ScrollPane hbarPolicy="NEVER" layoutX="48.0" layoutY="22.0" prefHeight="561.0" prefWidth="937.0" vbarPolicy="ALWAYS">
+               <content>
+                  <VBox fx:id="contenitoreRicette" alignment="TOP_CENTER" prefHeight="559.0" prefWidth="920.0" spacing="3.0" style="-fx-background-color: rgba(228, 255, 231, 1);" />
+               </content>
             </ScrollPane>
             <Button layoutX="840.0" layoutY="610.0" mnemonicParsing="false" onAction="#modifica" prefHeight="29.0" prefWidth="145.0" style="-fx-background-radius: 10; -fx-background-color: rgba(231, 73, 73, 1);" text="Elimina" textFill="WHITE">
                <font>

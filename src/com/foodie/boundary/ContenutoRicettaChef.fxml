@@ -16,7 +16,7 @@
    <children>
       <Pane layoutY="100.0" minHeight="50.0" minWidth="50.0" prefHeight="668.0" prefWidth="1024.0" style="-fx-background-color: rgba(228, 255, 231, 1);">
          <children>
-            <Label fx:id="nome" layoutX="400.0" layoutY="11.0" prefHeight="71.0" prefWidth="581.0" text="Nome ricetta">
+            <Label fx:id="nome" layoutX="411.0" layoutY="11.0" prefHeight="71.0" prefWidth="581.0" text="Nome ricetta">
                <font>
                   <Font name="Arial" size="30.0" />
                </font>
@@ -34,6 +34,9 @@
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
                   </Label>
                </children>
                <padding>
@@ -49,7 +52,7 @@
                   </Button>
                </children>
             </HBox>
-            <Label layoutX="72.0" layoutY="285.0" text="LISTA DEGLI INGREDIENTI">
+            <Label layoutX="72.0" layoutY="20.0" text="LISTA DEGLI INGREDIENTI">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
@@ -57,13 +60,9 @@
                   <Insets top="35.0" />
                </padding>
             </Label>
-            <ScrollPane hbarPolicy="NEVER" layoutX="37.0" layoutY="356.0" prefHeight="184.0" prefWidth="326.0" style="-fx-border-color: BLACK;">
+            <ScrollPane hbarPolicy="NEVER" layoutX="37.0" layoutY="91.0" prefHeight="448.0" prefWidth="326.0" style="-fx-border-color: BLACK;" vbarPolicy="ALWAYS">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="182.0" prefWidth="309.0">
-                     <children>
-                        <VBox fx:id="contenitoreIngredienti" layoutX="3.0" layoutY="-3.0" prefHeight="184.0" prefWidth="304.0" spacing="5.0" />
-                     </children>
-                  </AnchorPane>
+                  <VBox fx:id="contenitoreIngredienti" alignment="TOP_CENTER" prefHeight="444.0" prefWidth="306.0" spacing="3.0" />
                </content>
             </ScrollPane>
          </children>

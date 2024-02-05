@@ -34,16 +34,12 @@
                   <Image url="@../../../../immagini_usate/lenteingrandimento.png" />
                </image>
             </ImageView>
-            <ScrollPane layoutX="84.0" layoutY="147.0" prefHeight="399.0" prefWidth="281.0">
+            <ScrollPane hbarPolicy="NEVER" layoutX="84.0" layoutY="147.0" prefHeight="399.0" prefWidth="281.0" vbarPolicy="ALWAYS">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="402.0" prefWidth="282.0">
-                     <children>
-                        <VBox fx:id="contenitoreAlimentiTrovati" layoutX="-1.0" prefHeight="386.0" prefWidth="268.0" spacing="5.0" style="-fx-background-color: rgba(228, 255, 231, 1);" />
-                     </children>
-                  </AnchorPane>
+                  <VBox fx:id="contenitoreAlimentiTrovati" prefHeight="398.0" prefWidth="264.0" spacing="3.0" style="-fx-background-color: rgba(228, 255, 231, 1);" />
                </content>
             </ScrollPane>
-            <TextField fx:id="quantita" disable="true" layoutX="84.0" layoutY="578.0" prefHeight="25.0" prefWidth="281.0" promptText="Quantita" />
+            <TextField fx:id="quantita" disable="true" layoutX="84.0" layoutY="561.0" prefHeight="25.0" prefWidth="281.0" promptText="Quantita" />
          </children>
       </Pane>
       <Pane layoutX="456.0" layoutY="100.0" prefHeight="668.0" prefWidth="568.0">
@@ -70,13 +66,9 @@
                   <Insets />
                </opaqueInsets>
             </HBox>
-            <ScrollPane layoutX="78.0" layoutY="119.0" prefHeight="431.0" prefWidth="436.0">
+            <ScrollPane hbarPolicy="NEVER" layoutX="78.0" layoutY="105.0" prefHeight="445.0" prefWidth="451.0" vbarPolicy="ALWAYS">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="436.0" prefWidth="442.0">
-                     <children>
-                        <VBox fx:id="contenitoreIngredienti" layoutX="-2.0" layoutY="-2.0" prefHeight="417.0" prefWidth="423.0" spacing="5.0" />
-                     </children>
-                  </AnchorPane>
+                  <VBox fx:id="contenitoreIngredienti" prefHeight="443.0" prefWidth="434.0" spacing="3.0" />
                </content>
             </ScrollPane>
          </children>

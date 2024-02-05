@@ -54,14 +54,10 @@
                <image>
                   <Image url="@../../../../immagini_usate/lenteingrandimento.png" />
                </image></ImageView>
-            <ScrollPane layoutX="84.0" layoutY="127.0" prefHeight="399.0" prefWidth="281.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="405.0" prefWidth="282.0">
-                     <children>
-                        <VBox fx:id="contenitoreAlimentiTrovati" layoutX="-1.0" prefHeight="385.0" prefWidth="268.0" spacing="5.0" style="-fx-background-color: rgba(228, 255, 231, 1);" />
-                     </children>
-                  </AnchorPane>
-              </content>
+            <ScrollPane hbarPolicy="NEVER" layoutX="84.0" layoutY="127.0" prefHeight="399.0" prefWidth="281.0" vbarPolicy="ALWAYS">
+               <content>
+                  <VBox fx:id="contenitoreAlimentiTrovati" prefHeight="413.0" prefWidth="264.0" spacing="3.0" style="-fx-background-color: rgba(228, 255, 231, 1);" />
+               </content>
             </ScrollPane>
          </children>
       </Pane>
@@ -91,14 +87,10 @@
                   </Button>
                </children>
             </HBox>
-            <ScrollPane layoutX="72.0" layoutY="105.0" prefHeight="431.0" prefWidth="436.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="436.0" prefWidth="442.0">
-                     <children>
-                        <VBox fx:id="contenitoreDispensa" layoutX="-2.0" layoutY="-2.0" prefHeight="417.0" prefWidth="423.0" spacing="5.0" />
-                     </children>
-                  </AnchorPane>
-              </content>
+            <ScrollPane hbarPolicy="NEVER" layoutX="72.0" layoutY="105.0" prefHeight="431.0" prefWidth="436.0" vbarPolicy="ALWAYS">
+               <content>
+                  <VBox fx:id="contenitoreDispensa" prefHeight="438.0" prefWidth="419.0" spacing="3.0" />
+               </content>
             </ScrollPane>
          </children>
       </Pane>

@@ -48,7 +48,7 @@
       </Pane>
       <Pane layoutY="100.0" minHeight="50.0" minWidth="50.0" prefHeight="668.0" prefWidth="1024.0" style="-fx-background-color: rgba(228, 255, 231, 1);">
          <children>
-            <Label fx:id="usernameLabel" layoutX="401.0" layoutY="10.0" text="Nome utente">
+            <Label fx:id="usernameLabel" alignment="CENTER" layoutX="228.0" layoutY="36.0" text="Nome utente">
                <font>
                   <Font name="Arial" size="30.0" />
                </font>
@@ -56,17 +56,7 @@
                   <Insets top="35.0" />
                </padding>
             </Label>
-            <Button layoutX="103.0" layoutY="317.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="154.0" style="-fx-background-radius: 10; -fx-background-color: rgba(97, 194, 107, 1);" text="Inserisci immagine" textFill="WHITE">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Button>
-            <Button layoutX="103.0" layoutY="364.0" mnemonicParsing="false" onAction="#modificaProfilo" prefHeight="29.0" prefWidth="154.0" style="-fx-background-radius: 10; -fx-background-color: rgba(97, 194, 107, 1);" text="Modifica profilo" textFill="WHITE">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Button>
-            <Pane layoutX="403.0" layoutY="91.0" prefHeight="449.0" prefWidth="581.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: black; -fx-border-radius: 10;">
+            <Pane layoutX="221.0" layoutY="109.0" prefHeight="449.0" prefWidth="581.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: black; -fx-border-radius: 10;">
                <opaqueInsets>
                   <Insets right="50.0" />
                </opaqueInsets>
@@ -81,12 +71,16 @@
                   </TextField>
                </children>
             </Pane>
-            <Button layoutX="103.0" layoutY="411.0" mnemonicParsing="false" onAction="#caricaViewRicetta" prefHeight="29.0" prefWidth="154.0" style="-fx-background-radius: 10; -fx-background-color: rgba(97, 194, 107, 1);" text="Nuova ricetta" textFill="WHITE">
+            <Button layoutX="34.0" layoutY="610.0" mnemonicParsing="false" onAction="#modificaProfilo" prefHeight="29.0" prefWidth="154.0" style="-fx-background-radius: 10; -fx-background-color: rgba(97, 194, 107, 1);" text="Modifica profilo" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <ImageView fitHeight="250.0" fitWidth="250.0" layoutX="50.0" layoutY="50.0" pickOnBounds="true" />
+            <Button layoutX="840.0" layoutY="610.0" mnemonicParsing="false" onAction="#caricaViewRicetta" prefHeight="29.0" prefWidth="154.0" style="-fx-background-radius: 10; -fx-background-color: rgba(97, 194, 107, 1);" text="Nuova ricetta" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
          </children>
          <opaqueInsets>
             <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
