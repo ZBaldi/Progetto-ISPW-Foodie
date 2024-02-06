@@ -13,6 +13,7 @@ import com.foodie.model.CatalogoRicetteImplementazioneDao;
 import com.foodie.model.Dispensa;
 import com.foodie.model.Ricetta;
 
+@SuppressWarnings("unused")
 public class TrovaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOLO 1 ISTANZA!
 	
 	private static TrovaRicettaController istanza;

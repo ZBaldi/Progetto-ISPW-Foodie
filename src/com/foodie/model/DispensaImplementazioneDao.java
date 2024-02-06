@@ -57,6 +57,7 @@ public class DispensaImplementazioneDao implements DispensaDao{  //IMPLEMENTAZIO
         }
 	}
 
+	@SuppressWarnings({ "unchecked", "resource" })  //RIMUOVO I WARNING
 	@Override
 	public Map<String, ArrayList<AlimentoSerializzabile>> caricaDispense(boolean bool) {  //CARICA L'HASHMAP DA FILE
 		ObjectInputStream objectInputStream=null;    //TRUE VIENE PASSATO QUANDO FAI IL LOGIN!CHE è NECESSARIO RICARICARE LA DISPENSA!

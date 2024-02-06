@@ -38,6 +38,7 @@ public class AreaPersonaleImplementazioneDao implements AreaPersonaleDao{  //IMP
         }
 	}
 
+	@SuppressWarnings({ "resource", "unchecked" })  //RIMUOVO I WARNINGS
 	@Override
 	public Map<String, String> caricaAreaPersonale() {     //CARICA L'HASHMAP DA FILE
 		ObjectInputStream objectInputStream=null;

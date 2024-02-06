@@ -7,6 +7,7 @@ import com.foodie.controller.PubblicaRicettaControllerAdapter;
 import com.foodie.model.AlimentoBean;
 import com.foodie.model.Observer;
 import com.foodie.model.RicettaBean;
+import com.foodie.Applicazione.LoginViewController;
 import com.foodie.controller.ControllerAdapter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

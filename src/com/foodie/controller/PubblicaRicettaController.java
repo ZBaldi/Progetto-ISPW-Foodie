@@ -9,6 +9,7 @@ import com.foodie.model.CatalogoRicetteImplementazioneDao;
 import com.foodie.model.Moderatore;
 import com.foodie.model.Ricetta;
 
+@SuppressWarnings("unused")
 public class PubblicaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOLO 1 ISTANZA!
 	
 	private static PubblicaRicettaController istanza;

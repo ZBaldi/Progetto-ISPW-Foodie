@@ -2,6 +2,7 @@ package com.foodie.boundary;
 
 import java.util.ArrayList;
 
+import com.foodie.Applicazione.LoginViewController;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.LoginController;
 import com.foodie.controller.TrovaRicettaController;

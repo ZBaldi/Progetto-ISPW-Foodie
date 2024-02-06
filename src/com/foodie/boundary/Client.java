@@ -1,6 +1,8 @@
 package com.foodie.boundary;
 
 
+import com.foodie.Applicazione.LoginViewController;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

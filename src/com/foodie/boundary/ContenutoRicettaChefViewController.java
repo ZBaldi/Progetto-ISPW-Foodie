@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
 
+import com.foodie.Applicazione.LoginViewController;
 import com.foodie.controller.PubblicaRicettaController;
 
 import javafx.event.ActionEvent;

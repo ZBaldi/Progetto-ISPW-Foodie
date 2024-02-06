@@ -9,6 +9,7 @@ import com.foodie.controller.LoginController;
 import com.foodie.controller.LoginControllerAdapter;
 import com.foodie.controller.PubblicaRicettaController;
 import com.foodie.controller.PubblicaRicettaControllerAdapter;
+import com.foodie.Applicazione.LoginViewController;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.model.Dispensa;
 import com.foodie.model.Ricetta;
