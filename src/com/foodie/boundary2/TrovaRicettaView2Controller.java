@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import com.foodie.Applicazione.LoginViewController;
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
+import com.foodie.controller.PubblicaRicettaController;
 import com.foodie.model.AlimentoBean;
 import com.foodie.model.RicettaBean;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +26,7 @@ public class TrovaRicettaView2Controller {
 	private static TrovaRicettaView2Controller istanza;
 	private AdattatoreFactory factory= AdattatoreFactory.ottieniIstanza();
 	private ControllerAdapter adattatoreTrovaRicettaController= factory.creaTrovaRicettaAdapter();
+	private PubblicaRicettaController controller= PubblicaRicettaController.ottieniIstanza();
 	private Stage primaryStage;
 	@FXML
 	private RadioButton facile;
@@ -46,12 +47,12 @@ public class TrovaRicettaView2Controller {
 		return istanza;
 	}
 	
-	public void setPrimaryStage(Stage primaryStage) {
+	public void setPrimaryStage(Stage primaryStage) {  //PASSO LO STAGE
 		this.primaryStage= primaryStage;
 	}
 	
 	@FXML
-    private void tornaAlLogin(MouseEvent event) {
+    private void tornaAlLogin(MouseEvent event) {  //CARICA VIEW LOGIN
         try {
         	FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/Applicazione/LoginView.fxml"));
             LoginViewController loginViewController = LoginViewController.ottieniIstanza();
@@ -67,12 +68,13 @@ public class TrovaRicettaView2Controller {
     }
 	
 	@FXML
-	private void caricaViewDispensa(ActionEvent event) {
+	private void caricaViewDispensa(ActionEvent event) {  //CARICA VIEW DISPENSA
 		try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("DispensaView2.fxml"));
             DispensaView2Controller dispensaController = DispensaView2Controller.ottieniIstanza();
             loader.setController(dispensaController);
             Parent root = loader.load();
+            controller.registraOsservatore(dispensaController, 1);
             dispensaController.setPrimaryStage(primaryStage);
             dispensaController.aggiornaView();
             Scene nuovaScena = new Scene(root);
@@ -84,7 +86,7 @@ public class TrovaRicettaView2Controller {
 	}
 	
 	@FXML
-	private void disabilitaPulsanti(ActionEvent event) {
+	private void disabilitaPulsanti(ActionEvent event) {  //GESTISCE PULSANTI DIFFICOLTA'
 		if (facile.isSelected()) {
 		    medio.setDisable(true);
 		    difficile.setDisable(true);
@@ -102,7 +104,7 @@ public class TrovaRicettaView2Controller {
 	}
 	
 	@FXML
-    private void caricaViewAlimenti(ActionEvent event) {
+    private void caricaViewAlimenti(ActionEvent event) {  //CARICA VIEW TROVA ALIMENTI
         try {
         	FXMLLoader loader = new FXMLLoader(getClass().getResource("AggiungiAlimentoView2.fxml"));
         	AggiungiAlimentoView2Controller aggiungiAlimentoController = AggiungiAlimentoView2Controller.ottieniIstanza();
@@ -119,7 +121,7 @@ public class TrovaRicettaView2Controller {
     }
 	
 	@FXML
-	private void trovaRicette(ActionEvent event) {
+	private void trovaRicette(ActionEvent event) {  //METODO PER TROVARE RICETTE
 		contenitoreRicette.getChildren().clear();
 		ArrayList<RicettaBean> ricetteTrovate= null;
 		String difficolta="";
@@ -135,7 +137,7 @@ public class TrovaRicettaView2Controller {
 			ricetteTrovate=adattatoreTrovaRicettaController.trovaLeRicette(3,null);
 			difficolta="difficile";
 		}
-		else {
+		else {  //SE LA DIFFICOLTA' NON E' SELEZIONATA AVVERTIMENTO !
 			Label label=new Label("SCEGLI DIFFICOLTA'");
 			label.setStyle("-fx-background-color: rgba(217, 217, 217, 0.75);-fx-border-color: black;");
 			label.setMaxWidth(Double.MAX_VALUE);
@@ -147,25 +149,20 @@ public class TrovaRicettaView2Controller {
 			return;
 		}
 		if(ricetteTrovate!=null) {
-			contenitoreRicette.getChildren().clear();
-			for(RicettaBean r: ricetteTrovate) {
+			contenitoreRicette.getChildren().clear();  //SE RICETTE TROVATE MOSTRA TUTTO IL CONTENUTO DELLE RICETTE
+			for(RicettaBean r: ricetteTrovate) {      //CREA VBOX E LABEL UNA DI SEGUITO ALL'ALTRA
 				VBox contenitoreRicetta = new VBox();
 				contenitoreRicetta.setStyle("-fx-background-color: rgba(217, 217, 217, 0.75);-fx-border-color: black;");
-				contenitoreRicetta.setSpacing(10);
-				
+				contenitoreRicetta.setSpacing(10);				
 			    Label labelNome = new Label("Nome: "+r.getNome());
 			    labelNome.setFont(Font.font("Arial", 20));
-
 			    Label labelAutore = new Label("Autore: "+r.getAutore());
 			    labelAutore.setFont(Font.font("Arial", 20));
-
 			    Label labelDifficolta = new Label("Difficoltà: "+difficolta);
-			    labelDifficolta.setFont(Font.font("Arial", 20));
-			 
+			    labelDifficolta.setFont(Font.font("Arial", 20));			 
 			    Label labelDescrizione = new Label("Descrizione: "+r.getDescrizione());
 			    labelDescrizione.setFont(Font.font("Arial", 20));
-			    labelDescrizione.setWrapText(true);
-			    
+			    labelDescrizione.setWrapText(true);	    
 			    VBox contenitoreIngredienti= new VBox();
 			    Label inizio= new Label("Ingredienti:");
 			    inizio.setFont(Font.font("Arial", 20));
@@ -183,7 +180,7 @@ public class TrovaRicettaView2Controller {
 			    contenitoreRicette.getChildren().add(contenitoreRicetta);
 			}
 		}
-		else {
+		else {  //NESSUNA RICETTA TROVATA
 			Label label=new Label("NESSUN RISULTATO");
 			label.setStyle("-fx-background-color: rgba(217, 217, 217, 0.75);-fx-border-color: black;");
 			label.setMaxWidth(Double.MAX_VALUE);
@@ -194,5 +191,5 @@ public class TrovaRicettaView2Controller {
 			contenitoreRicette.getChildren().add(label);
 		}
 	}
-
+	
 }

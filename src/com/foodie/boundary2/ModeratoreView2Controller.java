@@ -1,39 +1,32 @@
 package com.foodie.boundary2;
 
 import java.util.ArrayList;
-
 import com.foodie.Applicazione.LoginViewController;
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.PubblicaRicettaController;
-import com.foodie.controller.PubblicaRicettaControllerAdapter;
-import com.foodie.model.AlimentoBean;
 import com.foodie.model.Observer;
 import com.foodie.model.RicettaBean;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-
 import javafx.scene.control.TextArea;
-
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class ModeratoreView2Controller implements Observer{
-	private Stage primaryStage;
+	
 	private AdattatoreFactory factory= AdattatoreFactory.ottieniIstanza();
 	private PubblicaRicettaController controller= PubblicaRicettaController.ottieniIstanza();
 	private ControllerAdapter adattatorePubblicaRicettaController= factory.creaPubblicaRicettaAdapter();
 	private static ModeratoreView2Controller istanza;
-	private ArrayList<RicettaBean> ricetteBean=null;
+	private Stage primaryStage;
 	@FXML
 	private TextArea descrizioneTextArea;
 	@FXML
@@ -44,19 +37,19 @@ public class ModeratoreView2Controller implements Observer{
 	private ModeratoreView2Controller() {
 	}
 	
-	public static synchronized ModeratoreView2Controller ottieniIstanza() {
+	public static synchronized ModeratoreView2Controller ottieniIstanza() {  //SINGLETON METODO PER OTTENERE L'ISTANZA
 		if(istanza == null) {
 			istanza = new ModeratoreView2Controller();
 		}
 		return istanza;
 	}
 	
-	public void setPrimaryStage(Stage primaryStage) {
+	public void setPrimaryStage(Stage primaryStage) {  //PASSO LO STAGE
 		this.primaryStage= primaryStage;
 	}
 	
 	@FXML
-	public void tornaAlLogin(MouseEvent event) {
+	public void tornaAlLogin(MouseEvent event) {  //CARICA VIEW LOGIN
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/Applicazione/LoginView.fxml"));
             LoginViewController loginViewController = LoginViewController.ottieniIstanza();
@@ -72,9 +65,9 @@ public class ModeratoreView2Controller implements Observer{
 	}
 
 	@Override
-	public void aggiornaView() {
+	public void aggiornaView() {  //AGGIORNA VIEW IN FUZNIONE DELLE RICETTE DA APPROVARE , LE MOSTRA SUBITO COMPLETE 
 		contenitoreRicetteDaApprovare.getChildren().clear();
-		ricetteBean =adattatorePubblicaRicettaController.mostraLeRicetteDaApprovare();
+		ArrayList<RicettaBean> ricetteBean =adattatorePubblicaRicettaController.mostraLeRicetteDaApprovare();
 		if(ricetteBean!=null) {
 			for(RicettaBean r: ricetteBean) {
 				VBox contenitoreRicetta = new VBox();
@@ -95,10 +88,10 @@ public class ModeratoreView2Controller implements Observer{
 			    contenitoreRicetteDaApprovare.getChildren().add(contenitoreRicetta);
 			}
 		}
-		impostaHBox();
+		impostaVBox();  //LE RENDE CLICCABILI
 	}
 	
-	private void impostaHBox() {
+	private void impostaVBox() {  //RENDE CLICCABILI LE RICETTE PER APPROVARLE
 		 if (!contenitoreRicetteDaApprovare.getChildren().isEmpty()) {
 			 contenitoreRicetteDaApprovare.getChildren().forEach(node -> {
 		            VBox contenitoreRicetta = (VBox) node;
@@ -107,7 +100,7 @@ public class ModeratoreView2Controller implements Observer{
 		    }
 	}
 	
-	private void pubblicaRicetta(VBox contenitoreRicetta) {
+	private void pubblicaRicetta(VBox contenitoreRicetta) {  //PUBBLICA LA RICETTA
 		if(!contenitoreRicetteDaApprovare.getChildren().isEmpty()) {
 			contenitoreRicetteDaApprovare.getChildren().clear();
 		}
@@ -126,11 +119,11 @@ public class ModeratoreView2Controller implements Observer{
 			}
 			index++;
 		}
-		controller.pubblicaRicetta(nome,autore,true);
+		controller.pubblicaRicetta(nome,autore,true); 
 	}
 	
 	@FXML
-	private void scarta(ActionEvent event) {
+	private void scarta(ActionEvent event) {  //SE CLICCATO CHIUDI SCARTA TUTTE LE RICETTE
 		if(!contenitoreRicetteDaApprovare.getChildren().isEmpty()) {
 			contenitoreRicetteDaApprovare.getChildren().clear();
 		}

@@ -6,10 +6,9 @@ import com.foodie.Applicazione.LoginViewController;
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.LoginController;
+import com.foodie.controller.PubblicaRicettaController;
 import com.foodie.model.AlimentoBean;
-import com.foodie.model.Dispensa;
 import com.foodie.model.UtenteBean;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,15 +25,16 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class AggiungiAlimentoView2Controller {
+	
 	private static AggiungiAlimentoView2Controller istanza;
-	private Stage primaryStage;
-	private ArrayList<AlimentoBean> alimentiBeanTrovati;
 	private AdattatoreFactory factory = AdattatoreFactory.ottieniIstanza();
 	private ControllerAdapter adattatoreTrovaRicettaController = factory.creaTrovaRicettaAdapter();
 	private ControllerAdapter adattatoreLoginController = factory.creaLoginAdapter();
+	private PubblicaRicettaController controller= PubblicaRicettaController.ottieniIstanza();
 	private LoginController loginController = LoginController.ottieniIstanza();
 	private UtenteBean utenteBean = adattatoreLoginController.ottieniUtente();
 	private String username = utenteBean.getUsername();
+	private Stage primaryStage;
 	@FXML
 	private TextField barraDiRicerca;
 	@FXML
@@ -50,12 +50,12 @@ public class AggiungiAlimentoView2Controller {
 		return istanza;
 	}	
 	
-	public void setPrimaryStage(Stage primaryStage) {
+	public void setPrimaryStage(Stage primaryStage) {  //PASSO LO STAGE
 		this.primaryStage= primaryStage;
 	}
 	
 	@FXML
-    private void tornaAlLogin(MouseEvent event) {
+    private void tornaAlLogin(MouseEvent event) {  //CARICA VIEW LOGIN
         try { 
         	FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/Applicazione/LoginView.fxml"));
             LoginViewController loginViewController = LoginViewController.ottieniIstanza();
@@ -71,13 +71,12 @@ public class AggiungiAlimentoView2Controller {
     }
 	
 	@FXML
-	private void caricaViewDispensa(ActionEvent event) {
+	private void caricaViewDispensa(ActionEvent event) {  //CARICA VIEW DISPENSA
 		try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("DispensaView2.fxml"));
             DispensaView2Controller dispensaController = DispensaView2Controller.ottieniIstanza();
             loader.setController(dispensaController);
-            Dispensa dispensa = Dispensa.ottieniIstanza(); //SICURAMENTE L'OSSERVATORE SI AGGIUNGERA NEL CLIENT
-			dispensa.registra(dispensaController);  //DA CAMBIARE!!!
+            controller.registraOsservatore(dispensaController, 1);
             Parent root = loader.load();
             dispensaController.setPrimaryStage(primaryStage);
             Scene nuovaScena = new Scene(root);
@@ -90,7 +89,7 @@ public class AggiungiAlimentoView2Controller {
 	}
 	
 	@FXML
-    private void caricaViewTrovaRicetta(ActionEvent event) {
+    private void caricaViewTrovaRicetta(ActionEvent event) {  //CARICA VIEW TROVA RICETTA
         try {
         	FXMLLoader loader = new FXMLLoader(getClass().getResource("TrovaRicettaView2.fxml"));
         	TrovaRicettaView2Controller trovaRicettaController = TrovaRicettaView2Controller.ottieniIstanza();
@@ -107,7 +106,7 @@ public class AggiungiAlimentoView2Controller {
     }
 	
 	@FXML
-	private void gestioneRisultati(KeyEvent event) {
+	private void gestioneRisultati(KeyEvent event) {  //GESTISCE BARRA DI RICERCA
 		if(event.getCode() == KeyCode.ENTER) {//GETCODE() TI RESTITUISCE IL TASTO PREMUTO
 			trovaAlimenti();
 		}
@@ -116,8 +115,8 @@ public class AggiungiAlimentoView2Controller {
 		}
 	}
 	
-	private void trovaAlimenti() {
-		alimentiBeanTrovati=adattatoreTrovaRicettaController.trovaGliAlimenti(barraDiRicerca.getText());
+	private void trovaAlimenti() {  //METODO TROVA ALIMENTI
+		ArrayList<AlimentoBean> alimentiBeanTrovati=adattatoreTrovaRicettaController.trovaGliAlimenti(barraDiRicerca.getText());
 		if(alimentiBeanTrovati!=null) {
 			for(AlimentoBean a: alimentiBeanTrovati) {
 				Label labelAlimento = new Label(a.getNome());
@@ -126,7 +125,7 @@ public class AggiungiAlimentoView2Controller {
 				labelAlimento.setMinHeight(30);
 				labelAlimento.setWrapText(true);
 				labelAlimento.setFont(Font.font("Arial"));
-				labelAlimento.setAlignment(Pos.CENTER);
+				labelAlimento.setAlignment(Pos.CENTER);  //LI RENDE CLICCABILI
 				labelAlimento.setOnMouseClicked(event2->{salvaAlimento(labelAlimento.getText());eliminaAlimenti();});
 				contenitoreAlimentiTrovati.getChildren().add(labelAlimento);
 			}
@@ -144,7 +143,7 @@ public class AggiungiAlimentoView2Controller {
 		
 	}
 	
-	private void salvaAlimento(String nomeAlimento) {
+	private void salvaAlimento(String nomeAlimento) {  //SALVA ALIMENTO
 		AlimentoBean alimentoBean = new AlimentoBean();
 		alimentoBean.setNome(nomeAlimento);
 		adattatoreTrovaRicettaController.ModificaDispensa(alimentoBean, 0);
@@ -152,7 +151,7 @@ public class AggiungiAlimentoView2Controller {
 		
 	}
 	
-	private void eliminaAlimenti() {
+	private void eliminaAlimenti() {  //ELIMINA ALIMENTI TROVATI
 		if(!contenitoreAlimentiTrovati.getChildren().isEmpty()) {
 			contenitoreAlimentiTrovati.getChildren().clear();
 		}

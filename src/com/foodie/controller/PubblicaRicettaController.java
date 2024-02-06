@@ -111,7 +111,7 @@ public class PubblicaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE 
 		}
 	}
 	
-	public void registraOsservatore(Observer observer, int i) {
+	public void registraOsservatore(Observer observer, int i) {  //REGISTRA GLI OSSERVATORI O ALLA DISPENSA O ALLA RICETTA O AL MODERATORE
 		if(i==1) {
 			registraOsservatoreDispensa(observer);
 		}

@@ -1,15 +1,12 @@
 package com.foodie.boundary2;
 
 import java.util.Map;
-
 import com.foodie.Applicazione.LoginViewController;
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.LoginController;
 import com.foodie.controller.PubblicaRicettaController;
-import com.foodie.model.Ricetta;
 import com.foodie.model.UtenteBean;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,12 +22,11 @@ import javafx.stage.Stage;
 public class AreaPersonaleView2Controller {
 	
 	private static AreaPersonaleView2Controller istanza;
-	private Stage primaryStage;
-	private PubblicaRicettaController controller2 = PubblicaRicettaController.ottieniIstanza();
-	LoginController controller = LoginController.ottieniIstanza();
 	private AdattatoreFactory factory = AdattatoreFactory.ottieniIstanza();
+	private LoginController controller = LoginController.ottieniIstanza();
+	private PubblicaRicettaController controller2 = PubblicaRicettaController.ottieniIstanza();
 	private ControllerAdapter adattatoreLoginController= factory.creaLoginAdapter();
-	
+	private Stage primaryStage;
 	@FXML
 	private TextArea descrizioneTextArea;
 	@FXML
@@ -40,19 +36,19 @@ public class AreaPersonaleView2Controller {
 		
 	}
 	
-	public static synchronized AreaPersonaleView2Controller ottieniIstanza() { //SINGLETON
+	public static synchronized AreaPersonaleView2Controller ottieniIstanza() { //SINGLETON METODO PER OTTENERE L'ISTANZA
 		if(istanza == null) {
 			istanza = new AreaPersonaleView2Controller();
 		}
 		return istanza;
 	}
 
-	public void setPrimaryStage(Stage primaryStage) {
+	public void setPrimaryStage(Stage primaryStage) {  //PASSO LO STAGE
 		this.primaryStage= primaryStage;
 	}
 	
 	@FXML
-    private void tornaAlLogin(MouseEvent event) {
+    private void tornaAlLogin(MouseEvent event) { //CARICA VIEW LOGIN
         try {    
         	FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/Applicazione/LoginView.fxml"));
             LoginViewController loginViewController = LoginViewController.ottieniIstanza();
@@ -68,7 +64,7 @@ public class AreaPersonaleView2Controller {
     }
 	
 	@FXML
-    private void caricaViewGestisciRicette(ActionEvent event) {
+    private void caricaViewGestisciRicette(ActionEvent event) {  //CARICA VIEW GESTISCI RICETTE
         try {
         	FXMLLoader loader = new FXMLLoader(getClass().getResource("GestisciRicetteView2.fxml"));
         	GestisciRicetteView2Controller gestisciRicetteController = GestisciRicetteView2Controller.ottieniIstanza();
@@ -86,14 +82,13 @@ public class AreaPersonaleView2Controller {
     }
 	
 	@FXML
-	private void caricaViewRicetta(ActionEvent event) {
+	private void caricaViewRicetta(ActionEvent event) {  //CARICA VIEW RICETTA
 		controller2.creaRicetta(); //QUANDO ENTRO NELLA RICETTA CREO L'ISTANZA DELLA RICETTA
 		try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("NuovaRicettaView2.fxml"));
             NuovaRicettaView2Controller nuovaRicettaController= NuovaRicettaView2Controller.ottieniIstanza();
             loader.setController(nuovaRicettaController);
-            Ricetta ricetta =controller2.getRicetta();//NON SI DEVE FARE QUI
-			ricetta.registra(nuovaRicettaController);
+			controller2.registraOsservatore(nuovaRicettaController, 2);
             Parent root = loader.load();
             nuovaRicettaController.setPrimaryStage(primaryStage);
             Scene nuovaScena = new Scene(root);
@@ -104,20 +99,20 @@ public class AreaPersonaleView2Controller {
         }
 	}
 	
-	public void aggiornaView() {
+	public void aggiornaView() {  //AGGIORNA USERNAME AUTOMATICAMENTE
 		UtenteBean utenteBean= adattatoreLoginController.ottieniUtente();
 		usernameLabel.setText(utenteBean.getUsername());
 	}
 
 	@FXML
-	private void salvaAreaPersonale(KeyEvent event) {
+	private void salvaAreaPersonale(KeyEvent event) {  //PREMUTO ENTER SALVA AREA PERSONALE(DESCRIZIONE)
 		if(event.getCode() == KeyCode.ENTER) {
 			UtenteBean utenteBean=adattatoreLoginController.ottieniUtente();
 			controller.salvaAreaPersonale(utenteBean.getUsername(), descrizioneTextArea.getText());
 		}
 	}
 	
-	public void caricaAreaPersonale() {
+	public void caricaAreaPersonale() {  //CARICA AREA PERSONALE(DESCRIZIONE)
 		Map<String,String> areaPersonaleMap=controller.caricaAreaPersonale();
 		String descrizione="";
 		if(areaPersonaleMap!=null) {

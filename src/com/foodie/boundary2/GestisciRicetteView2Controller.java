@@ -2,16 +2,13 @@ package com.foodie.boundary2;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
 import com.foodie.Applicazione.LoginViewController;
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.PubblicaRicettaController;
 import com.foodie.model.AlimentoBean;
-import com.foodie.model.Ricetta;
 import com.foodie.model.RicettaBean;
 import com.foodie.model.UtenteBean;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -24,31 +21,31 @@ import javafx.stage.Stage;
 
 public class GestisciRicetteView2Controller {
 	private static GestisciRicetteView2Controller istanza;
-	private Stage primaryStage;
 	private AdattatoreFactory factory= AdattatoreFactory.ottieniIstanza();
 	private ControllerAdapter adattatoreTrovaRicettaController= factory.creaTrovaRicettaAdapter();
 	private ControllerAdapter adattatoreLoginController = factory.creaLoginAdapter();
 	private PubblicaRicettaController controller = PubblicaRicettaController.ottieniIstanza();
-	private PubblicaRicettaController controller2 = PubblicaRicettaController.ottieniIstanza();
+	private Stage primaryStage;
 	@FXML
 	private VBox contenitoreRicette;
 	@FXML
 	private Label eliminaLabel;
-	public void setPrimaryStage(Stage primaryStage) {
-		this.primaryStage= primaryStage;
-	}
 	
 	private GestisciRicetteView2Controller() {
 	}
 	
-	public static synchronized GestisciRicetteView2Controller ottieniIstanza() {
+	public static synchronized GestisciRicetteView2Controller ottieniIstanza() {  //SINGLETON METODO PER OTTENERE L'ISTANZA
 		if(istanza == null) {
 			istanza = new GestisciRicetteView2Controller();
 		}
 		return istanza;
 	}
 	
-	public void aggiornaView() {
+	public void setPrimaryStage(Stage primaryStage) {  //PASSO LO STAGE
+		this.primaryStage= primaryStage;
+	}
+	
+	public void aggiornaView() {  //TROVA LE RICETTE DELLO CHEF E LE MOSTRA GIA' CON TUTTO IL CONTENUTO
 		ArrayList<RicettaBean> ricetteTrovate= null;
 		contenitoreRicette.getChildren().clear();
 		UtenteBean utenteBean=adattatoreLoginController.ottieniUtente();
@@ -102,11 +99,11 @@ public class GestisciRicetteView2Controller {
 			    contenitoreRicetta.getChildren().addAll(labelNome,labelAutore,labelDifficolta,labelDescrizione, contenitoreIngredienti);
 			    contenitoreRicette.getChildren().add(contenitoreRicetta);
 			}
-			impostaHBox();
+			impostaVBox();  //IMPOSTA RICETTE CLICCABILI PER ELIMINARLE
 		}
 	}
 	
-	private void eliminaRicetta(VBox contenitoreRicetta) {
+	private void eliminaRicetta(VBox contenitoreRicetta) {  //ELIMINA RICETTA 
 		if(!contenitoreRicette.getChildren().isEmpty()) {
 			contenitoreRicette.getChildren().clear();
 		}
@@ -129,7 +126,7 @@ public class GestisciRicetteView2Controller {
 		aggiornaView();
 	}
 	
-	private void impostaHBox() {
+	private void impostaVBox() {  //RENDE CLICCABILI LE RICETTE
 		 if (!contenitoreRicette.getChildren().isEmpty()) {
 		        contenitoreRicette.getChildren().forEach(node -> {
 		            VBox contenitoreRicetta = (VBox) node;
@@ -139,7 +136,7 @@ public class GestisciRicetteView2Controller {
 	}
 	
 	@FXML
-    private void tornaAlLogin() {
+    private void tornaAlLogin() {  //CARICA VIEW LOGIN
         try {
         	FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/Applicazione/LoginView.fxml"));
             LoginViewController loginViewController = LoginViewController.ottieniIstanza();
@@ -155,14 +152,13 @@ public class GestisciRicetteView2Controller {
     }
 	
 	@FXML
-	private void caricaViewRicetta() {
+	private void caricaViewRicetta() {  //CARICA VIEW RICETTA 
 		controller.creaRicetta(); //QUANDO ENTRO NELLA RICETTA CREO L'ISTANZA DELLA RICETTA
 		try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("NuovaRicettaView2.fxml"));
             NuovaRicettaView2Controller nuovaRicettaViewController = NuovaRicettaView2Controller.ottieniIstanza();
             loader.setController(nuovaRicettaViewController);
-            Ricetta ricetta =controller2.getRicetta();
-			ricetta.registra(nuovaRicettaViewController);
+            controller.registraOsservatore(nuovaRicettaViewController, 2);
             Parent root = loader.load();
             nuovaRicettaViewController.setPrimaryStage(primaryStage);
             Scene nuovaScena = new Scene(root);
@@ -174,7 +170,7 @@ public class GestisciRicetteView2Controller {
 	}
 	
 	@FXML
-	private void caricaViewAreaPersonale() {
+	private void caricaViewAreaPersonale() {  //CARICA VIEW AREA PERSONALE
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("AreaPersonaleView2.fxml"));
 		AreaPersonaleView2Controller controllerAreaPersonale = AreaPersonaleView2Controller.ottieniIstanza();
 		loader.setController(controllerAreaPersonale);
