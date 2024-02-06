@@ -37,6 +37,8 @@ public class NuovaRicettaViewController {
 	private ControllerAdapter adattatoreLoginController= LoginControllerAdapter.ottieniIstanza(loginController);
 	private Stage primaryStage;
 	@FXML
+	private Button areaPersonaleButton;
+	@FXML
 	private RadioButton facile;
 	@FXML
 	private RadioButton medio;
@@ -207,6 +209,7 @@ public class NuovaRicettaViewController {
 		VBox ingredienti= InserisciIngredienteViewController.ottieniIstanza().getContenitoreIngredienti();
         if(ingredienti!=null && !(ingredienti.getChildren().isEmpty())) { 
         	adattatorePubblicaRicettaController.compilaLaRicetta(ricettaBean);
+        	areaPersonaleButton.fire();
 		}
 		else {
 			pubblica.setText("INGREDIENTI?");

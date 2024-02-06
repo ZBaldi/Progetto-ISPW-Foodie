@@ -53,6 +53,8 @@ public class NuovaRicettaView2Controller implements Observer{
 	private ArrayList<AlimentoBean> alimentiBeanRicetta;
 	private Stage primaryStage;
 	@FXML
+	private Button areaPersonaleButton;
+	@FXML
 	private RadioButton facile;
 	@FXML
 	private RadioButton medio;
@@ -237,6 +239,8 @@ public class NuovaRicettaView2Controller implements Observer{
 		ricettaBean.setAutore(utenteBean.getUsername());
         if(ingredienti!=null && !(ingredienti.getChildren().isEmpty())) { 
         	adattatorePubblicaRicettaController.compilaLaRicetta(ricettaBean);
+        	areaPersonaleButton.fire();  //SIMULA CLICK AREA PERSONALE
+        	
 		}
 		else {
 			pubblica.setText("INGREDIENTI?");

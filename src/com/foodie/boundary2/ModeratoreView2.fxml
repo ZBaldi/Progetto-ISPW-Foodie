@@ -63,10 +63,10 @@
       </Label>
       <ScrollPane hbarPolicy="NEVER" layoutX="212.0" layoutY="210.0" prefHeight="448.0" prefWidth="600.0" vbarPolicy="ALWAYS">
          <content>
-            <VBox prefHeight="446.0" prefWidth="583.0" />
+            <VBox fx:id="contenitoreRicetteDaApprovare" prefHeight="446.0" prefWidth="583.0" />
          </content>
       </ScrollPane>
-      <Button layoutX="874.0" layoutY="706.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="117.0" style="-fx-background-radius: 10; -fx-background-color: rgba(231, 73, 73, 1);" text="Chiudi" textFill="WHITE">
+      <Button layoutX="874.0" layoutY="706.0" mnemonicParsing="false" onAction="#scarta" prefHeight="0.0" prefWidth="117.0" style="-fx-background-radius: 10; -fx-background-color: rgba(231, 73, 73, 1);" text="Chiudi" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="15.0" />
          </font>

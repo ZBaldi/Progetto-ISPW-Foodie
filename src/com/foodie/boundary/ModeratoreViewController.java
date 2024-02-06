@@ -124,7 +124,7 @@ public class ModeratoreViewController implements Observer{
 		try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
             Parent root = loader.load();
-            LoginViewController loginViewController=loader.getController();
+            LoginViewController loginViewController=loader.getController();  //RENDILO SINGLETON
             loginViewController.setPrimaryStage(primaryStage);
             Scene nuovaScena = new Scene(root);
             primaryStage.setScene(nuovaScena);

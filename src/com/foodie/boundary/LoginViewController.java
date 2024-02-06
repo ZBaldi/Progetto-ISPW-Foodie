@@ -217,10 +217,10 @@ public class LoginViewController {
 					Parent root;
 					try {
 						root = loader.load();
-						controllerModeratore.setPrimaryStage(primaryStage);
+						controllerModeratore2.setPrimaryStage(primaryStage);
 						Moderatore moderatore= Moderatore.ottieniIstanza();
 						moderatore.registra(controllerModeratore2);
-						//controllerModeratore2.aggiornaView();
+						controllerModeratore2.aggiornaView();
 						Scene scene= new Scene(root);
 						primaryStage.setScene(scene);
 						primaryStage.show();
