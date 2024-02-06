@@ -7,7 +7,7 @@ import com.foodie.controller.PubblicaRicettaControllerAdapter;
 import com.foodie.model.AlimentoBean;
 import com.foodie.model.Observer;
 import com.foodie.model.RicettaBean;
-import com.foodie.boundary.LoginViewController;
+import com.foodie.Applicazione.LoginViewController;
 import com.foodie.controller.ControllerAdapter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -121,9 +121,9 @@ public class ModeratoreViewController implements Observer{
 	@FXML
 	private void caricaViewLogin(MouseEvent event) {
 		try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/boundary/LoginView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/Applicazione/LoginView.fxml"));
             Parent root = loader.load();
-            LoginViewController loginViewController=loader.getController();
+            LoginViewController loginViewController = LoginViewController.ottieniIstanza();
             loginViewController.setPrimaryStage(primaryStage);
             Scene nuovaScena = new Scene(root);
             primaryStage.setScene(nuovaScena);

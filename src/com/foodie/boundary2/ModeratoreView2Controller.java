@@ -58,13 +58,14 @@ public class ModeratoreView2Controller implements Observer{
 	@FXML
 	public void tornaAlLogin(MouseEvent event) {
 		try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/boundary/LoginView.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/Applicazione/LoginView.fxml"));
+            LoginViewController loginViewController = LoginViewController.ottieniIstanza();
+            loader.setController(loginViewController);
             Parent root = loader.load();
-            LoginViewController loginViewController=loader.getController();
             loginViewController.setPrimaryStage(primaryStage);
             Scene nuovaScena = new Scene(root);
             primaryStage.setScene(nuovaScena);
-            primaryStage.show();
+            primaryStage.show();;
         } catch (Exception e) {
             e.printStackTrace(); 
         }

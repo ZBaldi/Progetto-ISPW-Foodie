@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.foodie.Applicazione.LoginViewController;
+import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.PubblicaRicettaController;
 import com.foodie.controller.PubblicaRicettaControllerAdapter;
@@ -29,10 +30,11 @@ import javafx.stage.Stage;
 
 public class InserisciIngredienteViewController implements Observer{
 	private static InserisciIngredienteViewController istanza;
-	private TrovaRicettaController controller= TrovaRicettaController.ottieniIstanza();
-	private ControllerAdapter adattatoreTrovaRicettaController= TrovaRicettaControllerAdapter.ottieniIstanza(controller);
-	private PubblicaRicettaController controller2=PubblicaRicettaController.ottieniIstanza();
-	private ControllerAdapter adattatorePubblicaRicettaController= PubblicaRicettaControllerAdapter.ottieniIstanza(controller2);
+	private AdattatoreFactory factory = AdattatoreFactory.ottieniIstanza();
+	private TrovaRicettaController controller = TrovaRicettaController.ottieniIstanza();
+	private ControllerAdapter adattatoreTrovaRicettaController= factory.creaTrovaRicettaAdapter();
+	private PubblicaRicettaController controller2 = PubblicaRicettaController.ottieniIstanza();
+	private ControllerAdapter adattatorePubblicaRicettaController = PubblicaRicettaControllerAdapter.ottieniIstanza(controller2);
 	private ArrayList<AlimentoBean> alimentiBeanTrovati;
 	private ArrayList<AlimentoBean> alimentiBeanRicetta;
 	AreaPersonaleViewController controllerAreaPersonale = AreaPersonaleViewController.ottieniIstanza();
@@ -114,16 +116,17 @@ public class InserisciIngredienteViewController implements Observer{
         }
 	}
 	@FXML
-	public void caricaViewLogin(MouseEvent event) {
+	public void tornaAlLogin(MouseEvent event) {
 		try {
 			if(bottoneModifica==false) { //resettare il bottone modifica se attivo
 				bottoneModifica=true;
 				labelIngredienti.setFont(Font.font("Arial",30));
 				labelIngredienti.setText("La mia Dispensa");
 			}
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/Applicazione/LoginView.fxml"));
+            LoginViewController loginViewController = LoginViewController.ottieniIstanza();
+            loader.setController(loginViewController);
             Parent root = loader.load();
-            LoginViewController loginViewController=loader.getController();
             loginViewController.setPrimaryStage(primaryStage);
             Scene nuovaScena = new Scene(root);
             primaryStage.setScene(nuovaScena);

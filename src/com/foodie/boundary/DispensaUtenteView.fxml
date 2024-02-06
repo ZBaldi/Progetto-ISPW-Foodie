@@ -35,7 +35,7 @@
                   </Button>
                </children>
             </HBox>
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="941.0" layoutY="24.0" onMouseClicked="#caricaViewLogin" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="941.0" layoutY="24.0" onMouseClicked="#tornaAlLogin" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../immagini_usate/usericona.png" />
                </image>

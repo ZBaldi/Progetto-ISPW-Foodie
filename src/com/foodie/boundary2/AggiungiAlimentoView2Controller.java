@@ -29,12 +29,12 @@ public class AggiungiAlimentoView2Controller {
 	private static AggiungiAlimentoView2Controller istanza;
 	private Stage primaryStage;
 	private ArrayList<AlimentoBean> alimentiBeanTrovati;
-	private AdattatoreFactory factory= AdattatoreFactory.ottieniIstanza();
-	private ControllerAdapter adattatoreTrovaRicettaController= factory.creaTrovaRicettaAdapter();
-	private ControllerAdapter adattatoreLoginController= factory.creaLoginAdapter();
-	private LoginController loginController= LoginController.ottieniIstanza();
+	private AdattatoreFactory factory = AdattatoreFactory.ottieniIstanza();
+	private ControllerAdapter adattatoreTrovaRicettaController = factory.creaTrovaRicettaAdapter();
+	private ControllerAdapter adattatoreLoginController = factory.creaLoginAdapter();
+	private LoginController loginController = LoginController.ottieniIstanza();
 	private UtenteBean utenteBean = adattatoreLoginController.ottieniUtente();
-	private String username=utenteBean.getUsername();
+	private String username = utenteBean.getUsername();
 	@FXML
 	private TextField barraDiRicerca;
 	@FXML
@@ -56,16 +56,15 @@ public class AggiungiAlimentoView2Controller {
 	
 	@FXML
     private void tornaAlLogin(MouseEvent event) {
-        try {
-            
-        	FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/boundary/LoginView.fxml"));
+        try { 
+        	FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/Applicazione/LoginView.fxml"));
+            LoginViewController loginViewController = LoginViewController.ottieniIstanza();
+            loader.setController(loginViewController);
             Parent root = loader.load();
-            LoginViewController loginViewController = loader.getController();
             loginViewController.setPrimaryStage(primaryStage);
             Scene nuovaScena = new Scene(root);
             primaryStage.setScene(nuovaScena);
             primaryStage.show();
-
         } catch (Exception e) {
             e.printStackTrace(); 
         }

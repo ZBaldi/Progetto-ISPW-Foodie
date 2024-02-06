@@ -141,15 +141,14 @@ public class GestisciRicetteView2Controller {
 	@FXML
     private void tornaAlLogin() {
         try {
-            
-        	FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/boundary/LoginView.fxml"));
+        	FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/Applicazione/LoginView.fxml"));
+            LoginViewController loginViewController = LoginViewController.ottieniIstanza();
+            loader.setController(loginViewController);
             Parent root = loader.load();
-            LoginViewController loginViewController = loader.getController();
             loginViewController.setPrimaryStage(primaryStage);
             Scene nuovaScena = new Scene(root);
             primaryStage.setScene(nuovaScena);
             primaryStage.show();
-
         } catch (Exception e) {
             e.printStackTrace(); 
         }

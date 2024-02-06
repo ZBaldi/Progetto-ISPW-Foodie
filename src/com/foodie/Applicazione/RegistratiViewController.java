@@ -85,7 +85,7 @@ public class RegistratiViewController {
     	
     	try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
-			LoginViewController loginViewController=LoginViewController.ottieniIstanza();
+			LoginViewController loginViewController = LoginViewController.ottieniIstanza();
 			loader.setController(loginViewController);
             Parent root = loader.load();
             loginViewController.setPrimaryStage(primaryStage);
@@ -135,8 +135,9 @@ public class RegistratiViewController {
     		try {
         		
     			FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
+                LoginViewController loginViewController = LoginViewController.ottieniIstanza();
+                loader.setController(loginViewController);
                 Parent root = loader.load();
-                LoginViewController loginViewController=loader.getController();
                 loginViewController.setPrimaryStage(primaryStage);
                 Scene nuovaScena = new Scene(root);
                 primaryStage.setScene(nuovaScena);

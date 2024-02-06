@@ -3,6 +3,7 @@ package com.foodie.boundary;
 import java.util.ArrayList;
 
 import com.foodie.Applicazione.LoginViewController;
+import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.LoginController;
 import com.foodie.controller.TrovaRicettaController;
@@ -32,10 +33,11 @@ import com.foodie.model.RicettaBean;
 public class DispensaUtenteViewController implements Observer {
 	private static DispensaUtenteViewController istanza;  //SINGLETON
 	private TrovaRicettaController controller = TrovaRicettaController.ottieniIstanza();
-	private ControllerAdapter adattatoreTrovaRicettaController= TrovaRicettaControllerAdapter.ottieniIstanza(controller);
+	private AdattatoreFactory factory = AdattatoreFactory.ottieniIstanza();
+	private ControllerAdapter adattatoreTrovaRicettaController = factory.creaTrovaRicettaAdapter();
 	private ArrayList<AlimentoBean> alimentiBeanTrovati;
 	private ArrayList<AlimentoBean> alimentiBeanDispensa;
-	private LoginController controllerLogin= LoginController.ottieniIstanza();
+	private LoginController controllerLogin = LoginController.ottieniIstanza();
 	private String username;
 	private boolean bottoneModifica = true;
 	private Stage primaryStage;
@@ -165,7 +167,7 @@ public class DispensaUtenteViewController implements Observer {
 		}
 	}
 	@FXML
-	private void caricaViewLogin(MouseEvent event) {
+	private void tornaAlLogin(MouseEvent event) {
 		controller.svuotaDispensa();
 		try {
 			if(bottoneModifica==false) { //resettare il bottone modifica se attivo
@@ -173,9 +175,10 @@ public class DispensaUtenteViewController implements Observer {
 				labelDispensa.setFont(Font.font("Arial",30));
 				labelDispensa.setText("La mia Dispensa");
 			}
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/Applicazione/LoginView.fxml"));
+            LoginViewController loginViewController = LoginViewController.ottieniIstanza();
+            loader.setController(loginViewController);
             Parent root = loader.load();
-            LoginViewController loginViewController=loader.getController();
             loginViewController.setPrimaryStage(primaryStage);
             Scene nuovaScena = new Scene(root);
             primaryStage.setScene(nuovaScena);

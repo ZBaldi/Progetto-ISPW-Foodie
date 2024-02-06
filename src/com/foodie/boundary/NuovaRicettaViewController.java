@@ -10,6 +10,7 @@ import com.foodie.controller.LoginControllerAdapter;
 import com.foodie.controller.PubblicaRicettaController;
 import com.foodie.controller.PubblicaRicettaControllerAdapter;
 import com.foodie.Applicazione.LoginViewController;
+import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.model.Dispensa;
 import com.foodie.model.Ricetta;
@@ -33,9 +34,10 @@ import javafx.stage.Stage;
 public class NuovaRicettaViewController {
 	private static NuovaRicettaViewController istanza;
 	private PubblicaRicettaController controller=PubblicaRicettaController.ottieniIstanza();
-	private ControllerAdapter adattatorePubblicaRicettaController= PubblicaRicettaControllerAdapter.ottieniIstanza(controller);
-	private LoginController loginController= LoginController.ottieniIstanza();
-	private ControllerAdapter adattatoreLoginController= LoginControllerAdapter.ottieniIstanza(loginController);
+	private AdattatoreFactory factory = AdattatoreFactory.ottieniIstanza();
+	private ControllerAdapter adattatorePubblicaRicettaController = factory.creaPubblicaRicettaAdapter();
+	private LoginController loginController = LoginController.ottieniIstanza();
+	private ControllerAdapter adattatoreLoginController = factory.creaLoginAdapter();
 	private Stage primaryStage;
 	@FXML
 	private Button areaPersonaleButton;
@@ -83,15 +85,16 @@ public class NuovaRicettaViewController {
 		}
 	}
 	@FXML
-	private void caricaViewLogin(MouseEvent event) {
+	private void tornaAlLogin(MouseEvent event) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
-			Parent root = loader.load();
-			LoginViewController loginViewController=loader.getController();
-			loginViewController.setPrimaryStage(primaryStage);
-			Scene nuovaScena = new Scene(root);
-			primaryStage.setScene(nuovaScena);
-			primaryStage.show();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/Applicazione/LoginView.fxml"));
+            LoginViewController loginViewController = LoginViewController.ottieniIstanza();
+            loader.setController(loginViewController);
+            Parent root = loader.load();
+            loginViewController.setPrimaryStage(primaryStage);
+            Scene nuovaScena = new Scene(root);
+            primaryStage.setScene(nuovaScena);
+            primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace(); 
 		}

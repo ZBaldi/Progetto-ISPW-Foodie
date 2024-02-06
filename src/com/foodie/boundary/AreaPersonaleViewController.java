@@ -7,6 +7,7 @@ import com.foodie.controller.LoginControllerAdapter;
 import com.foodie.controller.PubblicaRicettaController;
 import com.foodie.model.UtenteBean;
 import com.foodie.Applicazione.LoginViewController;
+import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,7 +26,9 @@ public class AreaPersonaleViewController{
 	private Stage primaryStage;
 	private PubblicaRicettaController controller2 = PubblicaRicettaController.ottieniIstanza();
 	private LoginController controller = LoginController.ottieniIstanza();
-	private ControllerAdapter adattatoreLoginController= LoginControllerAdapter.ottieniIstanza(controller);
+	private AdattatoreFactory factory = AdattatoreFactory.ottieniIstanza();
+	private ControllerAdapter adattatoreLoginController = factory.creaLoginAdapter();
+	
 	@FXML
     private ImageView tornaAlLoginImageView;
 	@FXML
@@ -49,16 +52,15 @@ public class AreaPersonaleViewController{
 	
 	@FXML
     private void tornaAlLogin(MouseEvent event) {
-        try {
-            
-        	FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
+        try { 
+        	FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/Applicazione/LoginView.fxml"));
+            LoginViewController loginViewController = LoginViewController.ottieniIstanza();
+            loader.setController(loginViewController);
             Parent root = loader.load();
-            LoginViewController loginViewController = loader.getController();
             loginViewController.setPrimaryStage(primaryStage);
             Scene nuovaScena = new Scene(root);
             primaryStage.setScene(nuovaScena);
             primaryStage.show();
-
         } catch (Exception e) {
             e.printStackTrace(); 
         }

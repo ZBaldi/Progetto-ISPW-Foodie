@@ -8,6 +8,7 @@ import com.foodie.model.AlimentoBean;
 import com.foodie.model.Observer;
 import com.foodie.model.RicettaBean;
 import com.foodie.Applicazione.LoginViewController;
+import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,10 +25,11 @@ import javafx.stage.Stage;
 
 public class ModeratoreViewController implements Observer{
 	private static ModeratoreViewController istanza;
-	private PubblicaRicettaController controller= PubblicaRicettaController.ottieniIstanza();
-	private ControllerAdapter adattatorePubblicaRicettaController= PubblicaRicettaControllerAdapter.ottieniIstanza(controller);
+	private AdattatoreFactory factory = AdattatoreFactory.ottieniIstanza();
+	private PubblicaRicettaController controller = PubblicaRicettaController.ottieniIstanza();
+	private ControllerAdapter adattatorePubblicaRicettaController = factory.creaPubblicaRicettaAdapter();
 	private Stage primaryStage;
-	private ArrayList<RicettaBean> ricetteBean=null;
+	private ArrayList<RicettaBean> ricetteBean = null;
 	@FXML
 	private VBox contenitoreRicetteDaApprovare;
 	@FXML
@@ -121,11 +123,12 @@ public class ModeratoreViewController implements Observer{
 		this.primaryStage= primaryStage;
 	}
 	@FXML
-	private void caricaViewLogin(MouseEvent event) {
+	private void tornaAlLogin(MouseEvent event) {
 		try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/Applicazione/LoginView.fxml"));
+            LoginViewController loginViewController = LoginViewController.ottieniIstanza();
+            loader.setController(loginViewController);
             Parent root = loader.load();
-            LoginViewController loginViewController=loader.getController();  //RENDILO SINGLETON
             loginViewController.setPrimaryStage(primaryStage);
             Scene nuovaScena = new Scene(root);
             primaryStage.setScene(nuovaScena);

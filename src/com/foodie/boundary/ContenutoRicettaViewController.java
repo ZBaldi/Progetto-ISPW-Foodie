@@ -24,7 +24,7 @@ public class ContenutoRicettaViewController {
 	@FXML
 	private VBox contenitoreIngredienti;
 	public void setPrimaryStage(Stage primaryStage) {
-		this.primaryStage= primaryStage;
+		this.primaryStage = primaryStage;
 	}
 	
 	private ContenutoRicettaViewController() {	
@@ -54,13 +54,14 @@ public class ContenutoRicettaViewController {
         }
 	}
 	@FXML
-	public void caricaViewLogin(MouseEvent event) {
+	public void tornaAlLogin(MouseEvent event) {
 		TrovaRicettaController trovaRicettaController= TrovaRicettaController.ottieniIstanza();
 		trovaRicettaController.svuotaDispensa();
 		try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/Applicazione/LoginView.fxml"));
+            LoginViewController loginViewController = LoginViewController.ottieniIstanza();
+            loader.setController(loginViewController);
             Parent root = loader.load();
-            LoginViewController loginViewController=loader.getController();
             loginViewController.setPrimaryStage(primaryStage);
             Scene nuovaScena = new Scene(root);
             primaryStage.setScene(nuovaScena);

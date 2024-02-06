@@ -3,6 +3,7 @@ package com.foodie.boundary;
 import java.util.ArrayList;
 
 import com.foodie.Applicazione.LoginViewController;
+import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.TrovaRicettaController;
 import com.foodie.controller.TrovaRicettaControllerAdapter;
@@ -27,9 +28,10 @@ import javafx.stage.Stage;
 
 public class TrovaRicetteViewController {
 	private static TrovaRicetteViewController istanza;
+	private AdattatoreFactory factory = AdattatoreFactory.ottieniIstanza();
 	private Stage primaryStage;
 	private TrovaRicettaController controller = TrovaRicettaController.ottieniIstanza();
-	private ControllerAdapter adattatoreTrovaRicettaController= TrovaRicettaControllerAdapter.ottieniIstanza(controller);
+	private ControllerAdapter adattatoreTrovaRicettaController= factory.creaTrovaRicettaAdapter();
 	
 	@FXML
 	private VBox contenitoreRicette;
@@ -57,12 +59,13 @@ public class TrovaRicetteViewController {
 		return contenitoreRicette;
 	}
 	@FXML
-	private void caricaViewLogin(MouseEvent event) {;
+	private void tornaAlLogin(MouseEvent event) {;
 		controller.svuotaDispensa();
 		try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/Applicazione/LoginView.fxml"));
+            LoginViewController loginViewController = LoginViewController.ottieniIstanza();
+            loader.setController(loginViewController);
             Parent root = loader.load();
-            LoginViewController loginViewController=loader.getController();
             loginViewController.setPrimaryStage(primaryStage);
             Scene nuovaScena = new Scene(root);
             primaryStage.setScene(nuovaScena);
