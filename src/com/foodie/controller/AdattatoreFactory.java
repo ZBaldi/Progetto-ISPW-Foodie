@@ -2,14 +2,14 @@ package com.foodie.controller;
 
 public class AdattatoreFactory {  //SINGLETON, IL FACTORY DEVE AVERE SOLO 1 ISTANZA!
 	
-	private static AdattatoreFactory istanza = null;  
+	private static AdattatoreFactory istanza=null;  
 	
 	private AdattatoreFactory() {
 	}
 	
 	public static synchronized AdattatoreFactory ottieniIstanza() {  //METODO PER OTTENERE L'ISTANZA
-		if(istanza == null) {
-			istanza = new AdattatoreFactory();
+		if(istanza==null) {
+			istanza=new AdattatoreFactory();
 		}
 		return istanza;
 	}

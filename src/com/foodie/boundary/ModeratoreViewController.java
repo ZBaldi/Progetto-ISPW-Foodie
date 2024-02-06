@@ -1,10 +1,7 @@
 package com.foodie.boundary;
 
 import java.util.ArrayList;
-
 import com.foodie.controller.PubblicaRicettaController;
-import com.foodie.controller.PubblicaRicettaControllerAdapter;
-import com.foodie.model.AlimentoBean;
 import com.foodie.model.Observer;
 import com.foodie.model.RicettaBean;
 import com.foodie.Applicazione.LoginViewController;
@@ -24,12 +21,12 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class ModeratoreViewController implements Observer{
+	
 	private static ModeratoreViewController istanza;
 	private AdattatoreFactory factory = AdattatoreFactory.ottieniIstanza();
 	private PubblicaRicettaController controller = PubblicaRicettaController.ottieniIstanza();
 	private ControllerAdapter adattatorePubblicaRicettaController = factory.creaPubblicaRicettaAdapter();
 	private Stage primaryStage;
-	private ArrayList<RicettaBean> ricetteBean = null;
 	@FXML
 	private VBox contenitoreRicetteDaApprovare;
 	@FXML
@@ -38,17 +35,18 @@ public class ModeratoreViewController implements Observer{
 	private ModeratoreViewController() {
 	}
 	
-	public static ModeratoreViewController ottieniIstanza() {
+	public static synchronized ModeratoreViewController ottieniIstanza() {
 		if(istanza == null) {
 			istanza = new ModeratoreViewController();
 		}
 		return istanza;
 	}
+	
 	@Override
-	public void aggiornaView() {
+	public void aggiornaView() {  //AGGIORNA VIEW IN BASE ALLE RICHIESTE DA APPROVARE DEL MODERATORE
 		contenitoreRicetteDaApprovare.getChildren().clear();
 		contenitoreContenutoRicetta.getChildren().clear();
-		ricetteBean =adattatorePubblicaRicettaController.mostraLeRicetteDaApprovare();
+		ArrayList<RicettaBean> ricetteBean =adattatorePubblicaRicettaController.mostraLeRicetteDaApprovare();
 		if(ricetteBean!=null) {
 			for(RicettaBean r: ricetteBean) {
 				Label labelRicetta = new Label(r.getNome());
@@ -58,12 +56,13 @@ public class ModeratoreViewController implements Observer{
 				labelRicetta.setWrapText(true);
 				labelRicetta.setFont(Font.font("Arial",20));
 				labelRicetta.setAlignment(Pos.CENTER);
-				labelRicetta.setOnMouseClicked(event->{apriContenuto(r);});
+				labelRicetta.setOnMouseClicked(event->{apriContenuto(r);});  //RENDE CLICCABILI PER APRIRE IL CONTENUTO
 				contenitoreRicetteDaApprovare.getChildren().add(labelRicetta);
 			}
 		}
 	}
-	private void apriContenuto(RicettaBean ricettaBean) {
+	
+	private void apriContenuto(RicettaBean ricettaBean) {  //APRE IL COTNENUTO DELLA RICETTA CLICCATA
 		contenitoreContenutoRicetta.getChildren().clear();
 		Label labelNome= new Label(ricettaBean.getNome());
 		labelNome.setStyle("-fx-background-color: white;");
@@ -85,8 +84,9 @@ public class ModeratoreViewController implements Observer{
 		labelDescrizione.setFont(Font.font("Arial",20));
 		contenitoreContenutoRicetta.getChildren().addAll(labelNome,labelAutore,labelDescrizione);
 	}
+	
 	@FXML
-	private void pubblica(ActionEvent event) {
+	private void pubblica(ActionEvent event) {  //PUBBLICA LA RICETTA 
 		if(!contenitoreContenutoRicetta.getChildren().isEmpty()) {
 			int indiceLabel=1;
 			String nome="";
@@ -102,8 +102,9 @@ public class ModeratoreViewController implements Observer{
 			controller.pubblicaRicetta(nome,autore,true);
 		}
 	}
+	
 	@FXML
-	private void scarta(ActionEvent event) {
+	private void scarta(ActionEvent event) {  //SCARTA LA RICETTA
 		if(!contenitoreContenutoRicetta.getChildren().isEmpty()) {
 			int indiceLabel=1;
 			String nome="";
@@ -119,11 +120,13 @@ public class ModeratoreViewController implements Observer{
 			controller.pubblicaRicetta(nome,autore,false);
 		}
 	}
-	public void setPrimaryStage(Stage primaryStage) {
+	
+	public void setPrimaryStage(Stage primaryStage) {  //PASSA LO STAGE
 		this.primaryStage= primaryStage;
 	}
-	@FXML
-	private void tornaAlLogin(MouseEvent event) {
+	
+	@FXML  
+	private void tornaAlLogin(MouseEvent event) {  //CARICA VIEW LOGIN
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/Applicazione/LoginView.fxml"));
             LoginViewController loginViewController = LoginViewController.ottieniIstanza();
@@ -137,4 +140,5 @@ public class ModeratoreViewController implements Observer{
             e.printStackTrace(); 
         }
 	}
+	
 }

@@ -20,6 +20,7 @@ import com.foodie.boundary2.AggiungiAlimentoView2Controller;
 import com.foodie.boundary2.AreaPersonaleView2Controller;
 import com.foodie.boundary2.ModeratoreView2Controller;
 import com.foodie.controller.LoginController;
+import com.foodie.controller.PubblicaRicettaController;
 import com.foodie.model.Dispensa;
 
 public class LoginViewController {
@@ -28,6 +29,7 @@ public class LoginViewController {
 	private int interfaccia;
 	private Stage primaryStage;
 	private LoginController controller = LoginController.ottieniIstanza();
+	private PubblicaRicettaController controller2 = PubblicaRicettaController.ottieniIstanza();
 	@FXML
 	private Button registratiButton;
 	@FXML
@@ -78,7 +80,7 @@ public class LoginViewController {
         stage.close();
     }
 	
-	
+	@FXML
 	public void loginButtonOnAction(ActionEvent event) {  //SE CLICCATO CHIAMO IL METODO
 		
 		if(usernameTextField.getText().isBlank() == false && enterPasswordField.getText().isBlank() == false) {
@@ -89,6 +91,7 @@ public class LoginViewController {
 		
 	}
 	
+	@FXML
 	public void registratiButtonOnAction(ActionEvent event) {  //SE CLICCATO CHIAMO IL METODO
 		creaAccount();
 	}
@@ -124,6 +127,7 @@ public class LoginViewController {
 	                    if (interfaccia == 1) {
 	                    	DispensaUtenteViewController controllerDispensa = DispensaUtenteViewController.ottieniIstanza();
 	                        loader.setController(controllerDispensa);
+	                        controller2.registraOsservatore(controllerDispensa, 1);
 	                        root = loader.load();
 	                        controllerDispensa.setPrimaryStage(primaryStage);
 	                    } else {
@@ -151,16 +155,18 @@ public class LoginViewController {
 	                        areaPersonaleController.aggiornaView();
 	                    }
 	                    break;
-	                case "Moderatore": //SE MODERATORE CARICHI LE INTERFACCE RELATIVE PER L'UTENTE MODERATORE
-	                    if (interfaccia == 1) {
+	                case "Moderatore": //SE MODERATORE CARICHI LE INTERFACCE RELATIVE PER L'UTENTE MODERATORE    
+	                	if (interfaccia == 1) {
 	                    	ModeratoreViewController controllerModeratore= ModeratoreViewController.ottieniIstanza();
 	                        loader.setController(controllerModeratore);
+	                        controller2.registraOsservatore(controllerModeratore,3);
 	                        root = loader.load();
 	                        controllerModeratore.setPrimaryStage(primaryStage);
 	                        controllerModeratore.aggiornaView();
 	                    } else {
 	                    	ModeratoreView2Controller controllerModeratore2= ModeratoreView2Controller.ottieniIstanza();
 	                        loader.setController(controllerModeratore2);
+	                        controller2.registraOsservatore(controllerModeratore2,3);
 	                        root = loader.load();
 	                        controllerModeratore2.setPrimaryStage(primaryStage);
 	                        controllerModeratore2.aggiornaView();

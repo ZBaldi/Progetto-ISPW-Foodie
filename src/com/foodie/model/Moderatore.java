@@ -42,7 +42,7 @@ public class Moderatore extends SubjectPatternObserver implements Utente { //MOD
 	@Override
 	public String getViewIniziale(int i) {  //VIEW INIZIALE
 		if(i==1) {
-			return "ModeratoreView.fxml";
+			return "/com/foodie/boundary/ModeratoreView.fxml";
 		}
 		else {
 			return "/com/foodie/boundary2/ModeratoreView2.fxml";

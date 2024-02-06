@@ -1,9 +1,7 @@
 package com.foodie.boundary;
 
 import java.util.Map;
-
 import com.foodie.controller.LoginController;
-import com.foodie.controller.LoginControllerAdapter;
 import com.foodie.controller.PubblicaRicettaController;
 import com.foodie.model.UtenteBean;
 import com.foodie.Applicazione.LoginViewController;
@@ -23,12 +21,11 @@ import javafx.stage.Stage;
 public class AreaPersonaleViewController{
 	
 	private static AreaPersonaleViewController istanza;
-	private Stage primaryStage;
-	private PubblicaRicettaController controller2 = PubblicaRicettaController.ottieniIstanza();
-	private LoginController controller = LoginController.ottieniIstanza();
 	private AdattatoreFactory factory = AdattatoreFactory.ottieniIstanza();
+	private LoginController controller = LoginController.ottieniIstanza();
 	private ControllerAdapter adattatoreLoginController = factory.creaLoginAdapter();
-	
+	private PubblicaRicettaController controller2 = PubblicaRicettaController.ottieniIstanza();
+	private Stage primaryStage;
 	@FXML
     private ImageView tornaAlLoginImageView;
 	@FXML
@@ -46,12 +43,12 @@ public class AreaPersonaleViewController{
 		return istanza;
 	}
 
-	public void setPrimaryStage(Stage primaryStage) {
+	public void setPrimaryStage(Stage primaryStage) {  //PASSO LO STAGE
 		this.primaryStage= primaryStage;
 	}
 	
 	@FXML
-    private void tornaAlLogin(MouseEvent event) {
+    private void tornaAlLogin(MouseEvent event) { //CARICA VIEW LOGIN
         try { 
         	FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/Applicazione/LoginView.fxml"));
             LoginViewController loginViewController = LoginViewController.ottieniIstanza();
@@ -65,8 +62,9 @@ public class AreaPersonaleViewController{
             e.printStackTrace(); 
         }
     }
+	
 	@FXML
-    private void caricaViewGestisciRicette(ActionEvent event) {
+    private void caricaViewGestisciRicette(ActionEvent event) {  //CARICA VIEW GESTISCI RICETTE
         try {
         	FXMLLoader loader = new FXMLLoader(getClass().getResource("GestisciRicetteView.fxml"));
             GestisciRicetteViewController gestisciRicetteViewController = GestisciRicetteViewController.ottieniIstanza();
@@ -82,18 +80,20 @@ public class AreaPersonaleViewController{
             e.printStackTrace(); 
         }
     }
+	
 	@FXML
-	private void modificaProfilo(ActionEvent event) {
+	private void modificaProfilo(ActionEvent event) {  //PULSANTE MODIFICA
 		if(!descrizioneTextField.isEditable()) {
 			descrizioneTextField.setEditable(true);
 		}
 		else {
-			descrizioneTextField.setEditable(false);
+			descrizioneTextField.setEditable(false);  //QUANDO RIPREMUTO SALVA L'AREA PERSONALE
 			salvaAreaPersonale();
 		}
 	}
+	
 	@FXML
-	private void caricaViewRicetta(ActionEvent event) {
+	private void caricaViewRicetta(ActionEvent event) {  //CARICA VIEW DELLA RICETTA NUOVA DA CREARE
 		controller2.creaRicetta(); //QUANDO ENTRO NELLA RICETTA CREO L'ISTANZA DELLA RICETTA
 		try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("NuovaRicettaView.fxml"));
@@ -108,15 +108,18 @@ public class AreaPersonaleViewController{
             e.printStackTrace(); 
         }
 	}
-	public void aggiornaView() {
+	
+	public void aggiornaView() {  //AGGIORNA LABEL CON IL PROPRIO USERNAME
 		UtenteBean utenteBean=adattatoreLoginController.ottieniUtente();
 		usernameLabel.setText(utenteBean.getUsername());
 	}
-	private void salvaAreaPersonale() {
+	
+	private void salvaAreaPersonale() {  //SALVA L'AREA PERSONALE(DESCRIZIONE)
 		UtenteBean utenteBean=adattatoreLoginController.ottieniUtente();
 		controller.salvaAreaPersonale(utenteBean.getUsername(), descrizioneTextField.getText());
 	}
-	public void caricaAreaPersonale() {
+	
+	public void caricaAreaPersonale() { //CARICA L'AREA PERSONALE(DESCRIZIONE)
 		UtenteBean utenteBean=adattatoreLoginController.ottieniUtente();
 		Map<String,String> areaPersonaleMap=controller.caricaAreaPersonale();
 		String descrizione="";
@@ -125,4 +128,5 @@ public class AreaPersonaleViewController{
 		}
 		descrizioneTextField.setText(descrizione);
 	}
+	
 }

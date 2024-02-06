@@ -6,7 +6,9 @@ import com.foodie.model.Alimento;
 import com.foodie.model.CatalogoRicetteChefDao;
 import com.foodie.model.CatalogoRicetteImplementazione2Dao;
 import com.foodie.model.CatalogoRicetteImplementazioneDao;
+import com.foodie.model.Dispensa;
 import com.foodie.model.Moderatore;
+import com.foodie.model.Observer;
 import com.foodie.model.Ricetta;
 
 @SuppressWarnings("unused")
@@ -75,7 +77,6 @@ public class PubblicaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE 
 	
 	private void notificaChef(boolean bool) {  //NOTIFICA LO CHEF DOPO AVER APPROVATO LA RICETTA
 		System.out.println("CHEF NOTIFICATO: "+bool);
-		//DAFARE
 	}
 	
 	public void pubblicaRicetta(String nome,String autore,boolean bool) {  //PUBBLICA LA RICETTA APPROVATA NEL DATABASE
@@ -109,5 +110,31 @@ public class PubblicaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE 
 			return null;
 		}
 	}
+	
+	public void registraOsservatore(Observer observer, int i) {
+		if(i==1) {
+			registraOsservatoreDispensa(observer);
+		}
+		else if(i==2) {
+			registraOsservatoreRicetta(observer);
+		}
+		else {
+			registraOsservatoreModeratore(observer);
+		}
+	}
+	
+	private void registraOsservatoreDispensa(Observer observer) {
+		Dispensa dispensa= Dispensa.ottieniIstanza();
+		dispensa.registra(observer);
+	}
+	
+	private void registraOsservatoreRicetta(Observer observer) {
+		ricetta.registra(observer);
+	}
+	
+	private void registraOsservatoreModeratore(Observer observer) {
+		Moderatore moderatore= Moderatore.ottieniIstanza();
+		moderatore.registra(observer);
+	} 
 	
 }

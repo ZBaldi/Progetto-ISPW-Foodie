@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class ContenutoRicettaViewController {
+	
 	private static ContenutoRicettaViewController istanza;
 	private Stage primaryStage;
 	@FXML
@@ -23,22 +24,23 @@ public class ContenutoRicettaViewController {
 	private Label descrizione;
 	@FXML
 	private VBox contenitoreIngredienti;
-	public void setPrimaryStage(Stage primaryStage) {
-		this.primaryStage = primaryStage;
-	}
 	
 	private ContenutoRicettaViewController() {	
 	}
 	
-	public static ContenutoRicettaViewController ottieniIstanza() { //SINGLETON
+	public static synchronized ContenutoRicettaViewController ottieniIstanza() { //SINGLETON
 		if(istanza == null) {
 			istanza = new ContenutoRicettaViewController();
 		}
 		return istanza;
 	}
 	
+	public void setPrimaryStage(Stage primaryStage) {  //PASSO LO STAGE
+		this.primaryStage = primaryStage;
+	}
+	
 	@FXML
-	public void caricaViewDispensa(ActionEvent event) {
+	public void caricaViewDispensa(ActionEvent event) {  //CARICA VIEW DISPENSA
 		try {
 			DispensaUtenteViewController dispensaUtenteViewController = DispensaUtenteViewController.ottieniIstanza();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("DispensaUtenteView.fxml"));
@@ -53,8 +55,9 @@ public class ContenutoRicettaViewController {
             e.printStackTrace(); 
         }
 	}
+	
 	@FXML
-	public void tornaAlLogin(MouseEvent event) {
+	public void tornaAlLogin(MouseEvent event) {  //CARICA VIEW LOGIN
 		TrovaRicettaController trovaRicettaController= TrovaRicettaController.ottieniIstanza();
 		trovaRicettaController.svuotaDispensa();
 		try {
@@ -70,13 +73,17 @@ public class ContenutoRicettaViewController {
             e.printStackTrace(); 
         }
 	}
-	public Label getNome() {
+	
+	public Label getNome() { //RESTITUICONO LABEL E INFINE VBOX
 		return nome;
 	}
+	
 	public Label getDescrizione() {
 		return descrizione;
 	}
+	
 	public VBox getContenitoreIngredienti() {
 		return contenitoreIngredienti;
 	}
+	
 }

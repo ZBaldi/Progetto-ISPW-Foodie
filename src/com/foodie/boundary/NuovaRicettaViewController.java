@@ -4,19 +4,12 @@ import java.io.IOException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
-import com.foodie.controller.LoginController;
-import com.foodie.controller.LoginControllerAdapter;
 import com.foodie.controller.PubblicaRicettaController;
-import com.foodie.controller.PubblicaRicettaControllerAdapter;
 import com.foodie.Applicazione.LoginViewController;
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
-import com.foodie.model.Dispensa;
-import com.foodie.model.Ricetta;
 import com.foodie.model.RicettaBean;
 import com.foodie.model.UtenteBean;
-
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,17 +19,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class NuovaRicettaViewController {
+	
 	private static NuovaRicettaViewController istanza;
-	private PubblicaRicettaController controller=PubblicaRicettaController.ottieniIstanza();
 	private AdattatoreFactory factory = AdattatoreFactory.ottieniIstanza();
+	private PubblicaRicettaController controller=PubblicaRicettaController.ottieniIstanza();
 	private ControllerAdapter adattatorePubblicaRicettaController = factory.creaPubblicaRicettaAdapter();
-	private LoginController loginController = LoginController.ottieniIstanza();
 	private ControllerAdapter adattatoreLoginController = factory.creaLoginAdapter();
 	private Stage primaryStage;
 	@FXML
@@ -57,16 +49,18 @@ public class NuovaRicettaViewController {
 	private NuovaRicettaViewController() {
 	}
 	
-	public static NuovaRicettaViewController ottieniIstanza() { //METODO PER OTTENERE L'ISTANZA
+	public static synchronized NuovaRicettaViewController ottieniIstanza() { //METODO PER OTTENERE L'ISTANZA
 		if(istanza == null) {
 			istanza = new NuovaRicettaViewController();
 		}
 		return istanza;
 	}
-	public void setPrimaryStage(Stage primaryStage) {
+	
+	public void setPrimaryStage(Stage primaryStage) { //PASSO LO STAGE
 		this.primaryStage= primaryStage;
 	}
-	public void aggiornaView(String nome, String Descrizione, int diff) {
+	
+	public void aggiornaView(String nome, String Descrizione, int diff) {  //AGGIORNA I VARI CAMPI
 		this.nome.setText(nome);
 		this.descrizione.setText(Descrizione);
 		switch(diff) {
@@ -84,8 +78,9 @@ public class NuovaRicettaViewController {
 				break;
 		}
 	}
+	
 	@FXML
-	private void tornaAlLogin(MouseEvent event) {
+	private void tornaAlLogin(MouseEvent event) {  //CARICA VIEW LOGIN
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/Applicazione/LoginView.fxml"));
             LoginViewController loginViewController = LoginViewController.ottieniIstanza();
@@ -99,10 +94,11 @@ public class NuovaRicettaViewController {
 			e.printStackTrace(); 
 		}
 	}
+	
 	@FXML
-	private void caricaViewIngredienti(ActionEvent event) {
+	private void caricaViewIngredienti(ActionEvent event) {  //CARICA VIEW INGREDIENTI
 		InserisciIngredienteViewController inserisciIngredienteViewController =InserisciIngredienteViewController.ottieniIstanza();
-		if(nome.getText()!=null) {
+		if(nome.getText()!=null) {  //PASSA LO STATO ATTUALE PER RIPOPOLARLO IN SEGUITO
 			inserisciIngredienteViewController.setNome(nome.getText());
 		}
 		if(descrizione.getText()!=null) {
@@ -118,11 +114,9 @@ public class NuovaRicettaViewController {
 			inserisciIngredienteViewController.setDifficolta(3);
 		}
 		try {
-			inserisciIngredienteViewController = InserisciIngredienteViewController.ottieniIstanza();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("InserisciIngredienteView.fxml"));
             loader.setController(inserisciIngredienteViewController);
-            Ricetta ricetta =controller.getRicetta();
-			ricetta.registra(inserisciIngredienteViewController);
+			controller.registraOsservatore(inserisciIngredienteViewController, 2);
             Parent root = loader.load();
             inserisciIngredienteViewController.setPrimaryStage(primaryStage);
             inserisciIngredienteViewController.aggiornaView();
@@ -133,14 +127,15 @@ public class NuovaRicettaViewController {
             e.printStackTrace(); 
         }
 	}
+	
 	@FXML
-	private void compilaRicetta(ActionEvent event) {
+	private void compilaRicetta(ActionEvent event) {  //METODO PER COMPILARE RICETTA E RICHIEDERE LA PUBBLICAZIONE
 		RicettaBean ricettaBean= new RicettaBean();
 		String testo = nome.getText().trim();
 		if(!testo.isEmpty()) {
 			ricettaBean.setNome(nome.getText());
 		}
-		else {
+		else {  //MOSTRTO GRAFICAMENTE UN AVVERTIMENTO! ANCHE PER GLI ELSE SUCCESSIVI!
 			nome.setPromptText("INSERISCI NOME");
 			 // Creazione di un oggetto ScheduledExecutorService
 	        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
@@ -209,13 +204,13 @@ public class NuovaRicettaViewController {
 		}
 		ricettaBean.setDifficolta(diff);
 		UtenteBean utenteBean=adattatoreLoginController.ottieniUtente();
-		ricettaBean.setAutore(utenteBean.getUsername());
+		ricettaBean.setAutore(utenteBean.getUsername());  //AUTORE PASSATO IN AUTOMATICO
 		VBox ingredienti= InserisciIngredienteViewController.ottieniIstanza().getContenitoreIngredienti();
         if(ingredienti!=null && !(ingredienti.getChildren().isEmpty())) { 
         	adattatorePubblicaRicettaController.compilaLaRicetta(ricettaBean);
-        	areaPersonaleButton.fire();
+        	areaPersonaleButton.fire();  //SE INGREDIENTI MESSI, ALLORA PUBBLICA E SIMULA CLICK PER TORNARE ALL'AREA PERSONALE
 		}
-		else {
+		else {  //MOSTRA GARFICAMENTE L'AVVERTIMENTO PER GLI INGREDIENTI
 			pubblica.setText("INGREDIENTI?");
 			 // Creazione di un oggetto ScheduledExecutorService
 	        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
@@ -233,8 +228,9 @@ public class NuovaRicettaViewController {
 	        scheduler.shutdown();	
 		}
 	}
+	
 	@FXML
-	private void disabilitaPulsanti(ActionEvent event) {
+	private void disabilitaPulsanti(ActionEvent event) {  //METODO PER CLICCARE SOLO UNA DIFFICOLTA' PER VOLTA
 		if (facile.isSelected()) {
 		    medio.setDisable(true);
 		    difficile.setDisable(true);
@@ -250,14 +246,14 @@ public class NuovaRicettaViewController {
 		    facile.setDisable(false);
 		}
 	}
+	
 	@FXML
-	private void caricaViewAreaPersonale(ActionEvent event) {
-		FXMLLoader loader= new FXMLLoader(getClass().getResource("AreaPersonaleView.fxml"));
-		AreaPersonaleViewController controllerAreaPersonale = AreaPersonaleViewController.ottieniIstanza();
-		loader.setController(controllerAreaPersonale);
-		Parent root;		
+	private void caricaViewAreaPersonale(ActionEvent event) {  //CARICA VIEW AREA PERSONALE		
 		try {
-			root = loader.load();
+			FXMLLoader loader= new FXMLLoader(getClass().getResource("AreaPersonaleView.fxml"));
+			AreaPersonaleViewController controllerAreaPersonale = AreaPersonaleViewController.ottieniIstanza();
+			loader.setController(controllerAreaPersonale);
+			Parent root = loader.load();
 			controllerAreaPersonale.setPrimaryStage(primaryStage);
 			controllerAreaPersonale.caricaAreaPersonale();
 			controllerAreaPersonale.aggiornaView();
@@ -272,7 +268,7 @@ public class NuovaRicettaViewController {
 	}
 	
 	@FXML
-    private void caricaViewGestisciRicette(ActionEvent event) {
+    private void caricaViewGestisciRicette(ActionEvent event) {  //CARICA VIEW GESTISCI RICETTE
         try {
         	FXMLLoader loader = new FXMLLoader(getClass().getResource("GestisciRicetteView.fxml"));
             GestisciRicetteViewController gestisciRicetteViewController = GestisciRicetteViewController.ottieniIstanza();
@@ -288,4 +284,5 @@ public class NuovaRicettaViewController {
             e.printStackTrace(); 
         }
     }
+	
 }

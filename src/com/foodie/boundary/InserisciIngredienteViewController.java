@@ -2,17 +2,13 @@ package com.foodie.boundary;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
 import com.foodie.Applicazione.LoginViewController;
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.PubblicaRicettaController;
 import com.foodie.controller.PubblicaRicettaControllerAdapter;
-import com.foodie.controller.TrovaRicettaController;
-import com.foodie.controller.TrovaRicettaControllerAdapter;
 import com.foodie.model.AlimentoBean;
 import com.foodie.model.Observer;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,19 +25,17 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class InserisciIngredienteViewController implements Observer{
+	
 	private static InserisciIngredienteViewController istanza;
 	private AdattatoreFactory factory = AdattatoreFactory.ottieniIstanza();
-	private TrovaRicettaController controller = TrovaRicettaController.ottieniIstanza();
+	private PubblicaRicettaController controller = PubblicaRicettaController.ottieniIstanza();
 	private ControllerAdapter adattatoreTrovaRicettaController= factory.creaTrovaRicettaAdapter();
-	private PubblicaRicettaController controller2 = PubblicaRicettaController.ottieniIstanza();
-	private ControllerAdapter adattatorePubblicaRicettaController = PubblicaRicettaControllerAdapter.ottieniIstanza(controller2);
-	private ArrayList<AlimentoBean> alimentiBeanTrovati;
-	private ArrayList<AlimentoBean> alimentiBeanRicetta;
-	AreaPersonaleViewController controllerAreaPersonale = AreaPersonaleViewController.ottieniIstanza();
+	private ControllerAdapter adattatorePubblicaRicettaController = PubblicaRicettaControllerAdapter.ottieniIstanza(controller);
+	private AreaPersonaleViewController controllerAreaPersonale = AreaPersonaleViewController.ottieniIstanza();
 	private boolean bottoneModifica = true;
+	private Stage primaryStage;
 	@FXML
 	private Label labelIngredienti;
-	private Stage primaryStage;
 	@FXML
 	private VBox contenitoreIngredienti;
 	@FXML
@@ -57,17 +51,19 @@ public class InserisciIngredienteViewController implements Observer{
 	private InserisciIngredienteViewController() {
 	}
 	
-	public static InserisciIngredienteViewController ottieniIstanza() { //METODO PER OTTENERE L'ISTANZA
+	public static synchronized InserisciIngredienteViewController ottieniIstanza() { //METODO PER OTTENERE L'ISTANZA
 		if(istanza == null) {
 			istanza = new InserisciIngredienteViewController();
 		}
 		return istanza;
 	}
-	public void setPrimaryStage(Stage primaryStage) {
+	
+	public void setPrimaryStage(Stage primaryStage) {  //PASSO LO STAGE
 		this.primaryStage= primaryStage;
 	}
+	
 	@FXML
-	private void gestioneRisultati(KeyEvent event) {
+	private void gestioneRisultati(KeyEvent event) {  //GESTISCE LA BARRA DI RICERCA DEGLI ALIMENTI
 		if(event.getCode() == KeyCode.ENTER) {//GETCODE() TI RESTITUISCE IL TASTO PREMUTO
 			trovaAlimenti();
 		}
@@ -75,13 +71,15 @@ public class InserisciIngredienteViewController implements Observer{
 			eliminaAlimenti();
 		}
 	}
-	private void eliminaAlimenti() {
+	
+	private void eliminaAlimenti() {  //PULISCE GLI ALIMENTI TROVATI
 		if(!contenitoreAlimentiTrovati.getChildren().isEmpty()) {
 			this.quantita.setDisable(true);
 			contenitoreAlimentiTrovati.getChildren().clear();
 		}
 	}
-	private void salvaAlimento(String nomeAlimento, String quantita) {
+	
+	private void salvaAlimento(String nomeAlimento, String quantita) { //SALVA ALIMENTO NELLA RICETTA
 		if(!quantita.isEmpty()) {
 			AlimentoBean alimentoBean = new AlimentoBean();
 			alimentoBean.setNome(nomeAlimento);
@@ -94,8 +92,9 @@ public class InserisciIngredienteViewController implements Observer{
 			this.quantita.setPromptText("QUANTITA?");
 		}
 	}
+	
 	@FXML
-	public void caricaViewRicetta(ActionEvent event) {
+	public void caricaViewRicetta(ActionEvent event) {  //CARICA VIEW RICETTA
 		try {
 			if(bottoneModifica==false) { //resettare il bottone modifica se attivo
 				bottoneModifica=true;
@@ -107,7 +106,7 @@ public class InserisciIngredienteViewController implements Observer{
             loader.setController(nuovaRicettaViewController);
             Parent root = loader.load();
             nuovaRicettaViewController.setPrimaryStage(primaryStage);
-            nuovaRicettaViewController.aggiornaView(nome, descrizione, difficolta);
+            nuovaRicettaViewController.aggiornaView(nome, descrizione, difficolta);  //RIPOPOLA LO STATO
             Scene nuovaScena = new Scene(root);
             primaryStage.setScene(nuovaScena);
             primaryStage.show();
@@ -115,8 +114,9 @@ public class InserisciIngredienteViewController implements Observer{
             e.printStackTrace(); 
         }
 	}
+	
 	@FXML
-	public void tornaAlLogin(MouseEvent event) {
+	public void tornaAlLogin(MouseEvent event) {  //CARICA VIEW LOGIN
 		try {
 			if(bottoneModifica==false) { //resettare il bottone modifica se attivo
 				bottoneModifica=true;
@@ -135,8 +135,9 @@ public class InserisciIngredienteViewController implements Observer{
             e.printStackTrace(); 
         }
 	}
-	private void trovaAlimenti() {
-		alimentiBeanTrovati=adattatoreTrovaRicettaController.trovaGliAlimenti(barraDiRicerca.getText());
+	
+	private void trovaAlimenti() { //GESTISCE IL TROVA ALIMENTI
+		ArrayList<AlimentoBean> alimentiBeanTrovati=adattatoreTrovaRicettaController.trovaGliAlimenti(barraDiRicerca.getText());
 		if(alimentiBeanTrovati!=null) {
 			quantita.setDisable(false);
 			for(AlimentoBean a: alimentiBeanTrovati) {
@@ -151,7 +152,7 @@ public class InserisciIngredienteViewController implements Observer{
 				contenitoreAlimentiTrovati.getChildren().add(labelAlimento);
 			}
 		}
-		else {
+		else {//NESSUN RISULTATO
 			Label label = new Label("NESSUN RISULTATO");
 			label.setStyle("-fx-background-color: white;");
 			label.setMaxWidth(Double.MAX_VALUE);
@@ -162,9 +163,10 @@ public class InserisciIngredienteViewController implements Observer{
 			contenitoreAlimentiTrovati.getChildren().add(label);
 		}
 	}
-	public void aggiornaView() {
+	
+	public void aggiornaView() {  //AGGIORNA GLI INGREDIENTI DELLA RICETTA
 		contenitoreIngredienti.getChildren().clear();
-		alimentiBeanRicetta =adattatorePubblicaRicettaController.mostraIngredientiRicetta();
+		ArrayList<AlimentoBean> alimentiBeanRicetta=adattatorePubblicaRicettaController.mostraIngredientiRicetta();
 		if(alimentiBeanRicetta!=null) {
 			for(AlimentoBean a: alimentiBeanRicetta) {
 				Label labelAlimento = new Label(a.getNome());
@@ -184,7 +186,8 @@ public class InserisciIngredienteViewController implements Observer{
 			labelIngredienti.setText("Ingredienti");
 		}
 	}
-	private void impostaLabel() {
+	
+	private void impostaLabel() {  //IMPOSTA LE LABEL DELLA RICETTA CLICCABILI
 		if(bottoneModifica==false) {
 			if(!contenitoreIngredienti.getChildren().isEmpty()) {
 				contenitoreIngredienti.getChildren().forEach(node->{
@@ -202,13 +205,15 @@ public class InserisciIngredienteViewController implements Observer{
 			}
 		}
 	}
-	private void eliminaAlimento(String nomeAlimento) {
+	
+	private void eliminaAlimento(String nomeAlimento) {  //ELIMINA ALIMENTO RICETTA
 		AlimentoBean alimentoBean = new AlimentoBean();
 		alimentoBean.setNome(nomeAlimento);
 		adattatorePubblicaRicettaController.aggiungiIngredienteRicetta(alimentoBean,null, 1);
 	}
+	
 	@FXML
-	private void modificaIngredienti(ActionEvent e) {
+	private void modificaIngredienti(ActionEvent e) {  //GESTISCE PULSANTE MODIFICA
 		if(bottoneModifica==true && !contenitoreIngredienti.getChildren().isEmpty()) {
 			bottoneModifica=false;
 			labelIngredienti.setFont(Font.font("Arial",20));
@@ -222,20 +227,25 @@ public class InserisciIngredienteViewController implements Observer{
 			impostaLabel();
 		}
 	}
-	public void setNome(String text) {
+	
+	public void setNome(String text) {  //SETTERS PER SALVARE LO STATO DEL NUOVA RICETTA VIEW
 		this.nome=text;
 	}
+	
 	public void setDescrizione(String text) {
 		this.descrizione=text;
 	}
+	
 	public void setDifficolta(int i) {
 		this.difficolta=i;
 	}
-	public VBox getContenitoreIngredienti() {
+	
+	public VBox getContenitoreIngredienti() {  //RESTITUISCE CONTENITORE INGREDIENTI
 		return contenitoreIngredienti;
 	}
+	
 	@FXML
-	private void caricaViewAreaPersonale(ActionEvent event) {
+	private void caricaViewAreaPersonale(ActionEvent event) {  //CARICA VIEW AREA PERSONALE
 		FXMLLoader loader= new FXMLLoader(getClass().getResource("AreaPersonaleView.fxml"));
 		loader.setController(controllerAreaPersonale);
 		Parent root;		
@@ -252,8 +262,9 @@ public class InserisciIngredienteViewController implements Observer{
 			e.printStackTrace();
 		}
 	}
+	
 	@FXML
-    private void caricaViewGestisciRicette(ActionEvent event) {
+    private void caricaViewGestisciRicette(ActionEvent event) {  //CARICA VIEW GESTISCI RICETTE
         try {
         	FXMLLoader loader = new FXMLLoader(getClass().getResource("GestisciRicetteView.fxml"));
             Parent root = loader.load();
@@ -268,4 +279,5 @@ public class InserisciIngredienteViewController implements Observer{
             e.printStackTrace(); 
         }
     }
+	
 }
