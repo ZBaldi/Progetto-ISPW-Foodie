@@ -84,7 +84,7 @@ public class ModeratoreViewController implements Observer{
 		labelDescrizione.setMaxWidth(Double.MAX_VALUE);
 		labelDescrizione.setMinHeight(200);
 		labelDescrizione.setWrapText(true);
-		labelDescrizione.setFont(Font.font(FORMATO,20));
+		labelDescrizione.setFont(Font.font(FORMATO,15));
 		contenitoreContenutoRicetta.getChildren().addAll(labelNome,labelAutore,labelDescrizione);
 	}
 	

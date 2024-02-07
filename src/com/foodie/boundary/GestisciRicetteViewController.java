@@ -171,19 +171,7 @@ public class GestisciRicetteViewController {
 	private void impostaHBox() {  //IMPOSTA RICETTE CLICCABILI
 		if(!bottoneModifica) {  //IMPOSTO DI ELIMINARE LE RICETTE
 			if(!contenitoreRicette.getChildren().isEmpty()) {
-				for(Node nodo1: contenitoreRicette.getChildren()) {
-					int indice=1;
-					HBox hBoxRicetta= (HBox)nodo1;
-					for(Node nodo: hBoxRicetta.getChildren()) {
-						Label labelNome=(Label)nodo;  //PRENDO SOLO IL NOME 
-						UtenteBean utenteBean=adattatoreLoginController.ottieniUtente();
-						hBoxRicetta.setOnMouseClicked(event->eliminaRicetta(labelNome.getText(),utenteBean.getUsername()));
-						if(indice==1) {
-							break;
-						}
-						indice++;
-					}
-				}
+				scorriLabel();  //LE RENDE CLICCABILI, EVITI LO SMELL DELLA COMPLESSITA'
 			}
 		}
 		else {  //IMPOSTO DI APRIRE LE RICETTE CLICCATE
@@ -194,6 +182,22 @@ public class GestisciRicetteViewController {
 		            popolaLabel(indiceLabel,contenitoreRicetta);
 		        });
 		    });
+		}
+	}
+	
+	private void scorriLabel() {  //SCORRE LE LABEL E LE RENDE CLICCABILI
+		for(Node nodo1: contenitoreRicette.getChildren()) {
+			int indice=1;
+			HBox hBoxRicetta= (HBox)nodo1;
+			for(Node nodo: hBoxRicetta.getChildren()) {
+				Label labelNome=(Label)nodo;  //PRENDO SOLO IL NOME 
+				UtenteBean utenteBean=adattatoreLoginController.ottieniUtente();
+				hBoxRicetta.setOnMouseClicked(event->eliminaRicetta(labelNome.getText(),utenteBean.getUsername()));
+				if(indice==1) {
+					break;
+				}
+				indice++;
+			}
 		}
 	}
 	
