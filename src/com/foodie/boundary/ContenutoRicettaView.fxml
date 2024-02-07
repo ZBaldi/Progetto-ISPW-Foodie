@@ -29,7 +29,7 @@
                   <Insets right="50.0" />
                </opaqueInsets>
                <children>
-                  <Label fx:id="descrizione" alignment="TOP_LEFT" layoutX="6.0" layoutY="5.0" prefHeight="439.0" prefWidth="571.0" text="PROCEDIMENTO">
+                  <Label fx:id="descrizione" alignment="TOP_LEFT" layoutX="6.0" layoutY="5.0" prefHeight="439.0" prefWidth="571.0" text="PROCEDIMENTO" wrapText="true">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
