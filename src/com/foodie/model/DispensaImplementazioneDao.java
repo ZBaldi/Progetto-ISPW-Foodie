@@ -53,11 +53,11 @@ public class DispensaImplementazioneDao implements DispensaDao{  //IMPLEMENTAZIO
 		}
 		try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("C:\\Users\\valba\\OneDrive\\Desktop\\Progetto\\Classi serializzate\\dispensa_data.ser"))) {
 			objectOutputStream.writeObject(dispensaMap);
-            System.out.println("Dispensa salvata");
+			logger.info("Dispensa salvata");
         } catch (IOException e) {
             e.printStackTrace();
             logger.severe("ERRORE NEL SALVATAGGIO SU FILE DELLA DISPENSA");
-            System.out.println("Problema con il file, riprova o controlla se è nella directory");
+            logger.info("Problema con il file, riprova o controlla se è nella directory");
         }
 	}
 
@@ -75,7 +75,7 @@ public class DispensaImplementazioneDao implements DispensaDao{  //IMPLEMENTAZIO
 					for(AlimentoSerializzabile a: dispensaOld) {
 						dispensa.aggiungiAlimento(new Alimento(a.getNome()));
 					}
-					System.out.println("dispensa caricata");
+					logger.info("dispensa caricata");
 				}
 			}
 			objectInputStream.close();
@@ -84,12 +84,12 @@ public class DispensaImplementazioneDao implements DispensaDao{  //IMPLEMENTAZIO
 			e.printStackTrace();
 			return new HashMap<String, ArrayList<AlimentoSerializzabile>>();
 		}catch (EOFException e) {
-			logger.severe("NESSUNA DISPENSA SALVATA");
+			logger.info("NESSUNA DISPENSA SALVATA");
 			return new HashMap<String, ArrayList<AlimentoSerializzabile>>();
         }catch (IOException e) {
 			e.printStackTrace();
 			logger.severe("ERRORE NEL CARICAMENTO DA FILE DELLA DISPENSA");
-            System.out.println("Problema con il file, riprova o controlla se è nella directory");
+			logger.info("Problema con il file, riprova o controlla se è nella directory");
             return new HashMap<String, ArrayList<AlimentoSerializzabile>>();
 		}
 	}

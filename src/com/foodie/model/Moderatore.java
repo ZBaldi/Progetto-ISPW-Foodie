@@ -1,12 +1,14 @@
 package com.foodie.model;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 public class Moderatore extends SubjectPatternObserver implements Utente { //MODERATORE IMPLEMENTA UTENTE
 	
 	private static Moderatore istanza;  //SINGLETON, ABBIAMO SOLO 1 MODERATORE
 	private static ArrayList<Ricetta> ricetteDaVerificare=null;
 	private String username;
+	private static final Logger logger = Logger.getLogger(Moderatore.class.getName());
 	
 	private Moderatore(){
 	}
@@ -52,31 +54,31 @@ public class Moderatore extends SubjectPatternObserver implements Utente { //MOD
 	public void aggiungiRicettaDaVerificare(Ricetta ricetta) {  //AGGIUNGI LE RICETTE DA VERIFICARE
 		if(ricetteDaVerificare!=null && !ricetteDaVerificare.contains(ricetta)) {
 			ricetteDaVerificare.add(ricetta);
-			System.out.println("Ricetta da Verificare aggiunta");
+			logger.info("Ricetta da Verificare aggiunta");
 			notifica();
 		}
 		else {
-			System.out.println("Ricetta già in corso di verifica");
+			logger.info("Ricetta già in corso di verifica");
 		}
 	}
 	
 	public void ricettaVerificata(Ricetta ricetta) {  //RIMUOVE LA RICETTA SE VERIFICATA
 		if(ricetteDaVerificare.remove(ricetta)==true) {
-			System.out.println("Ricetta verificata");
+			logger.info("Ricetta verificata");
 			notifica();
 		}
 		else {
-			System.out.println("Ricetta già verificata o non inviata al moderatore");
+			logger.info("Ricetta già verificata o non inviata al moderatore");
 		}
 	}
 	
 	public static ArrayList<Ricetta> getRicetteDaVerificare(){  //OTTIENI LE RICETTE DA VERIFICARE
 		if(ricetteDaVerificare!=null && !ricetteDaVerificare.isEmpty()) {
-			System.out.println("Ecco le ricette da verificare");
+			logger.info("Ecco le ricette da verificare");
 			return ricetteDaVerificare;
 		}
 		else {
-			System.out.println("Nessuna ricetta da verificare");
+			logger.info("Nessuna ricetta da verificare");
 			return new ArrayList<Ricetta>();
 		}
 	}

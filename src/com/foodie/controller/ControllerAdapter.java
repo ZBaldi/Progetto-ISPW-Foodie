@@ -1,24 +1,26 @@
 package com.foodie.controller;
 
 import java.util.ArrayList;
-
+import java.util.logging.Logger;
 import com.foodie.model.AlimentoBean;
 import com.foodie.model.RicettaBean;
 import com.foodie.model.UtenteBean;
 
 public abstract class ControllerAdapter {
 	
+	private static final Logger logger = Logger.getLogger(ControllerAdapter.class.getName());
+	
 	public void ModificaDispensa(AlimentoBean alimentoBean,int x) {
 	}
 	
 	public ArrayList<RicettaBean> trovaLeRicette(int difficolta, String autore) {
-		System.out.println("autore:"+autore);  //PER EVITARE SMELL
-		System.out.println("difficolta:"+difficolta);
+		logger.info("autore:"+autore);  //PER EVITARE SMELL
+		logger.info("difficolta:"+difficolta);
 		return new ArrayList<RicettaBean>();
 	}
 	
 	public ArrayList<AlimentoBean> trovaGliAlimenti(String nomeAlimento) {
-		System.out.println("nomeAlimento:"+nomeAlimento);
+		logger.info("nomeAlimento:"+nomeAlimento); //PER EVITARE SMELL
 		return new ArrayList<AlimentoBean>();
 	}
 	
@@ -27,8 +29,8 @@ public abstract class ControllerAdapter {
 	}
 	
 	public RicettaBean apriLaRicetta(String nome,String autore) {
-		System.out.println("autore:"+autore);  //PER EVITARE SMELL
-		System.out.println("nome:"+nome);
+		logger.info("autore:"+autore);  //PER EVITARE SMELL
+		logger.info("nome:"+nome);
 		return null;
 	}
 	

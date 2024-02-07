@@ -73,7 +73,7 @@ public class CatalogoAlimentiNutrixionixImplementazioneDao implements CatalogoAl
                 alimentiTrovati=estraiFoodName(risposta.toString());  // applico il metodo che deserializza la stringa json ottenuta per ottenere i nomi degli alimenti
             }
             else {
-            	System.out.println("Errore: codice di risposta " + codiceDiRisposta);
+            	logger.info("Errore: codice di risposta " + codiceDiRisposta);
             }
             connessione.disconnect();
             if(alimentiTrovati!=null && !alimentiTrovati.isEmpty()) {
@@ -85,7 +85,7 @@ public class CatalogoAlimentiNutrixionixImplementazioneDao implements CatalogoAl
 		}catch(Exception e) {
 			e.printStackTrace();
 			logger.severe("PROBLEMA CON LA CONNESSIONE HTTML PER L'UTILIZZO DELL'API NUTRIXIONIX");
-			System.out.println("L'API sta dando problemi... riprova in seguito");
+			logger.info("L'API sta dando problemi... riprova in seguito");
 			return new ArrayList<Alimento>();
 		}
 	}

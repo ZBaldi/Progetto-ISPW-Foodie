@@ -57,7 +57,7 @@ public class LoginController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOLO 1 IST
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.severe("ERRORE NELLA FASE DI LOGIN");
-			System.out.println(MESSAGGIO);
+			logger.info(MESSAGGIO);
 			return -1;
 		}
 	}
@@ -76,7 +76,7 @@ public class LoginController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOLO 1 IST
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.severe("ERRORE NEL CONTROLLO DELL'USERNAME-->RIPROVA,LA GUI TI DIRA' ESISTENTE");
-			System.out.println(MESSAGGIO);
+			logger.info(MESSAGGIO);
 			return 0;  //LO FACCIO PASSARE PER ESISTENTE
 		}
 	}
@@ -87,7 +87,7 @@ public class LoginController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOLO 1 IST
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.severe("ERRORE NELLA REGISTRAZIONE DELL'UTENTE");
-			System.out.println(MESSAGGIO);
+			logger.info(MESSAGGIO);
 		}
 	}
 	

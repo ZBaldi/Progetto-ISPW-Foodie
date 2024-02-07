@@ -1,10 +1,12 @@
 package com.foodie.model;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 public abstract class SubjectPatternObserver {        //CLASSE ASTRATTA DEL PATTERN OBSERVER CHE METTE 
 													  //A DISPOSIZIONE METODI PER GESTIRE GLI 
 	protected ArrayList<Observer> viewRegistrate; 	  //OSSERVATORI DI CUI NON SI SA NULLA
+	private static final Logger logger = Logger.getLogger(SubjectPatternObserver.class.getName());
 	
 	protected SubjectPatternObserver() {
 		this.viewRegistrate=new ArrayList<Observer>();
@@ -13,19 +15,19 @@ public abstract class SubjectPatternObserver {        //CLASSE ASTRATTA DEL PATT
 	public void registra(Observer o) {  //REGISTRA L'OSSERVATORE NELLA PROPRIA LISTA SE NON PRESENTE
 		if(!viewRegistrate.contains(o)) {
 			this.viewRegistrate.add(o);
-			System.out.println("Osservatore registrato");
+			logger.info("Osservatore registrato");
 		}
 		else {
-			System.out.println("Osservatore già registrato");
+			logger.info("Osservatore già registrato");
 		}
 	}
 	
 	public void cancella(Observer o) {  //CANCELLA L'OSSERVATORE DALLA PROPRIA LISTA SE PRESENTE
 		if(this.viewRegistrate.remove(o)==true) {
-			System.out.println("Osservatore rimosso");
+			logger.info("Osservatore rimosso");
 		}
 		else {
-			System.out.println("Osservatore non registrato");
+			logger.info("Osservatore non registrato");
 		}
 	}
 	
@@ -34,10 +36,10 @@ public abstract class SubjectPatternObserver {        //CLASSE ASTRATTA DEL PATT
 			for(Observer o : viewRegistrate) {
 				o.aggiornaView();
 			}
-			System.out.println("Osservatori notificati");
+			logger.info("Osservatori notificati");
 		}
 		else {
-			System.out.println("Nessun osservatore da notificare");
+			logger.info("Nessun osservatore da notificare");
 		}
 	}
 	

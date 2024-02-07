@@ -105,7 +105,7 @@ public class GestisciRicetteViewController {
 		}
 	}
 	
-	public void caricaViewRicetta(String nomeRicetta) {  //CARICA VIEW CONTENUTO RICETTA
+	public void caricaViewContenutoRicetta(String nomeRicetta) {  //CARICA VIEW CONTENUTO RICETTA
 		UtenteBean utenteBean=adattatoreLoginController.ottieniUtente();
 		RicettaBean ricettaSelezionata = adattatoreTrovaRicettaController.apriLaRicetta(nomeRicetta,utenteBean.getUsername());
 		try {
@@ -187,28 +187,25 @@ public class GestisciRicetteViewController {
 			contenitoreRicette.getChildren().forEach(node -> {
 		        HBox contenitoreRicetta = (HBox) node;
 		        contenitoreRicetta.setOnMouseClicked(event -> {
-		            String nomeRicetta=null;
-		            String difficoltaRicetta=null;
 		            int indiceLabel=1;
-		            popolaLabel(indiceLabel,contenitoreRicetta,nomeRicetta,difficoltaRicetta);
-		            caricaViewRicetta(nomeRicetta);
+		            popolaLabel(indiceLabel,contenitoreRicetta);
 		        });
 		    });
 		}
 	}
 	
-	private void popolaLabel(int indiceLabel,HBox contenitoreRicetta,String nomeRicetta,String difficoltaRicetta) {
-		nomeRicetta="";
-        difficoltaRicetta="";
+	private void popolaLabel(int indiceLabel,HBox contenitoreRicetta) {
+		String nomeRicetta="";
 		for (Node labelNode : contenitoreRicetta.getChildren()) {	  //POPOLA LABEL USATO PER EVITARE SMELL COMPLESSITA'        
             Label label = (Label) labelNode;
             if(indiceLabel==1)
             	nomeRicetta=label.getText();
             else {
-            	difficoltaRicetta=label.getText();
+            	break;
             }
             indiceLabel++;
 		}
+		caricaViewContenutoRicetta(nomeRicetta);
 	}
 	
 	@FXML

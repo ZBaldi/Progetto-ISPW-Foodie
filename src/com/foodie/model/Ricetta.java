@@ -2,6 +2,7 @@ package com.foodie.model;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 public class Ricetta extends SubjectPatternObserver{  //OSSERVATO CONCRETO, ESTENDE SUBJECT PATTERN OBSERVER
 	
@@ -11,6 +12,7 @@ public class Ricetta extends SubjectPatternObserver{  //OSSERVATO CONCRETO, ESTE
 	private ArrayList<Alimento> ingredienti;
 	private String autore;
 	private ArrayList<String> quantita;
+	private static final Logger logger = Logger.getLogger(Ricetta.class.getName());
 	
 	public Ricetta() {
 		this.ingredienti= new ArrayList<Alimento>();
@@ -52,43 +54,43 @@ public class Ricetta extends SubjectPatternObserver{  //OSSERVATO CONCRETO, ESTE
 	
 	public void setNome(String nome) {  //SETTERS DEGLI ATTRIBUTI
 		this.nome=nome;
-		System.out.println("Nome ricetta impostato");
+		logger.info("Nome ricetta impostato");
 	}
 	
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
-		System.out.println("Descrizione ricetta impostata");
+		logger.info("Descrizione ricetta impostata");
 	}
 	
 	public void setDifficolta(int difficolta) {
 		this.difficolta = difficolta;
-		System.out.println("Difficoltà ricetta impostata");
+		logger.info("Difficoltà ricetta impostata");
 	}
 	
 	public void setIngredienti(ArrayList<Alimento> ingredienti) {
 		this.ingredienti = ingredienti;
-		System.out.println("Ingredienti ricetta impostati");
+		logger.info("Ingredienti ricetta impostati");
 	}
 	
 	public void setAutore(String autore) {
 		this.autore=autore;
-		System.out.println("Autore ricetta impostato");
+		logger.info("Autore ricetta impostato");
 	}
 	
 	public void setQuantita(ArrayList<String> quantita) {
 		this.quantita = quantita;
-		System.out.println("Quantità ingredienti ricetta impostati");
+		logger.info("Quantità ingredienti ricetta impostati");
 	}
 	
 	public void aggiungiIngrediente(Alimento alimento, String quantita) {  //METODO PER AGGIUNGERE UN ALIMENTO CON LA RISPETTIVA QUANTITA' SE NON PRESENTE
 		if(!ingredienti.contains(alimento)) {
 			ingredienti.add(alimento);
 			this.quantita.add(quantita);
-			System.out.println("Ingrediente aggiunto alla ricetta");
+			logger.info("Ingrediente aggiunto alla ricetta");
 			notifica();
 		}
 		else {
-			System.out.println("Ingrediente già presente nella ricetta");
+			logger.info("Ingrediente già presente nella ricetta");
 		}
 	}
 	
@@ -97,11 +99,11 @@ public class Ricetta extends SubjectPatternObserver{  //OSSERVATO CONCRETO, ESTE
 		if(indice!=-1) {
 			ingredienti.remove(indice);
 			quantita.remove(indice);
-			System.out.println("Ingrediente rimosso dalla ricetta");
+			logger.info("Ingrediente rimosso dalla ricetta");
 			notifica();
 		}
 		else {
-			System.out.println("Ingrediente non presente nella ricetta");
+			logger.info("Ingrediente non presente nella ricetta");
 		}
 	}
 	

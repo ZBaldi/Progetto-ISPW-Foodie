@@ -68,20 +68,20 @@ public class TrovaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOL
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.severe("ERRORE NELL'OTTENIMENTO DELLE RICETTE");
-			System.out.println("Problema con il DB");
+			logger.info("Problema con il DB");
 			return new ArrayList<Ricetta>();
 		}
 	}
 	
 	private void mostraRicette(ArrayList<Ricetta> ricette) {  //METODO PRIVATO PER STAMPARE SU CONSOLE TUTTE LE RICETTE
 		for(Ricetta r: ricette) {  //UTILIZZATO PER COMODITA' NEL PROGETTO
-			System.out.println("nome: "+r.getNome()+"\ndescrizione: "+r.getDescrizione()+"\ndifficolta: "+r.getDifficolta()+"\nautore: "+r.getAutore()+"\nIngredienti: ");
+			logger.info("nome: "+r.getNome()+"\ndescrizione: "+r.getDescrizione()+"\ndifficolta: "+r.getDifficolta()+"\nautore: "+r.getAutore()+"\nIngredienti: ");
 			for(Alimento a: r.getIngredienti()) {
-				System.out.println(a.getNome());
+				logger.info(a.getNome());
 			}
 			System.out.println("Quantità: ");
 			for(String s: r.getQuantita()) {
-				System.out.println(s);
+				logger.info(s);
 			}
 		}
 	}
@@ -100,7 +100,7 @@ public class TrovaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOL
 	
 	private void mostraAlimenti(ArrayList<Alimento> alimenti) {  //METODO PRIVATO PER STAMPARE SU CONSOLE TUTTI GLI ALIMENTI
 		for(Alimento a: alimenti) {   //UTILIZZATO PER COMODITA' NEL PROGETTO
-			System.out.println(a.getNome());
+			logger.info(a.getNome());
 		}
 	}
 	
@@ -128,7 +128,7 @@ public class TrovaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOL
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.severe("ERRORE NELL'OTTENIMENTO DEI DATI DELLA RICETTA");
-			System.out.println("Problema con il DB");
+			logger.info("Problema con il DB");
 			return null;
 		}
 	}

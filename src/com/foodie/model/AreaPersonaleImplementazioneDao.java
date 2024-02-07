@@ -34,11 +34,11 @@ public class AreaPersonaleImplementazioneDao implements AreaPersonaleDao{  //IMP
 		areaPersonaleMap.put(username, descrizione);
 		try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("C:\\Users\\valba\\OneDrive\\Desktop\\Progetto\\Classi serializzate\\areapersonale_data.ser"))) {
 			objectOutputStream.writeObject(areaPersonaleMap);
-            System.out.println("Area Personale salvata");
+            logger.info("Area Personale salvata");
         } catch (IOException e) {
             e.printStackTrace();
             logger.severe("ERRORE NEL SALVATAGGIO SU FILE DELL'AREA PERSONALE");
-            System.out.println("Problema con il file, riprova o controlla se è nella directory");
+            logger.info("Problema con il file, riprova o controlla se è nella directory");
         }
 	}
 
@@ -60,7 +60,7 @@ public class AreaPersonaleImplementazioneDao implements AreaPersonaleDao{  //IMP
         }catch (IOException e) {
 			e.printStackTrace();
 			logger.severe("ERRORE NEL CARICAMENTO DA FILE DELL'AREA PERSONALE");
-            System.out.println("Problema con il file, riprova o controlla se è nella directory");
+            logger.info("Problema con il file, riprova o controlla se è nella directory");
             return new HashMap<String, String>();
 		}
 	}

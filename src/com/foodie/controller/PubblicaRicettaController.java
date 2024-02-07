@@ -73,13 +73,13 @@ public class PubblicaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE 
 	}
 	
 	private static void notificaModeratore() {  //NOTIFICA IL MODERATORE DOPO AVER COMPILATO
-		System.out.println("MODERATORE NOTIFICATO");
+		logger.info("MODERATORE NOTIFICATO");
 		moderatore.aggiungiRicettaDaVerificare(ricetta);
 		ricetta=null;
 	}
 	
 	private void notificaChef(boolean bool) {  //NOTIFICA LO CHEF DOPO AVER APPROVATO LA RICETTA
-		System.out.println("CHEF NOTIFICATO: "+bool);
+		logger.info("CHEF NOTIFICATO: "+bool);
 	}
 	
 	public void pubblicaRicetta(String nome,String autore,boolean bool) {  //PUBBLICA LA RICETTA APPROVATA NEL DATABASE
@@ -96,7 +96,7 @@ public class PubblicaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE 
 		}catch (Exception e) {
 			e.printStackTrace();
 			logger.severe("ERRORE NELLA PUBBLICAZIONE DELLA RICETTA");
-			System.out.println("Problema con il DB");
+			logger.info("Problema con il DB");
 		}
 	}
 	
@@ -107,7 +107,7 @@ public class PubblicaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE 
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.severe("ERRORE NELL'ELIMINAZIONE DELLA RICETTA");
-			System.out.println("Problema con il DB");
+			logger.info("Problema con il DB");
 		}
 	}
 	
