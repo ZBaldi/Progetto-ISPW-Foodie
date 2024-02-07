@@ -26,6 +26,7 @@ public class GestisciRicetteView2Controller {
 	private ControllerAdapter adattatoreLoginController = factory.creaLoginAdapter();
 	private PubblicaRicettaController controller = PubblicaRicettaController.ottieniIstanza();
 	private Stage primaryStage;
+	private static final String FORMATO = "Arial";
 	@FXML
 	private VBox contenitoreRicette;
 	@FXML
@@ -59,10 +60,10 @@ public class GestisciRicetteView2Controller {
 				contenitoreRicetta.setSpacing(10);
 				
 			    Label labelNome = new Label(r.getNome());
-			    labelNome.setFont(Font.font("Arial", 20));
+			    labelNome.setFont(Font.font(FORMATO, 20));
 
 			    Label labelAutore = new Label(r.getAutore());
-			    labelAutore.setFont(Font.font("Arial", 20));
+			    labelAutore.setFont(Font.font(FORMATO, 20));
 			    
 			    switch(r.getDifficolta()) {
 				case 1:
@@ -74,25 +75,29 @@ public class GestisciRicetteView2Controller {
 				case 3:
 						difficolta="difficile";
 						break;
+				default:
+					System.err.println("difficoltà non riconosciuta");
+					contenitoreRicette.getChildren().clear();
+					return;
 				}
 			    
 			    Label labelDifficolta = new Label("Difficoltà: "+difficolta);
-			    labelDifficolta.setFont(Font.font("Arial", 20));
+			    labelDifficolta.setFont(Font.font(FORMATO, 20));
 			 
 			    Label labelDescrizione = new Label("Descrizione: "+r.getDescrizione());
-			    labelDescrizione.setFont(Font.font("Arial", 20));
+			    labelDescrizione.setFont(Font.font(FORMATO, 20));
 			    labelDescrizione.setWrapText(true);
 			    
 			    VBox contenitoreIngredienti= new VBox();
 			    Label inizio= new Label("Ingredienti:");
-			    inizio.setFont(Font.font("Arial", 20));
+			    inizio.setFont(Font.font(FORMATO, 20));
 			    contenitoreIngredienti.getChildren().add(inizio);
 			    String ingredienti="";
 			    for (int i = 0; i < r.getIngredienti().size(); i++) {
 			        AlimentoBean alimentoBean = r.getIngredienti().get(i);
 			        ingredienti = alimentoBean.getNome() + " : " + r.getQuantita().get(i);
 			        Label labelIngredienti= new Label(ingredienti);
-			        labelIngredienti.setFont(Font.font("Arial", 20));
+			        labelIngredienti.setFont(Font.font(FORMATO, 20));
 			        contenitoreIngredienti.getChildren().add(labelIngredienti);
 			    }
 			    

@@ -187,10 +187,9 @@ public class CatalogoRicetteImplementazione2Dao implements CatalogoRicetteChefDa
 	                scrittore.newLine();
 	            }
 	            System.out.println("Ricetta eliminata dal database");
+	            return;
 	        }
-	        else {
-	        	System.out.println("Ricetta non presente nel database");
-	        }
+	        System.out.println("Ricetta non presente nel database");  //LEVO 16° if per codesmell
 	    } catch (IOException e) {
 	        e.printStackTrace();
 	        System.err.println("ERRORE NELLA SCRITTURA NEL CATALOGO DELLE RICETTE (FILE)");

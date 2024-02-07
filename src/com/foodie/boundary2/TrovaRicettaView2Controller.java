@@ -28,6 +28,8 @@ public class TrovaRicettaView2Controller {
 	private ControllerAdapter adattatoreTrovaRicettaController= factory.creaTrovaRicettaAdapter();
 	private PubblicaRicettaController controller= PubblicaRicettaController.ottieniIstanza();
 	private Stage primaryStage;
+	private static final String FORMATO = "Arial";
+	private static final String SFONDOGRIGIO = "-fx-background-color: rgba(217, 217, 217, 0.75);-fx-border-color: black;";
 	@FXML
 	private RadioButton facile;
 	@FXML
@@ -139,11 +141,11 @@ public class TrovaRicettaView2Controller {
 		}
 		else {  //SE LA DIFFICOLTA' NON E' SELEZIONATA AVVERTIMENTO !
 			Label label=new Label("SCEGLI DIFFICOLTA'");
-			label.setStyle("-fx-background-color: rgba(217, 217, 217, 0.75);-fx-border-color: black;");
+			label.setStyle(SFONDOGRIGIO);
 			label.setMaxWidth(Double.MAX_VALUE);
 			label.setMinHeight(110);
 			label.setWrapText(true);
-			label.setFont(Font.font("Arial",50));
+			label.setFont(Font.font(FORMATO,50));
 			label.setAlignment(Pos.CENTER);
 			contenitoreRicette.getChildren().add(label);
 			return;
@@ -152,27 +154,27 @@ public class TrovaRicettaView2Controller {
 			contenitoreRicette.getChildren().clear();  //SE RICETTE TROVATE MOSTRA TUTTO IL CONTENUTO DELLE RICETTE
 			for(RicettaBean r: ricetteTrovate) {      //CREA VBOX E LABEL UNA DI SEGUITO ALL'ALTRA
 				VBox contenitoreRicetta = new VBox();
-				contenitoreRicetta.setStyle("-fx-background-color: rgba(217, 217, 217, 0.75);-fx-border-color: black;");
+				contenitoreRicetta.setStyle(SFONDOGRIGIO);
 				contenitoreRicetta.setSpacing(10);				
 			    Label labelNome = new Label("Nome: "+r.getNome());
-			    labelNome.setFont(Font.font("Arial", 20));
+			    labelNome.setFont(Font.font(FORMATO, 20));
 			    Label labelAutore = new Label("Autore: "+r.getAutore());
-			    labelAutore.setFont(Font.font("Arial", 20));
+			    labelAutore.setFont(Font.font(FORMATO, 20));
 			    Label labelDifficolta = new Label("Difficoltà: "+difficolta);
-			    labelDifficolta.setFont(Font.font("Arial", 20));			 
+			    labelDifficolta.setFont(Font.font(FORMATO, 20));			 
 			    Label labelDescrizione = new Label("Descrizione: "+r.getDescrizione());
-			    labelDescrizione.setFont(Font.font("Arial", 20));
+			    labelDescrizione.setFont(Font.font(FORMATO, 20));
 			    labelDescrizione.setWrapText(true);	    
 			    VBox contenitoreIngredienti= new VBox();
 			    Label inizio= new Label("Ingredienti:");
-			    inizio.setFont(Font.font("Arial", 20));
+			    inizio.setFont(Font.font(FORMATO, 20));
 			    contenitoreIngredienti.getChildren().add(inizio);
 			    String ingredienti="";
 			    for (int i = 0; i < r.getIngredienti().size(); i++) {
 			        AlimentoBean alimentoBean = r.getIngredienti().get(i);
 			        ingredienti = alimentoBean.getNome() + " : " + r.getQuantita().get(i);
 			        Label labelIngredienti= new Label(ingredienti);
-			        labelIngredienti.setFont(Font.font("Arial", 20));
+			        labelIngredienti.setFont(Font.font(FORMATO, 20));
 			        contenitoreIngredienti.getChildren().add(labelIngredienti);
 			    }
 			    
@@ -182,11 +184,11 @@ public class TrovaRicettaView2Controller {
 		}
 		else {  //NESSUNA RICETTA TROVATA
 			Label label=new Label("NESSUN RISULTATO");
-			label.setStyle("-fx-background-color: rgba(217, 217, 217, 0.75);-fx-border-color: black;");
+			label.setStyle(SFONDOGRIGIO);
 			label.setMaxWidth(Double.MAX_VALUE);
 			label.setMinHeight(110);
 			label.setWrapText(true);
-			label.setFont(Font.font("Arial",50));
+			label.setFont(Font.font(FORMATO,50));
 			label.setAlignment(Pos.CENTER);
 			contenitoreRicette.getChildren().add(label);
 		}

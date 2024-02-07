@@ -27,6 +27,8 @@ public class ModeratoreViewController implements Observer{
 	private PubblicaRicettaController controller = PubblicaRicettaController.ottieniIstanza();
 	private ControllerAdapter adattatorePubblicaRicettaController = factory.creaPubblicaRicettaAdapter();
 	private Stage primaryStage;
+	private static final String FORMATO = "Arial";
+	private static final String SFONDOBIANCO = "-fx-background-color: white;";
 	@FXML
 	private VBox contenitoreRicetteDaApprovare;
 	@FXML
@@ -50,11 +52,11 @@ public class ModeratoreViewController implements Observer{
 		if(ricetteBean!=null) {
 			for(RicettaBean r: ricetteBean) {
 				Label labelRicetta = new Label(r.getNome());
-				labelRicetta.setStyle("-fx-background-color: white;");
+				labelRicetta.setStyle(SFONDOBIANCO);
 				labelRicetta.setMaxWidth(Double.MAX_VALUE);
 				labelRicetta.setMinHeight(50);
 				labelRicetta.setWrapText(true);
-				labelRicetta.setFont(Font.font("Arial",20));
+				labelRicetta.setFont(Font.font(FORMATO,20));
 				labelRicetta.setAlignment(Pos.CENTER);
 				labelRicetta.setOnMouseClicked(event->{apriContenuto(r);});  //RENDE CLICCABILI PER APRIRE IL CONTENUTO
 				contenitoreRicetteDaApprovare.getChildren().add(labelRicetta);
@@ -65,23 +67,23 @@ public class ModeratoreViewController implements Observer{
 	private void apriContenuto(RicettaBean ricettaBean) {  //APRE IL COTNENUTO DELLA RICETTA CLICCATA
 		contenitoreContenutoRicetta.getChildren().clear();
 		Label labelNome= new Label(ricettaBean.getNome());
-		labelNome.setStyle("-fx-background-color: white;");
+		labelNome.setStyle(SFONDOBIANCO);
 		labelNome.setMaxWidth(Double.MAX_VALUE);
 		labelNome.setMinHeight(50);
 		labelNome.setWrapText(true);
-		labelNome.setFont(Font.font("Arial",20));
+		labelNome.setFont(Font.font(FORMATO,20));
 		Label labelAutore= new Label(ricettaBean.getAutore());
-		labelAutore.setStyle("-fx-background-color: white;");
+		labelAutore.setStyle(SFONDOBIANCO);
 		labelAutore.setMaxWidth(Double.MAX_VALUE);
 		labelAutore.setMinHeight(50);
 		labelAutore.setWrapText(true);
-		labelAutore.setFont(Font.font("Arial",20));
+		labelAutore.setFont(Font.font(FORMATO,20));
 		Label labelDescrizione= new Label(ricettaBean.getDescrizione());
-		labelDescrizione.setStyle("-fx-background-color: white;");
+		labelDescrizione.setStyle(SFONDOBIANCO);
 		labelDescrizione.setMaxWidth(Double.MAX_VALUE);
 		labelDescrizione.setMinHeight(200);
 		labelDescrizione.setWrapText(true);
-		labelDescrizione.setFont(Font.font("Arial",20));
+		labelDescrizione.setFont(Font.font(FORMATO,20));
 		contenitoreContenutoRicetta.getChildren().addAll(labelNome,labelAutore,labelDescrizione);
 	}
 	

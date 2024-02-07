@@ -20,7 +20,6 @@ public class ContenutoRicettaChefViewController {
 	
 	private static ContenutoRicettaChefViewController istanza;
 	private Stage primaryStage;
-	private PubblicaRicettaController controller = PubblicaRicettaController.ottieniIstanza();
 	private AreaPersonaleViewController controllerAreaPersonale = AreaPersonaleViewController.ottieniIstanza();
 	@FXML
 	private Label nome;
@@ -91,7 +90,7 @@ public class ContenutoRicettaChefViewController {
 	
 	@FXML
 	private void caricaViewRicetta(ActionEvent event) {  //CARICA VIEW NUOVA RICETTA DA CREARE
-		controller.creaRicetta(); //QUANDO ENTRO NELLA RICETTA CREO L'ISTANZA DELLA RICETTA
+		PubblicaRicettaController.creaRicetta(); //QUANDO ENTRO NELLA RICETTA CREO L'ISTANZA DELLA RICETTA
 		try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("NuovaRicettaView.fxml"));
             NuovaRicettaViewController nuovaRicettaViewController= NuovaRicettaViewController.ottieniIstanza();

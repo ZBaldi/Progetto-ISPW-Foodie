@@ -31,6 +31,7 @@ public class GestisciRicetteViewController {
 	private ControllerAdapter adattatoreLoginController = factory.creaLoginAdapter();
 	private boolean bottoneModifica = true;
 	private Stage primaryStage;
+	private static final String FORMATO = "Arial";
 	@FXML
 	private VBox contenitoreRicette;
 	@FXML
@@ -65,24 +66,28 @@ public class GestisciRicetteViewController {
 				Label labelNome = new Label(r.getNome());
 				labelNome.setMinWidth(313);
 				labelNome.setMinHeight(65);
-				labelNome.setFont(Font.font("Arial",20));
+				labelNome.setFont(Font.font(FORMATO,20));
 				labelNome.setAlignment(Pos.CENTER);
 				String difficolta="";
 				switch(r.getDifficolta()) {
-				case 1:
+					case 1:
 						difficolta="facile";
 						break;
-				case 2:
+					case 2:
 						difficolta="intermedio";
 						break;
-				case 3:
+					case 3:
 						difficolta="difficile";
 						break;
+					default:
+						System.err.println("difficoltà non riconosciuta");
+						contenitoreRicette.getChildren().clear();
+						return;
 				}
 				Label labelDifficolta = new Label(difficolta);
 				labelDifficolta.setMinWidth(313);
 				labelDifficolta.setMinHeight(65);
-				labelDifficolta.setFont(Font.font("Arial",20));
+				labelDifficolta.setFont(Font.font(FORMATO,20));
 				labelDifficolta.setAlignment(Pos.CENTER);
 				contenitoreRicettaSingola.getChildren().addAll(labelNome,labelDifficolta);
 				contenitoreRicette.getChildren().add(contenitoreRicettaSingola);
@@ -92,7 +97,7 @@ public class GestisciRicetteViewController {
 		}
 		if(contenitoreRicette.getChildren().isEmpty() && bottoneModifica==false) { //PER EVITARE CHE SE LE RICETTE è VUOTA RIMANGA ATTIVO IL BOTTONE E IL TESTO DELLA LABEL
 			bottoneModifica=true;
-			eliminaLabel.setFont(Font.font("Arial",30));//ESEMPIO PREMI MODIFICA CANCELLI L'ULTIMA RICETTA ALLORA SI DEVE DISATTIVARE LA MODIFICA
+			eliminaLabel.setFont(Font.font(FORMATO,30));//ESEMPIO PREMI MODIFICA CANCELLI L'ULTIMA RICETTA ALLORA SI DEVE DISATTIVARE LA MODIFICA
 			eliminaLabel.setText("");
 		}
 	}
@@ -103,7 +108,7 @@ public class GestisciRicetteViewController {
 		try {
 			if(bottoneModifica==false) { //resettare il bottone modifica se attivo
 				bottoneModifica=true;
-				eliminaLabel.setFont(Font.font("Arial",30));
+				eliminaLabel.setFont(Font.font(FORMATO,30));
 				eliminaLabel.setText("");
 			}
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("ContenutoRicettaChef.fxml"));
@@ -132,7 +137,7 @@ public class GestisciRicetteViewController {
 			label.setMaxWidth(Double.MAX_VALUE);
 			label.setMinHeight(50);
 			label.setWrapText(true);
-			label.setFont(Font.font("Arial",20));
+			label.setFont(Font.font(FORMATO,20));
 			contenitoreIngredienti.getChildren().add(label);
 		}
 	}
@@ -141,12 +146,12 @@ public class GestisciRicetteViewController {
 	private void modifica(ActionEvent event) {  //GESTISCE IL PULSANTE ELIMINA
 		if(bottoneModifica==true && !contenitoreRicette.getChildren().isEmpty()) {
 			bottoneModifica=false;
-			eliminaLabel.setFont(Font.font("Arial",20));
+			eliminaLabel.setFont(Font.font(FORMATO,20));
 			eliminaLabel.setText("CLICCA LA RICETTA DA ELIMINARE");
 		}
 		else if(bottoneModifica==false && !contenitoreRicette.getChildren().isEmpty()) {
 			bottoneModifica=true;
-			eliminaLabel.setFont(Font.font("Arial",30));
+			eliminaLabel.setFont(Font.font(FORMATO,30));
 			eliminaLabel.setText("");
 		}
 		impostaHBox();
@@ -175,25 +180,29 @@ public class GestisciRicetteViewController {
 				});
 			}
 		}
-		else {  //IMPSOTO DI APRIRE LE RICETTE CLICCATE
+		else {  //IMPOSTO DI APRIRE LE RICETTE CLICCATE
 			contenitoreRicette.getChildren().forEach(node -> {
 		        HBox contenitoreRicetta = (HBox) node;
 		        contenitoreRicetta.setOnMouseClicked(event -> {
 		            String nomeRicetta="";
 		            String difficoltaRicetta="";
 		            int indiceLabel=1;
-		            for (Node labelNode : contenitoreRicetta.getChildren()) {	        
-		                    Label label = (Label) labelNode;
-		                    if(indiceLabel==1)
-		                    	nomeRicetta=label.getText();
-		                    else {
-		                    	difficoltaRicetta=label.getText();
-		                    }
-		                    indiceLabel++;
-		            }
+		            popolaLabel(indiceLabel,contenitoreRicetta,nomeRicetta,difficoltaRicetta);
 		            caricaViewRicetta(nomeRicetta,difficoltaRicetta);
 		        });
 		    });
+		}
+	}
+	
+	private void popolaLabel(int indiceLabel,HBox contenitoreRicetta,String nomeRicetta, String difficoltaRicetta) {
+		for (Node labelNode : contenitoreRicetta.getChildren()) {	  //POPOLA LABEL USATO PER EVITARE SMELL COMPLESSITA'        
+            Label label = (Label) labelNode;
+            if(indiceLabel==1)
+            	nomeRicetta=label.getText();
+            else {
+            	difficoltaRicetta=label.getText();
+            }
+            indiceLabel++;
 		}
 	}
 	
@@ -215,7 +224,7 @@ public class GestisciRicetteViewController {
 	
 	@FXML
 	private void caricaViewRicetta() {  //CARICA VIEW NUOVA RICETTA DA CREARE
-		controller.creaRicetta(); //QUANDO ENTRO NELLA RICETTA CREO L'ISTANZA DELLA RICETTA
+		PubblicaRicettaController.creaRicetta(); //QUANDO ENTRO NELLA RICETTA CREO L'ISTANZA DELLA RICETTA
 		try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("NuovaRicettaView.fxml"));
             NuovaRicettaViewController nuovaRicettaViewController= NuovaRicettaViewController.ottieniIstanza();

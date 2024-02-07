@@ -39,6 +39,8 @@ public class NuovaRicettaView2Controller implements Observer{
 	private ControllerAdapter adattatoreLoginController= factory.creaLoginAdapter();
 	private ControllerAdapter adattatoreTrovaRicettaController=factory.creaTrovaRicettaAdapter();
 	private Stage primaryStage;
+	private static final String FORMATO = "Arial";
+	private static final String SFONDOBIANCO = "-fx-background-color: white;";
 	@FXML
 	private Button areaPersonaleButton;
 	@FXML
@@ -285,11 +287,11 @@ public class NuovaRicettaView2Controller implements Observer{
 			quantita.setDisable(false);
 			for(AlimentoBean a: alimentiBeanTrovati) {
 				Label labelAlimento = new Label(a.getNome());
-				labelAlimento.setStyle("-fx-background-color: white;");
+				labelAlimento.setStyle(SFONDOBIANCO);
 				labelAlimento.setMaxWidth(Double.MAX_VALUE);
 				labelAlimento.setMinHeight(30);
 				labelAlimento.setWrapText(true);
-				labelAlimento.setFont(Font.font("Arial"));
+				labelAlimento.setFont(Font.font(FORMATO));
 				labelAlimento.setAlignment(Pos.CENTER);  //LI RENDE CLICCABILI
 				labelAlimento.setOnMouseClicked(event2->{salvaAlimento(labelAlimento.getText(),quantita.getText());});
 				contenitoreAlimentiTrovati.getChildren().add(labelAlimento);
@@ -297,11 +299,11 @@ public class NuovaRicettaView2Controller implements Observer{
 		}
 		else {  //NESSUN RISULTATO
 			Label label = new Label("NESSUN RISULTATO");
-			label.setStyle("-fx-background-color: white;");
+			label.setStyle(SFONDOBIANCO);
 			label.setMaxWidth(Double.MAX_VALUE);
 			label.setMinHeight(30);
 			label.setWrapText(true);
-			label.setFont(Font.font("Arial"));
+			label.setFont(Font.font(FORMATO));
 			label.setAlignment(Pos.CENTER);
 			contenitoreAlimentiTrovati.getChildren().add(label);
 		}
@@ -313,11 +315,11 @@ public class NuovaRicettaView2Controller implements Observer{
 		if(alimentiBeanRicetta!=null) {
 			for(AlimentoBean a: alimentiBeanRicetta) {
 				Label labelAlimento = new Label(a.getNome());
-				labelAlimento.setStyle("-fx-background-color: white;");
+				labelAlimento.setStyle(SFONDOBIANCO);
 				labelAlimento.setMaxWidth(Double.MAX_VALUE);
 				labelAlimento.setMinHeight(50);
 				labelAlimento.setWrapText(true);
-				labelAlimento.setFont(Font.font("Arial",20));
+				labelAlimento.setFont(Font.font(FORMATO,20));
 				labelAlimento.setAlignment(Pos.CENTER);
 				ingredienti.getChildren().add(labelAlimento);
 			}

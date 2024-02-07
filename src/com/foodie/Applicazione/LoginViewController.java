@@ -117,65 +117,10 @@ public class LoginViewController {
 			} else {
 				interfaccia = 2;
 			}
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(controller.ottieniView(interfaccia)));  // SFRUTTI POLIMORFISMO NEL CONTROLLER PER OTTENERE LA VIEW CORRETTA
 			try {
+				FXMLLoader loader = new FXMLLoader(getClass().getResource(controller.ottieniView(interfaccia)));  // SFRUTTI POLIMORFISMO NEL CONTROLLER PER OTTENERE LA VIEW CORRETTA
 	            Parent root=null;	            
-	            switch (ruolo) { 
-	                case "Standard":  //SE STANDARD CARICHI LE INTERFACCE RELATIVE PER L'UTENTE STANDARD
-	                	Dispensa dispensa = Dispensa.ottieniIstanza();
-	                	dispensa.svuotaDispensa();
-	                    if (interfaccia == 1) {
-	                    	DispensaUtenteViewController controllerDispensa = DispensaUtenteViewController.ottieniIstanza();
-	                        loader.setController(controllerDispensa);
-	                        controller2.registraOsservatore(controllerDispensa, 1);
-	                        root = loader.load();
-	                        controllerDispensa.setPrimaryStage(primaryStage);
-	                    } else {
-	                        AggiungiAlimentoView2Controller controllerAlimenti = AggiungiAlimentoView2Controller.ottieniIstanza();
-	                        loader.setController(controllerAlimenti);
-	                        root = loader.load();
-	                        controllerAlimenti.setPrimaryStage(primaryStage);
-	                    }
-	                    controller.caricaDispense();
-	                    break;
-	                case "Chef": //SE CHEF CARICHI LE INTERFACCE RELATIVE PER L'UTENTE CHEF
-	                    if (interfaccia == 1) {
-	                    	AreaPersonaleViewController controllerAreaPersonale = AreaPersonaleViewController.ottieniIstanza();
-	                        loader.setController(controllerAreaPersonale);
-	                        root = loader.load();
-	                        controllerAreaPersonale.setPrimaryStage(primaryStage);
-	                        controllerAreaPersonale.caricaAreaPersonale();
-	                        controllerAreaPersonale.aggiornaView();
-	                    } else {
-	                        AreaPersonaleView2Controller areaPersonaleController = AreaPersonaleView2Controller.ottieniIstanza();
-	                        loader.setController(areaPersonaleController);
-	                        root = loader.load();
-	                        areaPersonaleController.setPrimaryStage(primaryStage);
-	                        areaPersonaleController.caricaAreaPersonale();
-	                        areaPersonaleController.aggiornaView();
-	                    }
-	                    break;
-	                case "Moderatore": //SE MODERATORE CARICHI LE INTERFACCE RELATIVE PER L'UTENTE MODERATORE    
-	                	if (interfaccia == 1) {
-	                    	ModeratoreViewController controllerModeratore= ModeratoreViewController.ottieniIstanza();
-	                        loader.setController(controllerModeratore);
-	                        controller2.registraOsservatore(controllerModeratore,3);
-	                        root = loader.load();
-	                        controllerModeratore.setPrimaryStage(primaryStage);
-	                        controllerModeratore.aggiornaView();
-	                    } else {
-	                    	ModeratoreView2Controller controllerModeratore2= ModeratoreView2Controller.ottieniIstanza();
-	                        loader.setController(controllerModeratore2);
-	                        controller2.registraOsservatore(controllerModeratore2,3);
-	                        root = loader.load();
-	                        controllerModeratore2.setPrimaryStage(primaryStage);
-	                        controllerModeratore2.aggiornaView();
-	                    }
-	                    break;
-	            }  
-	            Scene scene = new Scene(root);
-	            primaryStage.setScene(scene);
-	            primaryStage.show();
+	            caricaViewEController(loader,ruolo,root); //CARICA VIEW CORRETTA
 	        }catch (IOException e) {
 	            e.printStackTrace();
 	        }
@@ -183,6 +128,68 @@ public class LoginViewController {
 		else {  	//SE TIPO ==-1 ERRORE NEL LOGIN
 			loginMessageLabel.setText("credenziali errate. Se non hai ancora un account, registrati.");
 		}
+	}
+	
+	private void caricaViewEController(FXMLLoader loader,String ruolo,Parent root) throws IOException{ //METODO PER CARICARE LA VIEW CORRETTA  PER EVITARE COMPLESSITA' SMELL       
+        switch (ruolo) { 
+            case "Standard":  //SE STANDARD CARICHI LE INTERFACCE RELATIVE PER L'UTENTE STANDARD
+            	Dispensa dispensa = Dispensa.ottieniIstanza();
+            	dispensa.svuotaDispensa();
+                if (interfaccia == 1) {
+                	DispensaUtenteViewController controllerDispensa = DispensaUtenteViewController.ottieniIstanza();
+                    loader.setController(controllerDispensa);
+                    controller2.registraOsservatore(controllerDispensa, 1);
+                    root = loader.load();
+                    controllerDispensa.setPrimaryStage(primaryStage);
+                } else {
+                    AggiungiAlimentoView2Controller controllerAlimenti = AggiungiAlimentoView2Controller.ottieniIstanza();
+                    loader.setController(controllerAlimenti);
+                    root = loader.load();
+                    controllerAlimenti.setPrimaryStage(primaryStage);
+                }
+                controller.caricaDispense();
+                break;
+            case "Chef": //SE CHEF CARICHI LE INTERFACCE RELATIVE PER L'UTENTE CHEF
+                if (interfaccia == 1) {
+                	AreaPersonaleViewController controllerAreaPersonale = AreaPersonaleViewController.ottieniIstanza();
+                    loader.setController(controllerAreaPersonale);
+                    root = loader.load();
+                    controllerAreaPersonale.setPrimaryStage(primaryStage);
+                    controllerAreaPersonale.caricaAreaPersonale();
+                    controllerAreaPersonale.aggiornaView();
+                } else {
+                    AreaPersonaleView2Controller areaPersonaleController = AreaPersonaleView2Controller.ottieniIstanza();
+                    loader.setController(areaPersonaleController);
+                    root = loader.load();
+                    areaPersonaleController.setPrimaryStage(primaryStage);
+                    areaPersonaleController.caricaAreaPersonale();
+                    areaPersonaleController.aggiornaView();
+                }
+                break;
+            case "Moderatore": //SE MODERATORE CARICHI LE INTERFACCE RELATIVE PER L'UTENTE MODERATORE    
+            	if (interfaccia == 1) {
+                	ModeratoreViewController controllerModeratore= ModeratoreViewController.ottieniIstanza();
+                    loader.setController(controllerModeratore);
+                    controller2.registraOsservatore(controllerModeratore,3);
+                    root = loader.load();
+                    controllerModeratore.setPrimaryStage(primaryStage);
+                    controllerModeratore.aggiornaView();
+                } else {
+                	ModeratoreView2Controller controllerModeratore2= ModeratoreView2Controller.ottieniIstanza();
+                    loader.setController(controllerModeratore2);
+                    controller2.registraOsservatore(controllerModeratore2,3);
+                    root = loader.load();
+                    controllerModeratore2.setPrimaryStage(primaryStage);
+                    controllerModeratore2.aggiornaView();
+                }
+                break;
+            default:
+                System.err.println("Ruolo non riconosciuto: " + ruolo);
+                throw new IllegalArgumentException("Ruolo non riconosciuto: " + ruolo);
+        }
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();
 	}
 	
 	public void creaAccount() {  //CARICA LA VIEW PER LA PAGINA DI REGISTRAZIONE

@@ -27,6 +27,7 @@ public class ModeratoreView2Controller implements Observer{
 	private ControllerAdapter adattatorePubblicaRicettaController= factory.creaPubblicaRicettaAdapter();
 	private static ModeratoreView2Controller istanza;
 	private Stage primaryStage;
+	private static final String FORMATO = "Arial";
 	@FXML
 	private TextArea descrizioneTextArea;
 	@FXML
@@ -75,13 +76,13 @@ public class ModeratoreView2Controller implements Observer{
 				contenitoreRicetta.setSpacing(10);
 				
 			    Label labelNome = new Label(r.getNome());
-			    labelNome.setFont(Font.font("Arial", 20));
+			    labelNome.setFont(Font.font(FORMATO, 20));
 
 			    Label labelAutore = new Label(r.getAutore());
-			    labelAutore.setFont(Font.font("Arial", 20));			    
+			    labelAutore.setFont(Font.font(FORMATO, 20));			    
 			 
 			    Label labelDescrizione = new Label("Descrizione: "+r.getDescrizione());
-			    labelDescrizione.setFont(Font.font("Arial", 20));
+			    labelDescrizione.setFont(Font.font(FORMATO, 20));
 			    labelDescrizione.setWrapText(true);
 			    
 			    contenitoreRicetta.getChildren().addAll(labelNome,labelAutore,labelDescrizione);

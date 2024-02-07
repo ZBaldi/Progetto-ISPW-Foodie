@@ -27,7 +27,8 @@ public class TrovaRicetteViewController {
 	private AdattatoreFactory factory = AdattatoreFactory.ottieniIstanza();
 	private TrovaRicettaController controller = TrovaRicettaController.ottieniIstanza();
 	private ControllerAdapter adattatoreTrovaRicettaController= factory.creaTrovaRicettaAdapter();
-	private Stage primaryStage;	
+	private Stage primaryStage;
+	private static final String FORMATO = "Arial";
 	@FXML
 	private VBox contenitoreRicette;
 	@FXML
@@ -104,6 +105,9 @@ public class TrovaRicetteViewController {
 			case "Difficile":	
 					trovaRicette(3);
 					break;
+			default:
+				System.err.println("difficoltà non riconosciuta");
+				contenitoreRicette.getChildren().clear();
 		}
 	}
 	
@@ -114,7 +118,7 @@ public class TrovaRicetteViewController {
 				label.setMaxWidth(Double.MAX_VALUE);
 				label.setMinHeight(110);
 				label.setWrapText(true);
-				label.setFont(Font.font("Arial",50));
+				label.setFont(Font.font(FORMATO,50));
 				label.setAlignment(Pos.CENTER);
 				contenitoreRicette.getChildren().add(label);
 		}
@@ -133,12 +137,12 @@ public class TrovaRicetteViewController {
 				Label labelNome = new Label(r.getNome());
 				labelNome.setMinWidth(313);
 				labelNome.setMinHeight(65);
-				labelNome.setFont(Font.font("Arial",20));
+				labelNome.setFont(Font.font(FORMATO,20));
 				labelNome.setAlignment(Pos.CENTER);
 				Label labelAutore = new Label(r.getAutore());
 				labelAutore.setMinWidth(313);
 				labelAutore.setMinHeight(65);
-				labelAutore.setFont(Font.font("Arial",20));
+				labelAutore.setFont(Font.font(FORMATO,20));
 				labelAutore.setAlignment(Pos.CENTER);
 				String difficolta="";
 				switch(difficoltaInt) {
@@ -151,41 +155,49 @@ public class TrovaRicetteViewController {
 				case 3:
 						difficolta="difficile";
 						break;
+				default:
+					System.err.println("difficoltà non riconosciuta");
+					contenitoreRicette.getChildren().clear();
+					return -1;
 				}
 				Label labelDifficolta = new Label(difficolta);
 				labelDifficolta.setMinWidth(313);
 				labelDifficolta.setMinHeight(65);
-				labelDifficolta.setFont(Font.font("Arial",20));
+				labelDifficolta.setFont(Font.font(FORMATO,20));
 				labelDifficolta.setAlignment(Pos.CENTER);
 				contenitoreRicettaSingola.getChildren().addAll(labelNome,labelAutore,labelDifficolta);
 				contenitoreRicette.getChildren().add(contenitoreRicettaSingola);
 			}
-			contenitoreRicette.getChildren().forEach(node -> {  //E' LA PARTE DI SETTAGGIO DELLE LABEL CLICCABILI
-		        HBox contenitoreRicetta = (HBox) node;
-		        contenitoreRicetta.setOnMouseClicked(event2 -> {
-		            String nomeRicetta="";
-		            String autoreRicetta="";
-		            String difficoltaRicetta="";
-		            int indiceLabel=1;
-		            for (Node labelNode : contenitoreRicetta.getChildren()) {	        
-		                    Label label = (Label) labelNode;
-		                    if(indiceLabel==1)
-		                    	nomeRicetta=label.getText();
-		                    else if(indiceLabel==2)
-		                    	autoreRicetta=label.getText();
-		                    else {
-		                    	difficoltaRicetta=label.getText();
-		                    }
-		                    indiceLabel++;
-		            }
-		            caricaViewRicetta(nomeRicetta, autoreRicetta, difficoltaRicetta);  //SE CLICCATA LA APRE
-		        });
-		    });
+			impostaHBox();  //RENDO RICETTE CLICCABILI
 			return 1;  //SE TROVATA ALMENO 1
 		}
 		else {
 			return -1; //SE NON TROVATE
 		}
+	}
+	
+	private void impostaHBox() {  //METODO CHE IMPOSTA CLICCABILI LE RICETTE TROVATE
+		contenitoreRicette.getChildren().forEach(node -> {  //E' LA PARTE DI SETTAGGIO DELLE LABEL CLICCABILI
+	        HBox contenitoreRicetta = (HBox) node;
+	        contenitoreRicetta.setOnMouseClicked(event2 -> {
+	            String nomeRicetta="";
+	            String autoreRicetta="";
+	            String difficoltaRicetta="";
+	            int indiceLabel=1;
+	            for (Node labelNode : contenitoreRicetta.getChildren()) {	        
+	                    Label label = (Label) labelNode;
+	                    if(indiceLabel==1)
+	                    	nomeRicetta=label.getText();
+	                    else if(indiceLabel==2)
+	                    	autoreRicetta=label.getText();
+	                    else {
+	                    	difficoltaRicetta=label.getText();
+	                    }
+	                    indiceLabel++;
+	            }
+	            caricaViewRicetta(nomeRicetta, autoreRicetta, difficoltaRicetta);  //SE CLICCATA LA APRE
+	        });
+	    });
 	}
 	
 	public void caricaViewRicetta(String nomeRicetta,String autoreRicetta,String difficoltaRicetta) {  //CARICA VIEW CONTENUTO RICETTA
@@ -218,7 +230,7 @@ public class TrovaRicetteViewController {
 			label.setMaxWidth(Double.MAX_VALUE);
 			label.setMinHeight(50);
 			label.setWrapText(true);
-			label.setFont(Font.font("Arial",20));
+			label.setFont(Font.font(FORMATO,20));
 			contenitoreIngredienti.getChildren().add(label);
 		}
 	}

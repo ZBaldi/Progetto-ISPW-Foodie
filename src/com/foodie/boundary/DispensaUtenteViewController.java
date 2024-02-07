@@ -38,6 +38,10 @@ public class DispensaUtenteViewController implements Observer {
 	private ArrayList<AlimentoBean> alimentiBeanTrovati;
 	private ArrayList<AlimentoBean> alimentiBeanDispensa;
 	private boolean bottoneModifica = true;
+	private static final String FORMATO = "Arial";
+	private static final String DISPENSA = "La mia Dispensa";
+	private static final String SFONDOBIANCO = "-fx-background-color: white;";
+	
 	private Stage primaryStage;
 	@FXML
 	private TextField barraDiRicerca;
@@ -72,8 +76,8 @@ public class DispensaUtenteViewController implements Observer {
 		try {
 			if(bottoneModifica==false) { //resettare il bottone modifica se attivo
 				bottoneModifica=true;
-				labelDispensa.setFont(Font.font("Arial",30));
-				labelDispensa.setText("La mia Dispensa");
+				labelDispensa.setFont(Font.font(FORMATO,30));
+				labelDispensa.setText(DISPENSA);
 			}
             FXMLLoader loader = new FXMLLoader(getClass().getResource("TrovaRicetteView.fxml"));
             TrovaRicetteViewController trovaRicetteViewController = TrovaRicetteViewController.ottieniIstanza();
@@ -103,7 +107,7 @@ public class DispensaUtenteViewController implements Observer {
 			label.setMaxWidth(Double.MAX_VALUE);
 			label.setMinHeight(110);
 			label.setWrapText(true);
-			label.setFont(Font.font("Arial",50));
+			label.setFont(Font.font(FORMATO,50));
 			label.setAlignment(Pos.CENTER);
 			contenitoreRicette.getChildren().add(label);
 		}
@@ -115,8 +119,8 @@ public class DispensaUtenteViewController implements Observer {
 		try {
 			if(bottoneModifica==false) { //resettare il bottone modifica se attivo
 				bottoneModifica=true;
-				labelDispensa.setFont(Font.font("Arial",30));
-				labelDispensa.setText("La mia Dispensa");
+				labelDispensa.setFont(Font.font(FORMATO,30));
+				labelDispensa.setText(DISPENSA);
 			}
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/Applicazione/LoginView.fxml"));
             LoginViewController loginViewController = LoginViewController.ottieniIstanza();
@@ -146,11 +150,11 @@ public class DispensaUtenteViewController implements Observer {
 			if(alimentiBeanTrovati!=null) {
 				for(AlimentoBean a: alimentiBeanTrovati) {
 					Label labelAlimento = new Label(a.getNome());
-					labelAlimento.setStyle("-fx-background-color: white;");
+					labelAlimento.setStyle(SFONDOBIANCO);
 					labelAlimento.setMaxWidth(Double.MAX_VALUE);
 					labelAlimento.setMinHeight(30);
 					labelAlimento.setWrapText(true);
-					labelAlimento.setFont(Font.font("Arial"));
+					labelAlimento.setFont(Font.font(FORMATO));
 					labelAlimento.setAlignment(Pos.CENTER);
 					labelAlimento.setOnMouseClicked(event2->{salvaAlimento(labelAlimento.getText());eliminaAlimenti();});
 					contenitoreAlimentiTrovati.getChildren().add(labelAlimento);
@@ -158,11 +162,11 @@ public class DispensaUtenteViewController implements Observer {
 			}
 			else {  //NESSUN RISULTATO
 				Label label = new Label("NESSUN RISULTATO");
-				label.setStyle("-fx-background-color: white;");
+				label.setStyle(SFONDOBIANCO);
 				label.setMaxWidth(Double.MAX_VALUE);
 				label.setMinHeight(30);
 				label.setWrapText(true);
-				label.setFont(Font.font("Arial"));
+				label.setFont(Font.font(FORMATO));
 				label.setAlignment(Pos.CENTER);
 				contenitoreAlimentiTrovati.getChildren().add(label);
 			}
@@ -189,11 +193,11 @@ public class DispensaUtenteViewController implements Observer {
 		if(alimentiBeanDispensa!=null) {
 			for(AlimentoBean a: alimentiBeanDispensa) {
 				Label labelAlimento = new Label(a.getNome());
-				labelAlimento.setStyle("-fx-background-color: white;");
+				labelAlimento.setStyle(SFONDOBIANCO);
 				labelAlimento.setMaxWidth(Double.MAX_VALUE);
 				labelAlimento.setMinHeight(50);
 				labelAlimento.setWrapText(true);
-				labelAlimento.setFont(Font.font("Arial",20));
+				labelAlimento.setFont(Font.font(FORMATO,20));
 				labelAlimento.setAlignment(Pos.CENTER);
 				contenitoreDispensa.getChildren().add(labelAlimento);
 			}
@@ -201,8 +205,8 @@ public class DispensaUtenteViewController implements Observer {
 		}
 		if(contenitoreDispensa.getChildren().isEmpty() && bottoneModifica==false) { //PER EVITARE CHE SE LA DISPENSA è VUOTA RIMANGA ATTIVO IL BOTTONE E IL TESTO DELLA LABEL
 			bottoneModifica=true;
-			labelDispensa.setFont(Font.font("Arial",30));//ESEMPIO PREMI MODIFICA CANCELLI L'ULTIMO ELEMENTO DELLA DISPENSA ALLORA SI DEVE DISATTIVARE LA MODIFICA
-			labelDispensa.setText("La mia Dispensa");
+			labelDispensa.setFont(Font.font(FORMATO,30));//ESEMPIO PREMI MODIFICA CANCELLI L'ULTIMO ELEMENTO DELLA DISPENSA ALLORA SI DEVE DISATTIVARE LA MODIFICA
+			labelDispensa.setText(DISPENSA);
 		}
 	}
 	
@@ -210,14 +214,14 @@ public class DispensaUtenteViewController implements Observer {
 	private void modificaDispensa(ActionEvent e) {  //GESTISCE IL BOTTONE MODIFICA
 		if(bottoneModifica==true && !contenitoreDispensa.getChildren().isEmpty()) {
 			bottoneModifica=false;
-			labelDispensa.setFont(Font.font("Arial",20));
+			labelDispensa.setFont(Font.font(FORMATO,20));
 			labelDispensa.setText("CLICCA L'ALIMENTO DA ELIMINARE");
 			impostaLabel();
 		}
 		else if(bottoneModifica==false && !contenitoreDispensa.getChildren().isEmpty()) {
 			bottoneModifica=true;
-			labelDispensa.setFont(Font.font("Arial",30));
-			labelDispensa.setText("La mia Dispensa");
+			labelDispensa.setFont(Font.font(FORMATO,30));
+			labelDispensa.setText(DISPENSA);
 			impostaLabel();
 		}
 	}

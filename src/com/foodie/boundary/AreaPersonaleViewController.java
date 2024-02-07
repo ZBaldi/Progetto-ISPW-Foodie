@@ -24,7 +24,6 @@ public class AreaPersonaleViewController{
 	private AdattatoreFactory factory = AdattatoreFactory.ottieniIstanza();
 	private LoginController controller = LoginController.ottieniIstanza();
 	private ControllerAdapter adattatoreLoginController = factory.creaLoginAdapter();
-	private PubblicaRicettaController controller2 = PubblicaRicettaController.ottieniIstanza();
 	private Stage primaryStage;
 	@FXML
     private ImageView tornaAlLoginImageView;
@@ -94,7 +93,7 @@ public class AreaPersonaleViewController{
 	
 	@FXML
 	private void caricaViewRicetta(ActionEvent event) {  //CARICA VIEW DELLA RICETTA NUOVA DA CREARE
-		controller2.creaRicetta(); //QUANDO ENTRO NELLA RICETTA CREO L'ISTANZA DELLA RICETTA
+		PubblicaRicettaController.creaRicetta(); //QUANDO ENTRO NELLA RICETTA CREO L'ISTANZA DELLA RICETTA
 		try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("NuovaRicettaView.fxml"));
             NuovaRicettaViewController nuovaRicettaViewController= NuovaRicettaViewController.ottieniIstanza();

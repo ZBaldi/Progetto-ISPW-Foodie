@@ -76,6 +76,9 @@ public class NuovaRicettaViewController {
 				difficile.setSelected(true);
 				disabilitaPulsanti(null);
 				break;
+		default:
+			System.err.println("difficoltà non riconosciuta");
+			disabilitaPulsanti(null);
 		}
 	}
 	
