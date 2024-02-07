@@ -122,7 +122,7 @@ public class AreaPersonaleViewController{
 		UtenteBean utenteBean=adattatoreLoginController.ottieniUtente();
 		Map<String,String> areaPersonaleMap=controller.caricaAreaPersonale();
 		String descrizione="";
-		if(areaPersonaleMap!=null) {
+		if(!areaPersonaleMap.isEmpty()) {
 			descrizione= areaPersonaleMap.get(utenteBean.getUsername());
 		}
 		descrizioneTextField.setText(descrizione);

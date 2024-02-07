@@ -145,7 +145,7 @@ public class DispensaUtenteViewController implements Observer {
 	
 	private void trovaAlimenti() {  //GESTISCE IL TROVA ALIMENTI
 			List<AlimentoBean> alimentiBeanTrovati=adattatoreTrovaRicettaController.trovaGliAlimenti(barraDiRicerca.getText());
-			if(alimentiBeanTrovati!=null) {
+			if(!alimentiBeanTrovati.isEmpty()) {
 				for(AlimentoBean a: alimentiBeanTrovati) {
 					Label labelAlimento = new Label(a.getNome());
 					labelAlimento.setStyle(SFONDOBIANCO);
@@ -188,7 +188,7 @@ public class DispensaUtenteViewController implements Observer {
 			contenitoreDispensa.getChildren().clear();
 		}
 		List<AlimentoBean> alimentiBeanDispensa =adattatoreTrovaRicettaController.mostraLaDispensa();
-		if(alimentiBeanDispensa!=null) {
+		if(!alimentiBeanDispensa.isEmpty()) {
 			for(AlimentoBean a: alimentiBeanDispensa) {
 				Label labelAlimento = new Label(a.getNome());
 				labelAlimento.setStyle(SFONDOBIANCO);

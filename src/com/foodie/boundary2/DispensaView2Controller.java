@@ -112,7 +112,7 @@ public class DispensaView2Controller implements Observer{
 	public void aggiornaView() {  //AGGIORNA LA VIEW IN FUNZIONE DELLA DISPENSA
 		contenitoreDispensa.getChildren().clear();
 		List<AlimentoBean> alimentiBeanDispensa =adattatoreTrovaRicettaController.mostraLaDispensa();
-		if(alimentiBeanDispensa!=null) {
+		if(!alimentiBeanDispensa.isEmpty()) {
 			for(AlimentoBean a: alimentiBeanDispensa) {
 				Label labelAlimento = new Label(a.getNome());
 				labelAlimento.setStyle("-fx-background-color: white;");

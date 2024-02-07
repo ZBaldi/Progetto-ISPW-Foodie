@@ -54,7 +54,7 @@ public class GestisciRicetteView2Controller {
 		contenitoreRicette.getChildren().clear();
 		UtenteBean utenteBean=adattatoreLoginController.ottieniUtente();
 		ricetteTrovate=adattatoreTrovaRicettaController.trovaLeRicette(0,utenteBean.getUsername());
-		if(ricetteTrovate!=null) {
+		if(!ricetteTrovate.isEmpty()) {
 			contenitoreRicette.getChildren().clear();
 			for(RicettaBean r: ricetteTrovate) {
 				String difficolta="";

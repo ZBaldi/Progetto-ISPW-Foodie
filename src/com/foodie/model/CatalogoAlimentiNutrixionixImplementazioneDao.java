@@ -76,7 +76,7 @@ public class CatalogoAlimentiNutrixionixImplementazioneDao implements CatalogoAl
             	logger.warning(warning);
             }
             connessione.disconnect();
-            if(alimentiTrovati !=null && !alimentiTrovati.isEmpty()) {
+            if(!alimentiTrovati.isEmpty()) {
             	return alimentiTrovati;
             }
             else {

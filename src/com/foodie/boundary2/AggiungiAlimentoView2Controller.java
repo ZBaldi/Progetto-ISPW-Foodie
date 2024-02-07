@@ -117,7 +117,7 @@ public class AggiungiAlimentoView2Controller {
 	
 	private void trovaAlimenti() {  //METODO TROVA ALIMENTI
 		List<AlimentoBean> alimentiBeanTrovati=adattatoreTrovaRicettaController.trovaGliAlimenti(barraDiRicerca.getText());
-		if(alimentiBeanTrovati!=null) {
+		if(!alimentiBeanTrovati.isEmpty()) {
 			for(AlimentoBean a: alimentiBeanTrovati) {
 				Label labelAlimento = new Label(a.getNome());
 				labelAlimento.setStyle("-fx-background-color: white;");

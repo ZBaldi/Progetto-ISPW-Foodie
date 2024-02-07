@@ -284,7 +284,7 @@ public class NuovaRicettaView2Controller implements Observer{
 	
 	private void trovaAlimenti() {  //TROVA GLI ALIMENTI
 		List<AlimentoBean> alimentiBeanTrovati=adattatoreTrovaRicettaController.trovaGliAlimenti(barraDiRicerca.getText());
-		if(alimentiBeanTrovati!=null) {
+		if(!alimentiBeanTrovati.isEmpty()) {
 			quantita.setDisable(false);
 			for(AlimentoBean a: alimentiBeanTrovati) {
 				Label labelAlimento = new Label(a.getNome());
@@ -313,7 +313,7 @@ public class NuovaRicettaView2Controller implements Observer{
 	public void aggiornaView() {  //AGGIORNA GLI INGREDIENTI IN FUNZIONE DEI CAMBIAMENTI DELLA RICETTA
 		ingredienti.getChildren().clear();
 		List<AlimentoBean> alimentiBeanRicetta =adattatorePubblicaRicettaController.mostraIngredientiRicetta();
-		if(alimentiBeanRicetta!=null) {
+		if(!alimentiBeanRicetta.isEmpty()) {
 			for(AlimentoBean a: alimentiBeanRicetta) {
 				Label labelAlimento = new Label(a.getNome());
 				labelAlimento.setStyle(SFONDOBIANCO);

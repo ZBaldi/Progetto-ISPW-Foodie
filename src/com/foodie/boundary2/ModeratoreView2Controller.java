@@ -71,7 +71,7 @@ public class ModeratoreView2Controller implements Observer{
 	public void aggiornaView() {  //AGGIORNA VIEW IN FUZNIONE DELLE RICETTE DA APPROVARE , LE MOSTRA SUBITO COMPLETE 
 		contenitoreRicetteDaApprovare.getChildren().clear();
 		List<RicettaBean> ricetteBean =adattatorePubblicaRicettaController.mostraLeRicetteDaApprovare();
-		if(ricetteBean!=null) {
+		if(!ricetteBean.isEmpty()) {
 			for(RicettaBean r: ricetteBean) {
 				VBox contenitoreRicetta = new VBox();
 				contenitoreRicetta.setStyle("-fx-background-color: rgba(217, 217, 217, 0.75);-fx-border-color: black;");

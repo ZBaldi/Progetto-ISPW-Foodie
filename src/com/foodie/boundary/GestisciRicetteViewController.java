@@ -59,7 +59,7 @@ public class GestisciRicetteViewController {
 		contenitoreRicette.getChildren().clear();
 		UtenteBean utenteBean=adattatoreLoginController.ottieniUtente();
 		ricetteTrovate=adattatoreTrovaRicettaController.trovaLeRicette(0,utenteBean.getUsername());  //TROVO PER USERNAME CHEF
-		if(ricetteTrovate!=null) {
+		if(!ricetteTrovate.isEmpty()) {
 			for(RicettaBean r: ricetteTrovate) {  //CREO VARIE PARTI GRAFICHE
 				HBox contenitoreRicettaSingola = new HBox();
 				contenitoreRicettaSingola.setAlignment(Pos.CENTER_LEFT);

@@ -50,7 +50,7 @@ public class ModeratoreViewController implements Observer{
 		contenitoreRicetteDaApprovare.getChildren().clear();
 		contenitoreContenutoRicetta.getChildren().clear();
 		List<RicettaBean> ricetteBean =adattatorePubblicaRicettaController.mostraLeRicetteDaApprovare();
-		if(ricetteBean!=null) {
+		if(!ricetteBean.isEmpty()) {
 			for(RicettaBean r: ricetteBean) {
 				Label labelRicetta = new Label(r.getNome());
 				labelRicetta.setStyle(SFONDOBIANCO);

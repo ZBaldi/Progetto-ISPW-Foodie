@@ -152,7 +152,7 @@ public class TrovaRicettaView2Controller {
 			contenitoreRicette.getChildren().add(label);
 			return;
 		}
-		if(ricetteTrovate!=null) {
+		if(!ricetteTrovate.isEmpty()) {
 			contenitoreRicette.getChildren().clear();  //SE RICETTE TROVATE MOSTRA TUTTO IL CONTENUTO DELLE RICETTE
 			for(RicettaBean r: ricetteTrovate) {      //CREA VBOX E LABEL UNA DI SEGUITO ALL'ALTRA
 				VBox contenitoreRicetta = new VBox();
