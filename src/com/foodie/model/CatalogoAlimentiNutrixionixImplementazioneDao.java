@@ -70,16 +70,18 @@ public class CatalogoAlimentiNutrixionixImplementazioneDao implements CatalogoAl
                 }
                 lettore.close();
                 alimentiTrovati=estraiFoodName(risposta.toString());  // applico il metodo che deserializza la stringa json ottenuta per ottenere i nomi degli alimenti
+                connessione.disconnect();
+                if(!alimentiTrovati.isEmpty()) {
+                	return alimentiTrovati;
+                }
+                else {
+                	return new ArrayList<>();
+                }
             }
             else {
             	String warning= "Errore: codice di risposta " + codiceDiRisposta;
             	logger.warning(warning);
-            }
-            connessione.disconnect();
-            if(!alimentiTrovati.isEmpty()) {
-            	return alimentiTrovati;
-            }
-            else {
+            	connessione.disconnect();
             	return new ArrayList<>();
             }
 		}catch(Exception e) {
