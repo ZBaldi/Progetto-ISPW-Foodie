@@ -6,7 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-
+import java.util.logging.Logger;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -18,6 +18,7 @@ public class CatalogoAlimentiNutrixionixImplementazioneDao implements CatalogoAl
 	private static final String API_URL = "https://trackapi.nutritionix.com/v2/search/instant";
 	private static final String APP_ID = "103947a7";
 	private static final String API_KEY = "726892d58f85bf82f8f8ab4171671c42";
+	private static final Logger logger = Logger.getLogger(CatalogoAlimentiNutrixionixImplementazioneDao.class.getName());
 	
 	private CatalogoAlimentiNutrixionixImplementazioneDao(){
 	}
@@ -39,12 +40,12 @@ public class CatalogoAlimentiNutrixionixImplementazioneDao implements CatalogoAl
 			return alimenti;
 		} catch (JsonMappingException e) {
 			e.printStackTrace();
-			System.err.println("PROBLEMA LIBRERIA JSON MAPPING");
-			return null;
+			logger.severe("PROBLEMA LIBRERIA JSON MAPPING");
+			return new ArrayList<Alimento>();
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
-			System.err.println("PROBLEMA LIBRERIA JSON");
-			return null;
+			logger.severe("PROBLEMA LIBRERIA JSON");
+			return new ArrayList<Alimento>();
 		}
 	}
 	
@@ -83,9 +84,9 @@ public class CatalogoAlimentiNutrixionixImplementazioneDao implements CatalogoAl
             }
 		}catch(Exception e) {
 			e.printStackTrace();
-			System.err.println("PROBLEMA CON LA CONNESSIONE HTTML PER L'UTILIZZO DELL'API NUTRIXIONIX");
+			logger.severe("PROBLEMA CON LA CONNESSIONE HTTML PER L'UTILIZZO DELL'API NUTRIXIONIX");
 			System.out.println("L'API sta dando problemi... riprova in seguito");
-			return null;
+			return new ArrayList<Alimento>();
 		}
 	}
 

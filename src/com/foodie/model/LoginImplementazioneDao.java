@@ -3,6 +3,7 @@ package com.foodie.model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class LoginImplementazioneDao implements LoginDao{
@@ -11,7 +12,7 @@ public class LoginImplementazioneDao implements LoginDao{
 	private static final String UTENTE = "root";
     private static final String PASSWORD = "root"; 
     private static final String DATABASEURL = "jdbc:mysql://localhost:3306/user_credentials";
-    private static final String DRIVERMYSQL = "com.mysql.jdbc.Driver";
+    //private static final String DRIVERMYSQL = "com.mysql.jdbc.Driver";
     
     private LoginImplementazioneDao() {
     }
@@ -24,11 +25,11 @@ public class LoginImplementazioneDao implements LoginDao{
 	}
     
 	@Override
-	public int validazioneLogin(String username, String pwd) throws Exception {  //EFFETTUA LOGIN
+	public int validazioneLogin(String username, String pwd) throws SQLException,ClassNotFoundException {  //EFFETTUA LOGIN
 		Statement dichiarazione = null;
         ResultSet risultati= null;
         try(Connection connessione = DriverManager.getConnection(DATABASEURL, UTENTE, PASSWORD)) {
-            Class.forName(DRIVERMYSQL);
+            //Class.forName(DRIVERMYSQL);
             dichiarazione = connessione.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             risultati=QuerySQLLogin.effettuaLogin(dichiarazione, username, pwd);
             while(risultati.next()) {
@@ -65,11 +66,11 @@ public class LoginImplementazioneDao implements LoginDao{
         }
 	}
 	
-	public int controllaUsername(String username) throws Exception {  //CONTROLLA L'USERNAME 
+	public int controllaUsername(String username) throws SQLException,ClassNotFoundException {  //CONTROLLA L'USERNAME 
 		Statement dichiarazione = null;
         ResultSet risultati= null;
         try(Connection connessione = DriverManager.getConnection(DATABASEURL, UTENTE, PASSWORD)){
-            Class.forName(DRIVERMYSQL);
+            //Class.forName(DRIVERMYSQL);
             dichiarazione = connessione.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             risultati=QuerySQLLogin.controllaUsername(dichiarazione, username);
             while(risultati.next()) {
@@ -90,10 +91,10 @@ public class LoginImplementazioneDao implements LoginDao{
         }
 	}
 	
-	public void registraUtente(String nome,String cognome,String username,int ruolo,String pwd) throws Exception {  //REGISTRA L'UTENTE
+	public void registraUtente(String nome,String cognome,String username,int ruolo,String pwd) throws SQLException,ClassNotFoundException {  //REGISTRA L'UTENTE
 		Statement dichiarazione = null;
         try(Connection connessione = DriverManager.getConnection(DATABASEURL, UTENTE, PASSWORD)) {
-            Class.forName(DRIVERMYSQL);
+            //Class.forName(DRIVERMYSQL);
             dichiarazione = connessione.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             if(QuerySQLLogin.registraUtente(dichiarazione, nome, cognome, username, ruolo, pwd)==1) {
             	System.out.println("Utente registrato");

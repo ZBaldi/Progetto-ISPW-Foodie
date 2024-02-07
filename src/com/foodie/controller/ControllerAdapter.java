@@ -12,18 +12,23 @@ public abstract class ControllerAdapter {
 	}
 	
 	public ArrayList<RicettaBean> trovaLeRicette(int difficolta, String autore) {
-		return null;
+		System.out.println("autore:"+autore);  //PER EVITARE SMELL
+		System.out.println("difficolta:"+difficolta);
+		return new ArrayList<RicettaBean>();
 	}
 	
 	public ArrayList<AlimentoBean> trovaGliAlimenti(String nomeAlimento) {
-		return null;
+		System.out.println("nomeAlimento:"+nomeAlimento);
+		return new ArrayList<AlimentoBean>();
 	}
 	
 	public ArrayList<AlimentoBean> mostraLaDispensa() {
-		return null;
+		return new ArrayList<AlimentoBean>();
 	}
 	
 	public RicettaBean apriLaRicetta(String nome,String autore) {
+		System.out.println("autore:"+autore);  //PER EVITARE SMELL
+		System.out.println("nome:"+nome);
 		return null;
 	}
 	
@@ -35,14 +40,14 @@ public abstract class ControllerAdapter {
 	}
 	
 	public ArrayList<AlimentoBean> mostraIngredientiRicetta() {
-		return null;
+		return new ArrayList<AlimentoBean>();
 	}
 	
 	public void aggiungiIngredienteRicetta(AlimentoBean alimentoBean,String quantita,int x) {
 	}
 	
 	public ArrayList<RicettaBean> mostraLeRicetteDaApprovare() {
-		return null;
+		return new ArrayList<RicettaBean>();
 	}
 	
 	public UtenteBean ottieniUtente() {

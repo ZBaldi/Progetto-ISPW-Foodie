@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
+
 import com.foodie.controller.PubblicaRicettaController;
 import com.foodie.Applicazione.LoginViewController;
 import com.foodie.controller.AdattatoreFactory;
@@ -31,6 +33,7 @@ public class NuovaRicettaViewController {
 	private ControllerAdapter adattatorePubblicaRicettaController = factory.creaPubblicaRicettaAdapter();
 	private ControllerAdapter adattatoreLoginController = factory.creaLoginAdapter();
 	private Stage primaryStage;
+	private static final Logger logger = Logger.getLogger(NuovaRicettaViewController.class.getName());
 	@FXML
 	private Button areaPersonaleButton;
 	@FXML
@@ -77,7 +80,7 @@ public class NuovaRicettaViewController {
 				disabilitaPulsanti(null);
 				break;
 		default:
-			System.err.println("difficoltà non riconosciuta");
+			logger.severe("difficoltà non riconosciuta");
 			disabilitaPulsanti(null);
 		}
 	}

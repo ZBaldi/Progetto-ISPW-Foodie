@@ -9,11 +9,13 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class DispensaImplementazioneDao implements DispensaDao{  //IMPLEMENTAZIONE DAO 
 	
 	private static DispensaImplementazioneDao istanza;
 	private Utente utente=null;
+	private static final Logger logger = Logger.getLogger(DispensaImplementazioneDao.class.getName());
 	
 	private DispensaImplementazioneDao() {
     }
@@ -54,7 +56,7 @@ public class DispensaImplementazioneDao implements DispensaDao{  //IMPLEMENTAZIO
             System.out.println("Dispensa salvata");
         } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("ERRORE NEL SALVATAGGIO SU FILE DELLA DISPENSA");
+            logger.severe("ERRORE NEL SALVATAGGIO SU FILE DELLA DISPENSA");
             System.out.println("Problema con il file, riprova o controlla se è nella directory");
         }
 	}
@@ -67,9 +69,8 @@ public class DispensaImplementazioneDao implements DispensaDao{  //IMPLEMENTAZIO
 			objectInputStream = new ObjectInputStream(new FileInputStream("C:\\Users\\valba\\OneDrive\\Desktop\\Progetto\\Classi serializzate\\dispensa_data.ser"));
 			Map<String, ArrayList<AlimentoSerializzabile>> dispensaMap = (Map<String, ArrayList<AlimentoSerializzabile>>)objectInputStream.readObject();// lo è per forza
 			if(bool==true) {
-				ArrayList<AlimentoSerializzabile> dispensaOld=new ArrayList<AlimentoSerializzabile>();
 				Dispensa dispensa= Dispensa.ottieniIstanza();
-				dispensaOld=dispensaMap.get(utente.getUsername());
+				ArrayList<AlimentoSerializzabile> dispensaOld=dispensaMap.get(utente.getUsername());
 				if(dispensaOld!=null) {
 					for(AlimentoSerializzabile a: dispensaOld) {
 						dispensa.aggiungiAlimento(new Alimento(a.getNome()));
@@ -77,21 +78,19 @@ public class DispensaImplementazioneDao implements DispensaDao{  //IMPLEMENTAZIO
 					System.out.println("dispensa caricata");
 				}
 			}
-			if(objectInputStream!=null) {
-				objectInputStream.close();
-			}
+			objectInputStream.close();
 			return dispensaMap;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			return null;
+			return new HashMap<String, ArrayList<AlimentoSerializzabile>>();
 		}catch (EOFException e) {
-			System.err.println("NESSUNA DISPENSA SALVATA");
-            return null;
+			logger.severe("NESSUNA DISPENSA SALVATA");
+			return new HashMap<String, ArrayList<AlimentoSerializzabile>>();
         }catch (IOException e) {
 			e.printStackTrace();
-			System.err.println("ERRORE NEL CARICAMENTO DA FILE DELLA DISPENSA");
+			logger.severe("ERRORE NEL CARICAMENTO DA FILE DELLA DISPENSA");
             System.out.println("Problema con il file, riprova o controlla se è nella directory");
-			return null;
+            return new HashMap<String, ArrayList<AlimentoSerializzabile>>();
 		}
 	}
 

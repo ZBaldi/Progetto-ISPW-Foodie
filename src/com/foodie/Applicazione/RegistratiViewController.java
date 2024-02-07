@@ -81,6 +81,7 @@ public class RegistratiViewController {
         	}
         }
     
+    @FXML
     public void indietroButtonOnAction(ActionEvent event) {  //RITORNA AL LOGIN
     	
     	try {
@@ -99,7 +100,8 @@ public class RegistratiViewController {
     	}
     	
    }
-
+   
+   @FXML
    public void registratiButtonOnAction(ActionEvent event) {  //CHIAMA I METODI PER REGISTRARSI
     	handleRegistration();
     	registrazioneUser();

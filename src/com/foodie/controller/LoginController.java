@@ -1,6 +1,7 @@
 package com.foodie.controller;
 
 import java.util.Map;
+import java.util.logging.Logger;
 import com.foodie.model.AreaPersonaleImplementazioneDao;
 import com.foodie.model.Chef;
 import com.foodie.model.DispensaDao;
@@ -21,6 +22,7 @@ public class LoginController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOLO 1 IST
 	private static DispensaDao databaseDispensa= DispensaImplementazioneDao.ottieniIstanza();
 	private static AreaPersonaleDao databaseAreaPersonale= AreaPersonaleImplementazioneDao.ottieniIstanza();
 	private static final String MESSAGGIO= "PROBLEMA CON IL DB";
+	private static final Logger logger = Logger.getLogger(LoginController.class.getName());
 	
 	private LoginController() {
 	}
@@ -54,7 +56,7 @@ public class LoginController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOLO 1 IST
 			return database.validazioneLogin(username, pwd);
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.err.println("ERRORE NELLA FASE DI LOGIN");
+			logger.severe("ERRORE NELLA FASE DI LOGIN");
 			System.out.println(MESSAGGIO);
 			return -1;
 		}
@@ -69,11 +71,11 @@ public class LoginController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOLO 1 IST
 			return 1;
 		}catch(UtenteEsistenteException e) {
 			e.suggerimento();
-			System.err.println("USERNAME GIA' IN USO");
+			logger.severe("USERNAME GIA' IN USO");
 			return 0;
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.err.println("ERRORE NEL CONTROLLO DELL'USERNAME-->RIPROVA,LA GUI TI DIRA' ESISTENTE");
+			logger.severe("ERRORE NEL CONTROLLO DELL'USERNAME-->RIPROVA,LA GUI TI DIRA' ESISTENTE");
 			System.out.println(MESSAGGIO);
 			return 0;  //LO FACCIO PASSARE PER ESISTENTE
 		}
@@ -84,7 +86,7 @@ public class LoginController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOLO 1 IST
 			database.registraUtente(nome, cognome, username, ruolo, password);
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.err.println("ERRORE NELLA REGISTRAZIONE DELL'UTENTE");
+			logger.severe("ERRORE NELLA REGISTRAZIONE DELL'UTENTE");
 			System.out.println(MESSAGGIO);
 		}
 	}

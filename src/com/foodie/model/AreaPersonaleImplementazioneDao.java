@@ -8,10 +8,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class AreaPersonaleImplementazioneDao implements AreaPersonaleDao{  //IMPLEMENTAZIONE DAO DELL'AREA PERSONALE SU FILE SYSTEM
 
 	private static AreaPersonaleImplementazioneDao istanza;
+	private static final Logger logger = Logger.getLogger(AreaPersonaleImplementazioneDao.class.getName());
 	
 	private AreaPersonaleImplementazioneDao() {
     }
@@ -35,7 +37,7 @@ public class AreaPersonaleImplementazioneDao implements AreaPersonaleDao{  //IMP
             System.out.println("Area Personale salvata");
         } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("ERRORE NEL SALVATAGGIO SU FILE DELL'AREA PERSONALE");
+            logger.severe("ERRORE NEL SALVATAGGIO SU FILE DELL'AREA PERSONALE");
             System.out.println("Problema con il file, riprova o controlla se è nella directory");
         }
 	}
@@ -47,21 +49,19 @@ public class AreaPersonaleImplementazioneDao implements AreaPersonaleDao{  //IMP
 		try {
 			objectInputStream = new ObjectInputStream(new FileInputStream("C:\\Users\\valba\\OneDrive\\Desktop\\Progetto\\Classi serializzate\\areapersonale_data.ser"));
 			Map<String,String> areaPersonaleMap = (Map<String,String>)objectInputStream.readObject();// lo è per forza
-			if(objectInputStream!=null) {
-				objectInputStream.close();
-			}
+			objectInputStream.close();
 			return areaPersonaleMap;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			return null;
+			return new HashMap<String, String>();
 		}catch (EOFException e) {
-            System.err.println("NESSUNA AREA PERSONALE SALVATA");
-            return null;
+            logger.severe("NESSUNA AREA PERSONALE SALVATA");
+            return new HashMap<String, String>();
         }catch (IOException e) {
 			e.printStackTrace();
-			System.err.println("ERRORE NEL CARICAMENTO DA FILE DELL'AREA PERSONALE");
+			logger.severe("ERRORE NEL CARICAMENTO DA FILE DELL'AREA PERSONALE");
             System.out.println("Problema con il file, riprova o controlla se è nella directory");
-			return null;
+            return new HashMap<String, String>();
 		}
 	}
 

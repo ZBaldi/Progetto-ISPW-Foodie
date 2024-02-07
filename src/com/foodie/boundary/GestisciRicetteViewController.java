@@ -2,6 +2,8 @@ package com.foodie.boundary;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
+
 import com.foodie.Applicazione.LoginViewController;
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
@@ -32,6 +34,7 @@ public class GestisciRicetteViewController {
 	private boolean bottoneModifica = true;
 	private Stage primaryStage;
 	private static final String FORMATO = "Arial";
+	private static final Logger logger = Logger.getLogger(GestisciRicetteViewController.class.getName());
 	@FXML
 	private VBox contenitoreRicette;
 	@FXML
@@ -80,7 +83,7 @@ public class GestisciRicetteViewController {
 						difficolta="difficile";
 						break;
 					default:
-						System.err.println("difficoltà non riconosciuta");
+						logger.severe("difficoltà non riconosciuta");
 						contenitoreRicette.getChildren().clear();
 						return;
 				}
@@ -102,7 +105,7 @@ public class GestisciRicetteViewController {
 		}
 	}
 	
-	public void caricaViewRicetta(String nomeRicetta,String difficoltaRicetta) {  //CARICA VIEW CONTENUTO RICETTA
+	public void caricaViewRicetta(String nomeRicetta) {  //CARICA VIEW CONTENUTO RICETTA
 		UtenteBean utenteBean=adattatoreLoginController.ottieniUtente();
 		RicettaBean ricettaSelezionata = adattatoreTrovaRicettaController.apriLaRicetta(nomeRicetta,utenteBean.getUsername());
 		try {
@@ -184,17 +187,19 @@ public class GestisciRicetteViewController {
 			contenitoreRicette.getChildren().forEach(node -> {
 		        HBox contenitoreRicetta = (HBox) node;
 		        contenitoreRicetta.setOnMouseClicked(event -> {
-		            String nomeRicetta="";
-		            String difficoltaRicetta="";
+		            String nomeRicetta=null;
+		            String difficoltaRicetta=null;
 		            int indiceLabel=1;
 		            popolaLabel(indiceLabel,contenitoreRicetta,nomeRicetta,difficoltaRicetta);
-		            caricaViewRicetta(nomeRicetta,difficoltaRicetta);
+		            caricaViewRicetta(nomeRicetta);
 		        });
 		    });
 		}
 	}
 	
-	private void popolaLabel(int indiceLabel,HBox contenitoreRicetta,String nomeRicetta, String difficoltaRicetta) {
+	private void popolaLabel(int indiceLabel,HBox contenitoreRicetta,String nomeRicetta,String difficoltaRicetta) {
+		nomeRicetta="";
+        difficoltaRicetta="";
 		for (Node labelNode : contenitoreRicetta.getChildren()) {	  //POPOLA LABEL USATO PER EVITARE SMELL COMPLESSITA'        
             Label label = (Label) labelNode;
             if(indiceLabel==1)

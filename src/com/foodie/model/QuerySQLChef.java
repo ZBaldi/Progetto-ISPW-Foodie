@@ -6,6 +6,9 @@ import java.sql.Statement;
 
 public class QuerySQLChef {
 	
+	private QuerySQLChef() {
+	}
+	
 	public static ResultSet selezionaRicetteDalNomeAutore(Statement dichiarazione) throws SQLException{
 		String sqlQuery = "SELECT nome,autore FROM ricette";  //OTTIENI LE DESCRIZIONI DELLE RICETTE
 		return dichiarazione.executeQuery(sqlQuery);

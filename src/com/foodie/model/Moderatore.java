@@ -77,7 +77,7 @@ public class Moderatore extends SubjectPatternObserver implements Utente { //MOD
 		}
 		else {
 			System.out.println("Nessuna ricetta da verificare");
-			return null;
+			return new ArrayList<Ricetta>();
 		}
 	}
 	

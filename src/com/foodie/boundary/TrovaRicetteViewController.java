@@ -1,6 +1,8 @@
 package com.foodie.boundary;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
+
 import com.foodie.Applicazione.LoginViewController;
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
@@ -29,6 +31,7 @@ public class TrovaRicetteViewController {
 	private ControllerAdapter adattatoreTrovaRicettaController= factory.creaTrovaRicettaAdapter();
 	private Stage primaryStage;
 	private static final String FORMATO = "Arial";
+	private static final Logger logger = Logger.getLogger(TrovaRicetteViewController.class.getName());
 	@FXML
 	private VBox contenitoreRicette;
 	@FXML
@@ -106,7 +109,7 @@ public class TrovaRicetteViewController {
 					trovaRicette(3);
 					break;
 			default:
-				System.err.println("difficoltà non riconosciuta");
+				logger.severe("difficoltà non riconosciuta");
 				contenitoreRicette.getChildren().clear();
 		}
 	}
@@ -156,7 +159,7 @@ public class TrovaRicetteViewController {
 						difficolta="difficile";
 						break;
 				default:
-					System.err.println("difficoltà non riconosciuta");
+					logger.severe("difficoltà non riconosciuta");
 					contenitoreRicette.getChildren().clear();
 					return -1;
 				}
@@ -182,7 +185,6 @@ public class TrovaRicetteViewController {
 	        contenitoreRicetta.setOnMouseClicked(event2 -> {
 	            String nomeRicetta="";
 	            String autoreRicetta="";
-	            String difficoltaRicetta="";
 	            int indiceLabel=1;
 	            for (Node labelNode : contenitoreRicetta.getChildren()) {	        
 	                    Label label = (Label) labelNode;
@@ -191,16 +193,16 @@ public class TrovaRicetteViewController {
 	                    else if(indiceLabel==2)
 	                    	autoreRicetta=label.getText();
 	                    else {
-	                    	difficoltaRicetta=label.getText();
+	                    	break;
 	                    }
 	                    indiceLabel++;
 	            }
-	            caricaViewRicetta(nomeRicetta, autoreRicetta, difficoltaRicetta);  //SE CLICCATA LA APRE
+	            caricaViewRicetta(nomeRicetta, autoreRicetta);  //SE CLICCATA LA APRE
 	        });
 	    });
 	}
 	
-	public void caricaViewRicetta(String nomeRicetta,String autoreRicetta,String difficoltaRicetta) {  //CARICA VIEW CONTENUTO RICETTA
+	public void caricaViewRicetta(String nomeRicetta,String autoreRicetta) {  //CARICA VIEW CONTENUTO RICETTA
 		RicettaBean ricettaSelezionata = adattatoreTrovaRicettaController.apriLaRicetta(nomeRicetta,autoreRicetta);
 		FXMLLoader loader;
 		try {

@@ -9,9 +9,9 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
 	private static final String UTENTE = "root";
     private static final String PASSWORD = "root"; 
     private static final String DATABASEURL = "jdbc:mysql://localhost:3306/ricette";
-    private static final String DRIVERMYSQL = "com.mysql.jdbc.Driver";
-	private static final String COLONNA_AUTORE= "autore"
-;    
+    //private static final String DRIVERMYSQL = "com.mysql.jdbc.Driver";
+	private static final String COLONNA_AUTORE= "autore";
+	
     private CatalogoRicetteImplementazioneDao(){
 	}
     
@@ -23,16 +23,16 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
 	}
 	
 	@Override
-	public ArrayList<Ricetta> trovaRicette(Dispensa dispensa, int difficolta, String autore2) throws Exception{ //TROVA LE RICETTE NEL DB O PER ALIMENTI-DIFFICOLTA' O PER AUTORE
+	public ArrayList<Ricetta> trovaRicette(Dispensa dispensa, int difficolta, String autore2) throws SQLException,ClassNotFoundException{ //TROVA LE RICETTE NEL DB O PER ALIMENTI-DIFFICOLTA' O PER AUTORE
 		ArrayList<Ricetta> ricetteTrovate=new ArrayList<Ricetta>();
 		Statement dichiarazione=null; 
 		ResultSet risultati=null;
 		if(dispensa!=null && dispensa.getAlimenti().isEmpty()) { //CONTROLLO SE LA DISPENSA è VUOTA SE GLIELA FORNISCO
 			System.out.println("Dispensa vuota!!! Riempila prima");
-			return null;
+			return new ArrayList<Ricetta>();
 		}
 		try(Connection connessione= DriverManager.getConnection(DATABASEURL, UTENTE,PASSWORD)) {//APRO LA CONNESSIONE
-			Class.forName(DRIVERMYSQL);
+			//Class.forName(DRIVERMYSQL);  dice sonar inutile
 			dichiarazione = connessione.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			if(dispensa!=null) { //SE FORNISCO LA DISPENSA SIGNIFICA CHE VOGLIO FARE LA QUERY PER ALIMENTI
 				risultati= QuerySQLUtente.trovaRicette(dichiarazione,dispensa.getAlimenti(),difficolta);
@@ -61,7 +61,7 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
 			risultati.close();
 			if(ricetteTrovate.isEmpty()) {
 				System.out.println("Nessuna ricetta trovata");
-				return null;
+				return new ArrayList<Ricetta>();
 			}
 			System.out.println("Ricette Trovate");
 			return ricetteTrovate;
@@ -74,12 +74,12 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
 	}
 	
 	@Override
-	public void aggiungiRicetta(Ricetta ricetta) throws Exception { //AGGIUNGI LA RICETTA AL DB
+	public void aggiungiRicetta(Ricetta ricetta) throws SQLException,ClassNotFoundException, RicettaDuplicataException { //AGGIUNGI LA RICETTA AL DB
 		Statement dichiarazione = null;
         ResultSet risultati= null;
         int codiceDiRitorno=0;
         try(Connection connessione= DriverManager.getConnection(DATABASEURL, UTENTE,PASSWORD)) {  //APRO LA CONNESSIONE
-            Class.forName(DRIVERMYSQL);  
+            //Class.forName(DRIVERMYSQL); dice sonar inutile 
             dichiarazione = connessione.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             risultati = QuerySQLChef.selezionaRicetteDalNomeAutore(dichiarazione);  //CONTROLLO SE GIA' ESISTE UNA RICETTA CON LA STESSA DESCRIZIONE
             while (risultati.next()) {  //CONTROLLO I RISULTATI
@@ -112,10 +112,10 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
 	}
 	
 	@Override
-	public void eliminaRicetta(String nome, String autore) throws Exception {  //ELIMINA LA RICETTA DAL DB
+	public void eliminaRicetta(String nome, String autore) throws SQLException,ClassNotFoundException {  //ELIMINA LA RICETTA DAL DB
 		Statement dichiarazione = null;
         try(Connection connessione= DriverManager.getConnection(DATABASEURL, UTENTE,PASSWORD)) { //APRO LA CONNESSIONE
-            Class.forName(DRIVERMYSQL);
+            //Class.forName(DRIVERMYSQL); dice sonar inutile 
             dichiarazione = connessione.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             if(QuerySQLChef.rimuoviRicetta(dichiarazione, nome,autore)>0) {  //QUERY PER ELIMINARE LA RICETTA DAL DB
             	System.out.println("Ricetta eliminata dal database");  
@@ -132,12 +132,12 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
 	}
 
 	@Override
-	public Ricetta ottieniDatiRicetta(String nome,String autore) throws Exception {  //CARICA I DATI DELLA RICETTA CERCATA
+	public Ricetta ottieniDatiRicetta(String nome,String autore) throws SQLException,ClassNotFoundException {  //CARICA I DATI DELLA RICETTA CERCATA
 		Statement dichiarazione=null;
 		ResultSet risultati=null;
 		Ricetta ricetta= new Ricetta();
 		try(Connection connessione= DriverManager.getConnection(DATABASEURL, UTENTE,PASSWORD)) {  //APRO LA CONNESSIONE
-			Class.forName(DRIVERMYSQL);
+			//Class.forName(DRIVERMYSQL);  dice sonar inutile 
 			dichiarazione = connessione.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			risultati= QuerySQLUtente.ottieniRicetta(dichiarazione, nome ,autore);  //QUERY PER OTTENERE LA RICETTA
 			while(risultati.next()) {  //SCORRO I RISULTATI E CREO LA RICETTA

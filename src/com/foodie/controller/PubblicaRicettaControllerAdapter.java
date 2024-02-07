@@ -66,7 +66,7 @@ public class PubblicaRicettaControllerAdapter extends ControllerAdapter{  //ADAT
 			return alimentiRicettaBean;
 		}
 		else {
-			return null;
+			return new ArrayList<AlimentoBean>();
 		}
 	}
 	
@@ -101,7 +101,7 @@ public class PubblicaRicettaControllerAdapter extends ControllerAdapter{  //ADAT
 			return ricetteBean;
 		}
 		else {
-			return null;
+			return new ArrayList<RicettaBean>();
 		}
 	}
 	

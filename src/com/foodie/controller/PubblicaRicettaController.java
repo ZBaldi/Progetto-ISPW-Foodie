@@ -1,7 +1,8 @@
 package com.foodie.controller;
 
 import java.util.ArrayList;
-
+import java.util.logging.Logger;
+import com.foodie.Applicazione.LoginViewController;
 import com.foodie.model.Alimento;
 import com.foodie.model.CatalogoRicetteChefDao;
 import com.foodie.model.CatalogoRicetteImplementazione2Dao;
@@ -19,6 +20,7 @@ public class PubblicaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE 
 	private static CatalogoRicetteChefDao database;
 	private static Moderatore moderatore;
 	private static Ricetta ricetta=null;
+	private static final Logger logger = Logger.getLogger(PubblicaRicettaController.class.getName());
 	
 	private PubblicaRicettaController() {
 	}
@@ -57,7 +59,7 @@ public class PubblicaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE 
 			return alimentiRicetta;
 		}
 		else {
-			return null;
+			return new ArrayList<Alimento>();
 		}
 	}
 	
@@ -90,10 +92,10 @@ public class PubblicaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE 
 			notificaChef(bool);
 		}catch(RicettaDuplicataException e) {
 			e.suggerimento();
-			System.err.println("RICETTA GIA' ESISTENTE");
+			logger.severe("RICETTA GIA' ESISTENTE");
 		}catch (Exception e) {
 			e.printStackTrace();
-			System.err.println("ERRORE NELLA PUBBLICAZIONE DELLA RICETTA");
+			logger.severe("ERRORE NELLA PUBBLICAZIONE DELLA RICETTA");
 			System.out.println("Problema con il DB");
 		}
 	}
@@ -104,7 +106,7 @@ public class PubblicaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE 
 			database.eliminaRicetta(nome,autore);
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.err.println("ERRORE NELL'ELIMINAZIONE DELLA RICETTA");
+			logger.severe("ERRORE NELL'ELIMINAZIONE DELLA RICETTA");
 			System.out.println("Problema con il DB");
 		}
 	}
@@ -115,7 +117,7 @@ public class PubblicaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE 
 			return ricette;
 		}
 		else {
-			return null;
+			return new ArrayList<Ricetta>();
 		}
 	}
 	
@@ -141,7 +143,6 @@ public class PubblicaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE 
 	}
 	
 	private void registraOsservatoreModeratore(Observer observer) {
-		Moderatore moderatore= Moderatore.ottieniIstanza();
 		moderatore.registra(observer);
 	} 
 	

@@ -6,7 +6,7 @@ public abstract class SubjectPatternObserver {        //CLASSE ASTRATTA DEL PATT
 													  //A DISPOSIZIONE METODI PER GESTIRE GLI 
 	protected ArrayList<Observer> viewRegistrate; 	  //OSSERVATORI DI CUI NON SI SA NULLA
 	
-	public SubjectPatternObserver() {
+	protected SubjectPatternObserver() {
 		this.viewRegistrate=new ArrayList<Observer>();
 	}
 	

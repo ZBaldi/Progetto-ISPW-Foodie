@@ -2,6 +2,7 @@ package com.foodie.boundary2;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 import com.foodie.Applicazione.LoginViewController;
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
@@ -27,6 +28,7 @@ public class GestisciRicetteView2Controller {
 	private PubblicaRicettaController controller = PubblicaRicettaController.ottieniIstanza();
 	private Stage primaryStage;
 	private static final String FORMATO = "Arial";
+	private static final Logger logger = Logger.getLogger(GestisciRicetteView2Controller.class.getName());
 	@FXML
 	private VBox contenitoreRicette;
 	@FXML
@@ -76,7 +78,7 @@ public class GestisciRicetteView2Controller {
 						difficolta="difficile";
 						break;
 				default:
-					System.err.println("difficoltà non riconosciuta");
+					logger.severe("difficoltà non riconosciuta");
 					contenitoreRicette.getChildren().clear();
 					return;
 				}

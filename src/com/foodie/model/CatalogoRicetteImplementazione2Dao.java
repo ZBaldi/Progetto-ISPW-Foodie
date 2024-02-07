@@ -5,13 +5,16 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 public class CatalogoRicetteImplementazione2Dao implements CatalogoRicetteChefDao{  //DAO CON FILE SYSTEM
 	
 	private static CatalogoRicetteImplementazione2Dao istanza;    //SINGLETON
 	private static final String PATH = "C:\\Users\\valba\\OneDrive\\Desktop\\Progetto\\Catalogo Ricette\\CatalogoRicette.txt";
 	private static final String MESSAGGIO= "ERRORE NELL'APERTURA DEL CATALOGO DELLE RICETTE (FILE)";
+	private static final Logger logger = Logger.getLogger(CatalogoRicetteImplementazione2Dao.class.getName());
 	
 	private CatalogoRicetteImplementazione2Dao(){
 	}
@@ -24,31 +27,31 @@ public class CatalogoRicetteImplementazione2Dao implements CatalogoRicetteChefDa
 	}
 	
 	@Override
-	public ArrayList<Ricetta> trovaRicette(Dispensa dispensa, int difficolta, String autore) throws Exception { //TROVA LE RICETTE NEL FILE O PER ALIMENTI-DIFFICOLTA' O PER AUTORE
+	public ArrayList<Ricetta> trovaRicette(Dispensa dispensa, int difficolta, String autore) throws SQLException,ClassNotFoundException { //TROVA LE RICETTE NEL FILE O PER ALIMENTI-DIFFICOLTA' O PER AUTORE
 	    ArrayList<String> linee = new ArrayList<>();
 	    ArrayList<Ricetta> ricetteTrovate=new ArrayList<Ricetta>();
 	    if(dispensa!=null && dispensa.getAlimenti().isEmpty()) { //CONTROLLO SE LA DISPENSA è VUOTA SE GLIELA FORNISCO
 			System.out.println("Dispensa vuota!!! Riempila prima");
-			return null;
+			return new ArrayList<Ricetta>();
 		}
 	    try(BufferedReader lettore = new BufferedReader(new FileReader(PATH))) {//MI CARICO TUTTE LE RIGHE DEL FILE SI CHIUDE IN AUTOMATICO IL FILE
 	        String linea;
 	        while ((linea = lettore.readLine()) != null) {
 	            linee.add(linea);
 	        }
-	        if (linee != null && !linee.isEmpty()) {
+	        if (!linee.isEmpty()) {
 	        	analizzaCampi(linee,dispensa,ricetteTrovate,difficolta,autore);  //ANALIZZO I CAMPI
-		        if(ricetteTrovate!=null && !ricetteTrovate.isEmpty()) {
+		        if(!ricetteTrovate.isEmpty()) {
 		        	System.out.println("Ricette Trovate");
 		        	return ricetteTrovate;
 		        }
 		    }
 	        System.out.println("Nessuna ricetta trovata");
-			return null;
+	        return new ArrayList<Ricetta>();
 	    } catch (IOException e) {
 	        e.printStackTrace();
-	        System.err.println(MESSAGGIO);
-	        return null;
+	        logger.severe(MESSAGGIO);
+	        return new ArrayList<Ricetta>();
 	    }
 	}
 	
@@ -99,7 +102,7 @@ public class CatalogoRicetteImplementazione2Dao implements CatalogoRicetteChefDa
 	}
 	
 	@Override
-	public void aggiungiRicetta(Ricetta ricetta) throws Exception { //METODO PER AGGIUNGERE LA RICETTA SUL FILE SE NON PRESENTE
+	public void aggiungiRicetta(Ricetta ricetta) throws SQLException,ClassNotFoundException,RicettaDuplicataException { //METODO PER AGGIUNGERE LA RICETTA SUL FILE SE NON PRESENTE
 		if(controllaSeEsistente(ricetta.getNome(),ricetta.getAutore())==true) {
 			RicettaDuplicataException eccezione= new RicettaDuplicataException("Ricetta già esistente nel file!");
 			eccezione.suggerimento();
@@ -126,7 +129,7 @@ public class CatalogoRicetteImplementazione2Dao implements CatalogoRicetteChefDa
 			System.out.println("Ricetta aggiunta al database");
 		}catch(IOException e) {
 			e.printStackTrace();
-			System.err.println("ERRORE NELLA SCRITTURA NEL CATALOGO DELLE RICETTE (FILE)");
+			logger.severe("ERRORE NELLA SCRITTURA NEL CATALOGO DELLE RICETTE (FILE)");
 			System.out.println("Ricetta non aggiunta al database");
 		}
 	}
@@ -138,7 +141,7 @@ public class CatalogoRicetteImplementazione2Dao implements CatalogoRicetteChefDa
 	        while ((linea = lettore.readLine()) != null) {
 	            linee.add(linea);
 	        }
-	        if(linee!=null && !linee.isEmpty()) {
+	        if(!linee.isEmpty()) {
 	        	for (String s : linee) {
 		            String[] campi = s.split(";");
 		            if(campi[0].equals(nome) && campi[1].equals(autore)) {
@@ -152,13 +155,13 @@ public class CatalogoRicetteImplementazione2Dao implements CatalogoRicetteChefDa
 	        }
 	    } catch (IOException e) {
 	        e.printStackTrace();
-	        System.err.println(MESSAGGIO);
+	        logger.severe(MESSAGGIO);
 	        return false;
 	    }
 	}
 
 	@Override
-	public void eliminaRicetta(String nome, String autore) throws Exception {  //METODO PER ELIMINARE LA RICETTA DAL FILE
+	public void eliminaRicetta(String nome, String autore) throws SQLException,ClassNotFoundException {  //METODO PER ELIMINARE LA RICETTA DAL FILE
 	    ArrayList<String> lineeVecchie = new ArrayList<>();
         ArrayList<String> lineeNuove = new ArrayList<>();
 	    try(BufferedReader lettore = new BufferedReader(new FileReader(PATH))) {
@@ -168,11 +171,11 @@ public class CatalogoRicetteImplementazione2Dao implements CatalogoRicetteChefDa
 	        }
 	    } catch (IOException e) {
 	        e.printStackTrace();
-	        System.err.println(MESSAGGIO);
+	        logger.severe(MESSAGGIO);
 	        System.out.println("Ricetta eliminata dal database");
 	        return;
 	    }
-	    if (lineeVecchie != null && !lineeVecchie.isEmpty()) {
+	    if (!lineeVecchie.isEmpty()) {
 	        for (String s : lineeVecchie) {
 	            String[] campi = s.split(";");
 	            if (!campi[0].equals(nome) || !campi[1].equals(autore)) {
@@ -181,7 +184,7 @@ public class CatalogoRicetteImplementazione2Dao implements CatalogoRicetteChefDa
 	        }
 	    }
 	    try(BufferedWriter scrittore = new BufferedWriter(new FileWriter(PATH))) {
-	        if (lineeNuove != null && !lineeNuove.isEmpty()) {
+	        if (!lineeNuove.isEmpty()) {
 	            for (String s : lineeNuove) {
 	                scrittore.write(s);
 	                scrittore.newLine();
@@ -192,20 +195,20 @@ public class CatalogoRicetteImplementazione2Dao implements CatalogoRicetteChefDa
 	        System.out.println("Ricetta non presente nel database");  //LEVO 16° if per codesmell
 	    } catch (IOException e) {
 	        e.printStackTrace();
-	        System.err.println("ERRORE NELLA SCRITTURA NEL CATALOGO DELLE RICETTE (FILE)");
+	        logger.severe("ERRORE NELLA SCRITTURA NEL CATALOGO DELLE RICETTE (FILE)");
 	        System.out.println("Ricetta non eliminata dal database");
 	    }
 	}
 
 	@Override
-	public Ricetta ottieniDatiRicetta(String nome, String autore) throws Exception {  //METODO PER OTTENERE I DATI DELLA RICETTA SPECIFICA
+	public Ricetta ottieniDatiRicetta(String nome, String autore) throws SQLException,ClassNotFoundException {  //METODO PER OTTENERE I DATI DELLA RICETTA SPECIFICA
 	    ArrayList<String> linee = new ArrayList<>();
 	    try(BufferedReader lettore = new BufferedReader(new FileReader(PATH));) {//MI CARICO TUTTE LE RIGHE DEL FILE  
 	        String linea;
 	        while ((linea = lettore.readLine()) != null) {
 	            linee.add(linea);
 	        }
-	        if (linee != null && !linee.isEmpty()) {
+	        if (!linee.isEmpty()) {
 		        for (String s : linee) {
 		            String[] campi = s.split(";");
 					if(campi[0].equals(nome) && campi[1].equals(autore)) {
@@ -220,7 +223,7 @@ public class CatalogoRicetteImplementazione2Dao implements CatalogoRicetteChefDa
 	        }
 	    } catch (IOException e) {
 	        e.printStackTrace();
-	        System.err.println(MESSAGGIO);
+	        logger.severe(MESSAGGIO);
 	        return null;
 	    }
 	}

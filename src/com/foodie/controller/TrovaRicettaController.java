@@ -2,7 +2,7 @@ package com.foodie.controller;
 
 
 import java.util.ArrayList;
-
+import java.util.logging.Logger;
 
 import com.foodie.model.Alimento;
 import com.foodie.model.CatalogoAlimentiDao;
@@ -20,6 +20,7 @@ public class TrovaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOL
 	private static Dispensa dispensa;
 	private static CatalogoRicetteChefDao database;
 	private static CatalogoAlimentiDao databaseAlimenti;
+	private static final Logger logger = Logger.getLogger(TrovaRicettaController.class.getName());
 	
 	private TrovaRicettaController() {
 	}
@@ -62,13 +63,13 @@ public class TrovaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOL
 				return ricetteTrovate;
 			}
 			else {
-				return null;
+				return new ArrayList<Ricetta>();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.err.println("ERRORE NELL'OTTENIMENTO DELLE RICETTE");
+			logger.severe("ERRORE NELL'OTTENIMENTO DELLE RICETTE");
 			System.out.println("Problema con il DB");
-			return null;
+			return new ArrayList<Ricetta>();
 		}
 	}
 	
@@ -93,7 +94,7 @@ public class TrovaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOL
 			return alimentiTrovati;
 		}
 		else {
-			return null;
+			return new ArrayList<Alimento>();
 		}
 	}
 	
@@ -110,7 +111,7 @@ public class TrovaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOL
 			return alimentiInDispensa;
 		}
 		else {
-			return null;
+			return new ArrayList<Alimento>();
 		}
 	}
 	
@@ -126,7 +127,7 @@ public class TrovaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOL
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.err.println("ERRORE NELL'OTTENIMENTO DEI DATI DELLA RICETTA");
+			logger.severe("ERRORE NELL'OTTENIMENTO DEI DATI DELLA RICETTA");
 			System.out.println("Problema con il DB");
 			return null;
 		}

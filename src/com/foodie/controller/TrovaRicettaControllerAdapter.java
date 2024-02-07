@@ -55,7 +55,7 @@ public class TrovaRicettaControllerAdapter extends ControllerAdapter{  //ADATTAT
 			return ricetteTrovateBean;
 		}
 		else {
-			return null;
+			return new ArrayList<RicettaBean>();
 		}
 	}
 
@@ -74,7 +74,7 @@ public class TrovaRicettaControllerAdapter extends ControllerAdapter{  //ADATTAT
 			return alimentiTrovatiBean;
 		}
 		else {
-			return null;
+			return new ArrayList<AlimentoBean>();
 		}
 	}
 
@@ -92,7 +92,7 @@ public class TrovaRicettaControllerAdapter extends ControllerAdapter{  //ADATTAT
 			return alimentiInDispensaBean;
 		}
 		else {
-			return null;
+			return new ArrayList<AlimentoBean>();
 		}
 	}
 

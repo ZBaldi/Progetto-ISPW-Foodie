@@ -53,12 +53,11 @@ public class Dispensa extends SubjectPatternObserver { //SINGLETON, LA DISPENSA 
 	public ArrayList<Alimento> getAlimenti(){ //RESTITUISCE LA LISTA DEGLI ALIMENTI PRESENTI NELLA DISPENSA AL CHIAMANTE
 		if(!lista.isEmpty()) {
 			System.out.println("Restituisco gli alimenti nella dispensa");
-			return lista;
 		}
 		else {
 			System.out.println("La dispensa non ha alimenti");
-			return null;
 		}
+		return lista;
 	}
 	
 }

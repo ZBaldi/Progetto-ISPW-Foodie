@@ -13,6 +13,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import java.io.IOException;
+import java.util.logging.Logger;
+
 import com.foodie.boundary.AreaPersonaleViewController;
 import com.foodie.boundary.DispensaUtenteViewController;
 import com.foodie.boundary.ModeratoreViewController;
@@ -30,6 +32,7 @@ public class LoginViewController {
 	private Stage primaryStage;
 	private LoginController controller = LoginController.ottieniIstanza();
 	private PubblicaRicettaController controller2 = PubblicaRicettaController.ottieniIstanza();
+	private static final Logger logger = Logger.getLogger(LoginViewController.class.getName());
 	@FXML
 	private Button registratiButton;
 	@FXML
@@ -184,7 +187,7 @@ public class LoginViewController {
                 }
                 break;
             default:
-                System.err.println("Ruolo non riconosciuto: " + ruolo);
+            	logger.severe("Ruolo non riconosciuto: " + ruolo);
                 throw new IllegalArgumentException("Ruolo non riconosciuto: " + ruolo);
         }
         Scene scene = new Scene(root);
