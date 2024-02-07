@@ -121,9 +121,8 @@ public class LoginViewController {
 				interfaccia = 2;
 			}
 			try {
-				FXMLLoader loader = new FXMLLoader(getClass().getResource(controller.ottieniView(interfaccia)));  // SFRUTTI POLIMORFISMO NEL CONTROLLER PER OTTENERE LA VIEW CORRETTA
-	            Parent root=null;	            
-	            caricaViewEController(loader,ruolo,root); //CARICA VIEW CORRETTA
+				FXMLLoader loader = new FXMLLoader(getClass().getResource(controller.ottieniView(interfaccia)));  // SFRUTTI POLIMORFISMO NEL CONTROLLER PER OTTENERE LA VIEW CORRETTA	            
+	            caricaViewEController(loader,ruolo); //CARICA VIEW CORRETTA
 	        }catch (IOException e) {
 	            e.printStackTrace();
 	        }
@@ -133,8 +132,9 @@ public class LoginViewController {
 		}
 	}
 	
-	private void caricaViewEController(FXMLLoader loader,String ruolo,Parent root) throws IOException{ //METODO PER CARICARE LA VIEW CORRETTA  PER EVITARE COMPLESSITA' SMELL       
-        switch (ruolo) { 
+	private void caricaViewEController(FXMLLoader loader,String ruolo) throws IOException{ //METODO PER CARICARE LA VIEW CORRETTA  PER EVITARE COMPLESSITA' SMELL       
+        Parent root = null;
+		switch (ruolo) { 
             case "Standard":  //SE STANDARD CARICHI LE INTERFACCE RELATIVE PER L'UTENTE STANDARD
             	Dispensa dispensa = Dispensa.ottieniIstanza();
             	dispensa.svuotaDispensa();

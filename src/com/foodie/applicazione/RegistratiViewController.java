@@ -135,10 +135,10 @@ public class RegistratiViewController {
     	pause.setOnFinished(event -> {
     		
     		try {
-        		
+    			LoginViewController loginViewController=LoginViewController.ottieniIstanza();
     			FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
-                Parent root = loader.load();
-                LoginViewController loginViewController=loader.getController();
+                loader.setController(loginViewController);
+    			Parent root = loader.load();
                 loginViewController.setPrimaryStage(primaryStage);
                 Scene nuovaScena = new Scene(root);
                 primaryStage.setScene(nuovaScena);
