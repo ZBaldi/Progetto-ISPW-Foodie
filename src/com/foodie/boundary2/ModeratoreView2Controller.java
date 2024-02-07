@@ -1,7 +1,9 @@
 package com.foodie.boundary2;
 
-import java.util.ArrayList;
-import com.foodie.Applicazione.LoginViewController;
+
+import java.util.List;
+
+import com.foodie.applicazione.LoginViewController;
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.PubblicaRicettaController;
@@ -59,7 +61,7 @@ public class ModeratoreView2Controller implements Observer{
             loginViewController.setPrimaryStage(primaryStage);
             Scene nuovaScena = new Scene(root);
             primaryStage.setScene(nuovaScena);
-            primaryStage.show();;
+            primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace(); 
         }
@@ -68,7 +70,7 @@ public class ModeratoreView2Controller implements Observer{
 	@Override
 	public void aggiornaView() {  //AGGIORNA VIEW IN FUZNIONE DELLE RICETTE DA APPROVARE , LE MOSTRA SUBITO COMPLETE 
 		contenitoreRicetteDaApprovare.getChildren().clear();
-		ArrayList<RicettaBean> ricetteBean =adattatorePubblicaRicettaController.mostraLeRicetteDaApprovare();
+		List<RicettaBean> ricetteBean =adattatorePubblicaRicettaController.mostraLeRicetteDaApprovare();
 		if(ricetteBean!=null) {
 			for(RicettaBean r: ricetteBean) {
 				VBox contenitoreRicetta = new VBox();

@@ -36,8 +36,7 @@ public class CatalogoAlimentiNutrixionixImplementazioneDao implements CatalogoAl
 			JsonNode nodo = mapper.readTree(stringa).get("common");  //prendo ramo common del vettore json di elementi
 			//Alimento[] alimenti = mapper.readValue(nodo.toString(), Alimento[].class); modo brutto
 			//modo buono://li metto in un arrayList di alimenti ignorando tutti i campi tranne food_name
-			ArrayList<Alimento> alimenti = mapper.readValue(nodo.toString(), mapper.getTypeFactory().constructCollectionType(ArrayList.class, Alimento.class));
-			return alimenti;
+			return mapper.readValue(nodo.toString(), mapper.getTypeFactory().constructCollectionType(ArrayList.class, Alimento.class));
 		} catch (JsonMappingException e) {
 			e.printStackTrace();
 			logger.severe("PROBLEMA LIBRERIA JSON MAPPING");
@@ -45,7 +44,7 @@ public class CatalogoAlimentiNutrixionixImplementazioneDao implements CatalogoAl
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 			logger.severe("PROBLEMA LIBRERIA JSON");
-			return new ArrayList<Alimento>();
+			return new ArrayList<>();
 		}
 	}
 	
@@ -81,13 +80,13 @@ public class CatalogoAlimentiNutrixionixImplementazioneDao implements CatalogoAl
             	return alimentiTrovati;
             }
             else {
-            	return new ArrayList<Alimento>();
+            	return new ArrayList<>();
             }
 		}catch(Exception e) {
 			e.printStackTrace();
 			logger.severe("PROBLEMA CON LA CONNESSIONE HTTML PER L'UTILIZZO DELL'API NUTRIXIONIX");
 			logger.info("L'API sta dando problemi... riprova in seguito");
-			return new ArrayList<Alimento>();
+			return new ArrayList<>();
 		}
 	}
 

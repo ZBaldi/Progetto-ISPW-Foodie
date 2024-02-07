@@ -32,7 +32,7 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
 		ResultSet risultati=null;
 		if(dispensa!=null && dispensa.getAlimenti().isEmpty()) { //CONTROLLO SE LA DISPENSA è VUOTA SE GLIELA FORNISCO
 			logger.info("Dispensa vuota!!! Riempila prima");
-			return new ArrayList<Ricetta>();
+			return new ArrayList<>();
 		}
 		try(Connection connessione= DriverManager.getConnection(DATABASEURL, UTENTE,PASSWORD)) {//APRO LA CONNESSIONE
 			dichiarazione = connessione.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -63,7 +63,7 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
 			risultati.close();
 			if(ricetteTrovate.isEmpty()) {
 				logger.info("Nessuna ricetta trovata");
-				return new ArrayList<Ricetta>();
+				return new ArrayList<>();
 			}
 			logger.info("Ricette Trovate");
 			return ricetteTrovate;
@@ -87,8 +87,7 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
                 String nome = risultati.getString("nome");
                 String autore= risultati.getString(COLONNA_AUTORE);
                 if (nome.equals(ricetta.getNome()) && autore.equals(ricetta.getAutore())){
-                	RicettaDuplicataException eccezione= new RicettaDuplicataException("Ricetta già esistente nel database!");
-                	throw eccezione;
+                	throw new RicettaDuplicataException("Ricetta già esistente nel database!");
                 }
             }
             risultati.close();
@@ -124,7 +123,6 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
             	logger.info("Ricetta non eliminata dal database o non presente");
             }
             dichiarazione.close();
-            connessione.close();
         } finally {     //IN OGNI CASO CHIUDO LA CONNESSIONE  	
                 if (dichiarazione != null)
                     dichiarazione.close();
@@ -155,7 +153,6 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
 		        } while (risultati.next());
 		    }
 			dichiarazione.close();
-			connessione.close();
 			risultati.close();
 			return ricetta;
 		}finally {  //IN OGNI CASO CHIUDO LA CONNESSIONE

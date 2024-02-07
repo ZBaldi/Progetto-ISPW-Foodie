@@ -3,7 +3,7 @@ package com.foodie.boundary;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
-import com.foodie.Applicazione.LoginViewController;
+import com.foodie.applicazione.LoginViewController;
 import com.foodie.controller.TrovaRicettaController;
 
 import javafx.event.ActionEvent;

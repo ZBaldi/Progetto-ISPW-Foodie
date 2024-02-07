@@ -1,8 +1,8 @@
 package com.foodie.boundary2;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import com.foodie.Applicazione.LoginViewController;
+import com.foodie.applicazione.LoginViewController;
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.LoginController;
@@ -116,7 +116,7 @@ public class AggiungiAlimentoView2Controller {
 	}
 	
 	private void trovaAlimenti() {  //METODO TROVA ALIMENTI
-		ArrayList<AlimentoBean> alimentiBeanTrovati=adattatoreTrovaRicettaController.trovaGliAlimenti(barraDiRicerca.getText());
+		List<AlimentoBean> alimentiBeanTrovati=adattatoreTrovaRicettaController.trovaGliAlimenti(barraDiRicerca.getText());
 		if(alimentiBeanTrovati!=null) {
 			for(AlimentoBean a: alimentiBeanTrovati) {
 				Label labelAlimento = new Label(a.getNome());
@@ -146,7 +146,7 @@ public class AggiungiAlimentoView2Controller {
 	private void salvaAlimento(String nomeAlimento) {  //SALVA ALIMENTO
 		AlimentoBean alimentoBean = new AlimentoBean();
 		alimentoBean.setNome(nomeAlimento);
-		adattatoreTrovaRicettaController.ModificaDispensa(alimentoBean, 0);
+		adattatoreTrovaRicettaController.modificaDispensa(alimentoBean, 0);
 		loginController.salvaDispensa(username); //SALVO DISPENSA SU FILE IN AUTOMATICO
 		
 	}

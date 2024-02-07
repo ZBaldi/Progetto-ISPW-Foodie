@@ -1,10 +1,10 @@
 package com.foodie.boundary;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
-import com.foodie.Applicazione.LoginViewController;
+import com.foodie.applicazione.LoginViewController;
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.PubblicaRicettaController;
@@ -55,7 +55,7 @@ public class GestisciRicetteViewController {
 	}
 	
 	public void aggiornaView() {  //TROVA TUTTE LE RICETTE DELLO CHEF E LE MOSTRA GRAFICAMENTE
-		ArrayList<RicettaBean> ricetteTrovate= null;
+		List<RicettaBean> ricetteTrovate= null;
 		contenitoreRicette.getChildren().clear();
 		UtenteBean utenteBean=adattatoreLoginController.ottieniUtente();
 		ricetteTrovate=adattatoreTrovaRicettaController.trovaLeRicette(0,utenteBean.getUsername());  //TROVO PER USERNAME CHEF
@@ -98,7 +98,7 @@ public class GestisciRicetteViewController {
 			}
 			impostaHBox(); //RENDO CLICCABILI
 		}
-		if(contenitoreRicette.getChildren().isEmpty() && bottoneModifica==false) { //PER EVITARE CHE SE LE RICETTE è VUOTA RIMANGA ATTIVO IL BOTTONE E IL TESTO DELLA LABEL
+		if(contenitoreRicette.getChildren().isEmpty() && !bottoneModifica) { //PER EVITARE CHE SE LE RICETTE è VUOTA RIMANGA ATTIVO IL BOTTONE E IL TESTO DELLA LABEL
 			bottoneModifica=true;
 			eliminaLabel.setFont(Font.font(FORMATO,30));//ESEMPIO PREMI MODIFICA CANCELLI L'ULTIMA RICETTA ALLORA SI DEVE DISATTIVARE LA MODIFICA
 			eliminaLabel.setText("");
@@ -109,7 +109,7 @@ public class GestisciRicetteViewController {
 		UtenteBean utenteBean=adattatoreLoginController.ottieniUtente();
 		RicettaBean ricettaSelezionata = adattatoreTrovaRicettaController.apriLaRicetta(nomeRicetta,utenteBean.getUsername());
 		try {
-			if(bottoneModifica==false) { //resettare il bottone modifica se attivo
+			if(!bottoneModifica) { //resettare il bottone modifica se attivo
 				bottoneModifica=true;
 				eliminaLabel.setFont(Font.font(FORMATO,30));
 				eliminaLabel.setText("");
@@ -147,12 +147,12 @@ public class GestisciRicetteViewController {
 	
 	@FXML
 	private void modifica(ActionEvent event) {  //GESTISCE IL PULSANTE ELIMINA
-		if(bottoneModifica==true && !contenitoreRicette.getChildren().isEmpty()) {
+		if(bottoneModifica && !contenitoreRicette.getChildren().isEmpty()) {
 			bottoneModifica=false;
 			eliminaLabel.setFont(Font.font(FORMATO,20));
 			eliminaLabel.setText("CLICCA LA RICETTA DA ELIMINARE");
 		}
-		else if(bottoneModifica==false && !contenitoreRicette.getChildren().isEmpty()) {
+		else if(!bottoneModifica && !contenitoreRicette.getChildren().isEmpty()) {
 			bottoneModifica=true;
 			eliminaLabel.setFont(Font.font(FORMATO,30));
 			eliminaLabel.setText("");
@@ -169,7 +169,7 @@ public class GestisciRicetteViewController {
 	}
 	
 	private void impostaHBox() {  //IMPOSTA RICETTE CLICCABILI
-		if(bottoneModifica==false) {  //IMPOSTO DI ELIMINARE LE RICETTE
+		if(!bottoneModifica) {  //IMPOSTO DI ELIMINARE LE RICETTE
 			if(!contenitoreRicette.getChildren().isEmpty()) {
 				contenitoreRicette.getChildren().forEach(node->{
 					HBox hBoxRicetta= (HBox)node;
@@ -177,7 +177,7 @@ public class GestisciRicetteViewController {
 					for(Node nodo: hBoxRicetta.getChildren()) {
 						labelNome=(Label)nodo;  //PRENDO SOLO IL NOME 
 						UtenteBean utenteBean=adattatoreLoginController.ottieniUtente();
-						hBoxRicetta.setOnMouseClicked(event->{eliminaRicetta(labelNome.getText(),utenteBean.getUsername());});
+						hBoxRicetta.setOnMouseClicked(event->eliminaRicetta(labelNome.getText(),utenteBean.getUsername()));
 						break;
 					}
 				});

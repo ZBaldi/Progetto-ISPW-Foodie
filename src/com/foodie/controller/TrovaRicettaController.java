@@ -2,6 +2,7 @@ package com.foodie.controller;
 
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import com.foodie.model.Alimento;
@@ -49,8 +50,8 @@ public class TrovaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOL
 		dispensa.svuotaDispensa();
 	}
 	
-	public ArrayList<Ricetta> trovaRicette(int difficolta, String autore){  //METODO PER TROVARE LE RICETTE
-		ArrayList<Ricetta> ricetteTrovate= null;
+	public List<Ricetta> trovaRicette(int difficolta, String autore){  //METODO PER TROVARE LE RICETTE
+		List<Ricetta> ricetteTrovate= null;
 		try {
 			if(autore==null) {  //SE NON PASSO L'AUTORE VOGLIO EFFETTUARE LA RICERCA PER ALIMENTI-DIFFICOLTA'
 				ricetteTrovate = database.trovaRicette(dispensa, difficolta, null);
@@ -63,17 +64,17 @@ public class TrovaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOL
 				return ricetteTrovate;
 			}
 			else {
-				return new ArrayList<Ricetta>();
+				return new ArrayList<>();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.severe("ERRORE NELL'OTTENIMENTO DELLE RICETTE");
 			logger.info("Problema con il DB");
-			return new ArrayList<Ricetta>();
+			return new ArrayList<>();
 		}
 	}
 	
-	private void mostraRicette(ArrayList<Ricetta> ricette) {  //METODO PRIVATO PER STAMPARE SU CONSOLE TUTTE LE RICETTE
+	private void mostraRicette(List<Ricetta> ricette) {  //METODO PRIVATO PER STAMPARE SU CONSOLE TUTTE LE RICETTE
 		for(Ricetta r: ricette) {  //UTILIZZATO PER COMODITA' NEL PROGETTO
 			logger.info("nome: "+r.getNome()+"\ndescrizione: "+r.getDescrizione()+"\ndifficolta: "+r.getDifficolta()+"\nautore: "+r.getAutore()+"\nIngredienti: ");
 			for(Alimento a: r.getIngredienti()) {
@@ -86,32 +87,32 @@ public class TrovaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOL
 		}
 	}
 	
-	public ArrayList<Alimento> trovaAlimenti(String nomeAlimento) {  //METODO PER TROVARE GLI ALIMENTI
-		ArrayList<Alimento> alimentiTrovati=null;
+	public List<Alimento> trovaAlimenti(String nomeAlimento) {  //METODO PER TROVARE GLI ALIMENTI
+		List<Alimento> alimentiTrovati=null;
 		alimentiTrovati=databaseAlimenti.trovaAlimenti(nomeAlimento);
 		if(alimentiTrovati!=null && !alimentiTrovati.isEmpty()) {
 			mostraAlimenti(alimentiTrovati);
 			return alimentiTrovati;
 		}
 		else {
-			return new ArrayList<Alimento>();
+			return new ArrayList<>();
 		}
 	}
 	
-	private void mostraAlimenti(ArrayList<Alimento> alimenti) {  //METODO PRIVATO PER STAMPARE SU CONSOLE TUTTI GLI ALIMENTI
+	private void mostraAlimenti(List<Alimento> alimenti) {  //METODO PRIVATO PER STAMPARE SU CONSOLE TUTTI GLI ALIMENTI
 		for(Alimento a: alimenti) {   //UTILIZZATO PER COMODITA' NEL PROGETTO
 			logger.info(a.getNome());
 		}
 	}
 	
-	public ArrayList<Alimento> mostraDispensa(){  //METODO PER OTTENERE GLI ALIMENTI NELLA DISPENSA
-		ArrayList<Alimento> alimentiInDispensa=null;
+	public List<Alimento> mostraDispensa(){  //METODO PER OTTENERE GLI ALIMENTI NELLA DISPENSA
+		List<Alimento> alimentiInDispensa=null;
 		alimentiInDispensa=dispensa.getAlimenti();
 		if(alimentiInDispensa!=null && !alimentiInDispensa.isEmpty()) {
 			return alimentiInDispensa;
 		}
 		else {
-			return new ArrayList<Alimento>();
+			return new ArrayList<>();
 		}
 	}
 	

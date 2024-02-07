@@ -1,9 +1,9 @@
 package com.foodie.boundary;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
-import com.foodie.Applicazione.LoginViewController;
+import com.foodie.applicazione.LoginViewController;
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.TrovaRicettaController;
@@ -60,7 +60,7 @@ public class TrovaRicetteViewController {
 	}
 	
 	@FXML
-	private void tornaAlLogin(MouseEvent event) {;  //CARICA VIEW LOGIN
+	private void tornaAlLogin(MouseEvent event) {  //CARICA VIEW LOGIN
 		controller.svuotaDispensa();
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/Applicazione/LoginView.fxml"));
@@ -128,7 +128,7 @@ public class TrovaRicetteViewController {
 	}
 	
 	public int creaRicetteTrovate(int difficoltaInt) {  //TROVA LE RICETTE E LE MOSTRA GRAFICAMENTE
-		ArrayList<RicettaBean> ricetteTrovate= null;
+		List<RicettaBean> ricetteTrovate= null;
 		ricetteTrovate=adattatoreTrovaRicettaController.trovaLeRicette(difficoltaInt,null);
 		if(ricetteTrovate!=null) {
 			for(RicettaBean r: ricetteTrovate) {  //PER OGNI RICETTA CREA PARTI GRAFICHE

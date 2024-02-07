@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import com.foodie.controller.PubblicaRicettaController;
-import com.foodie.Applicazione.LoginViewController;
+import com.foodie.applicazione.LoginViewController;
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.model.RicettaBean;
@@ -63,9 +63,9 @@ public class NuovaRicettaViewController {
 		this.primaryStage= primaryStage;
 	}
 	
-	public void aggiornaView(String nome, String Descrizione, int diff) {  //AGGIORNA I VARI CAMPI
+	public void aggiornaView(String nome, String descrizione, int diff) {  //AGGIORNA I VARI CAMPI
 		this.nome.setText(nome);
-		this.descrizione.setText(Descrizione);
+		this.descrizione.setText(descrizione);
 		switch(diff) {
 		case 1:
 				facile.setSelected(true);
@@ -147,10 +147,10 @@ public class NuovaRicettaViewController {
 	        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
 	        // Creare una task da eseguire dopo 2 secondi
-	        Runnable task = () -> {
+	        Runnable task = () -> 
 	            // Codice da eseguire dopo 2 secondi
 	            Platform.runLater(() -> nome.setPromptText("Nome Ricetta"));
-	        };
+	        
 
 	        // Programmare la task per essere eseguita dopo 2 secondi
 	        scheduler.schedule(task, 2, TimeUnit.SECONDS);
@@ -168,10 +168,10 @@ public class NuovaRicettaViewController {
 	        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
 	        // Creare una task da eseguire dopo 2 secondi
-	        Runnable task = () -> {
+	        Runnable task = () -> 
 	            // Codice da eseguire dopo 2 secondi
 	            Platform.runLater(() -> descrizione.setPromptText("Descrizione"));
-	        };
+	        
 
 	        // Programmare la task per essere eseguita dopo 2 secondi
 	        scheduler.schedule(task, 2, TimeUnit.SECONDS);
@@ -196,10 +196,10 @@ public class NuovaRicettaViewController {
 	        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
 	        // Creare una task da eseguire dopo 2 secondi
-	        Runnable task = () -> {
+	        Runnable task = () -> 
 	            // Codice da eseguire dopo 2 secondi
 	            Platform.runLater(() -> pubblica.setText("Pubblica"));
-	        };
+	        
 
 	        // Programmare la task per essere eseguita dopo 2 secondi
 	        scheduler.schedule(task, 2, TimeUnit.SECONDS);
@@ -222,10 +222,10 @@ public class NuovaRicettaViewController {
 	        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
 	        // Creare una task da eseguire dopo 2 secondi
-	        Runnable task = () -> {
+	        Runnable task = () -> 
 	            // Codice da eseguire dopo 2 secondi
 	            Platform.runLater(() -> pubblica.setText("Pubblica"));
-	        };
+	        
 
 	        // Programmare la task per essere eseguita dopo 2 secondi
 	        scheduler.schedule(task, 2, TimeUnit.SECONDS);

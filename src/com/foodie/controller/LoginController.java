@@ -65,8 +65,7 @@ public class LoginController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOLO 1 IST
 	public int controllaUsername(String username) {  //CONTROLLA L'USERNAME SE ESISTE
 		try {
 			if(database.controllaUsername(username)==0) {
-				UtenteEsistenteException eccezione= new UtenteEsistenteException("Ricetta già esistente nel database!");
-            	throw eccezione;
+				throw new UtenteEsistenteException("Ricetta già esistente nel database!");
 			}
 			return 1;
 		}catch(UtenteEsistenteException e) {

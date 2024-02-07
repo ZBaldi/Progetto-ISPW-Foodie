@@ -1,6 +1,7 @@
 package com.foodie.model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.logging.Logger;
 
@@ -9,9 +10,9 @@ public class Ricetta extends SubjectPatternObserver{  //OSSERVATO CONCRETO, ESTE
 	private String nome;
 	private String descrizione;
 	private int difficolta;
-	private ArrayList<Alimento> ingredienti;
+	private List<Alimento> ingredienti;
 	private String autore;
-	private ArrayList<String> quantita;
+	private List<String> quantita;
 	private static final Logger logger = Logger.getLogger(Ricetta.class.getName());
 	
 	public Ricetta() {
@@ -19,7 +20,7 @@ public class Ricetta extends SubjectPatternObserver{  //OSSERVATO CONCRETO, ESTE
 		this.quantita=new ArrayList<String>();
 	}
 	
-	public Ricetta(String nome, String descrizione, int difficolta, ArrayList<Alimento> ingredienti, String autore, ArrayList<String> quantita){
+	public Ricetta(String nome, String descrizione, int difficolta, List<Alimento> ingredienti, String autore, List<String> quantita){
 		this.nome=nome;
 		this.descrizione=descrizione;
 		this.difficolta=difficolta;
@@ -40,7 +41,7 @@ public class Ricetta extends SubjectPatternObserver{  //OSSERVATO CONCRETO, ESTE
 		return this.difficolta;
 	}
 	
-	public ArrayList<Alimento> getIngredienti(){
+	public List<Alimento> getIngredienti(){
 		return ingredienti;
 	}
 	
@@ -48,7 +49,7 @@ public class Ricetta extends SubjectPatternObserver{  //OSSERVATO CONCRETO, ESTE
 		return this.autore;
 	}
 	
-	public ArrayList<String> getQuantita(){
+	public List<String> getQuantita(){
 		return this.quantita;
 	}
 	

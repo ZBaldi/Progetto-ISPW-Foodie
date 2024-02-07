@@ -3,14 +3,14 @@ package com.foodie.model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+import java.util.List;
 
 public class QuerySQLUtente {
 	
 	private QuerySQLUtente() {
 	}
 	
-	public static ResultSet trovaRicette(Statement dichiarazione, ArrayList<Alimento> alimenti, int difficolta) throws SQLException {
+	public static ResultSet trovaRicette(Statement dichiarazione, List<Alimento> alimenti, int difficolta) throws SQLException {
 		StringBuilder stringBuilder= new StringBuilder();   //QUERY PER OTTENERE LE RICETTE DAL DB CHE HANNO COME INGREDIENTI
 		int indice=0;										//UN SOTTOINSIEME DI QUELLI CONTENUTI NELLA DISPENSA
 		for(Alimento a: alimenti) {								

@@ -1,11 +1,12 @@
 package com.foodie.boundary2;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import com.foodie.Applicazione.LoginViewController;
+
+import com.foodie.applicazione.LoginViewController;
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.model.AlimentoBean;
@@ -164,10 +165,10 @@ public class NuovaRicettaView2Controller implements Observer{
 	        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
 	        // Creare una task da eseguire dopo 2 secondi
-	        Runnable task = () -> {
+	        Runnable task = () -> 
 	            // Codice da eseguire dopo 2 secondi
 	            Platform.runLater(() -> nome.setPromptText("Nome Ricetta"));
-	        };
+	        
 
 	        // Programmare la task per essere eseguita dopo 2 secondi
 	        scheduler.schedule(task, 2, TimeUnit.SECONDS);
@@ -185,10 +186,10 @@ public class NuovaRicettaView2Controller implements Observer{
 	        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
 	        // Creare una task da eseguire dopo 2 secondi
-	        Runnable task = () -> {
+	        Runnable task = () -> 
 	            // Codice da eseguire dopo 2 secondi
 	            Platform.runLater(() -> descrizione.setPromptText("Descrizione"));
-	        };
+	        
 
 	        // Programmare la task per essere eseguita dopo 2 secondi
 	        scheduler.schedule(task, 2, TimeUnit.SECONDS);
@@ -213,10 +214,10 @@ public class NuovaRicettaView2Controller implements Observer{
 	        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
 	        // Creare una task da eseguire dopo 2 secondi
-	        Runnable task = () -> {
+	        Runnable task = () -> 
 	            // Codice da eseguire dopo 2 secondi
 	            Platform.runLater(() -> pubblica.setText("Pubblica"));
-	        };
+	        
 
 	        // Programmare la task per essere eseguita dopo 2 secondi
 	        scheduler.schedule(task, 2, TimeUnit.SECONDS);
@@ -239,10 +240,10 @@ public class NuovaRicettaView2Controller implements Observer{
 	        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
 	        // Creare una task da eseguire dopo 2 secondi
-	        Runnable task = () -> {
+	        Runnable task = () -> 
 	            // Codice da eseguire dopo 2 secondi
 	            Platform.runLater(() -> pubblica.setText("Pubblica"));
-	        };
+	        
 
 	        // Programmare la task per essere eseguita dopo 2 secondi
 	        scheduler.schedule(task, 2, TimeUnit.SECONDS);
@@ -282,7 +283,7 @@ public class NuovaRicettaView2Controller implements Observer{
 	}
 	
 	private void trovaAlimenti() {  //TROVA GLI ALIMENTI
-		ArrayList<AlimentoBean> alimentiBeanTrovati=adattatoreTrovaRicettaController.trovaGliAlimenti(barraDiRicerca.getText());
+		List<AlimentoBean> alimentiBeanTrovati=adattatoreTrovaRicettaController.trovaGliAlimenti(barraDiRicerca.getText());
 		if(alimentiBeanTrovati!=null) {
 			quantita.setDisable(false);
 			for(AlimentoBean a: alimentiBeanTrovati) {
@@ -293,7 +294,7 @@ public class NuovaRicettaView2Controller implements Observer{
 				labelAlimento.setWrapText(true);
 				labelAlimento.setFont(Font.font(FORMATO));
 				labelAlimento.setAlignment(Pos.CENTER);  //LI RENDE CLICCABILI
-				labelAlimento.setOnMouseClicked(event2->{salvaAlimento(labelAlimento.getText(),quantita.getText());});
+				labelAlimento.setOnMouseClicked(event2->salvaAlimento(labelAlimento.getText(),quantita.getText()));
 				contenitoreAlimentiTrovati.getChildren().add(labelAlimento);
 			}
 		}
@@ -311,7 +312,7 @@ public class NuovaRicettaView2Controller implements Observer{
 	@Override
 	public void aggiornaView() {  //AGGIORNA GLI INGREDIENTI IN FUNZIONE DEI CAMBIAMENTI DELLA RICETTA
 		ingredienti.getChildren().clear();
-		ArrayList<AlimentoBean> alimentiBeanRicetta =adattatorePubblicaRicettaController.mostraIngredientiRicetta();
+		List<AlimentoBean> alimentiBeanRicetta =adattatorePubblicaRicettaController.mostraIngredientiRicetta();
 		if(alimentiBeanRicetta!=null) {
 			for(AlimentoBean a: alimentiBeanRicetta) {
 				Label labelAlimento = new Label(a.getNome());
@@ -331,7 +332,7 @@ public class NuovaRicettaView2Controller implements Observer{
 		if(!ingredienti.getChildren().isEmpty()) {
 			ingredienti.getChildren().forEach(node->{
 				Label labelAlimento= (Label)node;
-				labelAlimento.setOnMouseClicked(event->{eliminaAlimento(labelAlimento.getText());});
+				labelAlimento.setOnMouseClicked(event->eliminaAlimento(labelAlimento.getText()));
 			});
 		}
 	}

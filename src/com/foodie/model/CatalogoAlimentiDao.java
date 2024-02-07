@@ -1,9 +1,9 @@
 package com.foodie.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface CatalogoAlimentiDao {  //DAO PER GLI ALIMENTI
 	
-	public ArrayList<Alimento> trovaAlimenti(String nome);
+	public List<Alimento> trovaAlimenti(String nome);
 	
 }

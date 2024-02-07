@@ -1,9 +1,10 @@
 package com.foodie.boundary2;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
-import com.foodie.Applicazione.LoginViewController;
+
+import com.foodie.applicazione.LoginViewController;
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.PubblicaRicettaController;
@@ -49,7 +50,7 @@ public class GestisciRicetteView2Controller {
 	}
 	
 	public void aggiornaView() {  //TROVA LE RICETTE DELLO CHEF E LE MOSTRA GIA' CON TUTTO IL CONTENUTO
-		ArrayList<RicettaBean> ricetteTrovate= null;
+		List<RicettaBean> ricetteTrovate= null;
 		contenitoreRicette.getChildren().clear();
 		UtenteBean utenteBean=adattatoreLoginController.ottieniUtente();
 		ricetteTrovate=adattatoreTrovaRicettaController.trovaLeRicette(0,utenteBean.getUsername());

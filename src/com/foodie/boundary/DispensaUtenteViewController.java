@@ -1,8 +1,8 @@
 package com.foodie.boundary;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import com.foodie.Applicazione.LoginViewController;
+import com.foodie.applicazione.LoginViewController;
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.LoginController;
@@ -35,8 +35,6 @@ public class DispensaUtenteViewController implements Observer {
 	private ControllerAdapter adattatoreLoginController=factory.creaLoginAdapter();
 	private UtenteBean utenteBean= adattatoreLoginController.ottieniUtente();
 	private String username= utenteBean.getUsername();
-	private ArrayList<AlimentoBean> alimentiBeanTrovati;
-	private ArrayList<AlimentoBean> alimentiBeanDispensa;
 	private boolean bottoneModifica = true;
 	private static final String FORMATO = "Arial";
 	private static final String DISPENSA = "La mia Dispensa";
@@ -117,7 +115,7 @@ public class DispensaUtenteViewController implements Observer {
 	private void tornaAlLogin(MouseEvent event) {  //CARICA LA VIEW LOGIN
 		controller.svuotaDispensa();
 		try {
-			if(bottoneModifica==false) { //resettare il bottone modifica se attivo
+			if(!bottoneModifica) { //resettare il bottone modifica se attivo
 				bottoneModifica=true;
 				labelDispensa.setFont(Font.font(FORMATO,30));
 				labelDispensa.setText(DISPENSA);
@@ -146,7 +144,7 @@ public class DispensaUtenteViewController implements Observer {
 	}
 	
 	private void trovaAlimenti() {  //GESTISCE IL TROVA ALIMENTI
-			alimentiBeanTrovati=adattatoreTrovaRicettaController.trovaGliAlimenti(barraDiRicerca.getText());
+			List<AlimentoBean> alimentiBeanTrovati=adattatoreTrovaRicettaController.trovaGliAlimenti(barraDiRicerca.getText());
 			if(alimentiBeanTrovati!=null) {
 				for(AlimentoBean a: alimentiBeanTrovati) {
 					Label labelAlimento = new Label(a.getNome());
@@ -176,7 +174,7 @@ public class DispensaUtenteViewController implements Observer {
 	private void salvaAlimento(String nomeAlimento) {  //SALVA ALIMENTO IN DISPENSA
 		AlimentoBean alimentoBean = new AlimentoBean();
 		alimentoBean.setNome(nomeAlimento);
-		adattatoreTrovaRicettaController.ModificaDispensa(alimentoBean, 0);
+		adattatoreTrovaRicettaController.modificaDispensa(alimentoBean, 0);
 	}
 	
 	private void eliminaAlimenti() {  //PULISCE GLI ALIMENTI TROVATI
@@ -189,7 +187,7 @@ public class DispensaUtenteViewController implements Observer {
 		if(contenitoreDispensa!=null && !contenitoreDispensa.getChildren().isEmpty()) {
 			contenitoreDispensa.getChildren().clear();
 		}
-		alimentiBeanDispensa =adattatoreTrovaRicettaController.mostraLaDispensa();
+		List<AlimentoBean> alimentiBeanDispensa =adattatoreTrovaRicettaController.mostraLaDispensa();
 		if(alimentiBeanDispensa!=null) {
 			for(AlimentoBean a: alimentiBeanDispensa) {
 				Label labelAlimento = new Label(a.getNome());
@@ -212,13 +210,13 @@ public class DispensaUtenteViewController implements Observer {
 	
 	@FXML
 	private void modificaDispensa(ActionEvent e) {  //GESTISCE IL BOTTONE MODIFICA
-		if(bottoneModifica==true && !contenitoreDispensa.getChildren().isEmpty()) {
+		if(bottoneModifica && !contenitoreDispensa.getChildren().isEmpty()) {
 			bottoneModifica=false;
 			labelDispensa.setFont(Font.font(FORMATO,20));
 			labelDispensa.setText("CLICCA L'ALIMENTO DA ELIMINARE");
 			impostaLabel();
 		}
-		else if(bottoneModifica==false && !contenitoreDispensa.getChildren().isEmpty()) {
+		else if(!bottoneModifica && !contenitoreDispensa.getChildren().isEmpty()) {
 			bottoneModifica=true;
 			labelDispensa.setFont(Font.font(FORMATO,30));
 			labelDispensa.setText(DISPENSA);
@@ -229,15 +227,15 @@ public class DispensaUtenteViewController implements Observer {
 	private void eliminaAlimento(String nomeAlimento) {  //ELIMINA ALIMENTO DISPENSA
 		AlimentoBean alimentoBean = new AlimentoBean();
 		alimentoBean.setNome(nomeAlimento);
-		adattatoreTrovaRicettaController.ModificaDispensa(alimentoBean, 1);
+		adattatoreTrovaRicettaController.modificaDispensa(alimentoBean, 1);
 	}
 	
 	private void impostaLabel() {  //IMPOSTA LE LABEL DELLA DISPENSA CLICCABILI
-		if(bottoneModifica==false) {
+		if(!bottoneModifica) {
 			if(!contenitoreDispensa.getChildren().isEmpty()) {
 				contenitoreDispensa.getChildren().forEach(node->{
 					Label labelAlimento= (Label)node;
-					labelAlimento.setOnMouseClicked(event->{eliminaAlimento(labelAlimento.getText());});
+					labelAlimento.setOnMouseClicked(event->eliminaAlimento(labelAlimento.getText()));
 				});
 			}
 		}

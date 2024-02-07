@@ -1,6 +1,7 @@
 package com.foodie.model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class Moderatore extends SubjectPatternObserver implements Utente { //MODERATORE IMPLEMENTA UTENTE
@@ -63,7 +64,7 @@ public class Moderatore extends SubjectPatternObserver implements Utente { //MOD
 	}
 	
 	public void ricettaVerificata(Ricetta ricetta) {  //RIMUOVE LA RICETTA SE VERIFICATA
-		if(ricetteDaVerificare.remove(ricetta)==true) {
+		if(ricetteDaVerificare.remove(ricetta)) {
 			logger.info("Ricetta verificata");
 			notifica();
 		}
@@ -72,14 +73,14 @@ public class Moderatore extends SubjectPatternObserver implements Utente { //MOD
 		}
 	}
 	
-	public static ArrayList<Ricetta> getRicetteDaVerificare(){  //OTTIENI LE RICETTE DA VERIFICARE
+	public static List<Ricetta> getRicetteDaVerificare(){  //OTTIENI LE RICETTE DA VERIFICARE
 		if(ricetteDaVerificare!=null && !ricetteDaVerificare.isEmpty()) {
 			logger.info("Ecco le ricette da verificare");
 			return ricetteDaVerificare;
 		}
 		else {
 			logger.info("Nessuna ricetta da verificare");
-			return new ArrayList<Ricetta>();
+			return new ArrayList<>();
 		}
 	}
 	

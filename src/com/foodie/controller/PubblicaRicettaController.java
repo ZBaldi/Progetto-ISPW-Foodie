@@ -1,8 +1,10 @@
 package com.foodie.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
-import com.foodie.Applicazione.LoginViewController;
+
+import com.foodie.applicazione.LoginViewController;
 import com.foodie.model.Alimento;
 import com.foodie.model.CatalogoRicetteChefDao;
 import com.foodie.model.CatalogoRicetteImplementazione2Dao;
@@ -53,13 +55,13 @@ public class PubblicaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE 
 		}
 	}
 	
-	public ArrayList<Alimento> mostraAlimentiRicetta() {  //MOSTRA GLI INGREDIENTI DELLA RICETTA
-		ArrayList<Alimento> alimentiRicetta=ricetta.getIngredienti();
+	public List<Alimento> mostraAlimentiRicetta() {  //MOSTRA GLI INGREDIENTI DELLA RICETTA
+		List<Alimento> alimentiRicetta=ricetta.getIngredienti();
 		if(!alimentiRicetta.isEmpty()) {
 			return alimentiRicetta;
 		}
 		else {
-			return new ArrayList<Alimento>();
+			return new ArrayList<>();
 		}
 	}
 	
@@ -79,13 +81,14 @@ public class PubblicaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE 
 	}
 	
 	private void notificaChef(boolean bool) {  //NOTIFICA LO CHEF DOPO AVER APPROVATO LA RICETTA
-		logger.info("CHEF NOTIFICATO: "+bool);
+		String notifica= "CHEF NOTIFICATO: "+bool;
+		logger.info(notifica);
 	}
 	
 	public void pubblicaRicetta(String nome,String autore,boolean bool) {  //PUBBLICA LA RICETTA APPROVATA NEL DATABASE
 		Ricetta ricettaDaPubblicare=Moderatore.ottieniRicetta(nome, autore);
 		try {
-			if(bool==true) {
+			if(bool) {
 				database.aggiungiRicetta(ricettaDaPubblicare);
 			}
 			moderatore.ricettaVerificata(ricettaDaPubblicare);
@@ -111,13 +114,13 @@ public class PubblicaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE 
 		}
 	}
 	
-	public ArrayList<Ricetta> mostraRicetteDaApprovare() {  //MOSTRA LE RICETTE CHE DEVONO ESSERE APPROVATE
-		ArrayList<Ricetta> ricette=Moderatore.getRicetteDaVerificare();
+	public List<Ricetta> mostraRicetteDaApprovare() {  //MOSTRA LE RICETTE CHE DEVONO ESSERE APPROVATE
+		List<Ricetta> ricette=Moderatore.getRicetteDaVerificare();
 		if(ricette!=null && !ricette.isEmpty()) {
 			return ricette;
 		}
 		else {
-			return new ArrayList<Ricetta>();
+			return new ArrayList<>();
 		}
 	}
 	

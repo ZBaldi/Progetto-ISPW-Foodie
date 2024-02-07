@@ -23,7 +23,7 @@ public abstract class SubjectPatternObserver {        //CLASSE ASTRATTA DEL PATT
 	}
 	
 	public void cancella(Observer o) {  //CANCELLA L'OSSERVATORE DALLA PROPRIA LISTA SE PRESENTE
-		if(this.viewRegistrate.remove(o)==true) {
+		if(this.viewRegistrate.remove(o)) {
 			logger.info("Osservatore rimosso");
 		}
 		else {

@@ -4,7 +4,7 @@ import java.util.Map;
 import com.foodie.controller.LoginController;
 import com.foodie.controller.PubblicaRicettaController;
 import com.foodie.model.UtenteBean;
-import com.foodie.Applicazione.LoginViewController;
+import com.foodie.applicazione.LoginViewController;
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import javafx.event.ActionEvent;

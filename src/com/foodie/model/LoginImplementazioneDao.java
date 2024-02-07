@@ -58,7 +58,6 @@ public class LoginImplementazioneDao implements LoginDao{
             }
             risultati.close();
             dichiarazione.close();
-            connessione.close();
             return -1;
         } finally {       	
                 if(dichiarazione != null)
@@ -82,7 +81,6 @@ public class LoginImplementazioneDao implements LoginDao{
             }
             risultati.close();
             dichiarazione.close();
-            connessione.close();
             return 1;
         } finally {       	
                 if(dichiarazione != null)
@@ -103,7 +101,6 @@ public class LoginImplementazioneDao implements LoginDao{
             	logger.info("Utente non registrato");
             }
             dichiarazione.close();
-            connessione.close();
         } finally {       	
                 if(dichiarazione != null)
                     dichiarazione.close();

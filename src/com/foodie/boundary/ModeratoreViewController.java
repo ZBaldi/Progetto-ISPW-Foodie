@@ -1,10 +1,11 @@
 package com.foodie.boundary;
 
-import java.util.ArrayList;
+import java.util.List;
+
 import com.foodie.controller.PubblicaRicettaController;
 import com.foodie.model.Observer;
 import com.foodie.model.RicettaBean;
-import com.foodie.Applicazione.LoginViewController;
+import com.foodie.applicazione.LoginViewController;
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import javafx.event.ActionEvent;
@@ -48,7 +49,7 @@ public class ModeratoreViewController implements Observer{
 	public void aggiornaView() {  //AGGIORNA VIEW IN BASE ALLE RICHIESTE DA APPROVARE DEL MODERATORE
 		contenitoreRicetteDaApprovare.getChildren().clear();
 		contenitoreContenutoRicetta.getChildren().clear();
-		ArrayList<RicettaBean> ricetteBean =adattatorePubblicaRicettaController.mostraLeRicetteDaApprovare();
+		List<RicettaBean> ricetteBean =adattatorePubblicaRicettaController.mostraLeRicetteDaApprovare();
 		if(ricetteBean!=null) {
 			for(RicettaBean r: ricetteBean) {
 				Label labelRicetta = new Label(r.getNome());
@@ -58,7 +59,7 @@ public class ModeratoreViewController implements Observer{
 				labelRicetta.setWrapText(true);
 				labelRicetta.setFont(Font.font(FORMATO,20));
 				labelRicetta.setAlignment(Pos.CENTER);
-				labelRicetta.setOnMouseClicked(event->{apriContenuto(r);});  //RENDE CLICCABILI PER APRIRE IL CONTENUTO
+				labelRicetta.setOnMouseClicked(event->apriContenuto(r));  //RENDE CLICCABILI PER APRIRE IL CONTENUTO
 				contenitoreRicetteDaApprovare.getChildren().add(labelRicetta);
 			}
 		}

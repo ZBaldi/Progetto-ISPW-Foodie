@@ -1,6 +1,7 @@
 package com.foodie.model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class Dispensa extends SubjectPatternObserver { //SINGLETON, LA DISPENSA DEVE AVERE SOLO 1 ISTANZA!
@@ -32,7 +33,7 @@ public class Dispensa extends SubjectPatternObserver { //SINGLETON, LA DISPENSA 
 	}	
 	
 	public void eliminaAlimento(Alimento alimento) {  //RIMUOVI L'ALIMENTO DALLA DISPENSA SE PRESENTE
-		if(lista.remove(alimento)==true) {
+		if(lista.remove(alimento)) {
 			logger.info("Alimento rimosso dalla dispensa");
 			notifica();
 		}
@@ -52,7 +53,7 @@ public class Dispensa extends SubjectPatternObserver { //SINGLETON, LA DISPENSA 
 		}
 	}
 	
-	public ArrayList<Alimento> getAlimenti(){ //RESTITUISCE LA LISTA DEGLI ALIMENTI PRESENTI NELLA DISPENSA AL CHIAMANTE
+	public List<Alimento> getAlimenti(){ //RESTITUISCE LA LISTA DEGLI ALIMENTI PRESENTI NELLA DISPENSA AL CHIAMANTE
 		if(!lista.isEmpty()) {
 			logger.info("Restituisco gli alimenti nella dispensa");
 		}

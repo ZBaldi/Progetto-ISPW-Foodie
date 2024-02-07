@@ -1,8 +1,9 @@
 package com.foodie.boundary;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import com.foodie.Applicazione.LoginViewController;
+import java.util.List;
+
+import com.foodie.applicazione.LoginViewController;
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.PubblicaRicettaController;
@@ -98,7 +99,7 @@ public class InserisciIngredienteViewController implements Observer{
 	@FXML
 	public void caricaViewRicetta(ActionEvent event) {  //CARICA VIEW RICETTA
 		try {
-			if(bottoneModifica==false) { //resettare il bottone modifica se attivo
+			if(!bottoneModifica) { //resettare il bottone modifica se attivo
 				bottoneModifica=true;
 				labelIngredienti.setFont(Font.font(FORMATO,30));
 				labelIngredienti.setText("La mia Dispensa");
@@ -120,7 +121,7 @@ public class InserisciIngredienteViewController implements Observer{
 	@FXML
 	public void tornaAlLogin(MouseEvent event) {  //CARICA VIEW LOGIN
 		try {
-			if(bottoneModifica==false) { //resettare il bottone modifica se attivo
+			if(!bottoneModifica) { //resettare il bottone modifica se attivo
 				bottoneModifica=true;
 				labelIngredienti.setFont(Font.font(FORMATO,30));
 				labelIngredienti.setText("La mia Dispensa");
@@ -139,7 +140,7 @@ public class InserisciIngredienteViewController implements Observer{
 	}
 	
 	private void trovaAlimenti() { //GESTISCE IL TROVA ALIMENTI
-		ArrayList<AlimentoBean> alimentiBeanTrovati=adattatoreTrovaRicettaController.trovaGliAlimenti(barraDiRicerca.getText());
+		List<AlimentoBean> alimentiBeanTrovati=adattatoreTrovaRicettaController.trovaGliAlimenti(barraDiRicerca.getText());
 		if(alimentiBeanTrovati!=null) {
 			quantita.setDisable(false);
 			for(AlimentoBean a: alimentiBeanTrovati) {
@@ -150,7 +151,7 @@ public class InserisciIngredienteViewController implements Observer{
 				labelAlimento.setWrapText(true);
 				labelAlimento.setFont(Font.font(FORMATO));
 				labelAlimento.setAlignment(Pos.CENTER);
-				labelAlimento.setOnMouseClicked(event2->{salvaAlimento(labelAlimento.getText(),quantita.getText());});
+				labelAlimento.setOnMouseClicked(event2->salvaAlimento(labelAlimento.getText(),quantita.getText()));
 				contenitoreAlimentiTrovati.getChildren().add(labelAlimento);
 			}
 		}
@@ -168,7 +169,7 @@ public class InserisciIngredienteViewController implements Observer{
 	
 	public void aggiornaView() {  //AGGIORNA GLI INGREDIENTI DELLA RICETTA
 		contenitoreIngredienti.getChildren().clear();
-		ArrayList<AlimentoBean> alimentiBeanRicetta=adattatorePubblicaRicettaController.mostraIngredientiRicetta();
+		List<AlimentoBean> alimentiBeanRicetta=adattatorePubblicaRicettaController.mostraIngredientiRicetta();
 		if(alimentiBeanRicetta!=null) {
 			for(AlimentoBean a: alimentiBeanRicetta) {
 				Label labelAlimento = new Label(a.getNome());
@@ -182,7 +183,7 @@ public class InserisciIngredienteViewController implements Observer{
 			}
 			impostaLabel();
 		}
-		if(contenitoreIngredienti.getChildren().isEmpty() && bottoneModifica==false) { //PER EVITARE CHE SE LA DISPENSA è VUOTA RIMANGA ATTIVO IL BOTTONE E IL TESTO DELLA LABEL
+		if(contenitoreIngredienti.getChildren().isEmpty() && !bottoneModifica) { //PER EVITARE CHE SE LA DISPENSA è VUOTA RIMANGA ATTIVO IL BOTTONE E IL TESTO DELLA LABEL
 			bottoneModifica=true;
 			labelIngredienti.setFont(Font.font(FORMATO,30));//ESEMPIO PREMI MODIFICA CANCELLI L'ULTIMO ELEMENTO DELLA DISPENSA ALLORA SI DEVE DISATTIVARE LA MODIFICA
 			labelIngredienti.setText("Ingredienti");
@@ -190,11 +191,11 @@ public class InserisciIngredienteViewController implements Observer{
 	}
 	
 	private void impostaLabel() {  //IMPOSTA LE LABEL DELLA RICETTA CLICCABILI
-		if(bottoneModifica==false) {
+		if(!bottoneModifica) {
 			if(!contenitoreIngredienti.getChildren().isEmpty()) {
 				contenitoreIngredienti.getChildren().forEach(node->{
 					Label labelAlimento= (Label)node;
-					labelAlimento.setOnMouseClicked(event->{eliminaAlimento(labelAlimento.getText());});
+					labelAlimento.setOnMouseClicked(event->eliminaAlimento(labelAlimento.getText()));
 				});
 			}
 		}
@@ -216,13 +217,13 @@ public class InserisciIngredienteViewController implements Observer{
 	
 	@FXML
 	private void modificaIngredienti(ActionEvent e) {  //GESTISCE PULSANTE MODIFICA
-		if(bottoneModifica==true && !contenitoreIngredienti.getChildren().isEmpty()) {
+		if(bottoneModifica && !contenitoreIngredienti.getChildren().isEmpty()) {
 			bottoneModifica=false;
 			labelIngredienti.setFont(Font.font(FORMATO,20));
 			labelIngredienti.setText("CLICCA L'ALIMENTO DA ELIMINARE");
 			impostaLabel();
 		}
-		else if(bottoneModifica==false && !contenitoreIngredienti.getChildren().isEmpty()) {
+		else if(!bottoneModifica && !contenitoreIngredienti.getChildren().isEmpty()) {
 			bottoneModifica=true;
 			labelIngredienti.setFont(Font.font(FORMATO,30));
 			labelIngredienti.setText("Ingredienti");

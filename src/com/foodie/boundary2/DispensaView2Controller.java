@@ -1,8 +1,10 @@
 package com.foodie.boundary2;
 
-import java.util.ArrayList;
 
-import com.foodie.Applicazione.LoginViewController;
+
+import java.util.List;
+
+import com.foodie.applicazione.LoginViewController;
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.LoginController;
@@ -109,7 +111,7 @@ public class DispensaView2Controller implements Observer{
 	
 	public void aggiornaView() {  //AGGIORNA LA VIEW IN FUNZIONE DELLA DISPENSA
 		contenitoreDispensa.getChildren().clear();
-		ArrayList<AlimentoBean> alimentiBeanDispensa =adattatoreTrovaRicettaController.mostraLaDispensa();
+		List<AlimentoBean> alimentiBeanDispensa =adattatoreTrovaRicettaController.mostraLaDispensa();
 		if(alimentiBeanDispensa!=null) {
 			for(AlimentoBean a: alimentiBeanDispensa) {
 				Label labelAlimento = new Label(a.getNome());
@@ -129,7 +131,7 @@ public class DispensaView2Controller implements Observer{
 			if(!contenitoreDispensa.getChildren().isEmpty()) {
 				contenitoreDispensa.getChildren().forEach(node->{
 					Label labelAlimento= (Label)node;
-					labelAlimento.setOnMouseClicked(event->{eliminaAlimento(labelAlimento.getText());});
+					labelAlimento.setOnMouseClicked(event->eliminaAlimento(labelAlimento.getText()));
 				});
 			}
 		}
@@ -137,7 +139,7 @@ public class DispensaView2Controller implements Observer{
 	private void eliminaAlimento(String nomeAlimento) {  //ELIMINA ALIMENTO DALLA DISPENSA
 		AlimentoBean alimentoBean = new AlimentoBean();
 		alimentoBean.setNome(nomeAlimento);
-		adattatoreTrovaRicettaController.ModificaDispensa(alimentoBean, 1);
+		adattatoreTrovaRicettaController.modificaDispensa(alimentoBean, 1);
 		loginController.salvaDispensa(username); //SALVO DISPENSA SU FILE IN AUTOMATICO
 	}
 	

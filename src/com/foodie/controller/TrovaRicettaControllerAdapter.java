@@ -1,6 +1,7 @@
 package com.foodie.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.foodie.model.Alimento;
 import com.foodie.model.AlimentoBean;
@@ -24,14 +25,14 @@ public class TrovaRicettaControllerAdapter extends ControllerAdapter{  //ADATTAT
 	}
 	
 	@Override
-	public void ModificaDispensa(AlimentoBean alimentoBean, int x) {  
+	public void modificaDispensa(AlimentoBean alimentoBean, int x) {  
 		Alimento alimento=new Alimento(alimentoBean.getNome());
 		adattato.aggiornaDispensa(alimento, x);
 	}
 
 	@Override
 	public ArrayList<RicettaBean> trovaLeRicette(int difficolta, String autore) {
-		ArrayList<Ricetta> ricetteTrovate= null;
+		List<Ricetta> ricetteTrovate= null;
 		ricetteTrovate= adattato.trovaRicette(difficolta, autore);
 		if(ricetteTrovate!=null) {
 			ArrayList<RicettaBean> ricetteTrovateBean= new ArrayList<RicettaBean>();
@@ -41,7 +42,7 @@ public class TrovaRicettaControllerAdapter extends ControllerAdapter{  //ADATTAT
 				ricettaBean.setDescrizione(r.getDescrizione());
 				ricettaBean.setDifficolta(r.getDifficolta());
 				ArrayList<AlimentoBean> alimentiTrovatiBean=new ArrayList<AlimentoBean>();
-				ArrayList<Alimento> alimentiTrovati=r.getIngredienti();
+				List<Alimento> alimentiTrovati=r.getIngredienti();
 				for(Alimento a:alimentiTrovati) {
 					AlimentoBean alimentoBean= new AlimentoBean();
 					alimentoBean.setNome(a.getNome());
@@ -55,13 +56,13 @@ public class TrovaRicettaControllerAdapter extends ControllerAdapter{  //ADATTAT
 			return ricetteTrovateBean;
 		}
 		else {
-			return new ArrayList<RicettaBean>();
+			return new ArrayList<>();
 		}
 	}
 
 	@Override
 	public ArrayList<AlimentoBean> trovaGliAlimenti(String nomeAlimento) {
-		ArrayList<Alimento> alimentiTrovati=null;
+		List<Alimento> alimentiTrovati=null;
 		ArrayList<AlimentoBean> alimentiTrovatiBean=null;
 		alimentiTrovati=adattato.trovaAlimenti(nomeAlimento);
 		if(alimentiTrovati!=null && !alimentiTrovati.isEmpty()) {
@@ -74,13 +75,13 @@ public class TrovaRicettaControllerAdapter extends ControllerAdapter{  //ADATTAT
 			return alimentiTrovatiBean;
 		}
 		else {
-			return new ArrayList<AlimentoBean>();
+			return new ArrayList<>();
 		}
 	}
 
 	@Override
 	public ArrayList<AlimentoBean> mostraLaDispensa() {
-		ArrayList<Alimento> alimentiInDispensa=null;
+		List<Alimento> alimentiInDispensa=null;
 		alimentiInDispensa=adattato.mostraDispensa();
 		if(alimentiInDispensa!=null && !alimentiInDispensa.isEmpty()) {
 			ArrayList<AlimentoBean> alimentiInDispensaBean =new ArrayList<AlimentoBean>();
@@ -92,7 +93,7 @@ public class TrovaRicettaControllerAdapter extends ControllerAdapter{  //ADATTAT
 			return alimentiInDispensaBean;
 		}
 		else {
-			return new ArrayList<AlimentoBean>();
+			return new ArrayList<>();
 		}
 	}
 
@@ -106,7 +107,7 @@ public class TrovaRicettaControllerAdapter extends ControllerAdapter{  //ADATTAT
 			ricettaBean.setDescrizione(ricetta.getDescrizione());
 			ricettaBean.setDifficolta(ricetta.getDifficolta());
 			ArrayList<AlimentoBean> alimentiTrovatiBean=new ArrayList<AlimentoBean>();
-			ArrayList<Alimento> alimentiTrovati=ricetta.getIngredienti();
+			List<Alimento> alimentiTrovati=ricetta.getIngredienti();
 			for(Alimento a:alimentiTrovati) {
 				AlimentoBean alimentoBean= new AlimentoBean();
 				alimentoBean.setNome(a.getNome());

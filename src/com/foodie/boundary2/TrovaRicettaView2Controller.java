@@ -1,8 +1,10 @@
 package com.foodie.boundary2;
 
-import java.util.ArrayList;
 
-import com.foodie.Applicazione.LoginViewController;
+
+import java.util.List;
+
+import com.foodie.applicazione.LoginViewController;
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.PubblicaRicettaController;
@@ -125,7 +127,7 @@ public class TrovaRicettaView2Controller {
 	@FXML
 	private void trovaRicette(ActionEvent event) {  //METODO PER TROVARE RICETTE
 		contenitoreRicette.getChildren().clear();
-		ArrayList<RicettaBean> ricetteTrovate= null;
+		List<RicettaBean> ricetteTrovate= null;
 		String difficolta="";
 		if (facile.isSelected()) {
 			ricetteTrovate=adattatoreTrovaRicettaController.trovaLeRicette(1,null);

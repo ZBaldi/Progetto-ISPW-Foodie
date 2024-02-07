@@ -68,7 +68,7 @@ public class DispensaImplementazioneDao implements DispensaDao{  //IMPLEMENTAZIO
 		try {
 			objectInputStream = new ObjectInputStream(new FileInputStream("C:\\Users\\valba\\OneDrive\\Desktop\\Progetto\\Classi serializzate\\dispensa_data.ser"));
 			Map<String, ArrayList<AlimentoSerializzabile>> dispensaMap = (Map<String, ArrayList<AlimentoSerializzabile>>)objectInputStream.readObject();// lo è per forza
-			if(bool==true) {
+			if(bool) {
 				Dispensa dispensa= Dispensa.ottieniIstanza();
 				ArrayList<AlimentoSerializzabile> dispensaOld=dispensaMap.get(utente.getUsername());
 				if(dispensaOld!=null) {
