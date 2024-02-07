@@ -1,3 +1,0 @@
-a;a;a;1;cane;1
-a2;a;a;2;cane;1
-aa;a;aa;2;cane,canela;1,2
