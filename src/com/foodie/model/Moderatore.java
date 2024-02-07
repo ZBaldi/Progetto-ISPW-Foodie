@@ -21,7 +21,7 @@ public class Moderatore extends SubjectPatternObserver implements Utente { //MOD
 	public static synchronized Moderatore ottieniIstanza(String username) { //METODO PER OTTENERE L'ISTANZA
 		if(istanza==null) {
 			istanza=new Moderatore(username);
-			ricetteDaVerificare =new ArrayList<Ricetta>();
+			ricetteDaVerificare =new ArrayList<>();
 		}
 		return istanza;
 	}
@@ -29,7 +29,7 @@ public class Moderatore extends SubjectPatternObserver implements Utente { //MOD
 	public static Moderatore ottieniIstanza() { //METODO PER OTTENERE L'ISTANZA 
 		if(istanza==null) {
 			istanza=new Moderatore();
-			ricetteDaVerificare =new ArrayList<Ricetta>();
+			ricetteDaVerificare =new ArrayList<>();
 		}
 		return istanza;
 	}

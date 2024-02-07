@@ -29,7 +29,7 @@ public class AreaPersonaleImplementazioneDao implements AreaPersonaleDao{  //IMP
 	public void salvaAreaPersonale(String username, String descrizione) {  //SALVA SU FILE UNA HASHMAP USERNAME-DESCRIZIONE
 		Map<String,String> areaPersonaleMap;							   //OGNI VOLTA LA CARICA E AGGIUNGE NUOVI ELEMENTI
 		if((areaPersonaleMap=caricaAreaPersonale())==null) {
-			areaPersonaleMap=new HashMap<String,String>();
+			areaPersonaleMap=new HashMap<>();
 		}
 		areaPersonaleMap.put(username, descrizione);
 		try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("C:\\Users\\valba\\OneDrive\\Desktop\\Progetto\\Classi serializzate\\areapersonale_data.ser"))) {
@@ -53,15 +53,15 @@ public class AreaPersonaleImplementazioneDao implements AreaPersonaleDao{  //IMP
 			return areaPersonaleMap;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			return new HashMap<String, String>();
+			return new HashMap<>();
 		}catch (EOFException e) {
             logger.severe("NESSUNA AREA PERSONALE SALVATA");
-            return new HashMap<String, String>();
+            return new HashMap<>();
         }catch (IOException e) {
 			e.printStackTrace();
 			logger.severe("ERRORE NEL CARICAMENTO DA FILE DELL'AREA PERSONALE");
             logger.info("Problema con il file, riprova o controlla se è nella directory");
-            return new HashMap<String, String>();
+            return new HashMap<>();
 		}
 	}
 

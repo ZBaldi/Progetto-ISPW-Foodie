@@ -35,9 +35,9 @@ public class DispensaImplementazioneDao implements DispensaDao{  //IMPLEMENTAZIO
 	@Override
 	public void salvaDispensa(String username) {  //SALVA SU FILE UNA HASHMAP USERNAME-ARRAYLIST DI ALIMENTI,OGNI VOLTA LA CARICA E AGGIUNGE NUOVI ELEMENTI
 		Map<String, ArrayList<AlimentoSerializzabile>> dispensaMap;
-		ArrayList<AlimentoSerializzabile> alimentiSerializzabili=new ArrayList<AlimentoSerializzabile>();
+		ArrayList<AlimentoSerializzabile> alimentiSerializzabili=new ArrayList<>();
 		if((dispensaMap=caricaDispense(false))==null) {  //FALSE SIGNIFICA CHE NON DEVE RICARICARE LA DISPENSA(EVITI LOOP)
-			dispensaMap=new HashMap<String, ArrayList<AlimentoSerializzabile>>();
+			dispensaMap=new HashMap<>();
 		}
 		Dispensa dispensa=Dispensa.ottieniIstanza();
 		if(dispensa.getAlimenti()!=null && !dispensa.getAlimenti().isEmpty()) {
@@ -82,15 +82,15 @@ public class DispensaImplementazioneDao implements DispensaDao{  //IMPLEMENTAZIO
 			return dispensaMap;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			return new HashMap<String, ArrayList<AlimentoSerializzabile>>();
+			return new HashMap<>();
 		}catch (EOFException e) {
 			logger.info("NESSUNA DISPENSA SALVATA");
-			return new HashMap<String, ArrayList<AlimentoSerializzabile>>();
+			return new HashMap<>();
         }catch (IOException e) {
 			e.printStackTrace();
 			logger.severe("ERRORE NEL CARICAMENTO DA FILE DELLA DISPENSA");
 			logger.info("Problema con il file, riprova o controlla se è nella directory");
-            return new HashMap<String, ArrayList<AlimentoSerializzabile>>();
+            return new HashMap<>();
 		}
 	}
 

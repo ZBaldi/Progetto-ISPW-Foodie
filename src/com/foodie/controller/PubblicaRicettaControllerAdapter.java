@@ -31,7 +31,7 @@ public class PubblicaRicettaControllerAdapter extends ControllerAdapter{  //ADAT
 		ricettaBean.setNome(ricetta.getNome());
 		ricettaBean.setDescrizione(ricetta.getDescrizione());
 		ricettaBean.setDifficolta(ricetta.getDifficolta());
-		ArrayList<AlimentoBean> alimentiTrovatiBean=new ArrayList<AlimentoBean>();
+		ArrayList<AlimentoBean> alimentiTrovatiBean=new ArrayList<>();
 		List<Alimento> alimentiTrovati=ricetta.getIngredienti();
 		for(Alimento a:alimentiTrovati) {
 			AlimentoBean alimentoBean= new AlimentoBean();
@@ -58,7 +58,7 @@ public class PubblicaRicettaControllerAdapter extends ControllerAdapter{  //ADAT
 	public ArrayList<AlimentoBean> mostraIngredientiRicetta() {
 		List<Alimento> alimentiRicetta=adattato.mostraAlimentiRicetta();
 		if(alimentiRicetta!=null && !alimentiRicetta.isEmpty()) {
-			ArrayList<AlimentoBean> alimentiRicettaBean =new ArrayList<AlimentoBean>();
+			ArrayList<AlimentoBean> alimentiRicettaBean =new ArrayList<>();
 			for(Alimento a: alimentiRicetta) {
 				AlimentoBean alimentoBean=new AlimentoBean();
 				alimentoBean.setNome(a.getNome());
@@ -81,13 +81,13 @@ public class PubblicaRicettaControllerAdapter extends ControllerAdapter{  //ADAT
 	public ArrayList<RicettaBean> mostraLeRicetteDaApprovare() {
 		List<Ricetta> ricette=adattato.mostraRicetteDaApprovare();
 		if(ricette!=null && !ricette.isEmpty()) {
-			ArrayList<RicettaBean> ricetteBean = new ArrayList<RicettaBean>();
+			ArrayList<RicettaBean> ricetteBean = new ArrayList<>();
 			for(Ricetta r: ricette) {
 				RicettaBean ricettaBean=new RicettaBean();
 				ricettaBean.setNome(r.getNome());
 				ricettaBean.setDescrizione(r.getDescrizione());
 				ricettaBean.setDifficolta(r.getDifficolta());
-				ArrayList<AlimentoBean> alimentiTrovatiBean=new ArrayList<AlimentoBean>();
+				ArrayList<AlimentoBean> alimentiTrovatiBean=new ArrayList<>();
 				List<Alimento> alimentiTrovati=r.getIngredienti();
 				for(Alimento a:alimentiTrovati) {
 					AlimentoBean alimentoBean= new AlimentoBean();

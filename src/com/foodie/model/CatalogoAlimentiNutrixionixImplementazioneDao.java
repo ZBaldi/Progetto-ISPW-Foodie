@@ -40,7 +40,7 @@ public class CatalogoAlimentiNutrixionixImplementazioneDao implements CatalogoAl
 		} catch (JsonMappingException e) {
 			e.printStackTrace();
 			logger.severe("PROBLEMA LIBRERIA JSON MAPPING");
-			return new ArrayList<Alimento>();
+			return new ArrayList<>();
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 			logger.severe("PROBLEMA LIBRERIA JSON");

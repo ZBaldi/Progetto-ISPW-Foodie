@@ -72,7 +72,7 @@ public class DispensaUtenteViewController implements Observer {
 	@FXML
 	private void caricaViewTrovaRicetta(ActionEvent event) {  //CARICA LA VIEW TROVA RICETTA
 		try {
-			if(bottoneModifica==false) { //resettare il bottone modifica se attivo
+			if(!bottoneModifica) { //resettare il bottone modifica se attivo
 				bottoneModifica=true;
 				labelDispensa.setFont(Font.font(FORMATO,30));
 				labelDispensa.setText(DISPENSA);
@@ -201,7 +201,7 @@ public class DispensaUtenteViewController implements Observer {
 			}
 			impostaLabel();
 		}
-		if(contenitoreDispensa.getChildren().isEmpty() && bottoneModifica==false) { //PER EVITARE CHE SE LA DISPENSA è VUOTA RIMANGA ATTIVO IL BOTTONE E IL TESTO DELLA LABEL
+		if(contenitoreDispensa.getChildren().isEmpty() && !bottoneModifica) { //PER EVITARE CHE SE LA DISPENSA è VUOTA RIMANGA ATTIVO IL BOTTONE E IL TESTO DELLA LABEL
 			bottoneModifica=true;
 			labelDispensa.setFont(Font.font(FORMATO,30));//ESEMPIO PREMI MODIFICA CANCELLI L'ULTIMO ELEMENTO DELLA DISPENSA ALLORA SI DEVE DISATTIVARE LA MODIFICA
 			labelDispensa.setText(DISPENSA);

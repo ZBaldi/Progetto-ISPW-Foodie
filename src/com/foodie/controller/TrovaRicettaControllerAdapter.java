@@ -35,13 +35,13 @@ public class TrovaRicettaControllerAdapter extends ControllerAdapter{  //ADATTAT
 		List<Ricetta> ricetteTrovate= null;
 		ricetteTrovate= adattato.trovaRicette(difficolta, autore);
 		if(ricetteTrovate!=null) {
-			ArrayList<RicettaBean> ricetteTrovateBean= new ArrayList<RicettaBean>();
+			ArrayList<RicettaBean> ricetteTrovateBean= new ArrayList<>();
 			for(Ricetta r:ricetteTrovate) {
 				RicettaBean ricettaBean=new RicettaBean();
 				ricettaBean.setNome(r.getNome());
 				ricettaBean.setDescrizione(r.getDescrizione());
 				ricettaBean.setDifficolta(r.getDifficolta());
-				ArrayList<AlimentoBean> alimentiTrovatiBean=new ArrayList<AlimentoBean>();
+				ArrayList<AlimentoBean> alimentiTrovatiBean=new ArrayList<>();
 				List<Alimento> alimentiTrovati=r.getIngredienti();
 				for(Alimento a:alimentiTrovati) {
 					AlimentoBean alimentoBean= new AlimentoBean();
@@ -66,7 +66,7 @@ public class TrovaRicettaControllerAdapter extends ControllerAdapter{  //ADATTAT
 		ArrayList<AlimentoBean> alimentiTrovatiBean=null;
 		alimentiTrovati=adattato.trovaAlimenti(nomeAlimento);
 		if(alimentiTrovati!=null && !alimentiTrovati.isEmpty()) {
-			alimentiTrovatiBean=new ArrayList<AlimentoBean>();
+			alimentiTrovatiBean=new ArrayList<>();
 			for(Alimento a:alimentiTrovati) {
 				AlimentoBean alimentoBean= new AlimentoBean();
 				alimentoBean.setNome(a.getNome());
@@ -84,7 +84,7 @@ public class TrovaRicettaControllerAdapter extends ControllerAdapter{  //ADATTAT
 		List<Alimento> alimentiInDispensa=null;
 		alimentiInDispensa=adattato.mostraDispensa();
 		if(alimentiInDispensa!=null && !alimentiInDispensa.isEmpty()) {
-			ArrayList<AlimentoBean> alimentiInDispensaBean =new ArrayList<AlimentoBean>();
+			ArrayList<AlimentoBean> alimentiInDispensaBean =new ArrayList<>();
 			for(Alimento a: alimentiInDispensa) {
 				AlimentoBean alimentoBean=new AlimentoBean();
 				alimentoBean.setNome(a.getNome());
@@ -106,7 +106,7 @@ public class TrovaRicettaControllerAdapter extends ControllerAdapter{  //ADATTAT
 			ricettaBean.setNome(ricetta.getNome());
 			ricettaBean.setDescrizione(ricetta.getDescrizione());
 			ricettaBean.setDifficolta(ricetta.getDifficolta());
-			ArrayList<AlimentoBean> alimentiTrovatiBean=new ArrayList<AlimentoBean>();
+			ArrayList<AlimentoBean> alimentiTrovatiBean=new ArrayList<>();
 			List<Alimento> alimentiTrovati=ricetta.getIngredienti();
 			for(Alimento a:alimentiTrovati) {
 				AlimentoBean alimentoBean= new AlimentoBean();

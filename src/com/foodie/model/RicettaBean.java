@@ -1,6 +1,5 @@
 package com.foodie.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RicettaBean {  //BEAN DELLA CLASSE RICETTA
@@ -8,7 +7,7 @@ public class RicettaBean {  //BEAN DELLA CLASSE RICETTA
 	private String nome;
 	private String descrizione;
 	private int difficolta;
-	private ArrayList<AlimentoBean> ingredienti;
+	private List<AlimentoBean> ingredienti;
 	private String autore;
 	private List<String> quantita;
 	
@@ -40,7 +39,7 @@ public class RicettaBean {  //BEAN DELLA CLASSE RICETTA
 		return ingredienti;
 	}
 	
-	public void setIngredienti(ArrayList<AlimentoBean> ingredienti) {
+	public void setIngredienti(List<AlimentoBean> ingredienti) {
 		this.ingredienti = ingredienti;
 	}
 	

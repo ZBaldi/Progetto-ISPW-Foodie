@@ -16,8 +16,8 @@ public class Ricetta extends SubjectPatternObserver{  //OSSERVATO CONCRETO, ESTE
 	private static final Logger logger = Logger.getLogger(Ricetta.class.getName());
 	
 	public Ricetta() {
-		this.ingredienti= new ArrayList<Alimento>();
-		this.quantita=new ArrayList<String>();
+		this.ingredienti= new ArrayList<>();
+		this.quantita=new ArrayList<>();
 	}
 	
 	public Ricetta(String nome, String descrizione, int difficolta, List<Alimento> ingredienti, String autore, List<String> quantita){
@@ -68,7 +68,7 @@ public class Ricetta extends SubjectPatternObserver{  //OSSERVATO CONCRETO, ESTE
 		logger.info("Difficoltà ricetta impostata");
 	}
 	
-	public void setIngredienti(ArrayList<Alimento> ingredienti) {
+	public void setIngredienti(List<Alimento> ingredienti) {
 		this.ingredienti = ingredienti;
 		logger.info("Ingredienti ricetta impostati");
 	}
@@ -78,7 +78,7 @@ public class Ricetta extends SubjectPatternObserver{  //OSSERVATO CONCRETO, ESTE
 		logger.info("Autore ricetta impostato");
 	}
 	
-	public void setQuantita(ArrayList<String> quantita) {
+	public void setQuantita(List<String> quantita) {
 		this.quantita = quantita;
 		logger.info("Quantità ingredienti ricetta impostati");
 	}

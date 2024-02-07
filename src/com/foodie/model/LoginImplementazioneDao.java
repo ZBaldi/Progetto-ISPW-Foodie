@@ -51,7 +51,6 @@ public class LoginImplementazioneDao implements LoginDao{
 						}
 						risultati.close();
 						dichiarazione.close();
-						connessione.close();
 						return tipo;
 					}
 				}

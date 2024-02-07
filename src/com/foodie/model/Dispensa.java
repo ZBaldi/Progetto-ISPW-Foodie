@@ -16,7 +16,7 @@ public class Dispensa extends SubjectPatternObserver { //SINGLETON, LA DISPENSA 
 	public static synchronized Dispensa ottieniIstanza() { //METODO PER OTTENERE L'ISTANZA
 		if(istanza==null) {
 			istanza=new Dispensa();
-			lista=new ArrayList<Alimento>();
+			lista=new ArrayList<>();
 		}
 		return istanza;
 	}

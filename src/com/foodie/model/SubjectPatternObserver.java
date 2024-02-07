@@ -9,7 +9,7 @@ public abstract class SubjectPatternObserver {        //CLASSE ASTRATTA DEL PATT
 	private static final Logger logger = Logger.getLogger(SubjectPatternObserver.class.getName());
 	
 	protected SubjectPatternObserver() {
-		this.viewRegistrate=new ArrayList<Observer>();
+		this.viewRegistrate=new ArrayList<>();
 	}
 	
 	public void registra(Observer o) {  //REGISTRA L'OSSERVATORE NELLA PROPRIA LISTA SE NON PRESENTE

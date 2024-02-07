@@ -30,7 +30,7 @@ public class CatalogoRicetteImplementazione2Dao implements CatalogoRicetteChefDa
 	@Override
 	public ArrayList<Ricetta> trovaRicette(Dispensa dispensa, int difficolta, String autore) throws SQLException,ClassNotFoundException { //TROVA LE RICETTE NEL FILE O PER ALIMENTI-DIFFICOLTA' O PER AUTORE
 	    ArrayList<String> linee = new ArrayList<>();
-	    ArrayList<Ricetta> ricetteTrovate=new ArrayList<Ricetta>();
+	    ArrayList<Ricetta> ricetteTrovate=new ArrayList<>();
 	    if(dispensa!=null && dispensa.getAlimenti().isEmpty()) { //CONTROLLO SE LA DISPENSA è VUOTA SE GLIELA FORNISCO
 			logger.info("Dispensa vuota!!! Riempila prima");
 			return new ArrayList<>();
@@ -92,7 +92,7 @@ public class CatalogoRicetteImplementazione2Dao implements CatalogoRicetteChefDa
 	}
 
 	private Ricetta costruisciRicetta(String[] campi) {  //METODO PER LA COSTRUZIONE DELLA RICETTA DALLA STRINGA OTTENUTA DAL FILE
-		Ricetta ricetta = new Ricetta(campi[0], campi[2],Integer.parseInt(campi[3]), new ArrayList<Alimento>(), campi[1], new ArrayList<String>());
+		Ricetta ricetta = new Ricetta(campi[0], campi[2],Integer.parseInt(campi[3]), new ArrayList<>(), campi[1], new ArrayList<>());
 		String[] alimenti= campi[4].split(",");
     	String[] quantita= campi[5].split(",");
     	for(int i=0;i<alimenti.length;i++) {

@@ -27,7 +27,7 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
 	
 	@Override
 	public ArrayList<Ricetta> trovaRicette(Dispensa dispensa, int difficolta, String autore2) throws SQLException,ClassNotFoundException{ //TROVA LE RICETTE NEL DB O PER ALIMENTI-DIFFICOLTA' O PER AUTORE
-		ArrayList<Ricetta> ricetteTrovate=new ArrayList<Ricetta>();
+		ArrayList<Ricetta> ricetteTrovate=new ArrayList<>();
 		Statement dichiarazione=null; 
 		ResultSet risultati=null;
 		if(dispensa!=null && dispensa.getAlimenti().isEmpty()) { //CONTROLLO SE LA DISPENSA è VUOTA SE GLIELA FORNISCO
@@ -47,7 +47,7 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
 		        String descrizione = risultati.getString("descrizione");
 		        int difficoltaRicetta = risultati.getInt("difficolta");
 		        String autore = risultati.getString(COLONNA_AUTORE);
-		        Ricetta ricetta = new Ricetta(nomeRicetta, descrizione, difficoltaRicetta, new ArrayList<Alimento>(), autore, new ArrayList<String>());
+		        Ricetta ricetta = new Ricetta(nomeRicetta, descrizione, difficoltaRicetta, new ArrayList<>(), autore, new ArrayList<>());
 		        do {
 		            String alimento = risultati.getString("alimento");
 		            String quantita = risultati.getString("quantita");
@@ -59,7 +59,6 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
 		        }
 		    }
 			dichiarazione.close();  //CHIUDO LA CONNESSIONE
-			connessione.close();
 			risultati.close();
 			if(ricetteTrovate.isEmpty()) {
 				logger.info("Nessuna ricetta trovata");
