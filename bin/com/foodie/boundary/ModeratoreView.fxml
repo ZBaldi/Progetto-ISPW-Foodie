@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: rgba(228, 255, 231, 1);" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane prefHeight="100.0" prefWidth="1024.0" style="-fx-background-color: rgba(97, 194, 107, 1);">
+         <children>
+            <Label layoutX="35.0" layoutY="29.0" text="Foodie" textFill="#fffefe">
+               <font>
+                  <Font name="Rockwell" size="30.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1024.0" spacing="10.0">
+               <children>
+                  <Button lineSpacing="10.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Menu Moderatore" textFill="WHITE" underline="true">
+                     <font>
+                        <Font name="Arial" size="26.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="946.0" layoutY="24.0" onMouseClicked="#tornaAlLogin" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../immagini_usate/usericona.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <ScrollPane hbarPolicy="NEVER" layoutX="36.0" layoutY="215.0" prefHeight="503.0" prefWidth="380.0" vbarPolicy="ALWAYS">
+         <content>
+            <VBox fx:id="contenitoreRicetteDaApprovare" prefHeight="502.0" prefWidth="363.0" spacing="3.0" style="-fx-background-color: rgba(228, 255, 231, 1);" />
+         </content>
+      </ScrollPane>
+      <Label alignment="CENTER" layoutX="83.0" layoutY="146.0" text="Ricette da controllare">
+         <font>
+            <Font name="Arial" size="30.0" />
+         </font>
+      </Label>
+      <ScrollPane hbarPolicy="NEVER" layoutX="457.0" layoutY="215.0" prefHeight="442.0" prefWidth="533.0" vbarPolicy="ALWAYS">
+         <content>
+            <VBox fx:id="contenitoreContenutoRicetta" prefHeight="441.0" prefWidth="516.0" spacing="3.0" style="-fx-background-color: rgba(228, 255, 231, 1);" />
+         </content>
+      </ScrollPane>
+      <Label alignment="CENTER" layoutX="652.0" layoutY="146.0" text="Contenuto">
+         <font>
+            <Font name="Arial" size="30.0" />
+         </font>
+      </Label>
+      <HBox alignment="CENTER" layoutX="457.0" layoutY="656.0" prefHeight="93.0" prefWidth="533.0" spacing="35.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#pubblica" prefHeight="29.0" prefWidth="145.0" style="-fx-background-radius: 10; -fx-background-color: rgba(97, 194, 107, 1);" text="Pubblica" textFill="WHITE">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#scarta" prefHeight="29.0" prefWidth="145.0" style="-fx-background-radius: 10; -fx-background-color: rgba(231, 73, 73, 1);" text="Scarta" textFill="WHITE">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Button>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+   </children>
+</AnchorPane>
