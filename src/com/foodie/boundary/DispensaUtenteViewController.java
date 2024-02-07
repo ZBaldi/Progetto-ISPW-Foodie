@@ -2,7 +2,6 @@ package com.foodie.boundary;
 
 import java.util.List;
 
-import com.foodie.applicazione.LoginViewController;
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.LoginController;
@@ -34,6 +33,7 @@ public class DispensaUtenteViewController implements Observer {
 	private LoginController controllerLogin = LoginController.ottieniIstanza();
 	private ControllerAdapter adattatoreLoginController=factory.creaLoginAdapter();
 	private UtenteBean utenteBean= adattatoreLoginController.ottieniUtente();
+	private CaricaView caricaView= CaricaView.ottieniIstanza();
 	private String username= utenteBean.getUsername();
 	private boolean bottoneModifica = true;
 	private static final String FORMATO = "Arial";
@@ -114,23 +114,7 @@ public class DispensaUtenteViewController implements Observer {
 	@FXML
 	private void tornaAlLogin(MouseEvent event) {  //CARICA LA VIEW LOGIN
 		controller.svuotaDispensa();
-		try {
-			if(!bottoneModifica) { //resettare il bottone modifica se attivo
-				bottoneModifica=true;
-				labelDispensa.setFont(Font.font(FORMATO,30));
-				labelDispensa.setText(DISPENSA);
-			}
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/Applicazione/LoginView.fxml"));
-            LoginViewController loginViewController = LoginViewController.ottieniIstanza();
-            loader.setController(loginViewController);
-            Parent root = loader.load();
-            loginViewController.setPrimaryStage(primaryStage);
-            Scene nuovaScena = new Scene(root);
-            primaryStage.setScene(nuovaScena);
-            primaryStage.show();
-        } catch (Exception e) {
-            e.printStackTrace(); 
-        }
+		caricaView.tornaAlLogin(primaryStage);
 	}
 	
 	@FXML  

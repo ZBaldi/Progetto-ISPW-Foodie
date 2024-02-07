@@ -1,12 +1,9 @@
 package com.foodie.boundary2;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
-import com.foodie.applicazione.LoginViewController;
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.model.AlimentoBean;
@@ -16,10 +13,7 @@ import com.foodie.model.UtenteBean;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -39,6 +33,7 @@ public class NuovaRicettaView2Controller implements Observer{
 	private ControllerAdapter adattatorePubblicaRicettaController= factory.creaPubblicaRicettaAdapter();
 	private ControllerAdapter adattatoreLoginController= factory.creaLoginAdapter();
 	private ControllerAdapter adattatoreTrovaRicettaController=factory.creaTrovaRicettaAdapter();
+	private CaricaView2 caricaView2= CaricaView2.ottieniIstanza();
 	private Stage primaryStage;
 	private static final String FORMATO = "Arial";
 	private static final String SFONDOBIANCO = "-fx-background-color: white;";
@@ -81,18 +76,7 @@ public class NuovaRicettaView2Controller implements Observer{
 	
 	@FXML
 	private void tornaAlLogin(MouseEvent event) {  //CARICA VIEW LOGIN
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/Applicazione/LoginView.fxml"));
-            LoginViewController loginViewController = LoginViewController.ottieniIstanza();
-            loader.setController(loginViewController);
-            Parent root = loader.load();
-            loginViewController.setPrimaryStage(primaryStage);
-            Scene nuovaScena = new Scene(root);
-            primaryStage.setScene(nuovaScena);
-            primaryStage.show();
-		} catch (Exception e) {
-			e.printStackTrace(); 
-		}
+		caricaView2.tornaAlLogin(primaryStage);
 	}
 	
 	@FXML
@@ -115,41 +99,12 @@ public class NuovaRicettaView2Controller implements Observer{
 	
 	@FXML
 	private void caricaViewAreaPersonale(ActionEvent event) {  //CARICA VIEW AREAPERSONALE
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("AreaPersonaleView2.fxml"));
-		AreaPersonaleView2Controller controllerAreaPersonale = AreaPersonaleView2Controller.ottieniIstanza();
-		loader.setController(controllerAreaPersonale);
-		Parent root;		
-		try {
-			root = loader.load();
-			controllerAreaPersonale.setPrimaryStage(primaryStage);
-			controllerAreaPersonale.caricaAreaPersonale();
-			controllerAreaPersonale.aggiornaView();
-			Scene scene = new Scene(root);
-			primaryStage.setScene(scene);
-			primaryStage.show();
-			
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		caricaView2.caricaViewAreaPersonale(primaryStage);
 	}
 	
 	@FXML
     private void caricaViewGestisciRicette(ActionEvent event) {  //CARICA VIEW GESTISCI RICETTE
-        try {
-        	FXMLLoader loader = new FXMLLoader(getClass().getResource("GestisciRicetteView2.fxml"));
-            GestisciRicetteView2Controller gestisciRicetteController = GestisciRicetteView2Controller.ottieniIstanza();
-            loader.setController(gestisciRicetteController);
-            gestisciRicetteController.setPrimaryStage(primaryStage);
-            Parent root = loader.load();
-            gestisciRicetteController.aggiornaView();
-            Scene nuovaScena = new Scene(root);
-            primaryStage.setScene(nuovaScena);
-            primaryStage.show();
-
-        } catch (Exception e) {
-            e.printStackTrace(); 
-        }
+        caricaView2.caricaViewGestisciRicette(primaryStage);
     }
 	
 	@FXML

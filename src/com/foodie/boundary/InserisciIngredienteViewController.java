@@ -1,9 +1,6 @@
 package com.foodie.boundary;
 
-import java.io.IOException;
 import java.util.List;
-
-import com.foodie.applicazione.LoginViewController;
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.PubblicaRicettaController;
@@ -32,7 +29,7 @@ public class InserisciIngredienteViewController implements Observer{
 	private PubblicaRicettaController controller = PubblicaRicettaController.ottieniIstanza();
 	private ControllerAdapter adattatoreTrovaRicettaController= factory.creaTrovaRicettaAdapter();
 	private ControllerAdapter adattatorePubblicaRicettaController = PubblicaRicettaControllerAdapter.ottieniIstanza(controller);
-	private AreaPersonaleViewController controllerAreaPersonale = AreaPersonaleViewController.ottieniIstanza();
+	private CaricaView caricaView= CaricaView.ottieniIstanza();
 	private boolean bottoneModifica = true;
 	private Stage primaryStage;
 	private static final String FORMATO = "Arial";
@@ -120,23 +117,7 @@ public class InserisciIngredienteViewController implements Observer{
 	
 	@FXML
 	public void tornaAlLogin(MouseEvent event) {  //CARICA VIEW LOGIN
-		try {
-			if(!bottoneModifica) { //resettare il bottone modifica se attivo
-				bottoneModifica=true;
-				labelIngredienti.setFont(Font.font(FORMATO,30));
-				labelIngredienti.setText("La mia Dispensa");
-			}
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/Applicazione/LoginView.fxml"));
-            LoginViewController loginViewController = LoginViewController.ottieniIstanza();
-            loader.setController(loginViewController);
-            Parent root = loader.load();
-            loginViewController.setPrimaryStage(primaryStage);
-            Scene nuovaScena = new Scene(root);
-            primaryStage.setScene(nuovaScena);
-            primaryStage.show();
-        } catch (Exception e) {
-            e.printStackTrace(); 
-        }
+		caricaView.tornaAlLogin(primaryStage);
 	}
 	
 	private void trovaAlimenti() { //GESTISCE IL TROVA ALIMENTI
@@ -249,38 +230,12 @@ public class InserisciIngredienteViewController implements Observer{
 	
 	@FXML
 	private void caricaViewAreaPersonale(ActionEvent event) {  //CARICA VIEW AREA PERSONALE
-		FXMLLoader loader= new FXMLLoader(getClass().getResource("AreaPersonaleView.fxml"));
-		loader.setController(controllerAreaPersonale);
-		Parent root;		
-		try {
-			root = loader.load();
-			controllerAreaPersonale.setPrimaryStage(primaryStage);
-			controllerAreaPersonale.aggiornaView();
-			Scene scene = new Scene(root);
-			primaryStage.setScene(scene);
-			primaryStage.show();
-			
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		caricaView.caricaViewAreaPersonale(primaryStage);
 	}
 	
 	@FXML
     private void caricaViewGestisciRicette(ActionEvent event) {  //CARICA VIEW GESTISCI RICETTE
-        try {
-        	FXMLLoader loader = new FXMLLoader(getClass().getResource("GestisciRicetteView.fxml"));
-            Parent root = loader.load();
-            GestisciRicetteViewController gestisciRicetteViewController = loader.getController();
-            gestisciRicetteViewController.setPrimaryStage(primaryStage);
-            gestisciRicetteViewController.aggiornaView();
-            Scene nuovaScena = new Scene(root);
-            primaryStage.setScene(nuovaScena);
-            primaryStage.show();
-
-        } catch (Exception e) {
-            e.printStackTrace(); 
-        }
+        caricaView.caricaViewGestisciRicette(primaryStage);
     }
 	
 }

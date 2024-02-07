@@ -2,8 +2,6 @@ package com.foodie.boundary;
 
 import java.util.List;
 import java.util.logging.Logger;
-
-import com.foodie.applicazione.LoginViewController;
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.TrovaRicettaController;
@@ -29,6 +27,7 @@ public class TrovaRicetteViewController {
 	private AdattatoreFactory factory = AdattatoreFactory.ottieniIstanza();
 	private TrovaRicettaController controller = TrovaRicettaController.ottieniIstanza();
 	private ControllerAdapter adattatoreTrovaRicettaController= factory.creaTrovaRicettaAdapter();
+	private CaricaView caricaView= CaricaView.ottieniIstanza();
 	private Stage primaryStage;
 	private static final String FORMATO = "Arial";
 	private static final Logger logger = Logger.getLogger(TrovaRicetteViewController.class.getName());
@@ -62,35 +61,12 @@ public class TrovaRicetteViewController {
 	@FXML
 	private void tornaAlLogin(MouseEvent event) {  //CARICA VIEW LOGIN
 		controller.svuotaDispensa();
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/Applicazione/LoginView.fxml"));
-            LoginViewController loginViewController = LoginViewController.ottieniIstanza();
-            loader.setController(loginViewController);
-            Parent root = loader.load();
-            loginViewController.setPrimaryStage(primaryStage);
-            Scene nuovaScena = new Scene(root);
-            primaryStage.setScene(nuovaScena);
-            primaryStage.show();
-        } catch (Exception e) {
-            e.printStackTrace(); 
-        }
+		caricaView.tornaAlLogin(primaryStage);
 	}
 	
 	@FXML
 	private void caricaViewDispensa(ActionEvent event) {  //CARICA VIEW DISPENSA
-		try {
-			DispensaUtenteViewController dispensaUtenteViewController = DispensaUtenteViewController.ottieniIstanza();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("DispensaUtenteView.fxml"));
-            loader.setController(dispensaUtenteViewController);
-            Parent root = loader.load();
-            dispensaUtenteViewController.setPrimaryStage(primaryStage);
-            dispensaUtenteViewController.aggiornaView();
-            Scene nuovaScena = new Scene(root);
-            primaryStage.setScene(nuovaScena);
-            primaryStage.show();
-        } catch (Exception e) {
-            e.printStackTrace(); 
-        }
+		caricaView.caricaViewDispensa(primaryStage);
 	}
 	
 	@FXML

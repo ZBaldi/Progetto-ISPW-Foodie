@@ -5,16 +5,12 @@ import java.util.List;
 import com.foodie.controller.PubblicaRicettaController;
 import com.foodie.model.Observer;
 import com.foodie.model.RicettaBean;
-import com.foodie.applicazione.LoginViewController;
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
@@ -27,6 +23,7 @@ public class ModeratoreViewController implements Observer{
 	private AdattatoreFactory factory = AdattatoreFactory.ottieniIstanza();
 	private PubblicaRicettaController controller = PubblicaRicettaController.ottieniIstanza();
 	private ControllerAdapter adattatorePubblicaRicettaController = factory.creaPubblicaRicettaAdapter();
+	private CaricaView caricaView= CaricaView.ottieniIstanza();
 	private Stage primaryStage;
 	private static final String FORMATO = "Arial";
 	private static final String SFONDOBIANCO = "-fx-background-color: white;";
@@ -130,18 +127,7 @@ public class ModeratoreViewController implements Observer{
 	
 	@FXML  
 	private void tornaAlLogin(MouseEvent event) {  //CARICA VIEW LOGIN
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/Applicazione/LoginView.fxml"));
-            LoginViewController loginViewController = LoginViewController.ottieniIstanza();
-            loader.setController(loginViewController);
-            Parent root = loader.load();
-            loginViewController.setPrimaryStage(primaryStage);
-            Scene nuovaScena = new Scene(root);
-            primaryStage.setScene(nuovaScena);
-            primaryStage.show();
-        } catch (Exception e) {
-            e.printStackTrace(); 
-        }
+		caricaView.tornaAlLogin(primaryStage);
 	}
 	
 }

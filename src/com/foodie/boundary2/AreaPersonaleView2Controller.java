@@ -2,17 +2,12 @@ package com.foodie.boundary2;
 
 import java.util.Map;
 
-import com.foodie.applicazione.LoginViewController;
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.LoginController;
-import com.foodie.controller.PubblicaRicettaController;
 import com.foodie.model.UtenteBean;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
@@ -25,8 +20,8 @@ public class AreaPersonaleView2Controller {
 	private static AreaPersonaleView2Controller istanza;
 	private AdattatoreFactory factory = AdattatoreFactory.ottieniIstanza();
 	private LoginController controller = LoginController.ottieniIstanza();
-	private PubblicaRicettaController controller2 = PubblicaRicettaController.ottieniIstanza();
 	private ControllerAdapter adattatoreLoginController= factory.creaLoginAdapter();
+	private CaricaView2 caricaView2= CaricaView2.ottieniIstanza();
 	private Stage primaryStage;
 	@FXML
 	private TextArea descrizioneTextArea;
@@ -50,54 +45,17 @@ public class AreaPersonaleView2Controller {
 	
 	@FXML
     private void tornaAlLogin(MouseEvent event) { //CARICA VIEW LOGIN
-        try {    
-        	FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/Applicazione/LoginView.fxml"));
-            LoginViewController loginViewController = LoginViewController.ottieniIstanza();
-            loader.setController(loginViewController);
-            Parent root = loader.load();
-            loginViewController.setPrimaryStage(primaryStage);
-            Scene nuovaScena = new Scene(root);
-            primaryStage.setScene(nuovaScena);
-            primaryStage.show();
-        } catch (Exception e) {
-            e.printStackTrace(); 
-        }
+        caricaView2.tornaAlLogin(primaryStage);
     }
 	
 	@FXML
     private void caricaViewGestisciRicette(ActionEvent event) {  //CARICA VIEW GESTISCI RICETTE
-        try {
-        	FXMLLoader loader = new FXMLLoader(getClass().getResource("GestisciRicetteView2.fxml"));
-        	GestisciRicetteView2Controller gestisciRicetteController = GestisciRicetteView2Controller.ottieniIstanza();
-        	loader.setController(gestisciRicetteController);
-            Parent root = loader.load();
-            gestisciRicetteController.setPrimaryStage(primaryStage);
-            gestisciRicetteController.aggiornaView();
-            Scene nuovaScena = new Scene(root);
-            primaryStage.setScene(nuovaScena);
-            primaryStage.show();
-
-        } catch (Exception e) {
-            e.printStackTrace(); 
-        }
+        caricaView2.caricaViewGestisciRicette(primaryStage);
     }
 	
 	@FXML
 	private void caricaViewRicetta(ActionEvent event) {  //CARICA VIEW RICETTA
-		PubblicaRicettaController.creaRicetta(); //QUANDO ENTRO NELLA RICETTA CREO L'ISTANZA DELLA RICETTA
-		try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("NuovaRicettaView2.fxml"));
-            NuovaRicettaView2Controller nuovaRicettaController= NuovaRicettaView2Controller.ottieniIstanza();
-            loader.setController(nuovaRicettaController);
-			controller2.registraOsservatore(nuovaRicettaController, 2);
-            Parent root = loader.load();
-            nuovaRicettaController.setPrimaryStage(primaryStage);
-            Scene nuovaScena = new Scene(root);
-            primaryStage.setScene(nuovaScena);
-            primaryStage.show();
-        } catch (Exception e) {
-            e.printStackTrace(); 
-        }
+		caricaView2.caricaViewRicetta(primaryStage);
 	}
 	
 	public void aggiornaView() {  //AGGIORNA USERNAME AUTOMATICAMENTE

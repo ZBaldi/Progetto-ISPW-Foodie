@@ -2,18 +2,13 @@ package com.foodie.boundary;
 
 import java.util.Map;
 import com.foodie.controller.LoginController;
-import com.foodie.controller.PubblicaRicettaController;
 import com.foodie.model.UtenteBean;
-import com.foodie.applicazione.LoginViewController;
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -24,18 +19,19 @@ public class AreaPersonaleViewController{
 	private AdattatoreFactory factory = AdattatoreFactory.ottieniIstanza();
 	private LoginController controller = LoginController.ottieniIstanza();
 	private ControllerAdapter adattatoreLoginController = factory.creaLoginAdapter();
+	private CaricaView caricaView= CaricaView.ottieniIstanza();
 	private Stage primaryStage;
 	@FXML
     private ImageView tornaAlLoginImageView;
 	@FXML
-	private TextField descrizioneTextField;
+	private TextArea descrizioneTextField;
 	@FXML
 	private Label usernameLabel;
 	
 	private AreaPersonaleViewController() {	
 	}
 	
-	public static AreaPersonaleViewController ottieniIstanza() { //SINGLETON	
+	public static synchronized AreaPersonaleViewController ottieniIstanza() { //SINGLETON	
 		if(istanza == null) {
 			istanza = new AreaPersonaleViewController();
 		}
@@ -48,36 +44,12 @@ public class AreaPersonaleViewController{
 	
 	@FXML
     private void tornaAlLogin(MouseEvent event) { //CARICA VIEW LOGIN
-        try { 
-        	FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/Applicazione/LoginView.fxml"));
-            LoginViewController loginViewController = LoginViewController.ottieniIstanza();
-            loader.setController(loginViewController);
-            Parent root = loader.load();
-            loginViewController.setPrimaryStage(primaryStage);
-            Scene nuovaScena = new Scene(root);
-            primaryStage.setScene(nuovaScena);
-            primaryStage.show();
-        } catch (Exception e) {
-            e.printStackTrace(); 
-        }
+        caricaView.tornaAlLogin(primaryStage);
     }
 	
 	@FXML
     private void caricaViewGestisciRicette(ActionEvent event) {  //CARICA VIEW GESTISCI RICETTE
-        try {
-        	FXMLLoader loader = new FXMLLoader(getClass().getResource("GestisciRicetteView.fxml"));
-            GestisciRicetteViewController gestisciRicetteViewController = GestisciRicetteViewController.ottieniIstanza();
-            loader.setController(gestisciRicetteViewController);
-            Parent root = loader.load();
-            gestisciRicetteViewController.setPrimaryStage(primaryStage);
-            gestisciRicetteViewController.aggiornaView();
-            Scene nuovaScena = new Scene(root);
-            primaryStage.setScene(nuovaScena);
-            primaryStage.show();
-
-        } catch (Exception e) {
-            e.printStackTrace(); 
-        }
+        caricaView.caricaViewGestisciRicette(primaryStage);
     }
 	
 	@FXML
@@ -93,19 +65,7 @@ public class AreaPersonaleViewController{
 	
 	@FXML
 	private void caricaViewRicetta(ActionEvent event) {  //CARICA VIEW DELLA RICETTA NUOVA DA CREARE
-		PubblicaRicettaController.creaRicetta(); //QUANDO ENTRO NELLA RICETTA CREO L'ISTANZA DELLA RICETTA
-		try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("NuovaRicettaView.fxml"));
-            NuovaRicettaViewController nuovaRicettaViewController= NuovaRicettaViewController.ottieniIstanza();
-            loader.setController(nuovaRicettaViewController);
-            Parent root = loader.load();
-            nuovaRicettaViewController.setPrimaryStage(primaryStage);
-            Scene nuovaScena = new Scene(root);
-            primaryStage.setScene(nuovaScena);
-            primaryStage.show();
-        } catch (Exception e) {
-            e.printStackTrace(); 
-        }
+		caricaView.caricaViewRicetta(primaryStage);
 	}
 	
 	public void aggiornaView() {  //AGGIORNA LABEL CON IL PROPRIO USERNAME

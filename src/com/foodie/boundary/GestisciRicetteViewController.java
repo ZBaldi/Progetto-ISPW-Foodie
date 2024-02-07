@@ -1,16 +1,12 @@
 package com.foodie.boundary;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
-
-import com.foodie.applicazione.LoginViewController;
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.PubblicaRicettaController;
 import com.foodie.model.RicettaBean;
 import com.foodie.model.UtenteBean;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,6 +27,7 @@ public class GestisciRicetteViewController {
 	private PubblicaRicettaController controller = PubblicaRicettaController.ottieniIstanza();
 	private ControllerAdapter adattatoreTrovaRicettaController= factory.creaTrovaRicettaAdapter();
 	private ControllerAdapter adattatoreLoginController = factory.creaLoginAdapter();
+	private CaricaView caricaView= CaricaView.ottieniIstanza();
 	private boolean bottoneModifica = true;
 	private Stage primaryStage;
 	private static final String FORMATO = "Arial";
@@ -217,53 +214,17 @@ public class GestisciRicetteViewController {
 	
 	@FXML
     private void tornaAlLogin() {  //CARICA VIEW LOGIN
-        try {
-        	FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/foodie/Applicazione/LoginView.fxml"));
-            LoginViewController loginViewController = LoginViewController.ottieniIstanza();
-            loader.setController(loginViewController);
-            Parent root = loader.load();
-            loginViewController.setPrimaryStage(primaryStage);
-            Scene nuovaScena = new Scene(root);
-            primaryStage.setScene(nuovaScena);
-            primaryStage.show();
-        } catch (Exception e) {
-            e.printStackTrace(); 
-        }
+        caricaView.tornaAlLogin(primaryStage);
     }
 	
 	@FXML
 	private void caricaViewRicetta() {  //CARICA VIEW NUOVA RICETTA DA CREARE
-		PubblicaRicettaController.creaRicetta(); //QUANDO ENTRO NELLA RICETTA CREO L'ISTANZA DELLA RICETTA
-		try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("NuovaRicettaView.fxml"));
-            NuovaRicettaViewController nuovaRicettaViewController= NuovaRicettaViewController.ottieniIstanza();
-            loader.setController(nuovaRicettaViewController);
-            Parent root = loader.load();
-            nuovaRicettaViewController.setPrimaryStage(primaryStage);
-            Scene nuovaScena = new Scene(root);
-            primaryStage.setScene(nuovaScena);
-            primaryStage.show();
-        } catch (Exception e) {
-            e.printStackTrace(); 
-        }
+		caricaView.caricaViewRicetta(primaryStage);
 	}
 	
 	@FXML
 	private void caricaViewAreaPersonale() {  	//CARICA VIEW AREA PERSONALE	
-		AreaPersonaleViewController controllerAreaPersonale = AreaPersonaleViewController.ottieniIstanza();
-		try {
-			FXMLLoader loader= new FXMLLoader(getClass().getResource("AreaPersonaleView.fxml"));
-			loader.setController(controllerAreaPersonale);
-			Parent root = loader.load();
-			controllerAreaPersonale.setPrimaryStage(primaryStage);
-			controllerAreaPersonale.caricaAreaPersonale();
-		    controllerAreaPersonale.aggiornaView();
-			Scene scene = new Scene(root);
-			primaryStage.setScene(scene);
-			primaryStage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		caricaView.caricaViewAreaPersonale(primaryStage);
 	}
 	
 }
