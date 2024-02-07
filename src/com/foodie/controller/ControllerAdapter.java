@@ -14,13 +14,16 @@ public abstract class ControllerAdapter {
 	}
 	
 	public ArrayList<RicettaBean> trovaLeRicette(int difficolta, String autore) {
-		logger.info("autore:"+autore);  //PER EVITARE SMELL
-		logger.info("difficolta:"+difficolta);
+		String prima= "autore:"+autore;
+		String seconda= "difficolta:"+difficolta; 
+		logger.info(prima);  //PER EVITARE SMELL
+		logger.info(seconda);
 		return new ArrayList<RicettaBean>();
 	}
 	
 	public ArrayList<AlimentoBean> trovaGliAlimenti(String nomeAlimento) {
-		logger.info("nomeAlimento:"+nomeAlimento); //PER EVITARE SMELL
+		String prima= "nomeAlimento:"+nomeAlimento;
+		logger.info(prima); //PER EVITARE SMELL
 		return new ArrayList<AlimentoBean>();
 	}
 	
@@ -29,8 +32,10 @@ public abstract class ControllerAdapter {
 	}
 	
 	public RicettaBean apriLaRicetta(String nome,String autore) {
-		logger.info("autore:"+autore);  //PER EVITARE SMELL
-		logger.info("nome:"+nome);
+		String prima= "autore:"+autore;
+		String seconda= "nome:"+nome;
+		logger.info(prima);  //PER EVITARE SMELL
+		logger.info(seconda);
 		return null;
 	}
 	

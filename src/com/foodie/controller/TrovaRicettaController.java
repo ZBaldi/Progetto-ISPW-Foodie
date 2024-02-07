@@ -79,7 +79,7 @@ public class TrovaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOL
 			for(Alimento a: r.getIngredienti()) {
 				logger.info(a.getNome());
 			}
-			System.out.println("Quantità: ");
+			logger.info("Quantità: ");
 			for(String s: r.getQuantita()) {
 				logger.info(s);
 			}

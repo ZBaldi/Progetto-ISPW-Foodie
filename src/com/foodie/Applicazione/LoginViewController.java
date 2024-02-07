@@ -187,7 +187,7 @@ public class LoginViewController {
                 }
                 break;
             default:
-            	String errore=String.format("Ruolo non riconosciuto: " + ruolo);
+            	String errore="Ruolo non riconosciuto: " + ruolo;
             	logger.severe(errore);
                 throw new IllegalArgumentException("Ruolo non riconosciuto: " + ruolo);
         }
