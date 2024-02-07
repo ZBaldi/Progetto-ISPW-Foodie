@@ -111,7 +111,7 @@ public class LoginViewController {
 			else {
 				ruolo="Moderatore";
 			}
-			controller.setUtente(username.toLowerCase(), ruolo); //METTO USERNAME IN MINUSCOLE PER EVITARE INCONGRUENZE NEL CARICAMENTO DELLA DISPENSA O AREA PERSONALE
+			LoginController.setUtente(username.toLowerCase(), ruolo); //METTO USERNAME IN MINUSCOLE PER EVITARE INCONGRUENZE NEL CARICAMENTO DELLA DISPENSA O AREA PERSONALE
 			if(interfaccia1RadioButton.isSelected()) { //VEDI LA GUI DA AVVIARE
 				interfaccia = 1;
 			} else {

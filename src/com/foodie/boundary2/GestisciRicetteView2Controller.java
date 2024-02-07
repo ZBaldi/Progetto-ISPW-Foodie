@@ -153,7 +153,7 @@ public class GestisciRicetteView2Controller {
 	
 	@FXML
 	private void caricaViewRicetta() {  //CARICA VIEW RICETTA 
-		controller.creaRicetta(); //QUANDO ENTRO NELLA RICETTA CREO L'ISTANZA DELLA RICETTA
+		PubblicaRicettaController.creaRicetta(); //QUANDO ENTRO NELLA RICETTA CREO L'ISTANZA DELLA RICETTA
 		try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("NuovaRicettaView2.fxml"));
             NuovaRicettaView2Controller nuovaRicettaViewController = NuovaRicettaView2Controller.ottieniIstanza();

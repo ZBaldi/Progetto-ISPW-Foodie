@@ -6,27 +6,29 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class LoginImplementazioneDao implements LoginDao{
+	
 	private static LoginImplementazioneDao istanza;
-	private static String utente = "root";
-    private static String password = "root"; 
-    private static String databaseUrl = "jdbc:mysql://localhost:3306/user_credentials";
-    private static String driverMySql = "com.mysql.jdbc.Driver";
+	private static final String UTENTE = "root";
+    private static final String PASSWORD = "root"; 
+    private static final String DATABASEURL = "jdbc:mysql://localhost:3306/user_credentials";
+    private static final String DRIVERMYSQL = "com.mysql.jdbc.Driver";
+    
     private LoginImplementazioneDao() {
     }
-    public static LoginImplementazioneDao ottieniIstanza() { //METODO PER OTTENERE L'ISTANZA
+    
+    public static synchronized LoginImplementazioneDao ottieniIstanza() { //METODO PER OTTENERE L'ISTANZA
 		if(istanza==null) {
 			istanza=new LoginImplementazioneDao();
 		}
 		return istanza;
 	}
+    
 	@Override
-	public int validazioneLogin(String username, String pwd) throws Exception {
+	public int validazioneLogin(String username, String pwd) throws Exception {  //EFFETTUA LOGIN
 		Statement dichiarazione = null;
-        Connection connessione = null;
         ResultSet risultati= null;
-        try {
-            Class.forName(driverMySql);
-            connessione = DriverManager.getConnection(databaseUrl, utente, password);
+        try(Connection connessione = DriverManager.getConnection(DATABASEURL, UTENTE, PASSWORD)) {
+            Class.forName(DRIVERMYSQL);
             dichiarazione = connessione.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             risultati=QuerySQLLogin.effettuaLogin(dichiarazione, username, pwd);
             while(risultati.next()) {
@@ -58,19 +60,16 @@ public class LoginImplementazioneDao implements LoginDao{
         } finally {       	
                 if(dichiarazione != null)
                     dichiarazione.close();
-                if(connessione != null)
-                    connessione.close();
                 if(risultati != null)
                 	risultati.close();
         }
 	}
-	public int controllaUsername(String username) throws Exception {
+	
+	public int controllaUsername(String username) throws Exception {  //CONTROLLA L'USERNAME 
 		Statement dichiarazione = null;
-        Connection connessione = null;
         ResultSet risultati= null;
-        try {
-            Class.forName(driverMySql);
-            connessione = DriverManager.getConnection(databaseUrl, utente, password);
+        try(Connection connessione = DriverManager.getConnection(DATABASEURL, UTENTE, PASSWORD)){
+            Class.forName(DRIVERMYSQL);
             dichiarazione = connessione.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             risultati=QuerySQLLogin.controllaUsername(dichiarazione, username);
             while(risultati.next()) {
@@ -86,18 +85,15 @@ public class LoginImplementazioneDao implements LoginDao{
         } finally {       	
                 if(dichiarazione != null)
                     dichiarazione.close();
-                if(connessione != null)
-                    connessione.close();
                 if(risultati != null)
                 	risultati.close();
         }
 	}
-	public void registraUtente(String nome,String cognome,String username,int ruolo,String pwd) throws Exception {
+	
+	public void registraUtente(String nome,String cognome,String username,int ruolo,String pwd) throws Exception {  //REGISTRA L'UTENTE
 		Statement dichiarazione = null;
-        Connection connessione = null;
-        try {
-            Class.forName(driverMySql);
-            connessione = DriverManager.getConnection(databaseUrl, utente, password);
+        try(Connection connessione = DriverManager.getConnection(DATABASEURL, UTENTE, PASSWORD)) {
+            Class.forName(DRIVERMYSQL);
             dichiarazione = connessione.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             if(QuerySQLLogin.registraUtente(dichiarazione, nome, cognome, username, ruolo, pwd)==1) {
             	System.out.println("Utente registrato");
@@ -110,8 +106,6 @@ public class LoginImplementazioneDao implements LoginDao{
         } finally {       	
                 if(dichiarazione != null)
                     dichiarazione.close();
-                if(connessione != null)
-                    connessione.close();
         }
 	}
 }

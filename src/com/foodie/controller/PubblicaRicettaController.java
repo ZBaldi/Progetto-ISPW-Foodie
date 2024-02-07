@@ -33,7 +33,7 @@ public class PubblicaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE 
 		return istanza;
 	}
 	
-	public void creaRicetta() {  //CREA LA RICETTA
+	public static void creaRicetta() {  //CREA LA RICETTA
 		ricetta=new Ricetta();
 	}
 	
@@ -70,7 +70,7 @@ public class PubblicaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE 
 		}
 	}
 	
-	private void notificaModeratore() {  //NOTIFICA IL MODERATORE DOPO AVER COMPILATO
+	private static void notificaModeratore() {  //NOTIFICA IL MODERATORE DOPO AVER COMPILATO
 		System.out.println("MODERATORE NOTIFICATO");
 		moderatore.aggiungiRicettaDaVerificare(ricetta);
 		ricetta=null;

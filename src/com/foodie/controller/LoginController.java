@@ -20,6 +20,7 @@ public class LoginController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOLO 1 IST
 	private static LoginDao database = LoginImplementazioneDao.ottieniIstanza();
 	private static DispensaDao databaseDispensa= DispensaImplementazioneDao.ottieniIstanza();
 	private static AreaPersonaleDao databaseAreaPersonale= AreaPersonaleImplementazioneDao.ottieniIstanza();
+	private static final String MESSAGGIO= "PROBLEMA CON IL DB";
 	
 	private LoginController() {
 	}
@@ -31,7 +32,7 @@ public class LoginController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOLO 1 IST
 		return istanza;
 	}
 	
-	public void setUtente(String username, String tipo) {  //ISTANZIA L'UTENTE IN FUNZIONE DEL TIPO
+	public static void setUtente(String username, String tipo) {  //ISTANZIA L'UTENTE IN FUNZIONE DEL TIPO
 		if(tipo.equals("Standard")) {
 			utente= new Standard(username);
 		}
@@ -54,7 +55,7 @@ public class LoginController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOLO 1 IST
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println("ERRORE NELLA FASE DI LOGIN");
-			System.out.println("Problema con il DB");
+			System.out.println(MESSAGGIO);
 			return -1;
 		}
 	}
@@ -73,7 +74,7 @@ public class LoginController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOLO 1 IST
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println("ERRORE NEL CONTROLLO DELL'USERNAME-->RIPROVA,LA GUI TI DIRA' ESISTENTE");
-			System.out.println("Problema con il DB");
+			System.out.println(MESSAGGIO);
 			return 0;  //LO FACCIO PASSARE PER ESISTENTE
 		}
 	}
@@ -84,7 +85,7 @@ public class LoginController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOLO 1 IST
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println("ERRORE NELLA REGISTRAZIONE DELL'UTENTE");
-			System.out.println("Problema con il DB");
+			System.out.println(MESSAGGIO);
 		}
 	}
 	

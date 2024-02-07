@@ -83,7 +83,7 @@ public class AreaPersonaleView2Controller {
 	
 	@FXML
 	private void caricaViewRicetta(ActionEvent event) {  //CARICA VIEW RICETTA
-		controller2.creaRicetta(); //QUANDO ENTRO NELLA RICETTA CREO L'ISTANZA DELLA RICETTA
+		PubblicaRicettaController.creaRicetta(); //QUANDO ENTRO NELLA RICETTA CREO L'ISTANZA DELLA RICETTA
 		try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("NuovaRicettaView2.fxml"));
             NuovaRicettaView2Controller nuovaRicettaController= NuovaRicettaView2Controller.ottieniIstanza();

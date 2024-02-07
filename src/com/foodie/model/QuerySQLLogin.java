@@ -4,17 +4,20 @@ import java.sql.*;
 
 public class QuerySQLLogin {  
 	
+	private static final String FROM = "FROM user_account ";
+	private static final String WHERE = "WHERE username = '";
+	
 	public static ResultSet effettuaLogin(Statement dichiarazione, String username, String password) throws SQLException {
 		String sqlQuery=String.format("SELECT count(1) "        
-									+ "FROM user_account "
-									+ "WHERE username = '" + username + "' AND password ='" + password + "'");
+									+ FROM
+									+ WHERE + username + "' AND password ='" + password + "'");
 		return dichiarazione.executeQuery(sqlQuery);  //QUERY PER EFFETTUARE IL LOGIN SE REGISTRATO
 	}
 	
 	public static ResultSet controllaUsername(Statement dichiarazione,String username) throws SQLException {
 		String sqlQuery= String.format("SELECT COUNT(*) "
-									 + "FROM user_account "
-									 + "WHERE username = '" + username + "'");
+									 + FROM
+									 + WHERE + username + "'");
 		return dichiarazione.executeQuery(sqlQuery);  //QUERY PER CONTROLLARE L'USERNAME SE REGISTRATO
 	}
 	
@@ -27,8 +30,8 @@ public class QuerySQLLogin {
 	
 	public static ResultSet controllaTipo(Statement dichiarazione, String username) throws SQLException {
 		String sqlQuery= String.format("SELECT ruolo "
-									 + "FROM user_account "
-									 + "WHERE username = '"+username+"' ");
+									 + FROM
+									 + WHERE+username+"' ");
 		return dichiarazione.executeQuery(sqlQuery);  //QUERY PER OTTENERE IL TIPO D'UTENTE CHE SI è LOGGATO
 	}
 	

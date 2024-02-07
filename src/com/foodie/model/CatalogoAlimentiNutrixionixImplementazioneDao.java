@@ -79,7 +79,7 @@ public class CatalogoAlimentiNutrixionixImplementazioneDao implements CatalogoAl
             	return alimentiTrovati;
             }
             else {
-            	return null;
+            	return new ArrayList<Alimento>();
             }
 		}catch(Exception e) {
 			e.printStackTrace();
