@@ -171,16 +171,19 @@ public class GestisciRicetteViewController {
 	private void impostaHBox() {  //IMPOSTA RICETTE CLICCABILI
 		if(!bottoneModifica) {  //IMPOSTO DI ELIMINARE LE RICETTE
 			if(!contenitoreRicette.getChildren().isEmpty()) {
-				contenitoreRicette.getChildren().forEach(node->{
-					HBox hBoxRicetta= (HBox)node;
-					Label labelNome;
+				for(Node nodo1: contenitoreRicette.getChildren()) {
+					int indice=1;
+					HBox hBoxRicetta= (HBox)nodo1;
 					for(Node nodo: hBoxRicetta.getChildren()) {
-						labelNome=(Label)nodo;  //PRENDO SOLO IL NOME 
+						Label labelNome=(Label)nodo;  //PRENDO SOLO IL NOME 
 						UtenteBean utenteBean=adattatoreLoginController.ottieniUtente();
 						hBoxRicetta.setOnMouseClicked(event->eliminaRicetta(labelNome.getText(),utenteBean.getUsername()));
-						break;
+						if(indice==1) {
+							break;
+						}
+						indice++;
 					}
-				});
+				}
 			}
 		}
 		else {  //IMPOSTO DI APRIRE LE RICETTE CLICCATE
