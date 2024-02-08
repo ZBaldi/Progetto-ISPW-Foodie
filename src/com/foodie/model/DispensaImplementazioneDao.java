@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +16,12 @@ import java.util.logging.Logger;
 public class DispensaImplementazioneDao implements DispensaDao{  //IMPLEMENTAZIONE DAO 
 	
 	private static DispensaImplementazioneDao istanza;
-	private Utente utente=null;
+	private String username;
+	private static Path currentPath = Paths.get("");
+	private static Path projectPath = currentPath.toAbsolutePath().normalize();
+	private static Path otherDirectory = projectPath.resolve("ClassiSerializzate");
+	private static Path filePath = otherDirectory.resolve("dispensa_data.ser");
+	private static final String PATH = filePath.toString();
 	private static final Logger logger = Logger.getLogger(DispensaImplementazioneDao.class.getName());
 	
 	private DispensaImplementazioneDao() {
@@ -28,8 +35,8 @@ public class DispensaImplementazioneDao implements DispensaDao{  //IMPLEMENTAZIO
 	}
 	
     @Override
-	public void setUtente(Utente utente) {  //METODO PER IMPOSTARE L'UTENTE
-		this.utente=utente;
+	public void setUsername(String username) {  //METODO PER IMPOSTARE L'UTENTE
+		this.username=username;
 	}
 	
 	@Override
@@ -51,7 +58,7 @@ public class DispensaImplementazioneDao implements DispensaDao{  //IMPLEMENTAZIO
 		if(!alimentiSerializzabili.isEmpty()) {
 			dispensaMap.put(username, alimentiSerializzabili);
 		}
-		try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("C:\\Users\\valba\\OneDrive\\Desktop\\Progetto\\Classi serializzate\\dispensa_data.ser"))) {
+		try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(PATH))) {
 			objectOutputStream.writeObject(dispensaMap);
 			logger.info("Dispensa salvata");
         } catch (IOException e) {
@@ -66,11 +73,11 @@ public class DispensaImplementazioneDao implements DispensaDao{  //IMPLEMENTAZIO
 	public Map<String, ArrayList<AlimentoSerializzabile>> caricaDispense(boolean bool) {  //CARICA L'HASHMAP DA FILE
 		ObjectInputStream objectInputStream=null;    //TRUE VIENE PASSATO QUANDO FAI IL LOGIN!CHE è NECESSARIO RICARICARE LA DISPENSA!
 		try {
-			objectInputStream = new ObjectInputStream(new FileInputStream("C:\\Users\\valba\\OneDrive\\Desktop\\Progetto\\Classi serializzate\\dispensa_data.ser"));
+			objectInputStream = new ObjectInputStream(new FileInputStream(PATH));
 			Map<String, ArrayList<AlimentoSerializzabile>> dispensaMap = (Map<String, ArrayList<AlimentoSerializzabile>>)objectInputStream.readObject();// lo è per forza
 			if(bool) {
 				Dispensa dispensa= Dispensa.ottieniIstanza();
-				ArrayList<AlimentoSerializzabile> dispensaOld=dispensaMap.get(utente.getUsername());
+				ArrayList<AlimentoSerializzabile> dispensaOld=dispensaMap.get(username);
 				if(dispensaOld!=null) {
 					for(AlimentoSerializzabile a: dispensaOld) {
 						dispensa.aggiungiAlimento(new Alimento(a.getNome()));

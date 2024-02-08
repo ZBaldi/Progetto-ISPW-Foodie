@@ -5,7 +5,7 @@ import java.util.Map;
 
 public interface DispensaDao {  //DAO PER LA DISPENSA
 	
-	public void setUtente(Utente utente);  //IMPOSTA L'UTENTE
+	public void setUsername(String username);  //IMPOSTA L'UTENTE
 	
 	public void salvaDispensa(String username);  //SALVA LA DISPENSA SU DB
 	

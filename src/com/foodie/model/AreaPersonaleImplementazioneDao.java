@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -13,6 +15,11 @@ import java.util.logging.Logger;
 public class AreaPersonaleImplementazioneDao implements AreaPersonaleDao{  //IMPLEMENTAZIONE DAO DELL'AREA PERSONALE SU FILE SYSTEM
 
 	private static AreaPersonaleImplementazioneDao istanza;
+	private static Path currentPath = Paths.get("");
+	private static Path projectPath = currentPath.toAbsolutePath().normalize();
+	private static Path otherDirectory = projectPath.resolve("ClassiSerializzate");
+	private static Path filePath = otherDirectory.resolve("areapersonale_data.ser");
+	private static final String PATH = filePath.toString();
 	private static final Logger logger = Logger.getLogger(AreaPersonaleImplementazioneDao.class.getName());
 	
 	private AreaPersonaleImplementazioneDao() {
@@ -32,7 +39,7 @@ public class AreaPersonaleImplementazioneDao implements AreaPersonaleDao{  //IMP
 			areaPersonaleMap=new HashMap<>();
 		}
 		areaPersonaleMap.put(username, descrizione);
-		try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("C:\\Users\\valba\\OneDrive\\Desktop\\Progetto\\Classi serializzate\\areapersonale_data.ser"))) {
+		try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(PATH))) {
 			objectOutputStream.writeObject(areaPersonaleMap);
             logger.info("Area Personale salvata");
         } catch (IOException e) {
@@ -47,7 +54,7 @@ public class AreaPersonaleImplementazioneDao implements AreaPersonaleDao{  //IMP
 	public Map<String, String> caricaAreaPersonale() {     //CARICA L'HASHMAP DA FILE
 		ObjectInputStream objectInputStream=null;
 		try {
-			objectInputStream = new ObjectInputStream(new FileInputStream("C:\\Users\\valba\\OneDrive\\Desktop\\Progetto\\Classi serializzate\\areapersonale_data.ser"));
+			objectInputStream = new ObjectInputStream(new FileInputStream(PATH));
 			Map<String,String> areaPersonaleMap = (Map<String,String>)objectInputStream.readObject();// lo è per forza
 			objectInputStream.close();
 			return areaPersonaleMap;
