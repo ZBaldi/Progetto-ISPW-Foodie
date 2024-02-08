@@ -61,9 +61,9 @@
                   <Font name="Arial" size="30.0" />
                </font>
             </Label>
-            <ScrollPane fitToWidth="true" layoutX="35.0" layoutY="100.0" prefHeight="532.0" prefWidth="951.0">
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutX="35.0" layoutY="100.0" prefHeight="532.0" prefWidth="951.0" vbarPolicy="ALWAYS">
                <content>
-                  <VBox fx:id="contenitoreRicette" prefHeight="541.0" prefWidth="935.0" spacing="5.0" style="-fx-background-color: rgba(228, 255, 231, 1);" />
+                  <VBox fx:id="contenitoreRicette" prefHeight="532.0" prefWidth="935.0" spacing="5.0" style="-fx-background-color: rgba(228, 255, 231, 1);" />
                </content>
             </ScrollPane>
          </children>
