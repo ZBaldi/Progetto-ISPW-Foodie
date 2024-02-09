@@ -1,5 +1,10 @@
 package com.foodie.model;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Logger;
@@ -7,8 +12,8 @@ import java.util.logging.Logger;
 public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao{   //DAO PER LA CONNESSIONE CON MYSQL
 	
 	private static CatalogoRicetteImplementazioneDao istanza;    //SINGLETON
-	private static final String UTENTE = "root";
-    private static final String PASSWORD = "root"; 
+	private static String utente;
+    private static String password; 
     private static final String DATABASEURL = "jdbc:mysql://localhost:3306/ricette";
     @SuppressWarnings("unused")
 	private static final String DRIVERMYSQL = "com.mysql.jdbc.Driver";
@@ -18,12 +23,43 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
     private CatalogoRicetteImplementazioneDao(){
 	}
     
-	public static synchronized CatalogoRicetteImplementazioneDao ottieniIstanza() { //METODO PER OTTENERE L'ISTANZA
+	public static synchronized CatalogoRicetteImplementazioneDao ottieniIstanza() throws IOException { //METODO PER OTTENERE L'ISTANZA
 		if(istanza==null) {
 			istanza=new CatalogoRicetteImplementazioneDao();
 		}
+		if(utente==null && password==null) {  //CONFIGURO LE CREDENZIALI PER LA CONNESSIONE CON IL DATABASE
+			try{
+				provaConnessione();
+			}catch(IOException e) {
+				e.printStackTrace();
+				logger.severe("FILE DI CONFIGURAZIONE NON TROVATO");
+				throw e;
+			}
+		}
 		return istanza;
 	}
+	
+	private static void provaConnessione() throws IOException {
+		int i=0;
+		while(i<3) {
+			Path currentPath = Paths.get("");
+			Path projectPath = currentPath.toAbsolutePath().normalize();
+			Path filePath = projectPath.resolve("DBMS.txt");
+			String path = filePath.toString();
+			try(BufferedReader lettore= new BufferedReader(new FileReader(path))){
+				utente=lettore.readLine();
+				password=lettore.readLine();
+				break;
+			}catch(IOException e) {   //TENTO 3 VOLTE IL COLLEGAMENTO CON IL FILE
+				e.printStackTrace();
+				logger.severe("FILE DI CONFIGURAZIONE NON TROVATO. RIPROVO!");
+				i++;
+				if(i==3) {
+					throw e;
+				}
+			}
+		}
+	}  
 	
 	@Override
 	public ArrayList<Ricetta> trovaRicette(Dispensa dispensa, int difficolta, String autore2) throws SQLException,ClassNotFoundException{ //TROVA LE RICETTE NEL DB O PER ALIMENTI-DIFFICOLTA' O PER AUTORE
@@ -34,7 +70,7 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
 			logger.info("Dispensa vuota!!! Riempila prima");
 			return new ArrayList<>();
 		}
-		try(Connection connessione= DriverManager.getConnection(DATABASEURL, UTENTE,PASSWORD)) {//APRO LA CONNESSIONE
+		try(Connection connessione= DriverManager.getConnection(DATABASEURL, utente,password)) {//APRO LA CONNESSIONE
 			dichiarazione = connessione.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			if(dispensa!=null) { //SE FORNISCO LA DISPENSA SIGNIFICA CHE VOGLIO FARE LA QUERY PER ALIMENTI
 				risultati= QuerySQLUtente.trovaRicette(dichiarazione,dispensa.getAlimenti(),difficolta);
@@ -79,7 +115,7 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
 		Statement dichiarazione = null;
         ResultSet risultati= null;
         int codiceDiRitorno=0;
-        try(Connection connessione= DriverManager.getConnection(DATABASEURL, UTENTE,PASSWORD)) {  //APRO LA CONNESSIONE
+        try(Connection connessione= DriverManager.getConnection(DATABASEURL, utente,password)) {  //APRO LA CONNESSIONE
             dichiarazione = connessione.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             risultati = QuerySQLChef.selezionaRicetteDalNomeAutore(dichiarazione);  //CONTROLLO SE GIA' ESISTE UNA RICETTA CON LA STESSA DESCRIZIONE
             while (risultati.next()) {  //CONTROLLO I RISULTATI
@@ -113,7 +149,7 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
 	@Override
 	public void eliminaRicetta(String nome, String autore) throws SQLException,ClassNotFoundException {  //ELIMINA LA RICETTA DAL DB
 		Statement dichiarazione = null;
-        try(Connection connessione= DriverManager.getConnection(DATABASEURL, UTENTE,PASSWORD)) { //APRO LA CONNESSIONE
+        try(Connection connessione= DriverManager.getConnection(DATABASEURL, utente,password)) { //APRO LA CONNESSIONE
             dichiarazione = connessione.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             if(QuerySQLChef.rimuoviRicetta(dichiarazione, nome,autore)>0) {  //QUERY PER ELIMINARE LA RICETTA DAL DB
             	logger.info("Ricetta eliminata dal database");  
@@ -133,7 +169,7 @@ public class CatalogoRicetteImplementazioneDao implements CatalogoRicetteChefDao
 		Statement dichiarazione=null;
 		ResultSet risultati=null;
 		Ricetta ricetta= new Ricetta();
-		try(Connection connessione= DriverManager.getConnection(DATABASEURL, UTENTE,PASSWORD)) {  //APRO LA CONNESSIONE
+		try(Connection connessione= DriverManager.getConnection(DATABASEURL, utente,password)) {  //APRO LA CONNESSIONE
 			dichiarazione = connessione.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			risultati= QuerySQLUtente.ottieniRicetta(dichiarazione, nome ,autore);  //QUERY PER OTTENERE LA RICETTA
 			while(risultati.next()) {  //SCORRO I RISULTATI E CREO LA RICETTA

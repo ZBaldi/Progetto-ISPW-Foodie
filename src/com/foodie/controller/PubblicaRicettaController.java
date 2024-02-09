@@ -1,5 +1,6 @@
 package com.foodie.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -30,7 +31,12 @@ public class PubblicaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE 
 	public static PubblicaRicettaController ottieniIstanza() { //METODO PER OTTENERE L'ISTANZA
 		if(istanza==null) {
 			istanza=new PubblicaRicettaController();
-			database= CatalogoRicetteImplementazioneDao.ottieniIstanza();
+			try {
+				database= CatalogoRicetteImplementazioneDao.ottieniIstanza();
+			} catch (IOException e) {
+				logger.severe("PROBLEMA CON IL COLLEGAMENTO DEL DB! TERMINO L'APPLICAZIONE");
+				System.exit(0);
+			}
 			//database= CatalogoRicetteImplementazione2Dao.ottieniIstanza(); SU FILE
 			moderatore=Moderatore.ottieniIstanza();
 		}

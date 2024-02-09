@@ -91,7 +91,7 @@ public class DispensaImplementazioneDao implements DispensaDao{  //IMPLEMENTAZIO
 			e.printStackTrace();
 			return new HashMap<>();
 		}catch (EOFException e) {
-			logger.info("NESSUNA DISPENSA SALVATA");
+			logger.warning("NESSUNA DISPENSA SALVATA");
 			return new HashMap<>();
         }catch (IOException e) {
 			e.printStackTrace();

@@ -62,7 +62,7 @@ public class AreaPersonaleImplementazioneDao implements AreaPersonaleDao{  //IMP
 			e.printStackTrace();
 			return new HashMap<>();
 		}catch (EOFException e) {
-            logger.severe("NESSUNA AREA PERSONALE SALVATA");
+            logger.warning("NESSUNA AREA PERSONALE SALVATA");
             return new HashMap<>();
         }catch (IOException e) {
 			e.printStackTrace();

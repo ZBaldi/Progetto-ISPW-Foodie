@@ -1,5 +1,6 @@
 package com.foodie.controller;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.logging.Logger;
 import com.foodie.model.AreaPersonaleImplementazioneDao;
@@ -18,7 +19,7 @@ public class LoginController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOLO 1 IST
 	
 	private static LoginController istanza;
 	private static Utente utente=null;
-	private static LoginDao database = LoginImplementazioneDao.ottieniIstanza();
+	private static LoginDao database;
 	private static DispensaDao databaseDispensa= DispensaImplementazioneDao.ottieniIstanza();
 	private static AreaPersonaleDao databaseAreaPersonale= AreaPersonaleImplementazioneDao.ottieniIstanza();
 	private static final String MESSAGGIO= "PROBLEMA CON IL DB";
@@ -30,6 +31,12 @@ public class LoginController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOLO 1 IST
 	public static synchronized LoginController ottieniIstanza() { //METODO PER OTTENERE L'ISTANZA
 		if(istanza == null) {
 			istanza = new LoginController();
+			try {
+				database= LoginImplementazioneDao.ottieniIstanza();
+			} catch (IOException e) {
+				logger.severe("PROBLEMA CON IL COLLEGAMENTO DEL DB! TERMINO L'APPLICAZIONE");
+				System.exit(0);
+			}
 		}
 		return istanza;
 	}
