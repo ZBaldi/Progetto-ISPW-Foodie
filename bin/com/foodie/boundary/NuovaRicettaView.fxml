@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane prefHeight="100.0" prefWidth="1024.0" style="-fx-background-color: rgba(97, 194, 107, 1);">
+         <children>
+            <Label layoutX="35.0" layoutY="29.0" text="Foodie" textFill="#fffefe">
+               <font>
+                  <Font name="Rockwell" size="30.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1024.0" spacing="10.0">
+               <children>
+                  <Button fx:id="areaPersonaleButton" lineSpacing="10.0" mnemonicParsing="false" onAction="#caricaViewAreaPersonale" style="-fx-background-color: transparent;" text="Area personale" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="26.0" />
+                     </font>
+                  </Button>
+                  <Button lineSpacing="10.0" mnemonicParsing="false" onAction="#caricaViewGestisciRicette" style="-fx-background-color: transparent;" text="Gestisci ricette" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="26.0" />
+                     </font>
+                  </Button>
+                  <Button lineSpacing="10.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Nuova ricetta" textFill="WHITE" underline="true">
+                     <font>
+                        <Font name="Arial" size="26.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="941.0" layoutY="24.0" onMouseClicked="#tornaAlLogin" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../immagini_usate/usericona.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane layoutY="100.0" minHeight="50.0" minWidth="50.0" prefHeight="668.0" prefWidth="1024.0" style="-fx-background-color: rgba(228, 255, 231, 1);">
+         <children>
+            <HBox alignment="CENTER_LEFT" layoutX="228.0" layoutY="558.0" prefHeight="31.0" prefWidth="569.0">
+               <children>
+                  <Label text="SELEZIONA DIFFICOLTÀ:">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </Label>
+                  <Region prefHeight="31.0" prefWidth="21.0" />
+                  <RadioButton fx:id="facile" mnemonicParsing="false" onAction="#disabilitaPulsanti" text="Facile">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font></RadioButton>
+                  <Region prefHeight="10.0" prefWidth="10.0" />
+                  <Region prefHeight="10.0" prefWidth="10.0" />
+                  <Region prefHeight="10.0" prefWidth="10.0" />
+                  <RadioButton fx:id="medio" mnemonicParsing="false" onAction="#disabilitaPulsanti" text="Intermedio">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font></RadioButton>
+                  <Region prefHeight="10.0" prefWidth="10.0" />
+                  <Region prefHeight="10.0" prefWidth="10.0" />
+                  <RadioButton fx:id="difficile" mnemonicParsing="false" onAction="#disabilitaPulsanti" text="Difficile">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font></RadioButton>
+               </children>
+            </HBox>
+            <Button layoutX="34.0" layoutY="610.0" mnemonicParsing="false" onAction="#caricaViewIngredienti" prefHeight="1.0" prefWidth="154.0" style="-fx-background-radius: 10; -fx-background-color: rgba(97, 194, 107, 1);" text="Inserisci Ingredienti" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <Button fx:id="pubblica" layoutX="813.0" layoutY="610.0" mnemonicParsing="false" onAction="#compilaRicetta" prefHeight="29.0" prefWidth="181.0" style="-fx-background-radius: 10; -fx-background-color: rgba(97, 194, 107, 1);" text="Richiedi Pubblicazione" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <TextField fx:id="nome" layoutX="208.0" layoutY="63.0" prefHeight="56.0" prefWidth="591.0" promptText="Nome Ricetta" style="-fx-background-color: transparent;">
+               <font>
+                  <Font name="Arial" size="30.0" />
+               </font>
+            </TextField>
+            <TextArea fx:id="descrizione" layoutX="221.0" layoutY="109.0" prefHeight="449.0" prefWidth="584.0" promptText="Inserisci procedimento" style="-fx-background-radius: 10; -fx-border-color: black; -fx-border-radius: 10;" wrapText="true">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </TextArea>
+         </children>
+         <opaqueInsets>
+            <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+         </opaqueInsets>
+      </Pane>
+   </children>
+</AnchorPane>
