@@ -16,7 +16,7 @@ Il progetto è inerente alla creazione di un software che permette l'interazione
 
 6) Prima di eseguire l'applicativo è importante istanziare nel proprio DBMS MySQL le tabelle.
 
-7) Aprire ed accedere a MySQL, andare nella sezione database (si trova in alto) , selezionare "import database" , selezionate la directory nel progetto con nome DB, selezionare un nome al nuov "schema" e importare. 
+7) Aprire ed accedere a MySQL, andare nella sezione database (si trova in alto) , selezionare "import database" , selezionate la directory nel progetto con nome DB, selezionare un nome al nuovo "schema" e importare. 
 
 8) Ora aprite il file.txt nella cartella del progetto "DBMS.txt" , nella prima riga inserite il nome utente per accedere in MySQL e nella seconda riga inserite la relativa password.
 
