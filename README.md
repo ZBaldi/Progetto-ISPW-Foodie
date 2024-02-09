@@ -2,7 +2,7 @@
 Progetto per l'esame di ISPW di ingegneria informatica 3° anno a TorVergata.
 Il progetto è inerente alla creazione di un software che permette l'interazione tra chef e utenti per contribuire e ricercare ricette che siano coerenti alle disponibilità alimentari momentanee degli utilizzatori.
 
-##Come Utilizzarlo
+## Come Utilizzarlo
 
 Clonare la repository. Importare il progetto in Eclipse o qualsiasi altro ambiente di programmazione. Nella cartella è presente una cartella Lib, questa contiene tutti i file jar da configurare nel progetto per avviarlo.
 La cartella SRC contiene il codice sorgente. La cartella Test contiene le classi di Test con JUnit. Prima di eseguire l'applicativo è importante istanziare nel proprio DBMS MySQL le tabelle. Aprire ed accedere a MySQL,
