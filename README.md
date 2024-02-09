@@ -20,7 +20,7 @@ Il progetto è inerente alla creazione di un software che permette l'interazione
 
 8) Ora aprite il file.txt nella cartella del progetto "DBMS.txt" , nella prima riga inserite il nome utente per accedere in MySQL e nella seconda riga inserite la relativa password.
 
-9) Se JavaFX risulta dare problemi dovete selezionare nel buildpath del progetto una VM Argument: per Windows (--module-path "\path\to\javafx-sdk-21.0.2\lib" --add-modules javafx.controls,javafx.fxml), per Linux/Mac (--module-path /path/to/javafx-sdk-21.0.2/lib --add-modules javafx.controls,javafx.fxml).
+9) Se JavaFX dovesse dare problemi, dovete selezionare nel buildpath del progetto una VM Argument: per Windows (--module-path "\path\to\javafx-sdk-21.0.2\lib" --add-modules javafx.controls,javafx.fxml), per Linux/Mac (--module-path /path/to/javafx-sdk-21.0.2/lib --add-modules javafx.controls,javafx.fxml).
 
 
 Ora è tutto pronto all'utilizzo :)
