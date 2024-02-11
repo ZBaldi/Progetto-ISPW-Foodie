@@ -16,7 +16,7 @@ Il progetto è inerente alla creazione di un software che permette l'interazione
 
 6) Prima di eseguire l'applicativo è importante istanziare nel proprio DBMS MySQL le tabelle.
 
-7) ## Lasciare standard tutte le opzioni di MySQL altrimenti il software non potrà collegarsi(mysql@localhost:3306).
+## Lasciare standard tutte le opzioni di MySQL altrimenti il software non potrà collegarsi(mysql@localhost:3306).
 
 8) Aprire ed accedere a MySQL, andare nella sezione database (si trova in alto) , selezionare "import database" , selezionate la directory nel progetto con nome DB, selezionare un nome al nuovo "schema" e importare. 
 
