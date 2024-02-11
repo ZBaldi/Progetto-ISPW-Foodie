@@ -16,7 +16,6 @@ import java.util.logging.Logger;
 public class DispensaImplementazioneDao implements DispensaDao{  //IMPLEMENTAZIONE DAO 
 	
 	private static DispensaImplementazioneDao istanza;
-	//private String username;
 	private static Path currentPath = Paths.get("");
 	private static Path projectPath = currentPath.toAbsolutePath().normalize();
 	private static Path otherDirectory = projectPath.resolve("ClassiSerializzate");
@@ -33,11 +32,6 @@ public class DispensaImplementazioneDao implements DispensaDao{  //IMPLEMENTAZIO
 		}
 		return istanza;
 	}
-	
-   /* @Override
-	public void setUsername(String username) {  //METODO PER IMPOSTARE L'UTENTE
-		this.username=username;
-	}*/
 	
 	@Override
 	public void salvaDispensa(String username) {  //SALVA SU FILE UNA HASHMAP USERNAME-ARRAYLIST DI ALIMENTI,OGNI VOLTA LA CARICA E AGGIUNGE NUOVI ELEMENTI

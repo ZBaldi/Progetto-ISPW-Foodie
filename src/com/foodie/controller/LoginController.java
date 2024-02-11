@@ -48,7 +48,6 @@ public class LoginController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOLO 1 IST
 	public static void setUtente(String username, String tipo) {  //ISTANZIA L'UTENTE IN FUNZIONE DEL TIPO
 		if(tipo.equals("Standard")) {
 			utente= new Standard(username);
-			//databaseDispensa.setUsername(username);
 		}
 		else if(tipo.equals("Chef")) {
 			utente= new Chef(username);
