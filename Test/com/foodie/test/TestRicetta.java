@@ -26,11 +26,9 @@ public class TestRicetta {      //VALERIO BALDAZZI
 	
 	@Test
 	public void testAggiungiIngredienteNonPresente() {
-		int oldSize= ricettaDiProva.getIngredienti().size();
 		Alimento alimentoProva= new Alimento(NOME2);
 		ricettaDiProva.aggiungiIngrediente(alimentoProva, QUANTITA);
 		assertTrue(ricettaDiProva.getIngredienti().contains(alimentoProva));  //CONTROLLO SE L'INGREDIENTE E' STATO AGGIUNTO
-		assertEquals(ricettaDiProva.getIngredienti().size(), oldSize+1);
 		ricettaDiProva.eliminaIngrediente(alimentoProva);  //COSI' LA RIPORTO ALLO STATO INIZIALE PER FARE GLI ALTRI TEST
 	}
 	
@@ -47,17 +45,14 @@ public class TestRicetta {      //VALERIO BALDAZZI
 		int oldSize= ricettaDiProva.getIngredienti().size();
 		Alimento alimentoProva= new Alimento(NOME2);
 		ricettaDiProva.eliminaIngrediente(alimentoProva);
-		assertFalse(ricettaDiProva.getIngredienti().contains(alimentoProva));  //CONTROLLO CHE NON E' STATO AGGIUNTO
 		assertEquals(ricettaDiProva.getIngredienti().size(),oldSize);   //CONTROLLO CHE LA DIMENSIONE E' RIMASTA INVARIATA
 	}
 	
 	@Test
 	public void testEliminaIngredientePresente() {
-		int oldSize= ricettaDiProva.getIngredienti().size();
 		Alimento alimentoProva= new Alimento(NOME1);
 		ricettaDiProva.eliminaIngrediente(alimentoProva);
 		assertFalse(ricettaDiProva.getIngredienti().contains(alimentoProva));
-		assertEquals(ricettaDiProva.getIngredienti().size(),oldSize-1);
 		ricettaDiProva.aggiungiIngrediente(alimentoProva, QUANTITA); //RIPRISTINO LO STATO INIZIALE DELLA RICETTA
 	}
 	

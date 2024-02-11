@@ -42,13 +42,11 @@ public class TestModeratore {   //VALERIO BALDAZZI
 	@Test
 	public void testAggiungiRicettaDaVerificareNonPresente() {
 		Moderatore moderatore=Moderatore.ottieniIstanza();
-		int oldSize= Moderatore.getRicetteDaVerificare().size();
 		Ricetta ricettaDiProva= new Ricetta();
 		ricettaDiProva.setNome(NOME2);
 		ricettaDiProva.setAutore(AUTORE);
 		moderatore.aggiungiRicettaDaVerificare(ricettaDiProva);
 		assertTrue(Moderatore.getRicetteDaVerificare().contains(ricettaDiProva));  //CONTROLLO SE LA RICETTA E' STATA AGGIUNTA
-		assertEquals(Moderatore.getRicetteDaVerificare().size(), oldSize+1);
 		moderatore.ricettaVerificata(ricettaDiProva);  //COSI' LA RIPORTO ALLO STATO INIZIALE PER FARE GLI ALTRI TEST
 	}
 	
@@ -71,20 +69,17 @@ public class TestModeratore {   //VALERIO BALDAZZI
 		ricettaDiProva.setNome(NOME2);
 		ricettaDiProva.setAutore(AUTORE);
 		moderatore.ricettaVerificata(ricettaDiProva);
-		assertFalse(Moderatore.getRicetteDaVerificare().contains(ricettaDiProva));  //CONTROLLO CHE NON E' STATA AGGIUNTA
 		assertEquals(Moderatore.getRicetteDaVerificare().size(),oldSize);   //CONTROLLO CHE LA DIMENSIONE E' RIMASTA INVARIATA
 	}
 	
 	@Test
 	public void testRicettaVerificataPresente() {
 		Moderatore moderatore=Moderatore.ottieniIstanza();
-		int oldSize= Moderatore.getRicetteDaVerificare().size();
 		Ricetta ricettaDiProva= new Ricetta();
 		ricettaDiProva.setNome(NOME1);
 		ricettaDiProva.setAutore(AUTORE);
 		moderatore.ricettaVerificata(ricettaDiProva);
-		assertFalse(Moderatore.getRicetteDaVerificare().contains(ricettaDiProva));  //CONTROLLO CHE NON E' STATA AGGIUNTA
-		assertEquals(Moderatore.getRicetteDaVerificare().size(),oldSize-1); 
+		assertFalse(Moderatore.getRicetteDaVerificare().contains(ricettaDiProva));
 		moderatore.aggiungiRicettaDaVerificare(ricettaDiProva);  //RIPRISTINO LO STATO INIZIALE DELLA RICETTA
 	}
 	

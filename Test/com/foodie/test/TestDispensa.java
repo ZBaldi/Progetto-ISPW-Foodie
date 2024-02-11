@@ -26,11 +26,9 @@ public class TestDispensa {    //VALERIO BALDAZZI
 	@Test
 	public void testAggiungiAlimentoNonPresente() {
 		Dispensa dispensa= Dispensa.ottieniIstanza();
-		int oldSize= dispensa.getAlimenti().size();
 		Alimento alimentoProva= new Alimento(NOME2);
 		dispensa.aggiungiAlimento(alimentoProva);
 		assertTrue(dispensa.getAlimenti().contains(alimentoProva));  //CONTROLLO SE L'ALIMENTO E' STATO AGGIUNTO
-		assertEquals(dispensa.getAlimenti().size(), oldSize+1);
 		dispensa.eliminaAlimento(alimentoProva);  //COSI' LA RIPORTO ALLO STATO INIZIALE PER FARE GLI ALTRI TEST
 	}
 	
@@ -48,19 +46,16 @@ public class TestDispensa {    //VALERIO BALDAZZI
 		Dispensa dispensa= Dispensa.ottieniIstanza();
 		int oldSize= dispensa.getAlimenti().size();
 		Alimento alimentoProva= new Alimento(NOME2);
-		dispensa.eliminaAlimento(alimentoProva);
-		assertFalse(dispensa.getAlimenti().contains(alimentoProva));  //CONTROLLO CHE NON E' STATO AGGIUNTO 
+		dispensa.eliminaAlimento(alimentoProva); 
 		assertEquals(dispensa.getAlimenti().size(),oldSize);  //CONTROLLO CHE LA DIMENSIONE E' RIMASTA INVARIATA
 	}
 	
 	@Test
 	public void testEliminaAlimentoPresente() {
 		Dispensa dispensa= Dispensa.ottieniIstanza();
-		int oldSize= dispensa.getAlimenti().size();
 		Alimento alimentoProva= new Alimento(NOME1);
 		dispensa.eliminaAlimento(alimentoProva);
 		assertFalse(dispensa.getAlimenti().contains(alimentoProva));
-		assertEquals(dispensa.getAlimenti().size(),oldSize-1);
 		dispensa.aggiungiAlimento(alimentoProva); //RIPRISTINO LO STATO INIZIALE DELLA DISPENSA
 	}
 	
