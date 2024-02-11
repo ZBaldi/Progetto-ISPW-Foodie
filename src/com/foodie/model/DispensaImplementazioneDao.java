@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 public class DispensaImplementazioneDao implements DispensaDao{  //IMPLEMENTAZIONE DAO 
 	
 	private static DispensaImplementazioneDao istanza;
-	private String username;
+	//private String username;
 	private static Path currentPath = Paths.get("");
 	private static Path projectPath = currentPath.toAbsolutePath().normalize();
 	private static Path otherDirectory = projectPath.resolve("ClassiSerializzate");
@@ -34,16 +34,16 @@ public class DispensaImplementazioneDao implements DispensaDao{  //IMPLEMENTAZIO
 		return istanza;
 	}
 	
-    @Override
+   /* @Override
 	public void setUsername(String username) {  //METODO PER IMPOSTARE L'UTENTE
 		this.username=username;
-	}
+	}*/
 	
 	@Override
 	public void salvaDispensa(String username) {  //SALVA SU FILE UNA HASHMAP USERNAME-ARRAYLIST DI ALIMENTI,OGNI VOLTA LA CARICA E AGGIUNGE NUOVI ELEMENTI
 		Map<String, ArrayList<AlimentoSerializzabile>> dispensaMap;
 		ArrayList<AlimentoSerializzabile> alimentiSerializzabili=new ArrayList<>();
-		if((dispensaMap=caricaDispense(false))==null) {  //FALSE SIGNIFICA CHE NON DEVE RICARICARE LA DISPENSA(EVITI LOOP)
+		if((dispensaMap=caricaDispense())==null) {  //FALSE SIGNIFICA CHE NON DEVE RICARICARE LA DISPENSA(EVITI LOOP)
 			dispensaMap=new HashMap<>();
 		}
 		Dispensa dispensa=Dispensa.ottieniIstanza();
@@ -70,21 +70,11 @@ public class DispensaImplementazioneDao implements DispensaDao{  //IMPLEMENTAZIO
 
 	@SuppressWarnings({ "unchecked", "resource" })  //RIMUOVO I WARNING
 	@Override
-	public Map<String, ArrayList<AlimentoSerializzabile>> caricaDispense(boolean bool) {  //CARICA L'HASHMAP DA FILE
+	public Map<String, ArrayList<AlimentoSerializzabile>> caricaDispense() {  //CARICA L'HASHMAP DA FILE
 		ObjectInputStream objectInputStream=null;    //TRUE VIENE PASSATO QUANDO FAI IL LOGIN!CHE è NECESSARIO RICARICARE LA DISPENSA!
 		try {
 			objectInputStream = new ObjectInputStream(new FileInputStream(PATH));
 			Map<String, ArrayList<AlimentoSerializzabile>> dispensaMap = (Map<String, ArrayList<AlimentoSerializzabile>>)objectInputStream.readObject();// lo è per forza
-			if(bool) {
-				Dispensa dispensa= Dispensa.ottieniIstanza();
-				ArrayList<AlimentoSerializzabile> dispensaOld=dispensaMap.get(username);
-				if(dispensaOld!=null) {
-					for(AlimentoSerializzabile a: dispensaOld) {
-						dispensa.aggiungiAlimento(new Alimento(a.getNome()));
-					}
-					logger.info("dispensa caricata");
-				}
-			}
 			objectInputStream.close();
 			return dispensaMap;
 		} catch (ClassNotFoundException e) {

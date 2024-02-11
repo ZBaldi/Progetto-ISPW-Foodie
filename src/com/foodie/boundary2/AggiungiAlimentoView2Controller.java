@@ -5,7 +5,6 @@ import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.LoginController;
 import com.foodie.model.AlimentoBean;
-import com.foodie.model.UtenteBean;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -23,11 +22,8 @@ public class AggiungiAlimentoView2Controller {
 	private static AggiungiAlimentoView2Controller istanza;
 	private AdattatoreFactory factory = AdattatoreFactory.ottieniIstanza();
 	private ControllerAdapter adattatoreTrovaRicettaController = factory.creaTrovaRicettaAdapter();
-	private ControllerAdapter adattatoreLoginController = factory.creaLoginAdapter();
 	private LoginController loginController = LoginController.ottieniIstanza();
-	private UtenteBean utenteBean = adattatoreLoginController.ottieniUtente();
 	private CaricaView2 caricaView2= CaricaView2.ottieniIstanza();
-	private String username = utenteBean.getUsername();
 	private Stage primaryStage;
 	@FXML
 	private TextField barraDiRicerca;
@@ -105,7 +101,7 @@ public class AggiungiAlimentoView2Controller {
 		AlimentoBean alimentoBean = new AlimentoBean();
 		alimentoBean.setNome(nomeAlimento);
 		adattatoreTrovaRicettaController.modificaDispensa(alimentoBean, 0);
-		loginController.salvaDispensa(username); //SALVO DISPENSA SU FILE IN AUTOMATICO
+		loginController.salvaDispensa(); //SALVO DISPENSA SU FILE IN AUTOMATICO
 		
 	}
 	

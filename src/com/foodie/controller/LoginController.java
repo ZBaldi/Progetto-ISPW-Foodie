@@ -1,11 +1,15 @@
 package com.foodie.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.logging.Logger;
 import com.foodie.model.AreaPersonaleImplementazioneDao;
 import com.foodie.model.Chef;
+import com.foodie.model.Dispensa;
 import com.foodie.model.DispensaDao;
+import com.foodie.model.Alimento;
+import com.foodie.model.AlimentoSerializzabile;
 import com.foodie.model.AreaPersonaleDao;
 import com.foodie.model.DispensaImplementazioneDao;
 import com.foodie.model.LoginDao;
@@ -44,7 +48,7 @@ public class LoginController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOLO 1 IST
 	public static void setUtente(String username, String tipo) {  //ISTANZIA L'UTENTE IN FUNZIONE DEL TIPO
 		if(tipo.equals("Standard")) {
 			utente= new Standard(username);
-			databaseDispensa.setUsername(username);
+			//databaseDispensa.setUsername(username);
 		}
 		else if(tipo.equals("Chef")) {
 			utente= new Chef(username);
@@ -98,20 +102,28 @@ public class LoginController {  //SINGLETON, IL CONTROLLER DEVE AVERE SOLO 1 IST
 		}
 	}
 	
-	public void salvaDispensa(String username) {  //SALVA GLI INGREDIENTI DELLA DISPENSA NEL DB
-		databaseDispensa.salvaDispensa(username);
+	public void salvaDispensa() {  //SALVA GLI INGREDIENTI DELLA DISPENSA NEL DB
+		databaseDispensa.salvaDispensa(utente.getUsername());
 	}
 	
 	public void caricaDispense() {  //CARICA GLI INGREDIENTI DELLA DISPENSA DA DB
-		databaseDispensa.caricaDispense(true);
-    }
+		Map<String, ArrayList<AlimentoSerializzabile>> dispensaMap=databaseDispensa.caricaDispense(); 
+		Dispensa dispensa= Dispensa.ottieniIstanza();
+		ArrayList<AlimentoSerializzabile> dispensaOld=dispensaMap.get(utente.getUsername());
+		if(dispensaOld!=null) {
+			for(AlimentoSerializzabile a: dispensaOld) {
+				dispensa.aggiungiAlimento(new Alimento(a.getNome()));
+			}
+			logger.info("dispensa caricata");
+		}
+	}
 	
 	public Utente getUtente() {
 		return utente;
 	}
 	
-	public void salvaAreaPersonale(String username,String descrizione) {  //SALVA LA DESCRIZIONE DELL'AREA PERSONALE NEL DB
-		databaseAreaPersonale.salvaAreaPersonale(username, descrizione);
+	public void salvaAreaPersonale(String descrizione) {  //SALVA LA DESCRIZIONE DELL'AREA PERSONALE NEL DB
+		databaseAreaPersonale.salvaAreaPersonale(utente.getUsername(), descrizione);
 	}
 	
 	public Map<String,String> caricaAreaPersonale() {  //CARICA LA DESCRIZIONE DELL'AREA PERSONALE DA DB

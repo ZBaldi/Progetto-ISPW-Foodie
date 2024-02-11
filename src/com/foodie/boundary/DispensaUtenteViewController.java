@@ -1,7 +1,6 @@
 package com.foodie.boundary;
 
 import java.util.List;
-
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.LoginController;
@@ -22,7 +21,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import com.foodie.model.AlimentoBean;
 import com.foodie.model.Observer;
-import com.foodie.model.UtenteBean;
 
 public class DispensaUtenteViewController implements Observer {
 	
@@ -31,10 +29,7 @@ public class DispensaUtenteViewController implements Observer {
 	private TrovaRicettaController controller = TrovaRicettaController.ottieniIstanza();
 	private ControllerAdapter adattatoreTrovaRicettaController = factory.creaTrovaRicettaAdapter();
 	private LoginController controllerLogin = LoginController.ottieniIstanza();
-	private ControllerAdapter adattatoreLoginController=factory.creaLoginAdapter();
-	private UtenteBean utenteBean= adattatoreLoginController.ottieniUtente();
 	private CaricaView caricaView= CaricaView.ottieniIstanza();
-	private String username= utenteBean.getUsername();
 	private boolean bottoneModifica = true;
 	private static final String FORMATO = "Arial";
 	private static final String DISPENSA = "La mia Dispensa";
@@ -235,7 +230,7 @@ public class DispensaUtenteViewController implements Observer {
 	
 	@FXML
 	private void salvaDispensa(ActionEvent event) {  //SALVA LA DISPENSA
-		controllerLogin.salvaDispensa(username);
+		controllerLogin.salvaDispensa();
 	}
 	
 }

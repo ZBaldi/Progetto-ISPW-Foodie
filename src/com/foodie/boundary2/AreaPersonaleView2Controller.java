@@ -66,8 +66,7 @@ public class AreaPersonaleView2Controller {
 	@FXML
 	private void salvaAreaPersonale(KeyEvent event) {  //PREMUTO ENTER SALVA AREA PERSONALE(DESCRIZIONE)
 		if(event.getCode() == KeyCode.ENTER) {
-			UtenteBean utenteBean=adattatoreLoginController.ottieniUtente();
-			controller.salvaAreaPersonale(utenteBean.getUsername(), descrizioneTextArea.getText());
+			controller.salvaAreaPersonale(descrizioneTextArea.getText());
 		}
 	}
 	

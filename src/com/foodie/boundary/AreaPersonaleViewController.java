@@ -74,8 +74,7 @@ public class AreaPersonaleViewController{
 	}
 	
 	private void salvaAreaPersonale() {  //SALVA L'AREA PERSONALE(DESCRIZIONE)
-		UtenteBean utenteBean=adattatoreLoginController.ottieniUtente();
-		controller.salvaAreaPersonale(utenteBean.getUsername(), descrizioneTextField.getText());
+		controller.salvaAreaPersonale(descrizioneTextField.getText());
 	}
 	
 	public void caricaAreaPersonale() { //CARICA L'AREA PERSONALE(DESCRIZIONE)

@@ -3,14 +3,12 @@ package com.foodie.boundary2;
 
 
 import java.util.List;
-
 import com.foodie.controller.AdattatoreFactory;
 import com.foodie.controller.ControllerAdapter;
 import com.foodie.controller.LoginController;
 import com.foodie.controller.TrovaRicettaController;
 import com.foodie.model.AlimentoBean;
 import com.foodie.model.Observer;
-import com.foodie.model.UtenteBean;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -25,12 +23,9 @@ public class DispensaView2Controller implements Observer{
 	private static DispensaView2Controller istanza;
 	private AdattatoreFactory factory= AdattatoreFactory.ottieniIstanza();
 	private TrovaRicettaController controller = TrovaRicettaController.ottieniIstanza();
-	private ControllerAdapter adattatoreLogin= factory.creaLoginAdapter();
 	private LoginController loginController= LoginController.ottieniIstanza();
 	private ControllerAdapter adattatoreTrovaRicettaController= factory.creaTrovaRicettaAdapter();
-	private UtenteBean utenteBean = adattatoreLogin.ottieniUtente();
 	private CaricaView2 caricaView2= CaricaView2.ottieniIstanza();
-	private String username=utenteBean.getUsername();
 	private Stage primaryStage;
 	@FXML
 	private VBox contenitoreDispensa;
@@ -67,7 +62,7 @@ public class DispensaView2Controller implements Observer{
 	@FXML
 	private void svuotaDispensa(ActionEvent event) {  //SVUOTA DISPENSA
 		controller.svuotaDispensa();
-		loginController.salvaDispensa(username); //SALVO DISPENSA SU FILE IN AUTOMATICO
+		loginController.salvaDispensa(); //SALVO DISPENSA SU FILE IN AUTOMATICO
 	}
 	
 	public void aggiornaView() {  //AGGIORNA LA VIEW IN FUNZIONE DELLA DISPENSA
@@ -101,7 +96,7 @@ public class DispensaView2Controller implements Observer{
 		AlimentoBean alimentoBean = new AlimentoBean();
 		alimentoBean.setNome(nomeAlimento);
 		adattatoreTrovaRicettaController.modificaDispensa(alimentoBean, 1);
-		loginController.salvaDispensa(username); //SALVO DISPENSA SU FILE IN AUTOMATICO
+		loginController.salvaDispensa(); //SALVO DISPENSA SU FILE IN AUTOMATICO
 	}
 	
 }
