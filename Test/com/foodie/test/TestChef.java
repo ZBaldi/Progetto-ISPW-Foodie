@@ -18,14 +18,14 @@ public class TestChef { // BIRU MICHELE
     }
 
     @Test
-    public void testGetViewIniziale_Interfaccia1() {
+    public void testGetViewInizialeInterfaccia1() {
         Chef chef = new Chef(USERNAME);
         // VERIFICA CHE RESTITUISCA LA VIEW CORRETTA
         assertEquals("/com/foodie/boundary/AreaPersonaleView.fxml", chef.getViewIniziale(1));
     }
 
     @Test
-    public void testGetViewIniziale_Interfaccia2() {
+    public void testGetViewInizialeInterfaccia2() {
     	Chef chef = new Chef(USERNAME);
         // VERIFICA CHE RESTITUISCA LA VIEW CORRETTA
         assertEquals("/com/foodie/boundary2/AreaPersonaleView2.fxml", chef.getViewIniziale(2));
