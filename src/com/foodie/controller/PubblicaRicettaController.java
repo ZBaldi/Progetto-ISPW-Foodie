@@ -28,7 +28,7 @@ public class PubblicaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE 
 	private PubblicaRicettaController() {
 	}
 	
-	public static PubblicaRicettaController ottieniIstanza() { //METODO PER OTTENERE L'ISTANZA
+	public static synchronized PubblicaRicettaController ottieniIstanza() { //METODO PER OTTENERE L'ISTANZA
 		if(istanza==null) {
 			istanza=new PubblicaRicettaController();
 			try {

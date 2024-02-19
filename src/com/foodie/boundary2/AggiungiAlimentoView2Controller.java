@@ -70,6 +70,7 @@ public class AggiungiAlimentoView2Controller {
 	}
 	
 	private void trovaAlimenti() {  //METODO TROVA ALIMENTI
+		eliminaAlimenti();
 		List<AlimentoBean> alimentiBeanTrovati=adattatoreTrovaRicettaController.trovaGliAlimenti(barraDiRicerca.getText());
 		if(!alimentiBeanTrovati.isEmpty()) {
 			for(AlimentoBean a: alimentiBeanTrovati) {

@@ -14,15 +14,15 @@ public class AdattatoreFactory {  //SINGLETON, IL FACTORY DEVE AVERE SOLO 1 ISTA
 		return istanza;
 	}
 	
-	public ControllerAdapter creaLoginAdapter() {  //CREA IL PRODOTTO CONCRETO OVVERO LOGIN ADAPTER
+	public LoginControllerAdapter creaLoginAdapter() {  //CREA IL PRODOTTO CONCRETO OVVERO LOGIN ADAPTER
 		return LoginControllerAdapter.ottieniIstanza(LoginController.ottieniIstanza());
 	}
 	
-	public ControllerAdapter creaPubblicaRicettaAdapter() {  //CREA IL PRODOTTO CONCRETO OVVERO PUBBLICA RICETTA ADAPTER
+	public PubblicaRicettaControllerAdapter creaPubblicaRicettaAdapter() {  //CREA IL PRODOTTO CONCRETO OVVERO PUBBLICA RICETTA ADAPTER
 		return PubblicaRicettaControllerAdapter.ottieniIstanza(PubblicaRicettaController.ottieniIstanza());
 	}
 	
-	public ControllerAdapter creaTrovaRicettaAdapter() {  //CREA IL PRODOTTO CONCRETO OVVERO TROVA RICETTA ADAPTER
+	public TrovaRicettaControllerAdapter creaTrovaRicettaAdapter() {  //CREA IL PRODOTTO CONCRETO OVVERO TROVA RICETTA ADAPTER
 		return TrovaRicettaControllerAdapter.ottieniIstanza(TrovaRicettaController.ottieniIstanza());
 	}
 	

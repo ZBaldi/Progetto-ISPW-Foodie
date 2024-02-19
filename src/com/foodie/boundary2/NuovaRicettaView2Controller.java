@@ -238,6 +238,7 @@ public class NuovaRicettaView2Controller implements Observer{
 	}
 	
 	private void trovaAlimenti() {  //TROVA GLI ALIMENTI
+		eliminaAlimenti();
 		List<AlimentoBean> alimentiBeanTrovati=adattatoreTrovaRicettaController.trovaGliAlimenti(barraDiRicerca.getText());
 		if(!alimentiBeanTrovati.isEmpty()) {
 			quantita.setDisable(false);

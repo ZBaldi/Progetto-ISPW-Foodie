@@ -123,6 +123,7 @@ public class DispensaUtenteViewController implements Observer {
 	}
 	
 	private void trovaAlimenti() {  //GESTISCE IL TROVA ALIMENTI
+			eliminaAlimenti();
 			List<AlimentoBean> alimentiBeanTrovati=adattatoreTrovaRicettaController.trovaGliAlimenti(barraDiRicerca.getText());
 			if(!alimentiBeanTrovati.isEmpty()) {
 				for(AlimentoBean a: alimentiBeanTrovati) {
