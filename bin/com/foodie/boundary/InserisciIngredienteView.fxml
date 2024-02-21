@@ -18,7 +18,7 @@
    <children>
       <Pane layoutY="100.0" prefHeight="668.0" prefWidth="456.0" style="-fx-background-color: rgba(228, 255, 231, 1); -fx-border-color: #000000; -fx-border-width: 0 1 0 0;">
          <children>
-            <Label alignment="CENTER" layoutX="88.0" layoutY="46.0" text="Aggiungi ingrediente">
+            <Label alignment="CENTER" layoutX="88.0" layoutY="46.0" text="Aggiungi ingredienti">
                <font>
                   <Font name="Arial" size="30.0" />
                </font>

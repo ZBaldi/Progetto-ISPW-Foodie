@@ -42,7 +42,7 @@
             <VBox fx:id="contenitoreRicetteDaApprovare" prefHeight="502.0" prefWidth="363.0" spacing="3.0" style="-fx-background-color: rgba(228, 255, 231, 1);" />
          </content>
       </ScrollPane>
-      <Label alignment="CENTER" layoutX="83.0" layoutY="146.0" text="Ricette da controllare">
+      <Label alignment="CENTER" layoutX="83.0" layoutY="146.0" text="Ricette da visionare">
          <font>
             <Font name="Arial" size="30.0" />
          </font>
