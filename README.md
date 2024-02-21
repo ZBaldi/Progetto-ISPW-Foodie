@@ -18,11 +18,14 @@ Il progetto è inerente alla creazione di un software che permette l'interazione
 
 ### Lasciare standard tutte le opzioni di MySQL, altrimenti il software non potrà collegarsi(mysql@localhost:3306)
 
-7) Aprire ed accedere a MySQL, andare nella sezione database (si trova in alto) , selezionare "import database" , selezionate la directory nel progetto con nome DB, selezionare un nome al nuovo "schema" e importare. 
+7) Aprire ed accedere a MySQL, effettuare questi 2 comandiSQL
+   CREATE DATABASE ricette;
+   CREATE DATABASE user_credentials;
+   andare nella sezione database (si trova in alto) , selezionare "import database" , selezionate la directory nel progetto con nome DB, selezionare un nome al nuovo "schema" e importare. 
 
-8) Ora aprite il file.txt nella cartella del progetto "DBMS.txt" , nella prima riga inserite il nome utente per accedere in MySQL e nella seconda riga inserite la relativa password.
+9) Ora aprite il file.txt nella cartella del progetto "DBMS.txt" , nella prima riga inserite il nome utente per accedere in MySQL e nella seconda riga inserite la relativa password.
 
-9) Se JavaFX dovesse dare problemi, dovete selezionare nel buildpath del progetto una VM Argument: per Windows (--module-path "\path\to\javafx-sdk-21.0.2\lib" --add-modules javafx.controls,javafx.fxml), per Linux/Mac (--module-path /path/to/javafx-sdk-21.0.2/lib --add-modules javafx.controls,javafx.fxml).
+10) Se JavaFX dovesse dare problemi, dovete selezionare nel buildpath del progetto una VM Argument: per Windows (--module-path "\path\to\javafx-sdk-21.0.2\lib" --add-modules javafx.controls,javafx.fxml), per Linux/Mac (--module-path /path/to/javafx-sdk-21.0.2/lib --add-modules javafx.controls,javafx.fxml).    il percorso tra "..." deve essere quello relativo alla cartella lib di javafx
 
 
 #### Ora è tutto pronto all'utilizzo :)
