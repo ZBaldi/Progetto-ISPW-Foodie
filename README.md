@@ -4,6 +4,8 @@ Il progetto è inerente alla creazione di un software che permette l'interazione
 
 ## Come Utilizzarlo
 
+## Scaricare javaFX dal sito ufficiale e configurarlo in Eclipse
+
 1) Clonare la repository. 
 
 2) Importare il progetto in Eclipse o qualsiasi altro ambiente di programmazione. 
