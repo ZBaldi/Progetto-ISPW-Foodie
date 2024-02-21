@@ -37,7 +37,7 @@ public class PubblicaRicettaController {  //SINGLETON, IL CONTROLLER DEVE AVERE 
 				logger.severe("PROBLEMA CON IL COLLEGAMENTO DEL DB! TERMINO L'APPLICAZIONE");
 				System.exit(0);
 			}
-			//database= CatalogoRicetteImplementazione2Dao.ottieniIstanza(); SU FILE
+			//database= CatalogoRicetteImplementazione2Dao.ottieniIstanza(); //SU FILE
 			moderatore=Moderatore.ottieniIstanza();
 		}
 		return istanza;
