@@ -9,7 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class CaricaView {  //CLASSE CON METODI STATICI PER CARICARE LE VIEW
+public class CaricaView {  //CLASSE CON METODI PER CARICARE LE VIEW
 	
 	private static CaricaView istanza;
 	

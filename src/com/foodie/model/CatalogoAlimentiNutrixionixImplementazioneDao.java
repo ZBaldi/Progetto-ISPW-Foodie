@@ -23,7 +23,7 @@ public class CatalogoAlimentiNutrixionixImplementazioneDao implements CatalogoAl
 	private CatalogoAlimentiNutrixionixImplementazioneDao(){
 	}
 	
-	public static CatalogoAlimentiNutrixionixImplementazioneDao ottieniIstanza() { //METODO PER OTTENERE L'ISTANZA
+	public static synchronized CatalogoAlimentiNutrixionixImplementazioneDao ottieniIstanza() { //METODO PER OTTENERE L'ISTANZA
 		if(istanza==null) {
 			istanza=new CatalogoAlimentiNutrixionixImplementazioneDao();
 		}
@@ -56,7 +56,7 @@ public class CatalogoAlimentiNutrixionixImplementazioneDao implements CatalogoAl
 			String urlQuery=API_URL+"?query="+nomeCodificato; //url per fare query all'api di nutrixionix
 			URI url= new URI(urlQuery);  //creo l'URI associato a quell'url
 			HttpURLConnection connessione = (HttpURLConnection) url.toURL().openConnection(); //converto l'URI ad URl e apro una connessione http
-			// imposto il modo di richiedere come definito nella documentazione dell'API di Nutixionix
+			// imposto il modo di richiedere come definito nella documentazione dell'API di Nutrixionix
 			connessione.setRequestMethod("GET");
             connessione.setRequestProperty("x-app-id", APP_ID);
             connessione.setRequestProperty("x-app-key", API_KEY);

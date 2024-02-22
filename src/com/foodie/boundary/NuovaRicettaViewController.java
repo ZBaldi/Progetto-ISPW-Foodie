@@ -129,7 +129,7 @@ public class NuovaRicettaViewController {
 		if(!testo.isEmpty()) {
 			ricettaBean.setNome(nome.getText());
 		}
-		else {  //MOSTRTO GRAFICAMENTE UN AVVERTIMENTO! ANCHE PER GLI ELSE SUCCESSIVI!
+		else {  //MOSTRO GRAFICAMENTE UN AVVERTIMENTO! ANCHE PER GLI ELSE SUCCESSIVI!
 			nome.setPromptText("INSERISCI NOME");
 			 // Creazione di un oggetto ScheduledExecutorService
 	        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
